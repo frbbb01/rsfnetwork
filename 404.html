@@ -26,6 +26,162 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    .navigation {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .navigation > a,
+    .nav-dropdown-trigger {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      opacity: 0.55;
+      transition: opacity 160ms ease;
+    }
+
+    .navigation > a:hover,
+    .nav-dropdown:hover .nav-dropdown-trigger {
+      opacity: 1;
+    }
+
+    .navigation > a.active,
+    .nav-dropdown-trigger.active {
+      font-weight: 700;
+      opacity: 1;
+    }
+
+    .nav-dropdown {
+      position: relative;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-arrow {
+      font-size: 10px;
+      line-height: 1;
+      opacity: 0.65;
+      transform: translateY(-1px);
+      transition: transform 160ms ease, opacity 160ms ease;
+    }
+
+    .nav-dropdown:hover .nav-arrow {
+      opacity: 1;
+      transform: translateY(1px);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+
+      width: 170px;
+      padding: 7px;
+
+      background: #151515;
+      border: 1px solid #292929;
+
+      display: flex;
+      flex-direction: column;
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity 140ms ease,
+        transform 140ms ease,
+        visibility 140ms ease;
+    }
+
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -9px;
+      left: 0;
+      right: 0;
+      height: 9px;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 11px;
+
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+
+      opacity: 0.55;
+
+      transition:
+        background 120ms ease,
+        opacity 120ms ease;
+    }
+
+    .dropdown-menu a:hover {
+      background: #202020;
+      opacity: 1;
+    }
+
+    .navigation > a:last-child {
+      font-weight: 600;
+    }
+
+    @media (max-width: 800px) {
+      .navigation {
+        position: static;
+        margin-left: auto;
+        transform: none;
+        gap: 20px;
+      }
+
+      .nav-dropdown {
+        height: auto;
+      }
+
+      .nav-dropdown:nth-child(3),
+      .navigation > a:nth-child(4),
+      .navigation > a:nth-child(5) {
+        display: none;
+      }
+
+      .dropdown-menu {
+        left: auto;
+        right: 0;
+        transform: translateY(-4px);
+      }
+
+      .nav-dropdown:hover .dropdown-menu,
+      .nav-dropdown:focus-within .dropdown-menu {
+        transform: translateY(0);
+      }
+    }
   </style>
 
 </head>
@@ -38,10 +194,40 @@
 <a href="/" class="logo">RSF</a>
 
 <nav class="navigation">
+
   <a href="/" class="active">MAIN</a>
-  <a href="/database.html">DATABASE</a>
-  <a href="/community.html">COMMUNITY</a>
+
+  <div class="nav-dropdown">
+    <a href="/database.html" class="nav-dropdown-trigger">
+      DATABASE
+      <span class="nav-arrow">↓</span>
+    </a>
+
+    <div class="dropdown-menu">
+      <a href="/database.html#playerbase">Playerbase</a>
+      <a href="/database.html#teams">Teams</a>
+      <a href="/database.html#seasons">Seasons</a>
+    </div>
+  </div>
+
+  <div class="nav-dropdown">
+    <a href="/community.html" class="nav-dropdown-trigger">
+      COMMUNITY
+      <span class="nav-arrow">↓</span>
+    </a>
+
+    <div class="dropdown-menu">
+      <a href="/community.html#videos">Videos</a>
+      <a href="/community.html#latest">Community Latest</a>
+      <a href="/community.html#development">Development</a>
+      <a href="/community.html#resources">Resources</a>
+    </div>
+  </div>
+
   <a href="/arcade.html">ARCADE</a>
+
+  <a href="/rsf-plus.html">RSF+</a>
+
 </nav>
 
 
