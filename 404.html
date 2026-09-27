@@ -1,25 +1,65 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>404 — RSF</title>
-
-  <link rel="stylesheet" href="./404.css">
+  <meta name="description" content="The page you're looking for could not be found.">
+  <meta name="theme-color" content="#0F0F0F">
 
   <style>
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/montserrat-regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/montserrat-medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/montserrat-bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     html {
       background: #0F0F0F;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0F0F0F;
+      color: #FFFFFF;
+      font-family: "Montserrat", sans-serif;
+      -webkit-font-smoothing: antialiased;
+
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(3px);
+
       transition:
-        opacity 120ms ease-out,
-        transform 120ms ease-out;
+        opacity 90ms ease-out,
+        transform 90ms ease-out;
     }
 
     body.page-loaded {
@@ -27,69 +67,94 @@
       transform: translateY(0);
     }
 
+    a {
+      color: inherit;
+    }
+
+    .topbar {
+      position: relative;
+      height: 68px;
+      padding: 0 32px;
+
+      border-bottom: 1px solid #242424;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
     .navigation {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+
       display: flex;
       align-items: center;
       gap: 34px;
+      height: 100%;
     }
 
     .navigation > a,
     .nav-dropdown-trigger {
-      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+
       color: #FFFFFF;
       text-decoration: none;
+
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      opacity: 0.55;
-      transition: opacity 160ms ease;
+
+      opacity: 0.48;
+
+      transition:
+        opacity 90ms ease-out,
+        font-weight 90ms ease-out;
     }
 
     .navigation > a:hover,
-    .nav-dropdown:hover .nav-dropdown-trigger {
-      opacity: 1;
+    .nav-dropdown-trigger:hover {
+      opacity: 0.9;
     }
 
     .navigation > a.active,
     .nav-dropdown-trigger.active {
-      font-weight: 700;
       opacity: 1;
+      font-weight: 700;
     }
 
     .nav-dropdown {
       position: relative;
       height: 68px;
+
       display: flex;
       align-items: center;
     }
 
     .nav-arrow {
-      font-size: 10px;
+      font-size: 8px;
       line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
-      transition: transform 160ms ease, opacity 160ms ease;
-    }
-
-    .nav-dropdown:hover .nav-arrow {
-      opacity: 1;
-      transform: translateY(1px);
     }
 
     .dropdown-menu {
       position: absolute;
-      top: calc(100% + 8px);
+      top: calc(100% + 7px);
       left: 50%;
-      transform: translateX(-50%) translateY(-4px);
+      transform: translateX(-50%) translateY(-3px);
 
       width: 170px;
-      padding: 7px;
+      padding: 6px;
 
       background: #151515;
       border: 1px solid #292929;
@@ -102,18 +167,20 @@
       pointer-events: none;
 
       transition:
-        opacity 140ms ease,
-        transform 140ms ease,
-        visibility 140ms ease;
+        opacity 90ms ease-out,
+        transform 90ms ease-out,
+        visibility 90ms ease-out;
+
+      z-index: 20;
     }
 
     .dropdown-menu::before {
       content: "";
       position: absolute;
-      top: -9px;
+      top: -8px;
       left: 0;
       right: 0;
-      height: 9px;
+      height: 8px;
     }
 
     .nav-dropdown:hover .dropdown-menu,
@@ -125,143 +192,271 @@
     }
 
     .dropdown-menu a {
+      min-height: 32px;
+      padding: 0 10px;
+
       display: flex;
       align-items: center;
-      min-height: 34px;
-      padding: 0 11px;
 
       color: #FFFFFF;
       text-decoration: none;
 
       font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.01em;
 
-      opacity: 0.55;
-
-      transition:
-        background 120ms ease,
-        opacity 120ms ease;
+      opacity: 0.52;
     }
 
-    .dropdown-menu a:hover {
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus-visible {
       background: #202020;
+      opacity: 1;
+      outline: none;
+    }
+
+    .error-page {
+      width: min(1180px, calc(100% - 64px));
+      min-height: calc(100vh - 126px);
+
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .error-layout {
+      display: grid;
+      grid-template-columns: auto 220px;
+      align-items: start;
+      column-gap: 32px;
+
+      width: max-content;
+      max-width: 100%;
+    }
+
+    .error-copy h1 {
+      margin: 0;
+
+      font-size: clamp(105px, 12vw, 165px);
+      line-height: 0.8;
+      font-weight: 700;
+
+      letter-spacing: -0.095em;
+    }
+
+    .error-copy p {
+      width: 390px;
+      max-width: 100%;
+
+      margin: 38px 0 0;
+
+      font-size: 13px;
+      line-height: 1.7;
+
+      opacity: 0.45;
+    }
+
+    .return-link {
+      display: inline-block;
+
+      margin-top: 28px;
+
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      opacity: 0.75;
+    }
+
+    .return-link:hover {
       opacity: 1;
     }
 
-    .navigation > a:last-child {
-      font-weight: 600;
+    .error-icon {
+      width: 220px;
+      height: 220px;
+
+      background-image: url("https://www.svgrepo.com/show/57699/repair-wrench.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+
+      filter: invert(1);
+
+      opacity: 0.82;
     }
 
-    @media (max-width: 800px) {
-      .navigation {
-        position: static;
-        margin-left: auto;
-        transform: none;
-        gap: 20px;
+    .footer {
+      min-height: 58px;
+      padding: 0 32px;
+
+      border-top: 1px solid #242424;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer span,
+    .footer a {
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 9px;
+      font-weight: 500;
+
+      opacity: 0.35;
+    }
+
+    .footer a:hover {
+      opacity: 0.75;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        padding: 0 20px;
       }
 
-      .nav-dropdown {
-        height: auto;
+      .navigation {
+        position: static;
+        transform: none;
+        margin-left: auto;
+        gap: 18px;
       }
 
       .nav-dropdown:nth-child(3),
-      .navigation > a:nth-child(4),
-      .navigation > a:nth-child(5) {
+      .navigation > a:nth-last-child(1) {
         display: none;
       }
 
-      .dropdown-menu {
-        left: auto;
-        right: 0;
-        transform: translateY(-4px);
+      .error-page {
+        width: calc(100% - 40px);
       }
 
-      .nav-dropdown:hover .dropdown-menu,
-      .nav-dropdown:focus-within .dropdown-menu {
-        transform: translateY(0);
+      .error-layout {
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      .error-copy h1 {
+        font-size: clamp(90px, 25vw, 140px);
+      }
+
+      .error-copy p {
+        width: 100%;
+        max-width: 390px;
+      }
+
+      .error-icon {
+        width: 120px;
+        height: 120px;
+        margin-top: 36px;
+      }
+
+      .footer {
+        padding: 14px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        transition: none;
+        transform: none;
+      }
+
+      .dropdown-menu {
+        transition: none;
       }
     }
   </style>
-
 </head>
 
 <body>
 
   <header class="topbar">
+    <a href="/" class="logo">RSF</a>
 
+    <nav class="navigation" aria-label="Primary navigation">
 
-<a href="/" class="logo">RSF</a>
+      <a href="/">MAIN</a>
 
-<nav class="navigation">
+      <div class="nav-dropdown">
+        <a href="/database" class="nav-dropdown-trigger">
+          DATABASE
+          <span class="nav-arrow" aria-hidden="true">▾</span>
+        </a>
 
-  <a href="/" class="active">MAIN</a>
+        <div class="dropdown-menu">
+          <a href="/database">Playerbase</a>
+          <a href="/database">Teams</a>
+          <a href="/database">Seasons</a>
+        </div>
+      </div>
 
-  <div class="nav-dropdown">
-    <a href="/database.html" class="nav-dropdown-trigger">
-      DATABASE
-      <span class="nav-arrow">↓</span>
-    </a>
+      <div class="nav-dropdown">
+        <a href="/community" class="nav-dropdown-trigger">
+          COMMUNITY
+          <span class="nav-arrow" aria-hidden="true">▾</span>
+        </a>
 
-    <div class="dropdown-menu">
-      <a href="/database.html#playerbase">Playerbase</a>
-      <a href="/database.html#teams">Teams</a>
-      <a href="/database.html#seasons">Seasons</a>
-    </div>
-  </div>
+        <div class="dropdown-menu">
+          <a href="/community">Videos</a>
+          <a href="/community">Community Latest</a>
+          <a href="/community">Development</a>
+          <a href="/community">Resources</a>
+        </div>
+      </div>
 
-  <div class="nav-dropdown">
-    <a href="/community.html" class="nav-dropdown-trigger">
-      COMMUNITY
-      <span class="nav-arrow">↓</span>
-    </a>
+      <a href="/arcade">ARCADE</a>
+      <a href="/rsf">RSF</a>
 
-    <div class="dropdown-menu">
-      <a href="/community.html#videos">Videos</a>
-      <a href="/community.html#latest">Community Latest</a>
-      <a href="/community.html#development">Development</a>
-      <a href="/community.html#resources">Resources</a>
-    </div>
-  </div>
-
-  <a href="/arcade.html">ARCADE</a>
-
-  <a href="/rsf-plus.html">RSF+</a>
-
-</nav>
-
-
+    </nav>
   </header>
 
   <main class="error-page">
+    <div class="error-layout">
 
+      <div class="error-copy">
+        <h1>404</h1>
 
-<div class="error-layout">
+        <p>
+          The page you're looking for doesn't exist or may have been moved.
+        </p>
 
-  <section class="error-copy">
+        <a href="/" class="return-link">
+          Return home
+        </a>
+      </div>
 
-    <h1>404</h1>
+      <div class="error-icon" aria-hidden="true"></div>
 
-    <p>
-      The page you're looking for doesn't exist or has been moved.
-    </p>
-
-    <a href="/" class="return-link">
-      RETURN TO MAIN <span>→</span>
-    </a>
-
-  </section>
-
-  <div class="error-icon" aria-hidden="true"></div>
-
-</div>
-
-
+    </div>
   </main>
 
   <footer class="footer">
-    <span>RSF</span>
-    <span>2026</span>
+    <div class="footer-left">
+      <span>RSF</span>
+      <span>© 2026</span>
+    </div>
+
+    <div class="footer-right">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+    </div>
   </footer>
 
   <script>
@@ -286,13 +481,17 @@
           return;
         }
 
+        if (url.href === window.location.href) {
+          return;
+        }
+
         event.preventDefault();
 
         document.body.classList.remove("page-loaded");
 
         setTimeout(() => {
           window.location.href = url.href;
-        }, 120);
+        }, 90);
       });
     });
   </script>
