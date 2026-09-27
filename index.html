@@ -1,17 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>RSF</title>
-  <meta name="description" content="RSF — everything in one place.">
-  <meta name="theme-color" content="#0F0F0F">
 
   <style>
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-regular.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -19,7 +18,7 @@
 
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-medium.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
       font-weight: 500;
       font-style: normal;
       font-display: swap;
@@ -27,63 +26,70 @@
 
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-bold.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
       font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
 
-    html {
-      background: #0F0F0F;
+    :root {
+      --background: #0F0F0F;
+      --surface: #151515;
+      --surface-hover: #191919;
+      --border: #292929;
+      --border-light: #242424;
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.45);
+      --faint: rgba(255, 255, 255, 0.28);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html,
+    html {
+      background: var(--background);
+    }
+
     body {
       margin: 0;
-      min-height: 100%;
-    }
-
-    body {
       min-height: 100vh;
-      background: #0F0F0F;
-      color: #FFFFFF;
+      background: var(--background);
+      color: var(--text);
       font-family: "Montserrat", sans-serif;
+      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-
-      opacity: 0;
-      transform: translateY(3px);
-      transition:
-        opacity 90ms ease-out,
-        transform 90ms ease-out;
-    }
-
-    body.page-loaded {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     a {
       color: inherit;
+      text-decoration: none;
     }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================= */
 
     .topbar {
       position: relative;
+      z-index: 20;
       height: 68px;
       padding: 0 32px;
-      border-bottom: 1px solid #242424;
+      border-bottom: 1px solid var(--border-light);
+
       display: flex;
       align-items: center;
     }
 
     .logo {
-      color: #FFFFFF;
-      text-decoration: none;
       font-size: 12px;
+      line-height: 1;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
@@ -91,198 +97,391 @@
     .navigation {
       position: absolute;
       left: 50%;
+      top: 0;
+      height: 100%;
       transform: translateX(-50%);
 
       display: flex;
       align-items: center;
       gap: 34px;
-      height: 100%;
     }
 
-    .navigation > a,
-    .nav-dropdown-trigger {
+    .nav-item {
       position: relative;
+      height: 100%;
 
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 5px;
-
-      color: #FFFFFF;
-      text-decoration: none;
 
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.02em;
-
       opacity: 0.48;
 
       transition:
-        opacity 90ms ease-out,
-        font-weight 90ms ease-out;
+        opacity 120ms ease,
+        color 120ms ease;
     }
 
-    .navigation > a:hover,
-    .nav-dropdown-trigger:hover {
+    .nav-item:hover,
+    .nav-item:focus-within {
       opacity: 0.9;
     }
 
-    .navigation > a.active,
-    .nav-dropdown-trigger.active {
+    .nav-item.active {
       opacity: 1;
       font-weight: 700;
     }
 
-    .nav-dropdown {
-      position: relative;
-      height: 68px;
-
-      display: flex;
+    .nav-label {
+      display: inline-flex;
       align-items: center;
+      gap: 5px;
+      height: 100%;
     }
 
-    .nav-arrow {
+    .arrow {
       font-size: 8px;
       line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
-
-      transition:
-        opacity 90ms ease-out,
-        transform 90ms ease-out;
     }
 
-    .nav-dropdown:hover .nav-arrow,
-    .nav-dropdown:focus-within .nav-arrow {
-      opacity: 1;
-      transform: translateY(1px);
-    }
-
-    .dropdown-menu {
+    .dropdown {
       position: absolute;
       top: calc(100% + 7px);
       left: 50%;
-      transform: translateX(-50%) translateY(-3px);
+      transform: translateX(-50%);
 
       width: 170px;
       padding: 6px;
 
-      background: #151515;
-      border: 1px solid #292929;
-
-      display: flex;
-      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
 
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
 
       transition:
-        opacity 90ms ease-out,
-        transform 90ms ease-out,
-        visibility 90ms ease-out;
-
-      z-index: 20;
+        opacity 100ms ease,
+        visibility 100ms ease;
     }
 
-    .dropdown-menu::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
-    }
-
-    .nav-dropdown:hover .dropdown-menu,
-    .nav-dropdown:focus-within .dropdown-menu {
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
     }
 
-    .dropdown-menu a {
+    .dropdown a {
       min-height: 32px;
       padding: 0 10px;
 
       display: flex;
       align-items: center;
 
-      color: #FFFFFF;
-      text-decoration: none;
-
       font-size: 10px;
-      font-weight: 500;
-
+      line-height: 1;
       opacity: 0.52;
 
       transition:
-        opacity 90ms ease-out,
-        background 90ms ease-out;
+        background 100ms ease,
+        opacity 100ms ease;
     }
 
-    .dropdown-menu a:hover,
-    .dropdown-menu a:focus-visible {
+    .dropdown a:hover,
+    .dropdown a:focus-visible {
       background: #202020;
       opacity: 1;
       outline: none;
     }
 
-    .main-content {
-      width: min(1180px, calc(100% - 64px));
-      min-height: calc(100vh - 126px);
+    /* =========================
+       MAIN
+    ========================= */
 
+    main {
+      width: min(1180px, calc(100% - 64px));
       margin: 0 auto;
+      padding: 54px 0 76px;
+    }
+
+    /* =========================
+       NEWS
+    ========================= */
+
+    .news {
+      border: 1px solid var(--border);
+      min-height: 260px;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .news-content {
+      min-width: 0;
+      padding: 30px 34px 28px;
 
       display: flex;
+      flex-direction: column;
+    }
+
+    .section-label {
+      display: flex;
       align-items: center;
-    }
+      gap: 8px;
 
-    .hero {
-      max-width: 650px;
-    }
-
-    .hero h1 {
-      margin: 0;
-
-      font-size: clamp(52px, 8vw, 92px);
-      line-height: 0.92;
-      letter-spacing: -0.075em;
+      font-size: 11px;
       font-weight: 700;
+      letter-spacing: 0.035em;
     }
 
-    .hero p {
-      margin: 28px 0 0;
+    .news-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #D83A3A;
+      flex: 0 0 auto;
+    }
 
-      max-width: 430px;
+    .news-description {
+      margin-top: 44px;
+      max-width: 620px;
 
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 16px;
+      line-height: 1.65;
       font-weight: 400;
-
-      color: #FFFFFF;
-      opacity: 0.45;
+      letter-spacing: -0.015em;
     }
 
-    .hero-line {
-      width: 34px;
-      height: 1px;
-      margin-top: 28px;
-
-      background: #FFFFFF;
-      opacity: 0.35;
+    .news-description.empty {
+      opacity: 0.28;
+      font-size: 12px;
     }
 
-    .footer {
-      min-height: 58px;
-      padding: 0 32px;
-
-      border-top: 1px solid #242424;
+    .news-footer {
+      margin-top: auto;
+      padding-top: 30px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
+
+      border-top: 1px solid var(--border-light);
+
+      font-size: 9px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .news-status {
+      white-space: nowrap;
+    }
+
+    .news-image {
+      min-width: 0;
+      min-height: 260px;
+
+      border-left: 1px solid var(--border);
+
+      display: none;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .news-image.visible {
+      display: block;
+    }
+
+    .news-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+
+      display: block;
+
+      object-fit: cover;
+      object-position: center;
+
+      opacity: 0.9;
+
+      transition: opacity 160ms ease;
+    }
+
+    .news:hover .news-image img {
+      opacity: 1;
+    }
+
+    /* =========================
+       MAIN GRID
+    ========================= */
+
+    .main-grid {
+      margin-top: 18px;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+      grid-template-rows: auto auto;
+      gap: 18px;
+    }
+
+    .module {
+      position: relative;
+      min-height: 245px;
+
+      border: 1px solid var(--border);
+
+      padding: 30px 32px;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      transition:
+        background 140ms ease,
+        border-color 140ms ease;
+    }
+
+    .module:hover {
+      background: #111111;
+      border-color: #343434;
+    }
+
+    .module-title {
+      margin: 0;
+
+      font-size: clamp(28px, 3.3vw, 44px);
+      line-height: 0.95;
+      font-weight: 700;
+      letter-spacing: -0.065em;
+    }
+
+    .module-description {
+      margin: 26px 0 0;
+      max-width: 390px;
+
+      font-size: 11px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .module-divider {
+      width: 34px;
+      height: 1px;
+      margin-top: auto;
+      margin-bottom: 24px;
+
+      background: var(--border);
+    }
+
+    .module-link {
+      align-self: flex-end;
+
+      width: 38px;
+      height: 30px;
+
+      border: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition:
+        background 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .module-link:hover {
+      background: #202020;
+      border-color: #3a3a3a;
+    }
+
+    .module-arrow {
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid #FFFFFF;
+
+      opacity: 0.75;
+
+      transform: translateX(1px);
+    }
+
+    /* =========================
+       DATABASE
+    ========================= */
+
+    .database {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+
+      min-height: 508px;
+    }
+
+    .database .module-description {
+      max-width: 310px;
+    }
+
+    /* =========================
+       COMMUNITY
+    ========================= */
+
+    .community {
+      min-height: 245px;
+    }
+
+    /* =========================
+       PLACEHOLDER / FEATURE
+    ========================= */
+
+    .feature {
+      min-height: 245px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      overflow: hidden;
+    }
+
+    .feature-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      min-height: 58px;
+
+      padding: 0 32px;
+
+      border-top: 1px solid var(--border-light);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      font-size: 9px;
+      line-height: 1;
+      color: var(--faint);
     }
 
     .footer-left,
@@ -292,183 +491,540 @@
       gap: 18px;
     }
 
-    .footer span,
-    .footer a {
-      color: #FFFFFF;
-      text-decoration: none;
-
-      font-size: 9px;
-      font-weight: 500;
-
-      opacity: 0.35;
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 700;
     }
 
-    .footer a:hover {
-      opacity: 0.75;
+    .footer-right a {
+      transition: color 100ms ease;
     }
 
-    @media (max-width: 760px) {
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 850px) {
       .topbar {
         padding: 0 20px;
-      }
-
-      .navigation {
-        position: static;
-        transform: none;
-
-        margin-left: auto;
-
-        gap: 20px;
-      }
-
-      .navigation > a:nth-last-child(1) {
-        display: none;
-      }
-
-      .nav-dropdown:nth-child(3) {
-        display: none;
       }
 
       .navigation {
         gap: 18px;
       }
 
-      .main-content {
-        width: calc(100% - 40px);
-        min-height: calc(100vh - 126px);
+      main {
+        width: min(100% - 40px, 700px);
+        padding: 38px 0 60px;
       }
 
-      .hero h1 {
-        font-size: clamp(48px, 15vw, 72px);
+      .news {
+        grid-template-columns: 1fr;
       }
 
-      .footer {
-        padding: 14px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 9px;
+      .news-image {
+        order: -1;
+        border-left: 0;
+        border-bottom: 1px solid var(--border);
+        min-height: 220px;
+      }
+
+      .news-image img {
+        min-height: 220px;
+        max-height: 320px;
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .database {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 245px;
+      }
+
+      .feature {
+        min-height: 180px;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      body {
-        transition: none;
-        transform: none;
+    @media (max-width: 620px) {
+      .topbar {
+        height: auto;
+        min-height: 64px;
+        padding: 18px 20px;
+
+        align-items: flex-start;
       }
 
-      .dropdown-menu,
-      .nav-arrow,
-      .navigation > a,
-      .nav-dropdown-trigger,
-      .dropdown-menu a {
-        transition: none;
+      .logo {
+        margin-top: 4px;
+      }
+
+      .navigation {
+        position: static;
+        margin-left: auto;
+        transform: none;
+
+        height: auto;
+
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px 17px;
+      }
+
+      .nav-item {
+        height: auto;
+        min-height: 18px;
+      }
+
+      .dropdown {
+        top: calc(100% + 7px);
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 28px;
+      }
+
+      .news-content {
+        padding: 24px 22px;
+      }
+
+      .news-description {
+        margin-top: 34px;
+        font-size: 14px;
+      }
+
+      .news-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .module {
+        padding: 25px 22px;
+      }
+
+      .module-title {
+        font-size: 34px;
+      }
+
+      footer {
+        padding: 20px 20px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
       }
     }
   </style>
+
 </head>
 
 <body>
 
   <header class="topbar">
-    <a href="/" class="logo">RSF</a>
 
-    <nav class="navigation" aria-label="Primary navigation">
 
-      <a href="/" class="active">MAIN</a>
+<a href="/" class="logo">RSF</a>
 
-      <div class="nav-dropdown">
-        <a href="/database" class="nav-dropdown-trigger">
-          DATABASE
-          <span class="nav-arrow" aria-hidden="true">▾</span>
-        </a>
+<nav class="navigation" aria-label="Main navigation">
 
-        <div class="dropdown-menu">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
-        </div>
-      </div>
+  <div class="nav-item">
+    <a href="/database" class="nav-label">
+      DATABASE
+      <span class="arrow">▾</span>
+    </a>
 
-      <div class="nav-dropdown">
-        <a href="/community" class="nav-dropdown-trigger">
-          COMMUNITY
-          <span class="nav-arrow" aria-hidden="true">▾</span>
-        </a>
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
+    </div>
+  </div>
 
-        <div class="dropdown-menu">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
-        </div>
-      </div>
+  <div class="nav-item">
+    <a href="/community" class="nav-label">
+      COMMUNITY
+      <span class="arrow">▾</span>
+    </a>
 
-      <a href="/arcade">ARCADE</a>
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
+  </div>
 
-      <a href="/rsf">RSF</a>
+  <div class="nav-item">
+    <a href="/arcade" class="nav-label">
+      ARCADE
+    </a>
+  </div>
 
-    </nav>
+  <div class="nav-item">
+    <a href="/rsf" class="nav-label">
+      RSF
+    </a>
+  </div>
+
+</nav>
+
+
   </header>
 
-  <main class="main-content">
-    <section class="hero">
-      <h1>Welcome.</h1>
+  <main>
 
-      <p>
-        Everything in one place.
-      </p>
 
-      <div class="hero-line"></div>
-    </section>
+<!-- =========================
+     RSF NEWS
+========================== -->
+
+<section class="news" aria-label="RSF News">
+
+  <div class="news-content">
+
+    <div class="section-label">
+      <span class="news-dot"></span>
+      RSF NEWS
+    </div>
+
+    <div
+      id="news-description"
+      class="news-description empty"
+    >
+      Loading latest news...
+    </div>
+
+    <div class="news-footer">
+
+      <span id="news-updated" class="news-status">
+        Last updated: —
+      </span>
+
+      <span id="news-source">
+        RSF
+      </span>
+
+    </div>
+
+  </div>
+
+  <div id="news-image" class="news-image">
+    <img id="news-image-element" src="" alt="">
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN MODULE GRID
+========================== -->
+
+<section class="main-grid" aria-label="RSF sections">
+
+  <article class="module">
+
+    <h2 class="module-title">
+      RSF
+    </h2>
+
+    <p class="module-description">
+      Information, history and everything surrounding the RSF community.
+    </p>
+
+    <div class="module-divider"></div>
+
+    <a href="/rsf" class="module-link" aria-label="Open RSF">
+      <span class="module-arrow"></span>
+    </a>
+
+  </article>
+
+
+  <article class="module database">
+
+    <h2 class="module-title">
+      DATABASE
+    </h2>
+
+    <p class="module-description">
+      Explore players, teams, seasons and the wider competitive history of RSF.
+    </p>
+
+    <div class="module-divider"></div>
+
+    <a href="/database" class="module-link" aria-label="Open database">
+      <span class="module-arrow"></span>
+    </a>
+
+  </article>
+
+
+  <article class="module">
+
+    <h2 class="module-title">
+      ARCADE
+    </h2>
+
+    <p class="module-description">
+      Games, interactive features and smaller projects built around the RSF community.
+    </p>
+
+    <div class="module-divider"></div>
+
+    <a href="/arcade" class="module-link" aria-label="Open arcade">
+      <span class="module-arrow"></span>
+    </a>
+
+  </article>
+
+
+  <article class="module community">
+
+    <h2 class="module-title">
+      COMMUNITY
+    </h2>
+
+    <p class="module-description">
+      Videos, development updates, resources and the latest from the community.
+    </p>
+
+    <div class="module-divider"></div>
+
+    <a href="/community" class="module-link" aria-label="Open community">
+      <span class="module-arrow"></span>
+    </a>
+
+  </article>
+
+
+  <div class="feature" aria-label="Featured content">
+
+    <span class="feature-label">
+      Featured
+    </span>
+
+  </div>
+
+</section>
+
+
   </main>
 
-  <footer class="footer">
-    <div class="footer-left">
-      <span>RSF</span>
-      <span>© 2026</span>
-    </div>
+  <footer>
 
-    <div class="footer-right">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Use</a>
-    </div>
+
+<div class="footer-left">
+  <span class="footer-brand">RSF</span>
+  <span>© 2026</span>
+</div>
+
+<div class="footer-right">
+  <a href="/privacy">Privacy Policy</a>
+  <a href="/terms">Terms of Use</a>
+</div>
+
+
   </footer>
 
   <script>
-    window.addEventListener("load", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
-      });
-    });
+    /*
+      ==========================================
+      RSF NEWS — GOOGLE SHEETS CSV
+      ==========================================
 
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", event => {
-        const url = new URL(link.href, window.location.href);
+      A1 = image URL
+      B1 = description
+      C1 = last updated date
+    */
 
-        if (
-          url.origin !== window.location.origin ||
-          link.target === "_blank" ||
-          event.ctrlKey ||
-          event.metaKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
+    const NEWS_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSb89rGHVI4msCQM8Ej6hlXL02OEcfuNHAmoP9a-pKKwu6x8Y_xJtRe3bEB4qN3qmPF5HTQhUUK-erK/pub?output=csv";
+
+
+    /*
+      Basic CSV parser.
+
+      This handles:
+      - commas inside quoted cells
+      - line breaks inside quoted cells
+      - escaped quotes
+    */
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let insideQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && insideQuotes && next === '"') {
+          cell += '"';
+          i++;
+          continue;
         }
 
-        if (url.href === window.location.href) {
-          return;
+        if (char === '"') {
+          insideQuotes = !insideQuotes;
+          continue;
         }
 
-        event.preventDefault();
+        if (char === "," && !insideQuotes) {
+          row.push(cell.trim());
+          cell = "";
+          continue;
+        }
 
-        document.body.classList.remove("page-loaded");
+        if ((char === "\n" || char === "\r") && !insideQuotes) {
+          if (char === "\r" && next === "\n") {
+            i++;
+          }
 
-        setTimeout(() => {
-          window.location.href = url.href;
-        }, 90);
-      });
-    });
+          row.push(cell.trim());
+          cell = "";
+
+          if (row.some(value => value !== "")) {
+            rows.push(row);
+          }
+
+          row = [];
+          continue;
+        }
+
+        cell += char;
+      }
+
+      if (cell !== "" || row.length > 0) {
+        row.push(cell.trim());
+
+        if (row.some(value => value !== "")) {
+          rows.push(row);
+        }
+      }
+
+      return rows;
+    }
+
+
+    function cleanValue(value) {
+      return String(value || "").trim();
+    }
+
+
+    async function loadRSFNews() {
+      const description = document.getElementById("news-description");
+      const updated = document.getElementById("news-updated");
+      const imageContainer = document.getElementById("news-image");
+      const image = document.getElementById("news-image-element");
+
+      try {
+        const response = await fetch(NEWS_CSV_URL, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Unable to load news CSV.");
+        }
+
+        const csvText = await response.text();
+        const rows = parseCSV(csvText);
+
+        if (!rows.length) {
+          throw new Error("The news sheet is empty.");
+        }
+
+        /*
+          First row = A1 / B1 / C1
+        */
+
+        const imageURL = cleanValue(rows[0][0]);
+        const newsText = cleanValue(rows[0][1]);
+        const newsDate = cleanValue(rows[0][2]);
+
+
+        /*
+          B1
+        */
+
+        if (newsText) {
+          description.textContent = newsText;
+          description.classList.remove("empty");
+        } else {
+          description.textContent = "No current news available.";
+          description.classList.add("empty");
+        }
+
+
+        /*
+          C1
+        */
+
+        updated.textContent =
+          "Last updated: " + (newsDate || "—");
+
+
+        /*
+          A1
+
+          Only create/display the image when
+          a value actually exists.
+        */
+
+        if (imageURL) {
+
+          image.onload = () => {
+            imageContainer.classList.add("visible");
+          };
+
+          image.onerror = () => {
+            imageContainer.classList.remove("visible");
+            image.removeAttribute("src");
+          };
+
+          image.src = imageURL;
+
+          /*
+            Accessible alt text.
+          */
+
+          image.alt = newsText || "RSF News";
+
+        } else {
+
+          imageContainer.classList.remove("visible");
+          image.removeAttribute("src");
+
+        }
+
+      } catch (error) {
+
+        console.error("RSF News:", error);
+
+        description.textContent =
+          "RSF news is currently unavailable.";
+
+        description.classList.add("empty");
+
+        updated.textContent =
+          "Last updated: —";
+
+        imageContainer.classList.remove("visible");
+        image.removeAttribute("src");
+      }
+    }
+
+
+    loadRSFNews();
   </script>
 
 </body>
