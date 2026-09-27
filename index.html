@@ -33,15 +33,13 @@
     }
 
     :root {
-      --bg: #0f0f0f;
-      --panel: #131313;
-      --panel-hover: #171717;
+      --bg: #0F0F0F;
       --border: #292929;
       --border-soft: #222222;
-      --white: #ffffff;
-      --muted: rgba(255, 255, 255, 0.48);
-      --faint: rgba(255, 255, 255, 0.28);
-      --red: #d84a4a;
+      --white: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.42);
+      --faint: rgba(255, 255, 255, 0.24);
+      --blue: rgba(50, 112, 190, 0.12);
     }
 
     * {
@@ -49,15 +47,30 @@
     }
 
     html {
+      min-height: 100%;
       background: var(--bg);
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
+
+      background:
+        radial-gradient(
+          circle at 78% 7%,
+          rgba(38, 91, 150, 0.13),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 18% 55%,
+          rgba(24, 55, 100, 0.055),
+          transparent 38%
+        ),
+        var(--bg);
+
       color: var(--white);
       font-family: "Montserrat", sans-serif;
+
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -67,59 +80,65 @@
       text-decoration: none;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
 
     .topbar {
-      height: 64px;
-      padding: 0 30px;
-      border-bottom: 1px solid var(--border-soft);
+      position: relative;
+      z-index: 20;
+
+      height: 68px;
+      padding: 0 32px;
+
+      border-bottom: 1px solid #242424;
 
       display: flex;
       align-items: center;
-
-      position: relative;
-      z-index: 20;
     }
 
     .logo {
       font-size: 12px;
+      line-height: 1;
       font-weight: 700;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
     }
 
     .navigation {
       position: absolute;
       left: 50%;
       top: 0;
+
       height: 100%;
+
       transform: translateX(-50%);
 
       display: flex;
       align-items: center;
-      gap: 31px;
+      gap: 34px;
     }
 
     .nav-item {
       position: relative;
+
       height: 100%;
 
       display: flex;
       align-items: center;
 
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.025em;
+      letter-spacing: 0.02em;
 
-      opacity: 0.43;
+      opacity: 0.48;
 
       transition: opacity 120ms ease;
     }
 
     .nav-item:hover,
     .nav-item:focus-within {
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
     .nav-item.active {
@@ -136,7 +155,8 @@
     }
 
     .arrow {
-      font-size: 7px;
+      font-size: 8px;
+      line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
     }
@@ -145,10 +165,11 @@
       position: absolute;
       top: calc(100% + 7px);
       left: 50%;
-      transform: translateX(-50%);
 
-      width: 166px;
-      padding: 5px;
+      width: 170px;
+      padding: 6px;
+
+      transform: translateX(-50%);
 
       background: #151515;
       border: 1px solid var(--border);
@@ -170,14 +191,15 @@
     }
 
     .dropdown a {
-      min-height: 31px;
+      min-height: 32px;
       padding: 0 10px;
 
       display: flex;
       align-items: center;
 
-      font-size: 9px;
-      opacity: 0.5;
+      font-size: 10px;
+
+      opacity: 0.52;
 
       transition:
         background 100ms ease,
@@ -191,106 +213,120 @@
       outline: none;
     }
 
-    /* =========================
+
+    /* =========================================
        PAGE
-    ========================= */
+    ========================================= */
 
     main {
-      width: min(1000px, calc(100% - 48px));
+      width: min(1020px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 42px 0 58px;
+
+      padding: 48px 0 70px;
     }
 
-    /* =========================
+
+    /* =========================================
        NEWS
-    ========================= */
+    ========================================= */
 
     .news {
-      min-height: 190px;
+      min-height: 132px;
 
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 285px;
+      grid-template-columns: minmax(0, 1fr) 230px;
 
       border: 1px solid var(--border);
 
+      background: rgba(255, 255, 255, 0.008);
+
       overflow: hidden;
-      background: var(--panel);
 
-      transition: border-color 140ms ease;
-    }
-
-    .news.no-image {
-      grid-template-columns: 1fr;
+      transition:
+        border-color 160ms ease,
+        background 160ms ease;
     }
 
     .news:hover {
-      border-color: #333333;
+      border-color: #363636;
+      background: rgba(255, 255, 255, 0.014);
     }
 
     .news-content {
       min-width: 0;
-      padding: 25px 27px 21px;
+
+      padding: 22px 25px 19px;
 
       display: flex;
       flex-direction: column;
     }
 
-    .eyebrow {
+    .section-label {
       display: flex;
       align-items: center;
       gap: 8px;
 
       font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
     }
 
     .news-dot {
       width: 5px;
       height: 5px;
+
       border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 0 3px rgba(216, 74, 74, 0.08);
+
+      background: #4F9BFF;
+
+      box-shadow:
+        0 0 0 3px rgba(79, 155, 255, 0.07);
     }
 
     .news-description {
-      max-width: 590px;
-      margin: 28px 0 0;
+      margin-top: 16px;
 
-      font-size: 14px;
-      line-height: 1.65;
-      letter-spacing: -0.015em;
+      max-width: 670px;
+
+      font-size: 12px;
+      line-height: 1.55;
+
+      letter-spacing: -0.01em;
+
+      color: rgba(255, 255, 255, 0.72);
     }
 
     .news-description.empty {
-      color: var(--muted);
-      font-size: 11px;
+      color: rgba(255, 255, 255, 0.28);
     }
 
     .news-footer {
       margin-top: auto;
-      padding-top: 19px;
+      padding-top: 14px;
 
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
 
       border-top: 1px solid var(--border-soft);
 
       font-size: 8px;
-      color: var(--faint);
+
+      letter-spacing: 0.02em;
+
+      color: rgba(255, 255, 255, 0.30);
     }
 
     .news-image {
-      min-height: 190px;
-
-      display: none;
+      min-width: 0;
 
       border-left: 1px solid var(--border);
 
-      background: #101010;
       overflow: hidden;
+
+      background: #111;
+
+      display: none;
     }
 
     .news-image.visible {
@@ -300,264 +336,369 @@
     .news-image img {
       width: 100%;
       height: 100%;
-      min-height: 190px;
 
       display: block;
 
       object-fit: cover;
       object-position: center;
 
-      opacity: 0.82;
+      opacity: 0.72;
 
       transition:
         opacity 180ms ease,
-        transform 250ms ease;
+        transform 220ms ease;
     }
 
     .news:hover .news-image img {
-      opacity: 0.96;
-      transform: scale(1.015);
+      opacity: 0.88;
+      transform: scale(1.025);
     }
 
-    /* =========================
-       CONTENT GRID
-    ========================= */
 
-    .grid {
+    /* =========================================
+       GRID
+    ========================================= */
+
+    .main-grid {
       margin-top: 14px;
 
       display: grid;
-      grid-template-columns: 1fr 1fr 0.82fr;
-      grid-template-rows: 148px 148px;
+
+      grid-template-columns:
+        minmax(0, 0.94fr)
+        minmax(0, 1.06fr);
+
+      grid-template-rows:
+        185px
+        185px;
+
       gap: 14px;
     }
+
+
+    /* =========================================
+       MODULES
+    ========================================= */
 
     .module {
       position: relative;
 
-      min-width: 0;
-      padding: 23px 24px;
+      min-height: 0;
+
+      padding: 24px 25px 21px;
 
       border: 1px solid var(--border);
 
       display: flex;
       flex-direction: column;
 
-      background: transparent;
-
       overflow: hidden;
 
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.012),
+          rgba(255, 255, 255, 0)
+        );
+
       transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        transform 140ms ease;
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
+    }
+
+    .module::after {
+      content: "";
+
+      position: absolute;
+
+      right: -55px;
+      bottom: -75px;
+
+      width: 150px;
+      height: 150px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(54, 119, 197, 0.075),
+          transparent 70%
+        );
+
+      opacity: 0;
+
+      transition: opacity 180ms ease;
     }
 
     .module:hover {
-      background: var(--panel-hover);
-      border-color: #343434;
+      border-color: #373737;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.018),
+          rgba(255, 255, 255, 0)
+        );
+
       transform: translateY(-1px);
+    }
+
+    .module:hover::after {
+      opacity: 1;
+    }
+
+    .module-meta {
+      margin-bottom: 11px;
+
+      font-size: 8px;
+      font-weight: 500;
+
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+
+      color: rgba(255, 255, 255, 0.27);
     }
 
     .module-title {
       margin: 0;
 
-      font-size: 29px;
+      font-size: clamp(27px, 3.2vw, 39px);
       line-height: 0.95;
+
       font-weight: 700;
+
       letter-spacing: -0.07em;
+
+      transition: transform 160ms ease;
     }
 
-    .module-index {
-      position: absolute;
-      top: 23px;
-      right: 24px;
-
-      font-size: 8px;
-      font-weight: 500;
-      color: var(--faint);
-      letter-spacing: 0.05em;
+    .module:hover .module-title {
+      transform: translateX(2px);
     }
 
     .module-description {
-      max-width: 290px;
-      margin: 15px 0 0;
+      margin: 14px 0 0;
+
+      max-width: 350px;
 
       font-size: 9px;
-      line-height: 1.65;
-      color: var(--muted);
+      line-height: 1.7;
+
+      color: rgba(255, 255, 255, 0.40);
     }
+
+
+    /* =========================================
+       MODULE FOOTER / BUTTON
+    ========================================= */
 
     .module-bottom {
       margin-top: auto;
-
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
-
-    .module-line {
-      width: 25px;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .module-link {
-      width: 29px;
-      height: 24px;
-
-      border: 1px solid var(--border);
+      padding-top: 17px;
 
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+
+      border-top: 1px solid #222;
+    }
+
+    .module-index {
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.23);
+    }
+
+    .module-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 8px;
+      font-weight: 700;
+
+      letter-spacing: 0.07em;
+
+      color: rgba(255, 255, 255, 0.57);
 
       transition:
-        background 120ms ease,
-        border-color 120ms ease;
+        color 140ms ease,
+        gap 140ms ease;
     }
 
     .module-link:hover {
-      background: #222222;
-      border-color: #3a3a3a;
+      color: #FFFFFF;
+      gap: 11px;
     }
 
     .module-arrow {
-      width: 0;
-      height: 0;
-
-      border-top: 3px solid transparent;
-      border-bottom: 3px solid transparent;
-      border-left: 5px solid #fff;
-
-      opacity: 0.7;
-
-      transform: translateX(1px);
+      font-size: 10px;
+      line-height: 1;
     }
 
-    /* =========================
-       MODULE PLACEMENT
-    ========================= */
 
-    .rsf {
+    /* =========================================
+       DATABASE
+    ========================================= */
+
+    .database {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+
+      min-height: 384px;
+
+      padding-right: 29px;
+    }
+
+    .database .module-title {
+      font-size: clamp(35px, 4vw, 52px);
+    }
+
+    .database .module-description {
+      max-width: 270px;
+    }
+
+    .database::before {
+      content: "01";
+
+      position: absolute;
+
+      top: 24px;
+      right: 25px;
+
+      font-size: 8px;
+      letter-spacing: 0.08em;
+
+      color: rgba(255, 255, 255, 0.20);
+    }
+
+    .rsf-module {
       grid-column: 1;
       grid-row: 1;
     }
 
-    .arcade {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .community {
-      grid-column: 1 / span 2;
+    .arcade-module {
+      grid-column: 1;
       grid-row: 2;
     }
 
-    .database {
-      grid-column: 3;
-      grid-row: 1 / span 2;
+
+    /* =========================================
+       COMMUNITY
+    ========================================= */
+
+    .community {
+      grid-column: 1 / span 2;
+
+      min-height: 142px;
+
+      padding-top: 22px;
+      padding-bottom: 20px;
+
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      column-gap: 35px;
     }
 
-    .database .module-title {
-      font-size: 34px;
+    .community .module-description {
+      margin-top: 10px;
+      max-width: 470px;
     }
 
-    .database .module-description {
-      max-width: 210px;
+    .community .module-bottom {
+      grid-column: 1 / span 2;
     }
 
-    /* =========================
-       FEATURE STRIP
-    ========================= */
+
+    /* =========================================
+       FEATURED
+    ========================================= */
 
     .feature {
-      margin-top: 14px;
-      min-height: 94px;
+      min-height: 105px;
 
-      border: 1px solid var(--border);
+      grid-column: 1 / span 2;
 
-      padding: 0 24px;
+      border: 1px solid #242424;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
+      padding: 0 25px;
+
+      background:
+        linear-gradient(
+          100deg,
+          rgba(36, 78, 125, 0.045),
+          rgba(255, 255, 255, 0.008)
+        );
+
       transition:
-        background 140ms ease,
-        border-color 140ms ease;
+        border-color 160ms ease,
+        background 160ms ease;
     }
 
     .feature:hover {
-      background: var(--panel);
-      border-color: #333333;
+      border-color: #303030;
+
+      background:
+        linear-gradient(
+          100deg,
+          rgba(36, 78, 125, 0.075),
+          rgba(255, 255, 255, 0.012)
+        );
     }
 
-    .feature-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    .feature-label {
+      font-size: 8px;
+      font-weight: 600;
+
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+
+      color: rgba(255, 255, 255, 0.30);
     }
 
-    .feature-copy {
-      max-width: 420px;
-
-      font-size: 9px;
-      line-height: 1.6;
-      color: var(--muted);
+    .feature-note {
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.20);
     }
 
-    .feature-mark {
-      width: 26px;
-      height: 26px;
 
-      border: 1px solid var(--border);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      flex: 0 0 auto;
-    }
-
-    .feature-mark span {
-      width: 5px;
-      height: 5px;
-
-      border-right: 1px solid rgba(255,255,255,.7);
-      border-top: 1px solid rgba(255,255,255,.7);
-
-      transform: rotate(45deg);
-    }
-
-    /* =========================
+    /* =========================================
        FOOTER
-    ========================= */
+    ========================================= */
 
     footer {
-      min-height: 55px;
+      min-height: 58px;
 
-      padding: 0 30px;
+      padding: 0 32px;
 
-      border-top: 1px solid var(--border-soft);
+      border-top: 1px solid #242424;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      font-size: 8px;
-      color: var(--faint);
+      font-size: 9px;
+      line-height: 1;
+
+      color: rgba(255, 255, 255, 0.30);
     }
 
     .footer-left,
     .footer-right {
       display: flex;
       align-items: center;
-      gap: 17px;
+      gap: 18px;
     }
 
     .footer-brand {
-      color: rgba(255,255,255,.55);
+      color: rgba(255, 255, 255, 0.55);
       font-weight: 700;
     }
 
@@ -566,21 +707,27 @@
     }
 
     .footer-right a:hover {
-      color: rgba(255,255,255,.8);
+      color: rgba(255, 255, 255, 0.75);
     }
 
-    /* =========================
+
+    /* =========================================
        RESPONSIVE
-    ========================= */
+    ========================================= */
 
-    @media (max-width: 820px) {
+    @media (max-width: 760px) {
 
-      main {
-        width: min(100% - 36px, 650px);
+      .topbar {
+        padding: 0 20px;
       }
 
       .navigation {
         gap: 18px;
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 30px;
       }
 
       .news {
@@ -589,127 +736,114 @@
 
       .news-image {
         order: -1;
-        min-height: 190px;
+
+        min-height: 150px;
+
         border-left: 0;
         border-bottom: 1px solid var(--border);
       }
 
       .news-image img {
-        min-height: 190px;
-        max-height: 260px;
+        min-height: 150px;
+        max-height: 190px;
       }
 
-      .grid {
-        grid-template-columns: 1fr 1fr;
+      .main-grid {
+        grid-template-columns: 1fr;
         grid-template-rows: auto;
       }
 
-      .rsf,
-      .arcade,
+      .rsf-module,
+      .arcade-module,
+      .database,
       .community,
-      .database {
+      .feature {
         grid-column: auto;
         grid-row: auto;
       }
 
       .database {
-        min-height: 180px;
+        min-height: 250px;
+      }
+
+      .module {
+        min-height: 190px;
       }
 
       .community {
-        grid-column: 1 / span 2;
+        min-height: 150px;
+      }
+
+      .feature {
+        min-height: 90px;
       }
     }
 
-    @media (max-width: 600px) {
+
+    @media (max-width: 620px) {
 
       .topbar {
         height: auto;
         min-height: 64px;
-        padding: 17px 18px;
+        padding: 18px 20px;
 
         align-items: flex-start;
       }
 
       .logo {
-        margin-top: 3px;
+        margin-top: 4px;
       }
 
       .navigation {
         position: static;
-        margin-left: auto;
 
         height: auto;
+
+        margin-left: auto;
+
         transform: none;
 
-        justify-content: flex-end;
         flex-wrap: wrap;
+        justify-content: flex-end;
 
-        gap: 10px 15px;
+        gap: 12px 17px;
       }
 
       .nav-item {
         height: auto;
+        min-height: 18px;
       }
 
-      main {
-        width: calc(100% - 28px);
-        padding-top: 25px;
-        padding-bottom: 42px;
+      .dropdown {
+        top: calc(100% + 7px);
       }
 
       .news-content {
-        padding: 22px 20px 19px;
+        padding: 21px 20px 18px;
       }
 
       .news-description {
-        margin-top: 25px;
-        font-size: 13px;
+        font-size: 11px;
       }
 
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .rsf,
-      .arcade,
-      .community,
-      .database {
-        grid-column: auto;
-        grid-row: auto;
+      .news-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
       }
 
       .module {
-        min-height: 145px;
-        padding: 21px 20px;
+        padding: 22px 20px 19px;
       }
 
-      .module-title,
-      .database .module-title {
-        font-size: 27px;
-      }
-
-      .community {
-        min-height: 145px;
-      }
-
-      .feature {
-        min-height: 78px;
-        padding: 0 20px;
-      }
-
-      .feature-copy {
-        display: none;
+      .module-title {
+        font-size: 33px;
       }
 
       footer {
-        padding: 18px;
-        min-height: auto;
-
+        padding: 20px;
         align-items: flex-start;
         flex-direction: column;
-
         gap: 12px;
       }
     }
@@ -719,14 +853,21 @@
 
 <body>
 
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
   <header class="topbar">
 
 
-<a href="/" class="logo">RSF</a>
+<a href="/" class="logo">
+  RSF
+</a>
 
 <nav class="navigation" aria-label="Main navigation">
 
   <div class="nav-item">
+
     <a href="/database" class="nav-label">
       DATABASE
       <span class="arrow">▾</span>
@@ -737,9 +878,12 @@
       <a href="/database">Teams</a>
       <a href="/database">Seasons</a>
     </div>
+
   </div>
 
+
   <div class="nav-item">
+
     <a href="/community" class="nav-label">
       COMMUNITY
       <span class="arrow">▾</span>
@@ -751,18 +895,25 @@
       <a href="/community">Development</a>
       <a href="/community">Resources</a>
     </div>
+
   </div>
 
+
   <div class="nav-item">
+
     <a href="/arcade" class="nav-label">
       ARCADE
     </a>
+
   </div>
 
-  <div class="nav-item active">
+
+  <div class="nav-item">
+
     <a href="/rsf" class="nav-label">
       RSF
     </a>
+
   </div>
 
 </nav>
@@ -770,182 +921,208 @@
 
   </header>
 
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
   <main>
 
 
-<!-- =========================
-     RSF NEWS
-========================== -->
+<!-- RSF NEWS -->
 
-<section class="news no-image" id="news">
+<section class="news" aria-label="RSF News">
 
   <div class="news-content">
 
-    <div class="eyebrow">
+    <div class="section-label">
       <span class="news-dot"></span>
       RSF NEWS
     </div>
 
-    <p
+    <div
       id="news-description"
       class="news-description empty"
     >
       Loading latest news...
-    </p>
+    </div>
 
     <div class="news-footer">
+
       <span id="news-updated">
         Last updated: —
       </span>
 
       <span>
-        RSF
+        RSF / NEWS
       </span>
+
     </div>
 
   </div>
 
+
   <div id="news-image" class="news-image">
-    <img id="news-image-element" src="" alt="">
+
+    <img
+      id="news-image-element"
+      src=""
+      alt=""
+    >
+
   </div>
 
 </section>
 
 
-<!-- =========================
-     MAIN GRID
-========================== -->
+<!-- MAIN GRID -->
 
-<section class="grid">
+<section class="main-grid" aria-label="RSF sections">
 
-  <article class="module rsf">
 
-    <span class="module-index">01</span>
+  <!-- RSF -->
+
+  <article class="module rsf-module">
+
+    <div class="module-meta">
+      Community
+    </div>
 
     <h2 class="module-title">
       RSF
     </h2>
 
     <p class="module-description">
-      The community, its history and everything surrounding RSF.
+      The home of RSF, its history, people and everything surrounding the community.
     </p>
 
     <div class="module-bottom">
-      <span class="module-line"></span>
 
-      <a
-        href="/rsf"
-        class="module-link"
-        aria-label="Open RSF"
-      >
-        <span class="module-arrow"></span>
+      <span class="module-index">
+        02
+      </span>
+
+      <a href="/rsf" class="module-link">
+        EXPLORE RSF
+        <span class="module-arrow">→</span>
       </a>
+
     </div>
 
   </article>
 
 
-  <article class="module arcade">
-
-    <span class="module-index">02</span>
-
-    <h2 class="module-title">
-      ARCADE
-    </h2>
-
-    <p class="module-description">
-      Games, experiments and interactive projects.
-    </p>
-
-    <div class="module-bottom">
-      <span class="module-line"></span>
-
-      <a
-        href="/arcade"
-        class="module-link"
-        aria-label="Open Arcade"
-      >
-        <span class="module-arrow"></span>
-      </a>
-    </div>
-
-  </article>
-
+  <!-- DATABASE -->
 
   <article class="module database">
 
-    <span class="module-index">03</span>
+    <div class="module-meta">
+      Records / History
+    </div>
 
     <h2 class="module-title">
       DATABASE
     </h2>
 
     <p class="module-description">
-      Players, teams, seasons and the competitive history of RSF.
+      Explore the RSF playerbase, teams, seasons and the records that make up its history.
     </p>
 
     <div class="module-bottom">
-      <span class="module-line"></span>
 
-      <a
-        href="/database"
-        class="module-link"
-        aria-label="Open Database"
-      >
-        <span class="module-arrow"></span>
+      <span class="module-index">
+        01
+      </span>
+
+      <a href="/database" class="module-link">
+        OPEN DATABASE
+        <span class="module-arrow">→</span>
       </a>
+
     </div>
 
   </article>
 
 
-  <article class="module community">
+  <!-- ARCADE -->
 
-    <span class="module-index">04</span>
+  <article class="module arcade-module">
+
+    <div class="module-meta">
+      Interactive
+    </div>
 
     <h2 class="module-title">
-      COMMUNITY
+      ARCADE
     </h2>
 
     <p class="module-description">
-      Videos, development, resources and the latest community activity.
+      Games, experiments and smaller interactive projects built around RSF.
     </p>
 
     <div class="module-bottom">
-      <span class="module-line"></span>
 
-      <a
-        href="/community"
-        class="module-link"
-        aria-label="Open Community"
-      >
-        <span class="module-arrow"></span>
+      <span class="module-index">
+        03
+      </span>
+
+      <a href="/arcade" class="module-link">
+        ENTER ARCADE
+        <span class="module-arrow">→</span>
       </a>
+
     </div>
 
   </article>
 
-</section>
 
+  <!-- COMMUNITY -->
 
-<!-- =========================
-     FEATURED AREA
-========================== -->
+  <article class="module community">
 
-<section class="feature">
+    <div>
 
-  <div>
-    <div class="feature-title">
-      FEATURED
+      <div class="module-meta">
+        The wider RSF space
+      </div>
+
+      <h2 class="module-title">
+        COMMUNITY
+      </h2>
+
+      <p class="module-description">
+        Videos, development, resources and the latest things happening around RSF.
+      </p>
+
     </div>
 
-    <div class="feature-copy">
-      A reserved space for future RSF content.
-    </div>
-  </div>
+    <div class="module-bottom">
 
-  <div class="feature-mark">
-    <span></span>
+      <span class="module-index">
+        04
+      </span>
+
+      <a href="/community" class="module-link">
+        VIEW COMMUNITY
+        <span class="module-arrow">→</span>
+      </a>
+
+    </div>
+
+  </article>
+
+
+  <!-- FEATURED -->
+
+  <div class="feature">
+
+    <span class="feature-label">
+      Featured
+    </span>
+
+    <span class="feature-note">
+      More from RSF
+    </span>
+
   </div>
 
 </section>
@@ -953,102 +1130,159 @@
 
   </main>
 
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
   <footer>
 
 
 <div class="footer-left">
-  <span class="footer-brand">RSF</span>
-  <span>© 2026</span>
+
+  <span class="footer-brand">
+    RSF
+  </span>
+
+  <span>
+    © 2026
+  </span>
+
 </div>
 
+
 <div class="footer-right">
-  <a href="/privacy">Privacy Policy</a>
-  <a href="/terms">Terms of Use</a>
+
+  <a href="/privacy">
+    Privacy Policy
+  </a>
+
+  <a href="/terms">
+    Terms of Use
+  </a>
+
 </div>
 
 
   </footer>
 
-  <script>
-    /*
-      ==========================================
-      RSF NEWS — GOOGLE SHEETS
-      ==========================================
+  <!-- =========================================
+       RSF NEWS — GOOGLE SHEETS
+  ========================================== -->
 
-      A1 = image URL
-      B1 = description
-      C1 = date
-    */
+  <script>
 
     const NEWS_CSV_URL =
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vSb89rGHVI4msCQM8Ej6hlXL02OEcfuNHAmoP9a-pKKwu6x8Y_xJtRe3bEB4qN3qmPF5HTQhUUK-erK/pub?output=csv";
 
 
     function parseCSV(text) {
+
       const rows = [];
+
       let row = [];
       let cell = "";
-      let quoted = false;
+
+      let insideQuotes = false;
+
 
       for (let i = 0; i < text.length; i++) {
+
         const char = text[i];
         const next = text[i + 1];
 
-        if (char === '"' && quoted && next === '"') {
+
+        if (
+          char === '"' &&
+          insideQuotes &&
+          next === '"'
+        ) {
           cell += '"';
           i++;
           continue;
         }
 
+
         if (char === '"') {
-          quoted = !quoted;
+          insideQuotes = !insideQuotes;
           continue;
         }
 
-        if (char === "," && !quoted) {
+
+        if (
+          char === "," &&
+          !insideQuotes
+        ) {
           row.push(cell.trim());
           cell = "";
           continue;
         }
 
-        if ((char === "\n" || char === "\r") && !quoted) {
-          if (char === "\r" && next === "\n") {
+
+        if (
+          (char === "\n" || char === "\r") &&
+          !insideQuotes
+        ) {
+
+          if (
+            char === "\r" &&
+            next === "\n"
+          ) {
             i++;
           }
 
           row.push(cell.trim());
           cell = "";
 
-          if (row.some(value => value !== "")) {
+
+          if (
+            row.some(value => value !== "")
+          ) {
             rows.push(row);
           }
 
           row = [];
+
           continue;
         }
+
 
         cell += char;
       }
 
-      if (cell !== "" || row.length) {
+
+      if (
+        cell !== "" ||
+        row.length > 0
+      ) {
+
         row.push(cell.trim());
 
-        if (row.some(value => value !== "")) {
+        if (
+          row.some(value => value !== "")
+        ) {
           rows.push(row);
         }
       }
+
 
       return rows;
     }
 
 
+    function cleanValue(value) {
+      return String(value || "").trim();
+    }
+
+
     async function loadRSFNews() {
 
-      const news = document.getElementById("news");
-      const description = document.getElementById("news-description");
-      const updated = document.getElementById("news-updated");
+      const description =
+        document.getElementById("news-description");
 
-      const imagePanel =
+      const updated =
+        document.getElementById("news-updated");
+
+      const imageContainer =
         document.getElementById("news-image");
 
       const image =
@@ -1057,114 +1291,155 @@
 
       try {
 
-        const response = await fetch(NEWS_CSV_URL, {
-          cache: "no-store"
-        });
+        const response =
+          await fetch(
+            NEWS_CSV_URL,
+            {
+              cache: "no-store"
+            }
+          );
+
 
         if (!response.ok) {
-          throw new Error("CSV request failed.");
+          throw new Error(
+            "Unable to load news CSV."
+          );
         }
 
-        const csv = await response.text();
-        const rows = parseCSV(csv);
+
+        const csvText =
+          await response.text();
+
+
+        const rows =
+          parseCSV(csvText);
+
 
         if (!rows.length) {
-          throw new Error("No news data found.");
+          throw new Error(
+            "The news sheet is empty."
+          );
         }
 
 
         /*
-          First spreadsheet row:
-
           A1 = image
           B1 = description
           C1 = date
         */
 
-        const imageURL = (rows[0][0] || "").trim();
-        const newsText = (rows[0][1] || "").trim();
-        const newsDate = (rows[0][2] || "").trim();
+        const imageURL =
+          cleanValue(rows[0][0]);
+
+        const newsText =
+          cleanValue(rows[0][1]);
+
+        const newsDate =
+          cleanValue(rows[0][2]);
 
 
-        /*
-          DESCRIPTION
-        */
+        /* B1 */
 
         if (newsText) {
 
-          description.textContent = newsText;
-          description.classList.remove("empty");
+          description.textContent =
+            newsText;
+
+          description.classList.remove(
+            "empty"
+          );
 
         } else {
 
           description.textContent =
             "No current news available.";
 
-          description.classList.add("empty");
+          description.classList.add(
+            "empty"
+          );
         }
 
 
-        /*
-          DATE
-        */
+        /* C1 */
 
         updated.textContent =
-          "Last updated: " + (newsDate || "—");
+          "Last updated: " +
+          (newsDate || "—");
 
 
-        /*
-          IMAGE
-
-          If A1 is empty, the entire image
-          panel remains removed.
-        */
+        /* A1 */
 
         if (imageURL) {
 
           image.onload = () => {
-            imagePanel.classList.add("visible");
-            news.classList.remove("no-image");
+            imageContainer.classList.add(
+              "visible"
+            );
           };
+
 
           image.onerror = () => {
-            imagePanel.classList.remove("visible");
-            news.classList.add("no-image");
-            image.removeAttribute("src");
+
+            imageContainer.classList.remove(
+              "visible"
+            );
+
+            image.removeAttribute(
+              "src"
+            );
           };
 
+
           image.src = imageURL;
-          image.alt = newsText || "RSF News";
+
+          image.alt =
+            newsText || "RSF News";
 
         } else {
 
-          imagePanel.classList.remove("visible");
-          news.classList.add("no-image");
+          imageContainer.classList.remove(
+            "visible"
+          );
 
-          image.removeAttribute("src");
+          image.removeAttribute(
+            "src"
+          );
         }
 
 
       } catch (error) {
 
-        console.error("RSF News:", error);
+        console.error(
+          "RSF News:",
+          error
+        );
+
 
         description.textContent =
           "RSF news is currently unavailable.";
 
-        description.classList.add("empty");
+        description.classList.add(
+          "empty"
+        );
+
 
         updated.textContent =
           "Last updated: —";
 
-        imagePanel.classList.remove("visible");
-        news.classList.add("no-image");
 
-        image.removeAttribute("src");
+        imageContainer.classList.remove(
+          "visible"
+        );
+
+        image.removeAttribute(
+          "src"
+        );
       }
     }
 
 
     loadRSFNews();
+
   </script>
 
 </body>
