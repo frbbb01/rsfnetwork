@@ -32,8 +32,8 @@
     }
 
     :root {
-      --bg: #0f0f0f;
-      --text: #ffffff;
+      --bg: #0F0F0F;
+      --text: #FFFFFF;
       --border: #292929;
       --border-soft: #242424;
       --panel: #151515;
@@ -52,20 +52,20 @@
     body {
       margin: 0;
       min-height: 100vh;
+      color: var(--text);
+      font-family: "Montserrat", Arial, sans-serif;
       background:
         radial-gradient(
-          circle at 12% 18%,
-          rgba(42, 95, 180, 0.10),
+          circle at 15% 20%,
+          rgba(34, 87, 170, 0.10),
           transparent 32%
         ),
         radial-gradient(
-          circle at 88% 42%,
-          rgba(30, 75, 155, 0.07),
+          circle at 85% 45%,
+          rgba(24, 69, 145, 0.07),
           transparent 34%
         ),
         var(--bg);
-      color: var(--text);
-      font-family: "Montserrat", Arial, sans-serif;
       overflow-x: hidden;
     }
 
@@ -91,16 +91,15 @@
 
       border-bottom: 1px solid var(--border-soft);
 
-      background: rgba(15, 15, 15, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 15, 15, 0.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .logo {
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.02em;
-      white-space: nowrap;
     }
 
     .navigation {
@@ -130,9 +129,7 @@
 
       opacity: 0.48;
 
-      transition:
-        opacity 100ms ease,
-        color 100ms ease;
+      transition: opacity 100ms ease;
     }
 
     .nav-link:hover,
@@ -147,7 +144,6 @@
 
     .arrow {
       font-size: 8px;
-      line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
     }
@@ -164,9 +160,7 @@
       display: none;
 
       background: #151515;
-      border: 1px solid var(--border);
-
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      border: 1px solid #292929;
     }
 
     .nav-item:hover .dropdown,
@@ -208,7 +202,7 @@
     }
 
     /* --------------------------------------------------
-       NEWS
+       RSF NEWS
     -------------------------------------------------- */
 
     .news-section {
@@ -217,14 +211,19 @@
       min-height: 250px;
 
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) 310px;
 
       position: relative;
       overflow: hidden;
     }
 
+    .news-section.no-image {
+      grid-template-columns: 1fr;
+    }
+
     .news-content {
       min-width: 0;
+
       padding: 30px 32px 28px;
 
       display: flex;
@@ -237,11 +236,11 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       opacity: 0.45;
-      text-transform: uppercase;
     }
 
     .news-description {
-      max-width: 720px;
+      max-width: 700px;
+
       margin: 34px 0 0;
 
       font-size: clamp(18px, 2vw, 27px);
@@ -287,7 +286,7 @@
       justify-content: center;
 
       background: transparent;
-      color: white;
+      color: #fff;
 
       cursor: pointer;
       opacity: 0.42;
@@ -331,11 +330,12 @@
 
       padding: 0;
       border: 0;
-
       border-radius: 50%;
-      background: white;
+
+      background: #fff;
 
       opacity: 0.22;
+
       cursor: pointer;
 
       transition:
@@ -354,18 +354,13 @@
 
       border-left: 1px solid var(--border);
 
-      background:
-        linear-gradient(
-          180deg,
-          rgba(255,255,255,0.025),
-          rgba(255,255,255,0.01)
-        );
-
       display: none;
       align-items: center;
       justify-content: center;
 
       overflow: hidden;
+
+      background: #121212;
     }
 
     .news-image.visible {
@@ -381,24 +376,24 @@
       object-fit: cover;
     }
 
-    .news-empty {
-      padding: 30px 32px;
-
-      font-size: 11px;
-      line-height: 1.7;
-      opacity: 0.4;
-    }
-
     /* --------------------------------------------------
-       MAIN GRID
+       GRID
     -------------------------------------------------- */
 
     .grid {
       margin-top: 18px;
 
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 250px 250px;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+      grid-template-rows:
+        250px
+        250px
+        190px;
 
       border-top: 1px solid var(--border);
       border-left: 1px solid var(--border);
@@ -419,7 +414,7 @@
     }
 
     .grid-block:hover {
-      background: rgba(255, 255, 255, 0.018);
+      background: rgba(255, 255, 255, 0.015);
     }
 
     .grid-block.rsf {
@@ -440,8 +435,6 @@
     .grid-block.community {
       grid-column: 1 / 4;
       grid-row: 3;
-
-      min-height: 190px;
     }
 
     .grid-title {
@@ -455,6 +448,7 @@
 
     .grid-description {
       max-width: 370px;
+
       margin: 22px 0 0;
 
       font-size: 11px;
@@ -465,6 +459,7 @@
 
     .grid-line {
       position: absolute;
+
       left: 28px;
       right: 28px;
       bottom: 52px;
@@ -474,11 +469,11 @@
 
     .grid-arrow {
       position: absolute;
+
       right: 28px;
       bottom: 25px;
 
       font-size: 14px;
-      font-weight: 400;
 
       opacity: 0.42;
 
@@ -498,6 +493,7 @@
 
     footer {
       position: fixed;
+
       left: 0;
       right: 0;
       bottom: 0;
@@ -510,13 +506,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
 
       border-top: 1px solid var(--border-soft);
 
-      background: rgba(15, 15, 15, 0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 15, 15, 0.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .footer-left,
@@ -529,6 +524,7 @@
     footer a {
       font-size: 9px;
       font-weight: 500;
+
       opacity: 0.38;
 
       transition: opacity 100ms ease;
@@ -549,6 +545,7 @@
     -------------------------------------------------- */
 
     @media (max-width: 760px) {
+
       .topbar {
         height: 60px;
         padding: 0 20px;
@@ -582,7 +579,8 @@
         padding-top: 38px;
       }
 
-      .news-section {
+      .news-section,
+      .news-section.no-image {
         grid-template-columns: 1fr;
       }
 
@@ -632,49 +630,97 @@
 
 <body>
 
+  <!-- ==================================================
+       TOP BAR
+  ================================================== -->
+
   <header class="topbar">
 
-    <a href="/" class="logo">RSF</a>
+    <a href="/" class="logo">
+      RSF
+    </a>
 
     <nav class="navigation" aria-label="Main navigation">
 
+      <!-- DATABASE -->
+
       <div class="nav-item">
+
         <a href="/database" class="nav-link">
           DATABASE
           <span class="arrow">▾</span>
         </a>
 
         <div class="dropdown">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
+
+          <a href="/database">
+            Playerbase
+          </a>
+
+          <a href="/database">
+            Teams
+          </a>
+
+          <a href="/database">
+            Seasons
+          </a>
+
         </div>
+
       </div>
 
+
+      <!-- COMMUNITY -->
+
       <div class="nav-item">
+
         <a href="/community" class="nav-link">
           COMMUNITY
           <span class="arrow">▾</span>
         </a>
 
         <div class="dropdown">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
+
+          <a href="/community">
+            Videos
+          </a>
+
+          <a href="/community">
+            Community Latest
+          </a>
+
+          <a href="/community">
+            Development
+          </a>
+
+          <a href="/community">
+            Resources
+          </a>
+
         </div>
+
       </div>
 
+
+      <!-- ARCADE -->
+
       <div class="nav-item">
+
         <a href="/arcade" class="nav-link">
           ARCADE
         </a>
+
       </div>
 
+
+      <!-- RSF -->
+
       <div class="nav-item">
+
         <a href="/rsf" class="nav-link">
           RSF
         </a>
+
       </div>
 
     </nav>
@@ -682,58 +728,74 @@
   </header>
 
 
+  <!-- ==================================================
+       MAIN
+  ================================================== -->
+
   <main>
 
-    <!-- RSF NEWS -->
+    <!-- ==================================================
+         RSF NEWS
+    ================================================== -->
 
-    <section class="news-section" aria-label="RSF News">
+    <section
+      class="news-section"
+      id="news-section"
+      aria-label="RSF News"
+    >
 
       <div class="news-content">
 
         <div>
+
           <div class="section-label">
             RSF NEWS
           </div>
 
           <div
-            id="news-description"
             class="news-description"
+            id="news-description"
           >
             Loading news...
           </div>
+
         </div>
+
 
         <div class="news-bottom">
 
           <div
-            id="news-date"
             class="news-date"
+            id="news-date"
           ></div>
 
+
           <div
-            id="news-controls"
             class="news-controls"
+            id="news-controls"
             hidden
           >
 
             <button
-              id="news-prev"
               class="news-arrow"
+              id="news-prev"
               type="button"
               aria-label="Previous news"
             >
               <span class="triangle-left"></span>
             </button>
 
+
             <div
-              id="news-dots"
               class="news-dots"
+              id="news-dots"
               aria-label="News navigation"
             ></div>
 
+
             <button
-              id="news-next"
               class="news-arrow"
+              id="news-next"
               type="button"
               aria-label="Next news"
             >
@@ -748,19 +810,26 @@
 
 
       <div
-        id="news-image"
         class="news-image"
+        id="news-image"
         aria-hidden="true"
       ></div>
 
     </section>
 
 
-    <!-- MAIN GRID -->
+    <!-- ==================================================
+         MAIN GRID
+    ================================================== -->
 
     <section class="grid">
 
-      <a href="/rsf" class="grid-block rsf">
+      <!-- RSF -->
+
+      <a
+        href="/rsf"
+        class="grid-block rsf"
+      >
 
         <h2 class="grid-title">
           RSF
@@ -780,7 +849,12 @@
       </a>
 
 
-      <a href="/database" class="grid-block database">
+      <!-- DATABASE -->
+
+      <a
+        href="/database"
+        class="grid-block database"
+      >
 
         <h2 class="grid-title">
           DATABASE
@@ -800,7 +874,12 @@
       </a>
 
 
-      <a href="/arcade" class="grid-block arcade">
+      <!-- ARCADE -->
+
+      <a
+        href="/arcade"
+        class="grid-block arcade"
+      >
 
         <h2 class="grid-title">
           ARCADE
@@ -820,7 +899,12 @@
       </a>
 
 
-      <a href="/community" class="grid-block community">
+      <!-- COMMUNITY -->
+
+      <a
+        href="/community"
+        class="grid-block community"
+      >
 
         <h2 class="grid-title">
           COMMUNITY
@@ -844,6 +928,10 @@
   </main>
 
 
+  <!-- ==================================================
+       FOOTER
+  ================================================== -->
+
   <footer>
 
     <div class="footer-left">
@@ -865,6 +953,7 @@
       </span>
 
     </div>
+
 
     <div class="footer-right">
 
@@ -889,27 +978,47 @@
   </footer>
 
 
+  <!-- ==================================================
+       RSF NEWS SCRIPT
+  ================================================== -->
+
   <script>
     /*
-     * --------------------------------------------------
-     * RSF NEWS
-     * --------------------------------------------------
+     * ==================================================
+     * CONFIGURATION
+     * ==================================================
      *
-     * This is intentionally a public READ-ONLY endpoint.
+     * This is a PUBLIC read-only Apps Script endpoint.
      *
-     * Do not put Google credentials, API keys, OAuth
-     * tokens or Sheet IDs here.
+     * No Google credentials, API keys or OAuth tokens
+     * belong in this file.
      */
 
     const NEWS_API =
       "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
 
-
     const AUTO_ADVANCE_MS = 20000;
+
+
+    /*
+     * ==================================================
+     * STATE
+     * ==================================================
+     */
 
     let newsItems = [];
     let currentNews = 0;
     let autoAdvanceTimer = null;
+
+
+    /*
+     * ==================================================
+     * ELEMENTS
+     * ==================================================
+     */
+
+    const newsSection =
+      document.getElementById("news-section");
 
     const descriptionElement =
       document.getElementById("news-description");
@@ -934,90 +1043,178 @@
 
 
     /*
-     * --------------------------------------------------
-     * SAFE TEXT HELPERS
-     * --------------------------------------------------
-     */
-
-    function setText(element, value) {
-      element.textContent = value || "";
-    }
-
-
-    /*
-     * Only allow HTTPS images.
+     * ==================================================
+     * IMAGE CACHE
+     * ==================================================
      *
-     * This is deliberately stricter than simply assigning
-     * the Sheet value to src.
-     */
-
-    function isSafeImageUrl(value) {
-      if (!value) {
-        return false;
-      }
-
-      try {
-        const url = new URL(value);
-
-        return url.protocol === "https:";
-      } catch {
-        return false;
-      }
-    }
-
-
-    /*
-     * --------------------------------------------------
-     * IMAGE PRELOADING
-     * --------------------------------------------------
+     * Images are loaded in the background so switching
+     * between reports is fast.
      */
 
     const imageCache = new Map();
 
+
+    /*
+     * ==================================================
+     * SAFE IMAGE VALIDATION
+     * ==================================================
+     */
+
+    function isSafeImageUrl(value) {
+
+      if (
+        typeof value !== "string" ||
+        !value.trim()
+      ) {
+        return false;
+      }
+
+      try {
+
+        const url =
+          new URL(value.trim());
+
+        return url.protocol === "https:";
+
+      } catch {
+
+        return false;
+      }
+    }
+
+
+    /*
+     * ==================================================
+     * PRELOAD IMAGES
+     * ==================================================
+     */
+
     function preloadImages(items) {
+
       for (const item of items) {
 
-        if (!isSafeImageUrl(item.image)) {
+        if (
+          !isSafeImageUrl(item.image)
+        ) {
           continue;
         }
 
-        if (imageCache.has(item.image)) {
+        if (
+          imageCache.has(item.image)
+        ) {
           continue;
         }
 
-        const image = new Image();
+        const image =
+          new Image();
 
         image.decoding = "async";
 
         image.src = item.image;
 
-        imageCache.set(item.image, image);
+        imageCache.set(
+          item.image,
+          image
+        );
       }
     }
 
 
     /*
-     * --------------------------------------------------
-     * RENDER NEWS
-     * --------------------------------------------------
+     * ==================================================
+     * CLEAR IMAGE
+     * ==================================================
+     */
+
+    function clearNewsImage() {
+
+      imageElement.replaceChildren();
+
+      imageElement.classList.remove(
+        "visible"
+      );
+    }
+
+
+    /*
+     * ==================================================
+     * RENDER IMAGE
+     * ==================================================
+     */
+
+    function renderNewsImage(item) {
+
+      clearNewsImage();
+
+      if (
+        !isSafeImageUrl(item.image)
+      ) {
+        return;
+      }
+
+      let image =
+        imageCache.get(item.image);
+
+
+      if (
+        !image ||
+        !image.complete
+      ) {
+
+        image =
+          document.createElement("img");
+
+        image.src =
+          item.image;
+
+        image.alt = "";
+
+        image.decoding =
+          "async";
+
+      }
+
+
+      imageElement.appendChild(
+        image
+      );
+
+      imageElement.classList.add(
+        "visible"
+      );
+    }
+
+
+    /*
+     * ==================================================
+     * RENDER
+     * ==================================================
+     *
+     * Sheet content is inserted with textContent,
+     * never innerHTML.
+     *
+     * This prevents HTML/JS stored in the Sheet from
+     * becoming executable markup on RSF.
      */
 
     function renderNews() {
 
       if (!newsItems.length) {
 
-        setText(
-          descriptionElement,
-          "No news is currently available."
-        );
+        descriptionElement.textContent =
+          "No news is currently available.";
 
-        setText(dateElement, "");
+        dateElement.textContent = "";
 
-        imageElement.replaceChildren();
-
-        imageElement.classList.remove("visible");
+        clearNewsImage();
 
         controlsElement.hidden = true;
+
+        newsSection.classList.add(
+          "no-image"
+        );
+
+        dotsElement.replaceChildren();
 
         return;
       }
@@ -1028,71 +1225,52 @@
 
 
       /*
-       * Important security detail:
-       *
-       * We use textContent rather than innerHTML.
-       *
-       * This means a malicious value such as:
-       *
-       * <img src=x onerror=alert(1)>
-       *
-       * is displayed as text rather than executed.
+       * Safe text rendering.
        */
 
-      setText(
-        descriptionElement,
-        item.description
-      );
+      descriptionElement.textContent =
+        item.description ||
+        "No description available.";
 
-      setText(
-        dateElement,
+
+      dateElement.textContent =
         item.date
           ? "Last updated: " + item.date
-          : ""
-      );
+          : "";
 
 
       /*
-       * Image
+       * Image.
        */
 
-      imageElement.replaceChildren();
+      if (
+        isSafeImageUrl(item.image)
+      ) {
 
-      if (isSafeImageUrl(item.image)) {
+        newsSection.classList.remove(
+          "no-image"
+        );
 
-        const image =
-          imageCache.get(item.image);
-
-        if (image && image.complete) {
-
-          imageElement.appendChild(image);
-
-        } else {
-
-          const newImage =
-            document.createElement("img");
-
-          newImage.src = item.image;
-          newImage.alt = "";
-
-          newImage.decoding = "async";
-
-          imageElement.appendChild(newImage);
-        }
-
-        imageElement.classList.add("visible");
+        renderNewsImage(item);
 
       } else {
 
-        imageElement.classList.remove("visible");
+        newsSection.classList.add(
+          "no-image"
+        );
+
+        clearNewsImage();
       }
 
 
       /*
-       * Controls
+       * One report:
+       * no arrows and no dots.
        */
 
-      if (newsItems.length <= 1) {
+      if (
+        newsItems.length <= 1
+      ) {
 
         controlsElement.hidden = true;
 
@@ -1102,83 +1280,136 @@
       }
 
 
+      /*
+       * Multiple reports:
+       * display controls.
+       */
+
       controlsElement.hidden = false;
 
       dotsElement.replaceChildren();
 
 
-      newsItems.forEach((_, index) => {
+      newsItems.forEach(
+        (_, index) => {
 
-        const dot =
-          document.createElement("button");
+          const dot =
+            document.createElement(
+              "button"
+            );
 
-        dot.type = "button";
+          dot.type = "button";
 
-        dot.className =
-          "news-dot" +
-          (index === currentNews
-            ? " active"
-            : "");
+          dot.className =
+            "news-dot" +
+            (
+              index === currentNews
+                ? " active"
+                : ""
+            );
 
-        dot.setAttribute(
-          "aria-label",
-          "Show news " + (index + 1)
-        );
+          dot.setAttribute(
+            "aria-label",
+            "Show news " +
+            (index + 1)
+          );
 
-        dot.addEventListener(
-          "click",
-          () => {
-            goToNews(index, true);
-          }
-        );
+          dot.addEventListener(
+            "click",
+            () => {
+              goToNews(
+                index,
+                true
+              );
+            }
+          );
 
-        dotsElement.appendChild(dot);
-      });
+          dotsElement.appendChild(
+            dot
+          );
+        }
+      );
     }
 
 
     /*
-     * --------------------------------------------------
-     * NAVIGATION
-     * --------------------------------------------------
+     * ==================================================
+     * AUTO ADVANCE
+     * ==================================================
      */
 
     function resetAutoAdvance() {
 
       if (autoAdvanceTimer) {
-        clearTimeout(autoAdvanceTimer);
+
+        clearTimeout(
+          autoAdvanceTimer
+        );
+
+        autoAdvanceTimer = null;
       }
 
-      if (newsItems.length <= 1) {
+
+      if (
+        newsItems.length <= 1
+      ) {
         return;
       }
 
+
       autoAdvanceTimer =
-        setTimeout(() => {
+        setTimeout(
+          () => {
 
-          currentNews =
-            (currentNews + 1) %
-            newsItems.length;
+            currentNews =
+              (
+                currentNews + 1
+              ) %
+              newsItems.length;
 
-          renderNews();
+            renderNews();
 
-          resetAutoAdvance();
+            resetAutoAdvance();
 
-        }, AUTO_ADVANCE_MS);
+          },
+          AUTO_ADVANCE_MS
+        );
     }
 
 
-    function goToNews(index, manual = false) {
+    /*
+     * ==================================================
+     * MANUAL NAVIGATION
+     * ==================================================
+     */
 
-      if (!newsItems.length) {
+    function goToNews(
+      index,
+      manual = false
+    ) {
+
+      if (
+        !newsItems.length
+      ) {
         return;
       }
 
+
       currentNews =
-        (index + newsItems.length) %
+        (
+          index +
+          newsItems.length
+        ) %
         newsItems.length;
 
+
       renderNews();
+
+
+      /*
+       * Manual navigation resets
+       * the 20-second countdown.
+       */
 
       if (manual) {
         resetAutoAdvance();
@@ -1189,10 +1420,12 @@
     previousButton.addEventListener(
       "click",
       () => {
+
         goToNews(
           currentNews - 1,
           true
         );
+
       }
     );
 
@@ -1200,23 +1433,32 @@
     nextButton.addEventListener(
       "click",
       () => {
+
         goToNews(
           currentNews + 1,
           true
         );
+
       }
     );
 
 
     /*
-     * --------------------------------------------------
+     * ==================================================
      * LOAD NEWS
-     * --------------------------------------------------
+     * ==================================================
      */
 
     async function loadNews() {
 
       try {
+
+        /*
+         * The timestamp only prevents the browser from
+         * reusing its own cached response.
+         *
+         * It does NOT attempt to manipulate Google data.
+         */
 
         const response =
           await fetch(
@@ -1232,6 +1474,7 @@
 
 
         if (!response.ok) {
+
           throw new Error(
             "News request failed: " +
             response.status
@@ -1247,6 +1490,7 @@
           !data ||
           !Array.isArray(data.news)
         ) {
+
           throw new Error(
             "Invalid news response."
           );
@@ -1254,12 +1498,14 @@
 
 
         /*
-         * Validate the shape again on the client.
+         * Validate the structure again on the
+         * client side.
          */
 
         newsItems =
           data.news
             .map(item => ({
+
               image:
                 typeof item.image === "string"
                   ? item.image.trim()
@@ -1274,6 +1520,7 @@
                 typeof item.date === "string"
                   ? item.date.trim()
                   : ""
+
             }))
             .filter(item =>
               item.image ||
@@ -1286,14 +1533,26 @@
 
 
         /*
-         * Start displaying immediately.
-         *
-         * Images preload in the background.
+         * Display immediately.
          */
 
         renderNews();
 
-        preloadImages(newsItems);
+
+        /*
+         * Preload images in the background.
+         *
+         * We intentionally don't await this.
+         */
+
+        preloadImages(
+          newsItems
+        );
+
+
+        /*
+         * Start the carousel timer.
+         */
 
         resetAutoAdvance();
 
@@ -1305,85 +1564,34 @@
           error
         );
 
+
         newsItems = [];
 
-        setText(
-          descriptionElement,
-          "News is temporarily unavailable."
-        );
 
-        setText(
-          dateElement,
-          ""
-        );
+        descriptionElement.textContent =
+          "News is temporarily unavailable.";
 
-        imageElement.replaceChildren();
+        dateElement.textContent = "";
 
-        imageElement.classList.remove("visible");
+        clearNewsImage();
 
         controlsElement.hidden = true;
+
+        newsSection.classList.add(
+          "no-image"
+        );
+
       }
     }
 
 
     /*
-     * Load once.
+     * Load the currently published snapshot once.
      *
-     * We deliberately do NOT continuously poll the endpoint.
-     *
-     * Publishing a new version in the Sheet means the next
-     * page load receives that version.
+     * No polling.
      */
 
     loadNews();
-
-
-    /*
-     * --------------------------------------------------
-     * SAME-PAGE NAVIGATION SAFETY
-     * --------------------------------------------------
-     *
-     * Only applies the small page transition when the link
-     * is a normal same-origin navigation.
-     */
-
-    document
-      .querySelectorAll("a[href]")
-      .forEach(link => {
-
-        link.addEventListener(
-          "click",
-          event => {
-
-            const url =
-              new URL(
-                link.href,
-                window.location.href
-              );
-
-
-            if (
-              url.origin !==
-                window.location.origin ||
-              link.target === "_blank" ||
-              event.ctrlKey ||
-              event.metaKey ||
-              event.shiftKey ||
-              event.altKey
-            ) {
-              return;
-            }
-
-
-            if (
-              url.href ===
-              window.location.href
-            ) {
-              return;
-            }
-          }
-        );
-      });
 
   </script>
 
