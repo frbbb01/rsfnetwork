@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,6 +7,7 @@
 
   <title>Privacy Policy — RSF</title>
   <meta name="description" content="RSF Privacy Policy.">
+  <meta name="theme-color" content="#0F0F0F">
 
   <style>
     @font-face {
@@ -39,14 +41,21 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
+
       background: #0F0F0F;
       color: #FFFFFF;
+
       font-family: "Montserrat", sans-serif;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
 
       opacity: 0;
       transform: translateY(3px);
-      transition: opacity 90ms ease-out, transform 90ms ease-out;
+
+      transition:
+        opacity 90ms ease-out,
+        transform 90ms ease-out;
     }
 
     body.page-loaded {
@@ -57,16 +66,20 @@
     .topbar {
       height: 68px;
       padding: 0 32px;
+
       border-bottom: 1px solid #242424;
+
       display: flex;
       align-items: center;
     }
 
     .logo {
-      color: #fff;
+      color: #FFFFFF;
       text-decoration: none;
+
       font-size: 12px;
       font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .page {
@@ -77,15 +90,19 @@
 
     h1 {
       margin: 0;
+
       font-size: clamp(40px, 7vw, 64px);
-      line-height: .95;
-      letter-spacing: -.06em;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 700;
     }
 
     .updated {
       margin-top: 18px;
+
       font-size: 10px;
-      opacity: .35;
+      line-height: 1.5;
+      opacity: 0.35;
     }
 
     section {
@@ -94,50 +111,90 @@
 
     h2 {
       margin: 0 0 15px;
+
       font-size: 16px;
-      letter-spacing: -.02em;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 700;
     }
 
     p,
     li {
       font-size: 12px;
       line-height: 1.8;
-      opacity: .62;
+      font-weight: 400;
+      opacity: 0.62;
     }
 
     ul {
       padding-left: 18px;
     }
 
-    a {
-      color: #fff;
+    li + li {
+      margin-top: 5px;
     }
 
-    footer {
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 36px;
+      padding: 0 15px;
+      margin-top: 8px;
+
+      border: 1px solid #303030;
+      background: #151515;
+
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 10px;
+      font-weight: 600;
+
+      transition:
+        background 90ms ease-out,
+        border-color 90ms ease-out,
+        opacity 90ms ease-out;
+    }
+
+    .contact-button:hover {
+      background: #202020;
+      border-color: #3A3A3A;
+    }
+
+    .footer {
       min-height: 58px;
       padding: 0 32px;
+
       border-top: 1px solid #242424;
+
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
     }
 
-    footer a,
-    footer span {
-      color: #fff;
-      text-decoration: none;
-      font-size: 9px;
-      opacity: .35;
-    }
-
-    footer a:hover {
-      opacity: .75;
-    }
-
-    .footer-links {
+    .footer-left,
+    .footer-right {
       display: flex;
+      align-items: center;
       gap: 18px;
+    }
+
+    .footer span,
+    .footer a {
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 9px;
+      font-weight: 500;
+
+      opacity: 0.35;
+    }
+
+    .footer a:hover {
+      opacity: 0.75;
     }
 
     @media (max-width: 600px) {
@@ -149,13 +206,27 @@
         padding: 60px 0 80px;
       }
 
-      footer {
+      .footer {
         padding: 14px 20px;
+
         align-items: flex-start;
         flex-direction: column;
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body,
+      .contact-button {
+        transition: none;
+      }
+
+      body {
+        transform: none;
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -166,166 +237,219 @@
 
   <main class="page">
 
-    <h1>Privacy Policy</h1>
 
-    <div class="updated">
-      Last updated: 27 September 2026
-    </div>
+<h1>Privacy Policy</h1>
 
-    <section>
-      <h2>1. Who we are</h2>
-      <p>
-        RSF is operated by [LEGAL NAME / ORGANISATION NAME].
-        Our contact address is [CONTACT ADDRESS].
-        You can contact us at [CONTACT EMAIL].
-      </p>
-    </section>
+<div class="updated">
+  Last updated: 27 September 2026
+</div>
 
-    <section>
-      <h2>2. Information we collect</h2>
-      <p>
-        We only collect personal information that is necessary for the
-        operation of RSF and the services or features you choose to use.
-      </p>
+<section>
+  <h2>1. Who we are</h2>
 
-      <p>
-        Depending on how you use the website, this may include information
-        you voluntarily provide to us, technical information about your
-        device or browser, and information necessary to maintain security
-        and functionality.
-      </p>
-    </section>
+  <p>
+    RSF is an independent website and community project.
+    For privacy-related questions, requests, or concerns, you can
+    contact RSF through the contact page.
+  </p>
 
-    <section>
-      <h2>3. How we use information</h2>
-      <p>
-        We may use information to operate, maintain, secure and improve RSF,
-        respond to enquiries, provide requested features, and comply with
-        applicable legal obligations.
-      </p>
-    </section>
+  <a href="/contact" class="contact-button">
+    Contact RSF
+  </a>
+</section>
 
-    <section>
-      <h2>4. Legal bases</h2>
-      <p>
-        Where applicable data protection law requires a lawful basis for
-        processing, we rely on the basis appropriate to the specific
-        processing activity, such as performance of a contract, legitimate
-        interests, consent, or compliance with a legal obligation.
-      </p>
-    </section>
+<section>
+  <h2>2. Information we collect</h2>
 
-    <section>
-      <h2>5. Cookies and similar technologies</h2>
-      <p>
-        RSF does not intentionally use non-essential cookies unless they are
-        described here and, where required by applicable law, you have been
-        given an appropriate choice before they are used.
-      </p>
+  <p>
+    RSF is designed to collect as little personal information as
+    reasonably possible.
+  </p>
 
-      <p>
-        If we introduce analytics, advertising, authentication, embedded
-        services, or other technologies that store or access information on
-        your device, this policy will be updated as appropriate.
-      </p>
-    </section>
+  <p>
+    RSF does not intentionally store:
+  </p>
 
-    <section>
-      <h2>6. Third parties</h2>
-      <p>
-        We may use third-party providers where necessary to host, secure,
-        operate or provide parts of RSF. Where personal data is involved,
-        the relevant provider and processing activity should be identified
-        in our records and, where required, in this notice.
-      </p>
-    </section>
+  <ul>
+    <li>IP addresses</li>
+    <li>Location information</li>
+    <li>Real names</li>
+    <li>Email addresses</li>
+    <li>Telephone numbers</li>
+    <li>Home addresses</li>
+  </ul>
 
-    <section>
-      <h2>7. Retention</h2>
-      <p>
-        We retain personal information only for as long as reasonably
-        necessary for the purpose for which it was collected, unless a
-        longer period is required or permitted by law.
-      </p>
-    </section>
+  <p>
+    The information RSF may store is limited to information necessary
+    to operate its features. This may include:
+  </p>
 
-    <section>
-      <h2>8. Your rights</h2>
-      <p>
-        Depending on applicable law, you may have rights relating to your
-        personal information, including rights to access, correction,
-        deletion, restriction, objection, portability, and withdrawal of
-        consent where processing is based on consent.
-      </p>
-    </section>
+  <ul>
+    <li>User-created content</li>
+    <li>Roblox usernames</li>
+    <li>Discord account IDs</li>
+    <li>Information associated with an RSF account where necessary to operate that account</li>
+  </ul>
+</section>
 
-    <section>
-      <h2>9. Complaints</h2>
-      <p>
-        If you have concerns about how we handle personal information,
-        please contact us first at [CONTACT EMAIL].
-      </p>
+<section>
+  <h2>3. Logging in is optional</h2>
 
-      <p>
-        You may also have the right to complain to the data protection
-        supervisory authority applicable to you.
-      </p>
-    </section>
+  <p>
+    You do not need to create or log into an RSF account simply to
+    browse publicly available parts of the website.
+  </p>
 
-    <section>
-      <h2>10. Changes</h2>
-      <p>
-        We may update this Privacy Policy when our services, processing
-        activities, or legal obligations change. The latest version will
-        be published on this page.
-      </p>
-    </section>
+  <p>
+    Certain features may require an account or external account
+    connection. Where login is optional, you can continue using
+    portions of RSF that do not require authentication without
+    creating an account.
+  </p>
+</section>
 
-  </main>
+<section>
+  <h2>4. User-created content</h2>
 
-  <footer>
-    <div>
-      <span>RSF</span>
-    </div>
+  <p>
+    If you submit content to RSF, such as posts, comments, statistics,
+    submissions, or other material, that content may be stored so that
+    RSF can provide its features.
+  </p>
 
-    <div class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Use</a>
-    </div>
-  </footer>
+  <p>
+    You should not submit information that you do not want publicly
+    associated with your Roblox username, Discord account, or RSF
+    account.
+  </p>
 
-  <script>
-    window.addEventListener("load", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
-      });
-    });
+  <p>
+    You are responsible for the information and material you choose
+    to publish.
+  </p>
+</section>
 
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", event => {
-        const url = new URL(link.href, window.location.href);
+<section>
+  <h2>5. Roblox usernames</h2>
 
-        if (
-          url.origin !== window.location.origin ||
-          event.ctrlKey ||
-          event.metaKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
-        }
+  <p>
+    RSF may store Roblox usernames for purposes such as identifying
+    players, displaying player statistics, maintaining database
+    records, and operating RSF features.
+  </p>
 
-        if (url.href === window.location.href) return;
+  <p>
+    A Roblox username is not treated by RSF as an indication that the
+    person has provided their real-world identity.
+  </p>
+</section>
 
-        event.preventDefault();
-        document.body.classList.remove("page-loaded");
+<section>
+  <h2>6. Discord account IDs</h2>
 
-        setTimeout(() => {
-          window.location.href = url.href;
-        }, 90);
-      });
-    });
-  </script>
+  <p>
+    Where Discord integration or authentication is used, RSF may store
+    a Discord account ID.
+  </p>
 
-</body>
-</html>
+  <p>
+    A Discord account ID may be used to associate an RSF account with
+    the corresponding Discord account and to provide account-related
+    functionality.
+  </p>
+</section>
+
+<section>
+  <h2>7. How we use information</h2>
+
+  <p>
+    Information stored by RSF may be used to:
+  </p>
+
+  <ul>
+    <li>Operate the RSF website</li>
+    <li>Provide account functionality</li>
+    <li>Display user-created content</li>
+    <li>Associate content with the appropriate user or account</li>
+    <li>Maintain player and team records</li>
+    <li>Provide statistics and database features</li>
+    <li>Prevent abuse and harmful activity</li>
+    <li>Moderate content</li>
+    <li>Maintain the security and integrity of RSF</li>
+    <li>Investigate violations of the Terms of Use</li>
+    <li>Comply with applicable legal obligations</li>
+  </ul>
+</section>
+
+<section>
+  <h2>8. Information we do not sell</h2>
+
+  <p>
+    RSF does not sell users' personal information.
+  </p>
+
+  <p>
+    RSF also does not intentionally build advertising profiles from
+    users' personal information.
+  </p>
+</section>
+
+<section>
+  <h2>9. Third-party services</h2>
+
+  <p>
+    RSF may rely on third-party services to operate parts of the
+    website, such as hosting, authentication, database infrastructure,
+    or integrations.
+  </p>
+
+  <p>
+    The website may also contain links to third-party websites.
+    RSF is not responsible for the privacy practices of websites
+    it does not operate.
+  </p>
+</section>
+
+<section>
+  <h2>10. Data retention</h2>
+
+  <p>
+    RSF keeps information only for as long as reasonably necessary
+    for the purposes described in this Privacy Policy, unless a
+    longer period is required by law.
+  </p>
+
+  <p>
+    User-created content may remain available for as long as it is
+    needed to operate RSF or unless it is removed under RSF's
+    moderation, deletion, or content policies.
+  </p>
+</section>
+
+<section>
+  <h2>11. Data security</h2>
+
+  <p>
+    RSF takes reasonable measures to protect information stored by
+    the service against unauthorized access, alteration, disclosure,
+    or destruction.
+  </p>
+
+  <p>
+    However, no internet service can guarantee absolute security.
+  </p>
+</section>
+
+<section>
+  <h2>12. Your rights</h2>
+
+  <p>
+    Depending on where you live and which data protection laws apply
+    to you, you may have rights concerning your personal information,
+    including rights to:
+  </p>
+
+  <ul>
+    <li>Request access to personal information held about you</li>
+    <li>Request correction of inaccurate information</li>
+
