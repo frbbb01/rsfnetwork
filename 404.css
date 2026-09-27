@@ -35,25 +35,18 @@ min-height: 100%;
 
 body {
 min-height: 100vh;
-
-
 background: #0F0F0F;
 color: #FFFFFF;
-
 font-family: "Montserrat", sans-serif;
-
 -webkit-font-smoothing: antialiased;
-
-
 }
 
 /* TOP BAR */
 
 .topbar {
 position: relative;
-
-
 height: 68px;
+
 
 display: flex;
 align-items: center;
@@ -72,7 +65,6 @@ text-decoration: none;
 
 font-size: 14px;
 font-weight: 700;
-
 letter-spacing: -0.03em;
 
 
@@ -85,7 +77,6 @@ left: 50%;
 
 display: flex;
 align-items: center;
-
 gap: 34px;
 
 transform: translateX(-50%);
@@ -100,7 +91,6 @@ text-decoration: none;
 
 font-size: 11px;
 font-weight: 500;
-
 letter-spacing: 0.04em;
 
 opacity: 0.55;
@@ -136,34 +126,32 @@ align-items: center;
 }
 
 .error-layout {
-width: 100%;
-
-
-display: grid;
-
-grid-template-columns:
-    minmax(0, 1fr)
-    230px;
-
+display: flex;
 align-items: center;
 
-gap: 55px;
+
+width: max-content;
+max-width: 100%;
+
+gap: 24px;
 
 
 }
 
-/* LEFT SIDE */
+/* TEXT */
+
+.error-copy {
+flex-shrink: 0;
+}
 
 .error-copy h1 {
 margin: 0;
 
 
-font-size: clamp(110px, 13vw, 180px);
-
+font-size: clamp(100px, 12vw, 165px);
 line-height: 0.8;
 
 font-weight: 700;
-
 letter-spacing: -0.095em;
 
 
@@ -173,10 +161,9 @@ letter-spacing: -0.095em;
 max-width: 390px;
 
 
-margin: 42px 0 0;
+margin: 38px 0 0;
 
 font-size: 13px;
-
 line-height: 1.7;
 
 font-weight: 400;
@@ -193,14 +180,12 @@ align-items: center;
 
 gap: 10px;
 
-margin-top: 30px;
+margin-top: 28px;
 
 color: #FFFFFF;
-
 text-decoration: none;
 
 font-size: 11px;
-
 font-weight: 700;
 
 letter-spacing: 0.04em;
@@ -219,21 +204,19 @@ opacity: 1;
 gap: 14px;
 }
 
-/* SVG REPO ICON */
+/* SVG */
 
 .error-icon {
-width: 230px;
-height: 230px;
+width: 150px;
+height: 150px;
 
 
-justify-self: start;
+flex-shrink: 0;
 
 background-image: url("https://www.svgrepo.com/show/57699/repair-wrench.svg");
 
 background-repeat: no-repeat;
-
 background-position: center;
-
 background-size: contain;
 
 filter: invert(1);
@@ -256,7 +239,6 @@ justify-content: space-between;
 color: #FFFFFF;
 
 font-size: 10px;
-
 font-weight: 500;
 
 opacity: 0.35;
@@ -264,7 +246,7 @@ opacity: 0.35;
 
 }
 
-/* TABLET / MOBILE */
+/* MOBILE */
 
 @media (max-width: 800px) {
 
@@ -279,59 +261,57 @@ opacity: 0.35;
     gap: 20px;
 }
 
-
 .navigation a:nth-child(3),
 .navigation a:nth-child(4) {
     display: none;
 }
 
-
-.error-page {
-    width: min(100% - 40px, 600px);
-
-    min-height: calc(100vh - 126px);
-}
-
-
-.error-layout {
-    grid-template-columns: 1fr;
-
-    gap: 50px;
-}
-
-
-.error-copy h1 {
-    font-size: clamp(100px, 28vw, 150px);
-}
-
-
-.error-icon {
-    width: 180px;
-    height: 180px;
-
-    justify-self: start;
-}
-
-
-}
-
-@media (max-width: 480px) {
-
-
-.topbar {
-    padding: 0 20px;
-}
-
-
 .error-page {
     width: calc(100% - 40px);
 }
 
+.error-layout {
+    width: 100%;
 
-.error-copy p {
-    margin-top: 32px;
+    gap: 18px;
 }
 
+.error-copy h1 {
+    font-size: clamp(80px, 20vw, 130px);
+}
+
+.error-copy p {
+    max-width: 300px;
+
+    margin-top: 30px;
+}
+
+.error-icon {
+    width: 115px;
+    height: 115px;
+}
+
+
+}
+
+@media (max-width: 520px) {
+
+
+.error-layout {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 36px;
+}
+
+.error-icon {
+    width: 110px;
+    height: 110px;
+}
+
+.topbar {
+    padding: 0 20px;
+}
 
 .footer {
     padding: 0 20px;
