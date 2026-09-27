@@ -11,6 +11,37 @@
 
 <body>
 
+<script>
+document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', function (e) {
+        const url = this.href;
+
+        if (
+            !url ||
+            this.target === '_blank' ||
+            url.startsWith('mailto:') ||
+            url.startsWith('tel:') ||
+            new URL(url).origin !== window.location.origin
+        ) {
+            return;
+        }
+
+        e.preventDefault();
+
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 180ms ease';
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 180);
+    });
+});
+
+window.addEventListener('pageshow', () => {
+    document.body.style.opacity = '1';
+    document.body.style.transition = 'opacity 180ms ease';
+});
+</script>
 
   
   <header class="topbar">
