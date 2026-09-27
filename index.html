@@ -1,10 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSF</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>Hello world!</h1>
+
+  <header class="hotbar">
+    <div class="brand">RSF</div>
+
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+    </nav>
+
+    <button class="menu-button">Menu</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">RSF / 001</p>
+        <h1>Something<br>worth building.</h1>
+        <p class="intro">
+          A simple space for ideas, projects and things in progress.
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <span class="section-number">01</span>
+      <div>
+        <h2>About</h2>
+        <p>
+          Keep this section for whatever you actually want to say.
+          No unnecessary gradients. No giant cards. Just the work.
+        </p>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <span class="section-number">02</span>
+      <div>
+        <h2>Work</h2>
+        <p>
+          Projects, experiments, links and whatever comes next.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <span>RSF</span>
+      <span>© 2026</span>
+    </footer>
+  </main>
+
 </body>
 </html>
+```
+
+```css
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f3f2ee;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+/* ───────── HOTBAR ───────── */
+
+.hotbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  background: rgba(243, 242, 238, 0.94);
+  border-bottom: 1px solid #d5d4cf;
+
+  z-index: 1000;
+}
+
+.brand {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav a {
+  color: #111;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+.nav a:hover {
+  opacity: 0.5;
+}
+
+.menu-button {
+  border: 1px solid #111;
+  background: transparent;
+  padding: 7px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background: #111;
+  color: #f3f2ee;
+}
+
+/* ───────── HERO ───────── */
+
+.hero {
+  min-height: 100vh;
+  padding: 58px 24px 80px;
+
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-content {
+  max-width: 900px;
+  padding-bottom: 30px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 22px;
+  color: #666;
+}
+
+h1 {
+  font-size: clamp(64px, 11vw, 150px);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+  font-weight: 500;
+}
+
+.intro {
+  max-width: 420px;
+  margin-top: 38px;
+  font-size: 16px;
+  color: #555;
+}
+
+/* ───────── SECTIONS ───────── */
+
+.section {
+  min-height: 70vh;
+  border-top: 1px solid #c9c8c3;
+
+  padding: 32px 24px;
+
+  display: grid;
+  grid-template-columns: 20% 1fr;
+}
+
+.section-number {
+  font-size: 11px;
+  color: #777;
+}
+
+.section h2 {
+  font-size: clamp(42px, 7vw, 90px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+
+.section p {
+  max-width: 500px;
+  margin-top: 35px;
+  font-size: 18px;
+  color: #555;
+}
+
+/* ───────── FOOTER ───────── */
+
+footer {
+  border-top: 1px solid #c9c8c3;
+
+  padding: 24px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 11px;
+  color: #666;
+}
+
+/* ───────── MOBILE ───────── */
+
+@media (max-width: 650px) {
+  .hotbar {
+    padding: 0 16px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hero {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section {
+    padding: 24px 16px;
+    grid-template-columns: 50px 1fr;
+  }
+
+  .section p {
+    font-size: 16px;
+  }
+}
