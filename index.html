@@ -35,7 +35,7 @@
     :root {
       --bg: #0F0F0F;
       --border: #292929;
-      --border-soft: #222222;
+      --border-soft: #252525;
       --white: #FFFFFF;
     }
 
@@ -58,17 +58,17 @@
       background:
         radial-gradient(
           ellipse 950px 650px at 78% 4%,
-          rgba(42, 103, 175, 0.18),
+          rgba(42, 103, 175, 0.19),
           transparent 68%
         ),
         radial-gradient(
           ellipse 750px 550px at 10% 58%,
-          rgba(25, 68, 125, 0.09),
+          rgba(25, 68, 125, 0.10),
           transparent 70%
         ),
         radial-gradient(
           ellipse 600px 450px at 55% 100%,
-          rgba(20, 52, 95, 0.055),
+          rgba(20, 52, 95, 0.06),
           transparent 72%
         ),
         #0F0F0F;
@@ -237,18 +237,20 @@
 
 
     /* =========================================
-       NEWS
+       NEWS CAROUSEL
     ========================================= */
 
     .news {
       min-height: 132px;
+
+      position: relative;
 
       display: grid;
       grid-template-columns: minmax(0, 1fr) 230px;
 
       border: 1px solid var(--border);
 
-      background: rgba(255, 255, 255, 0.008);
+      background: rgba(255, 255, 255, 0.025);
 
       overflow: hidden;
 
@@ -259,7 +261,7 @@
 
     .news:hover {
       border-color: #363636;
-      background: rgba(255, 255, 255, 0.014);
+      background: rgba(255, 255, 255, 0.032);
     }
 
     .news-content {
@@ -281,7 +283,7 @@
       letter-spacing: 0.08em;
     }
 
-    .news-dot {
+    .news-dot-live {
       width: 5px;
       height: 5px;
 
@@ -304,6 +306,8 @@
       letter-spacing: -0.01em;
 
       color: rgba(255, 255, 255, 0.72);
+
+      transition: opacity 120ms ease;
     }
 
     .news-description.empty {
@@ -366,6 +370,109 @@
 
 
     /* =========================================
+       NEWS CONTROLS
+    ========================================= */
+
+    .news-controls {
+      position: absolute;
+
+      right: 14px;
+      bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      z-index: 5;
+    }
+
+    .news-arrow {
+      width: 18px;
+      height: 18px;
+
+      padding: 0;
+
+      border: 0;
+
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      opacity: 0.42;
+
+      transition:
+        opacity 120ms ease,
+        transform 120ms ease;
+    }
+
+    .news-arrow:hover {
+      opacity: 0.9;
+    }
+
+    .news-arrow:active {
+      transform: scale(0.9);
+    }
+
+    .news-arrow.left::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-arrow.right::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .news-dot {
+      width: 4px;
+      height: 4px;
+
+      padding: 0;
+
+      border: 0;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.32);
+
+      cursor: pointer;
+
+      transition:
+        width 140ms ease,
+        height 140ms ease,
+        background 140ms ease;
+    }
+
+    .news-dot.active {
+      width: 6px;
+      height: 6px;
+
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+
+    /* =========================================
        GRID
     ========================================= */
 
@@ -407,8 +514,8 @@
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.012),
-          rgba(255, 255, 255, 0)
+          rgba(255, 255, 255, 0.030),
+          rgba(255, 255, 255, 0.018)
         );
 
       transition:
@@ -433,7 +540,7 @@
       background:
         radial-gradient(
           circle,
-          rgba(54, 119, 197, 0.065),
+          rgba(54, 119, 197, 0.075),
           transparent 70%
         );
 
@@ -448,8 +555,8 @@
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.018),
-          rgba(255, 255, 255, 0)
+          rgba(255, 255, 255, 0.040),
+          rgba(255, 255, 255, 0.022)
         );
 
       transform: translateY(-1px);
@@ -484,7 +591,7 @@
       font-size: 9px;
       line-height: 1.7;
 
-      color: rgba(255, 255, 255, 0.40);
+      color: rgba(255, 255, 255, 0.44);
     }
 
 
@@ -500,7 +607,7 @@
       align-items: center;
       justify-content: flex-end;
 
-      border-top: 1px solid #222;
+      border-top: 1px solid #292929;
     }
 
     .module-link {
@@ -510,19 +617,21 @@
       gap: 7px;
 
       min-height: 25px;
-      padding: 0 8px;
+      padding: 0 9px;
 
-      border: 1px solid #303030;
-      border-radius: 4px;
+      border: 1px solid #383838;
+      border-radius: 7px;
 
-      background: rgba(255, 255, 255, 0.018);
+      background: rgba(255, 255, 255, 0.035);
 
       font-size: 8px;
       font-weight: 700;
 
       letter-spacing: 0.06em;
 
-      color: rgba(255, 255, 255, 0.57);
+      color: rgba(255, 255, 255, 0.62);
+
+      cursor: pointer;
 
       transition:
         color 140ms ease,
@@ -535,9 +644,9 @@
     .module-link:hover {
       color: #FFFFFF;
 
-      background: rgba(255, 255, 255, 0.055);
+      background: rgba(255, 255, 255, 0.075);
 
-      border-color: #414141;
+      border-color: #4A4A4A;
 
       gap: 9px;
 
@@ -617,62 +726,6 @@
 
     .community .module-bottom {
       grid-column: 1 / span 2;
-    }
-
-
-    /* =========================================
-       FEATURED
-    ========================================= */
-
-    .feature {
-      min-height: 105px;
-
-      grid-column: 1 / span 2;
-
-      border: 1px solid #242424;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 25px;
-
-      background:
-        linear-gradient(
-          100deg,
-          rgba(36, 78, 125, 0.035),
-          rgba(255, 255, 255, 0.008)
-        );
-
-      transition:
-        border-color 160ms ease,
-        background 160ms ease;
-    }
-
-    .feature:hover {
-      border-color: #303030;
-
-      background:
-        linear-gradient(
-          100deg,
-          rgba(36, 78, 125, 0.06),
-          rgba(255, 255, 255, 0.012)
-        );
-    }
-
-    .feature-label {
-      font-size: 8px;
-      font-weight: 600;
-
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-
-      color: rgba(255, 255, 255, 0.30);
-    }
-
-    .feature-note {
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.20);
     }
 
 
@@ -768,6 +821,11 @@
         max-height: 190px;
       }
 
+      .news-controls {
+        right: 11px;
+        bottom: 10px;
+      }
+
       .main-grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
@@ -776,8 +834,7 @@
       .rsf-module,
       .arcade-module,
       .database,
-      .community,
-      .feature {
+      .community {
         grid-column: auto;
         grid-row: auto;
       }
@@ -792,10 +849,6 @@
 
       .community {
         min-height: 150px;
-      }
-
-      .feature {
-        min-height: 90px;
       }
     }
 
@@ -850,6 +903,8 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 8px;
+
+        padding-right: 80px;
       }
 
       .module {
@@ -883,6 +938,10 @@
 
 <body>
 
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
   <header class="topbar">
 
 
@@ -891,6 +950,19 @@
 </a>
 
 <nav class="navigation" aria-label="Main navigation">
+
+  <!-- MAIN -->
+
+  <div class="nav-item active">
+
+    <a href="/" class="nav-label">
+      MAIN
+    </a>
+
+  </div>
+
+
+  <!-- DATABASE -->
 
   <div class="nav-item">
 
@@ -907,6 +979,8 @@
 
   </div>
 
+
+  <!-- COMMUNITY -->
 
   <div class="nav-item">
 
@@ -925,6 +999,8 @@
   </div>
 
 
+  <!-- ARCADE -->
+
   <div class="nav-item">
 
     <a href="/arcade" class="nav-label">
@@ -933,6 +1009,8 @@
 
   </div>
 
+
+  <!-- RSF -->
 
   <div class="nav-item">
 
@@ -947,15 +1025,21 @@
 
   </header>
 
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
   <main>
 
+
+<!-- RSF NEWS -->
 
 <section class="news" aria-label="RSF News">
 
   <div class="news-content">
 
     <div class="section-label">
-      <span class="news-dot"></span>
+      <span class="news-dot-live"></span>
       RSF NEWS
     </div>
 
@@ -991,11 +1075,46 @@
 
   </div>
 
+
+  <!-- NEWS CONTROLS -->
+
+  <div
+    id="news-controls"
+    class="news-controls"
+    aria-label="News navigation"
+  >
+
+    <button
+      type="button"
+      class="news-arrow left"
+      id="news-prev"
+      aria-label="Previous news"
+    ></button>
+
+    <div
+      id="news-dots"
+      class="news-dots"
+      aria-label="News slides"
+    ></div>
+
+    <button
+      type="button"
+      class="news-arrow right"
+      id="news-next"
+      aria-label="Next news"
+    ></button>
+
+  </div>
+
 </section>
 
 
+<!-- GRID -->
+
 <section class="main-grid" aria-label="RSF sections">
 
+
+  <!-- RSF -->
 
   <article class="module rsf-module">
 
@@ -1019,6 +1138,8 @@
   </article>
 
 
+  <!-- DATABASE -->
+
   <article class="module database">
 
     <h2 class="module-title">
@@ -1041,6 +1162,8 @@
   </article>
 
 
+  <!-- ARCADE -->
+
   <article class="module arcade-module">
 
     <h2 class="module-title">
@@ -1062,6 +1185,8 @@
 
   </article>
 
+
+  <!-- COMMUNITY -->
 
   <article class="module community">
 
@@ -1088,23 +1213,14 @@
 
   </article>
 
-
-  <div class="feature">
-
-    <span class="feature-label">
-      Featured
-    </span>
-
-    <span class="feature-note">
-      More from RSF
-    </span>
-
-  </div>
-
 </section>
 
 
   </main>
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
 
   <footer>
 
@@ -1137,10 +1253,47 @@
 
   </footer>
 
+  <!-- =========================================
+       NEWS CAROUSEL
+  ========================================== -->
+
   <script>
 
     const NEWS_CSV_URL =
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vSb89rGHVI4msCQM8Ej6hlXL02OEcfuNHAmoP9a-pKKwu6x8Y_xJtRe3bEB4qN3qmPF5HTQhUUK-erK/pub?output=csv";
+
+
+    const AUTO_ADVANCE_MS = 20000;
+
+
+    let newsItems = [];
+    let currentNewsIndex = 0;
+    let newsTimer = null;
+
+
+    const description =
+      document.getElementById("news-description");
+
+    const updated =
+      document.getElementById("news-updated");
+
+    const imageContainer =
+      document.getElementById("news-image");
+
+    const image =
+      document.getElementById("news-image-element");
+
+    const dotsContainer =
+      document.getElementById("news-dots");
+
+    const controls =
+      document.getElementById("news-controls");
+
+    const previousButton =
+      document.getElementById("news-prev");
+
+    const nextButton =
+      document.getElementById("news-next");
 
 
     function parseCSV(text) {
@@ -1179,8 +1332,10 @@
           char === "," &&
           !insideQuotes
         ) {
+
           row.push(cell.trim());
           cell = "";
+
           continue;
         }
 
@@ -1202,10 +1357,13 @@
 
 
           if (
-            row.some(value => value !== "")
+            row.some(
+              value => value !== ""
+            )
           ) {
             rows.push(row);
           }
+
 
           row = [];
 
@@ -1224,8 +1382,11 @@
 
         row.push(cell.trim());
 
+
         if (
-          row.some(value => value !== "")
+          row.some(
+            value => value !== ""
+          )
         ) {
           rows.push(row);
         }
@@ -1241,20 +1402,212 @@
     }
 
 
+    function createNewsDots() {
+
+      dotsContainer.innerHTML = "";
+
+
+      newsItems.forEach(
+        (_, index) => {
+
+          const dot =
+            document.createElement("button");
+
+
+          dot.type = "button";
+
+          dot.className =
+            "news-dot";
+
+
+          dot.setAttribute(
+            "aria-label",
+            `Go to news ${index + 1}`
+          );
+
+
+          dot.addEventListener(
+            "click",
+            () => {
+
+              showNews(index);
+              resetNewsTimer();
+
+            }
+          );
+
+
+          dotsContainer.appendChild(dot);
+        }
+      );
+    }
+
+
+    function updateNewsDots() {
+
+      const dots =
+        dotsContainer.querySelectorAll(
+          ".news-dot"
+        );
+
+
+      dots.forEach(
+        (dot, index) => {
+
+          dot.classList.toggle(
+            "active",
+            index === currentNewsIndex
+          );
+
+        }
+      );
+    }
+
+
+    function showNews(index) {
+
+      if (!newsItems.length) {
+        return;
+      }
+
+
+      currentNewsIndex =
+        (index + newsItems.length) %
+        newsItems.length;
+
+
+      const item =
+        newsItems[currentNewsIndex];
+
+
+      description.style.opacity = "0";
+
+
+      setTimeout(() => {
+
+        description.textContent =
+          item.description ||
+          "No current news available.";
+
+
+        description.classList.toggle(
+          "empty",
+          !item.description
+        );
+
+
+        updated.textContent =
+          "Last updated: " +
+          (item.date || "—");
+
+
+        imageContainer.classList.remove(
+          "visible"
+        );
+
+
+        image.removeAttribute(
+          "src"
+        );
+
+
+        if (item.image) {
+
+          image.onload = () => {
+
+            imageContainer.classList.add(
+              "visible"
+            );
+
+          };
+
+
+          image.onerror = () => {
+
+            imageContainer.classList.remove(
+              "visible"
+            );
+
+            image.removeAttribute(
+              "src"
+            );
+
+          };
+
+
+          image.src = item.image;
+
+          image.alt =
+            item.description ||
+            "RSF News";
+        }
+
+
+        updateNewsDots();
+
+        description.style.opacity = "1";
+
+      }, 100);
+    }
+
+
+    function nextNews() {
+
+      showNews(
+        currentNewsIndex + 1
+      );
+
+      resetNewsTimer();
+    }
+
+
+    function previousNews() {
+
+      showNews(
+        currentNewsIndex - 1
+      );
+
+      resetNewsTimer();
+    }
+
+
+    function resetNewsTimer() {
+
+      clearInterval(
+        newsTimer
+      );
+
+
+      if (newsItems.length > 1) {
+
+        newsTimer =
+          setInterval(
+            () => {
+
+              showNews(
+                currentNewsIndex + 1
+              );
+
+            },
+            AUTO_ADVANCE_MS
+          );
+      }
+    }
+
+
+    previousButton.addEventListener(
+      "click",
+      previousNews
+    );
+
+
+    nextButton.addEventListener(
+      "click",
+      nextNews
+    );
+
+
     async function loadRSFNews() {
-
-      const description =
-        document.getElementById("news-description");
-
-      const updated =
-        document.getElementById("news-updated");
-
-      const imageContainer =
-        document.getElementById("news-image");
-
-      const image =
-        document.getElementById("news-image-element");
-
 
       try {
 
@@ -1282,83 +1635,71 @@
           parseCSV(csvText);
 
 
-        if (!rows.length) {
-          throw new Error(
-            "The news sheet is empty."
-          );
+        /*
+          Every non-empty row is a news report.
+
+          A = image
+          B = description
+          C = date
+        */
+
+
+        newsItems =
+          rows
+            .map(row => ({
+
+              image:
+                cleanValue(row[0]),
+
+              description:
+                cleanValue(row[1]),
+
+              date:
+                cleanValue(row[2])
+
+            }))
+            .filter(item =>
+              item.image ||
+              item.description ||
+              item.date
+            );
+
+
+        if (!newsItems.length) {
+
+          newsItems = [
+            {
+              image: "",
+              description:
+                "No current news available.",
+              date: ""
+            }
+          ];
         }
 
 
-        const imageURL =
-          cleanValue(rows[0][0]);
+        createNewsDots();
 
-        const newsText =
-          cleanValue(rows[0][1]);
+        showNews(0);
 
-        const newsDate =
-          cleanValue(rows[0][2]);
+        resetNewsTimer();
 
 
-        if (newsText) {
+        /*
+          Hide carousel controls when
+          there is only one news item.
+        */
 
-          description.textContent =
-            newsText;
+        if (newsItems.length <= 1) {
 
-          description.classList.remove(
-            "empty"
-          );
+          controls.style.display =
+            "none";
 
         } else {
 
-          description.textContent =
-            "No current news available.";
+          controls.style.display =
+            "flex";
 
-          description.classList.add(
-            "empty"
-          );
-        }
-
-
-        updated.textContent =
-          "Last updated: " +
-          (newsDate || "—");
-
-
-        if (imageURL) {
-
-          image.onload = () => {
-            imageContainer.classList.add(
-              "visible"
-            );
-          };
-
-
-          image.onerror = () => {
-
-            imageContainer.classList.remove(
-              "visible"
-            );
-
-            image.removeAttribute(
-              "src"
-            );
-          };
-
-
-          image.src = imageURL;
-
-          image.alt =
-            newsText || "RSF News";
-
-        } else {
-
-          imageContainer.classList.remove(
-            "visible"
-          );
-
-          image.removeAttribute(
-            "src"
-          );
         }
 
 
@@ -1370,25 +1711,22 @@
         );
 
 
-        description.textContent =
-          "RSF news is currently unavailable.";
-
-        description.classList.add(
-          "empty"
-        );
-
-
-        updated.textContent =
-          "Last updated: —";
+        newsItems = [
+          {
+            image: "",
+            description:
+              "RSF news is currently unavailable.",
+            date: ""
+          }
+        ];
 
 
-        imageContainer.classList.remove(
-          "visible"
-        );
+        createNewsDots();
 
-        image.removeAttribute(
-          "src"
-        );
+        showNews(0);
+
+        controls.style.display =
+          "none";
       }
     }
 
