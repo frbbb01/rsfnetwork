@@ -86,8 +86,8 @@
 
 
     /* =========================================
-       NAVIGATION
-    ========================================= */
+       TOP BAR
+    ========================================== */
 
     .topbar {
       position: sticky;
@@ -226,7 +226,7 @@
 
     /* =========================================
        PAGE
-    ========================================= */
+    ========================================== */
 
     main {
       width: min(1020px, calc(100% - 48px));
@@ -237,8 +237,8 @@
 
 
     /* =========================================
-       NEWS CAROUSEL
-    ========================================= */
+       NEWS
+    ========================================== */
 
     .news {
       min-height: 132px;
@@ -287,6 +287,8 @@
       width: 5px;
       height: 5px;
 
+      flex: 0 0 auto;
+
       border-radius: 50%;
 
       background: #4F9BFF;
@@ -325,7 +327,6 @@
       border-top: 1px solid var(--border-soft);
 
       font-size: 8px;
-
       letter-spacing: 0.02em;
 
       color: rgba(255, 255, 255, 0.30);
@@ -371,7 +372,7 @@
 
     /* =========================================
        NEWS CONTROLS
-    ========================================= */
+    ========================================== */
 
     .news-controls {
       position: absolute;
@@ -391,7 +392,6 @@
       height: 18px;
 
       padding: 0;
-
       border: 0;
 
       background: transparent;
@@ -473,8 +473,8 @@
 
 
     /* =========================================
-       GRID
-    ========================================= */
+       MAIN GRID
+    ========================================== */
 
     .main-grid {
       margin-top: 14px;
@@ -494,8 +494,8 @@
 
 
     /* =========================================
-       MODULES
-    ========================================= */
+       GRID MODULES
+    ========================================== */
 
     .module {
       position: relative;
@@ -596,8 +596,8 @@
 
 
     /* =========================================
-       BUTTONS
-    ========================================= */
+       MODULE BUTTONS
+    ========================================== */
 
     .module-bottom {
       margin-top: auto;
@@ -617,6 +617,7 @@
       gap: 7px;
 
       min-height: 25px;
+
       padding: 0 9px;
 
       border: 1px solid #383838;
@@ -665,7 +666,7 @@
 
     /* =========================================
        DATABASE
-    ========================================= */
+    ========================================== */
 
     .database {
       grid-column: 2;
@@ -687,7 +688,7 @@
 
     /* =========================================
        RSF / ARCADE
-    ========================================= */
+    ========================================== */
 
     .rsf-module {
       grid-column: 1;
@@ -702,7 +703,7 @@
 
     /* =========================================
        COMMUNITY
-    ========================================= */
+    ========================================== */
 
     .community {
       grid-column: 1 / span 2;
@@ -731,7 +732,7 @@
 
     /* =========================================
        FOOTER
-    ========================================= */
+    ========================================== */
 
     footer {
       position: fixed;
@@ -785,7 +786,7 @@
 
     /* =========================================
        RESPONSIVE
-    ========================================= */
+    ========================================== */
 
     @media (max-width: 760px) {
 
@@ -858,6 +859,7 @@
       .topbar {
         height: auto;
         min-height: 64px;
+
         padding: 18px 20px;
 
         align-items: flex-start;
@@ -917,6 +919,7 @@
 
       footer {
         min-height: 54px;
+
         padding: 15px 20px;
 
         align-items: center;
@@ -939,7 +942,7 @@
 <body>
 
   <!-- =========================================
-       HEADER
+       TOP BAR
   ========================================== -->
 
   <header class="topbar">
@@ -948,6 +951,7 @@
 <a href="/" class="logo">
   RSF
 </a>
+
 
 <nav class="navigation" aria-label="Main navigation">
 
@@ -972,9 +976,19 @@
     </a>
 
     <div class="dropdown">
-      <a href="/database">Playerbase</a>
-      <a href="/database">Teams</a>
-      <a href="/database">Seasons</a>
+
+      <a href="/database">
+        Playerbase
+      </a>
+
+      <a href="/database">
+        Teams
+      </a>
+
+      <a href="/database">
+        Seasons
+      </a>
+
     </div>
 
   </div>
@@ -990,10 +1004,23 @@
     </a>
 
     <div class="dropdown">
-      <a href="/community">Videos</a>
-      <a href="/community">Community Latest</a>
-      <a href="/community">Development</a>
-      <a href="/community">Resources</a>
+
+      <a href="/community">
+        Videos
+      </a>
+
+      <a href="/community">
+        Community Latest
+      </a>
+
+      <a href="/community">
+        Development
+      </a>
+
+      <a href="/community">
+        Resources
+      </a>
+
     </div>
 
   </div>
@@ -1034,14 +1061,21 @@
 
 <!-- RSF NEWS -->
 
-<section class="news" aria-label="RSF News">
+<section
+  class="news"
+  aria-label="RSF News"
+>
 
   <div class="news-content">
 
     <div class="section-label">
+
       <span class="news-dot-live"></span>
+
       RSF NEWS
+
     </div>
+
 
     <div
       id="news-description"
@@ -1049,6 +1083,7 @@
     >
       Loading latest news...
     </div>
+
 
     <div class="news-footer">
 
@@ -1065,12 +1100,16 @@
   </div>
 
 
-  <div id="news-image" class="news-image">
+  <div
+    id="news-image"
+    class="news-image"
+  >
 
     <img
       id="news-image-element"
       src=""
       alt=""
+      decoding="async"
     >
 
   </div>
@@ -1091,11 +1130,13 @@
       aria-label="Previous news"
     ></button>
 
+
     <div
       id="news-dots"
       class="news-dots"
       aria-label="News slides"
     ></div>
+
 
     <button
       type="button"
@@ -1109,9 +1150,14 @@
 </section>
 
 
-<!-- GRID -->
+<!-- =========================================
+     MAIN GRID
+========================================== -->
 
-<section class="main-grid" aria-label="RSF sections">
+<section
+  class="main-grid"
+  aria-label="RSF sections"
+>
 
 
   <!-- RSF -->
@@ -1122,13 +1168,18 @@
       RSF
     </h2>
 
+
     <p class="module-description">
       The home of RSF, its history, people and everything surrounding the community.
     </p>
 
+
     <div class="module-bottom">
 
-      <a href="/rsf" class="module-link">
+      <a
+        href="/rsf"
+        class="module-link"
+      >
         EXPLORE RSF
         <span class="module-arrow">→</span>
       </a>
@@ -1146,13 +1197,18 @@
       DATABASE
     </h2>
 
+
     <p class="module-description">
       Explore the RSF playerbase, teams, seasons and the records that make up its history.
     </p>
 
+
     <div class="module-bottom">
 
-      <a href="/database" class="module-link">
+      <a
+        href="/database"
+        class="module-link"
+      >
         OPEN DATABASE
         <span class="module-arrow">→</span>
       </a>
@@ -1170,13 +1226,18 @@
       ARCADE
     </h2>
 
+
     <p class="module-description">
       Games, experiments and smaller interactive projects built around RSF.
     </p>
 
+
     <div class="module-bottom">
 
-      <a href="/arcade" class="module-link">
+      <a
+        href="/arcade"
+        class="module-link"
+      >
         ENTER ARCADE
         <span class="module-arrow">→</span>
       </a>
@@ -1196,15 +1257,20 @@
         COMMUNITY
       </h2>
 
+
       <p class="module-description">
         Videos, development, resources and the latest things happening around RSF.
       </p>
 
     </div>
 
+
     <div class="module-bottom">
 
-      <a href="/community" class="module-link">
+      <a
+        href="/community"
+        class="module-link"
+      >
         VIEW COMMUNITY
         <span class="module-arrow">→</span>
       </a>
@@ -1254,7 +1320,7 @@
   </footer>
 
   <!-- =========================================
-       NEWS CAROUSEL
+       NEWS CAROUSEL SCRIPT
   ========================================== -->
 
   <script>
@@ -1265,49 +1331,91 @@
 
     const AUTO_ADVANCE_MS = 20000;
 
+    const REQUEST_TIMEOUT_MS = 8000;
+
 
     let newsItems = [];
+
     let currentNewsIndex = 0;
+
     let newsTimer = null;
 
 
+    /* =========================================
+       ELEMENTS
+    ========================================== */
+
     const description =
-      document.getElementById("news-description");
+      document.getElementById(
+        "news-description"
+      );
+
 
     const updated =
-      document.getElementById("news-updated");
+      document.getElementById(
+        "news-updated"
+      );
+
 
     const imageContainer =
-      document.getElementById("news-image");
+      document.getElementById(
+        "news-image"
+      );
+
 
     const image =
-      document.getElementById("news-image-element");
+      document.getElementById(
+        "news-image-element"
+      );
+
 
     const dotsContainer =
-      document.getElementById("news-dots");
+      document.getElementById(
+        "news-dots"
+      );
+
 
     const controls =
-      document.getElementById("news-controls");
+      document.getElementById(
+        "news-controls"
+      );
+
 
     const previousButton =
-      document.getElementById("news-prev");
+      document.getElementById(
+        "news-prev"
+      );
+
 
     const nextButton =
-      document.getElementById("news-next");
+      document.getElementById(
+        "news-next"
+      );
 
+
+    /* =========================================
+       CSV PARSER
+    ========================================== */
 
     function parseCSV(text) {
 
       const rows = [];
 
       let row = [];
+
       let cell = "";
+
       let insideQuotes = false;
 
 
-      for (let i = 0; i < text.length; i++) {
+      for (
+        let i = 0;
+        i < text.length;
+        i++
+      ) {
 
         const char = text[i];
+
         const next = text[i + 1];
 
 
@@ -1316,14 +1424,20 @@
           insideQuotes &&
           next === '"'
         ) {
+
           cell += '"';
+
           i++;
+
           continue;
         }
 
 
         if (char === '"') {
-          insideQuotes = !insideQuotes;
+
+          insideQuotes =
+            !insideQuotes;
+
           continue;
         }
 
@@ -1333,7 +1447,10 @@
           !insideQuotes
         ) {
 
-          row.push(cell.trim());
+          row.push(
+            cell.trim()
+          );
+
           cell = "";
 
           continue;
@@ -1341,7 +1458,10 @@
 
 
         if (
-          (char === "\n" || char === "\r") &&
+          (
+            char === "\n" ||
+            char === "\r"
+          ) &&
           !insideQuotes
         ) {
 
@@ -1349,18 +1469,25 @@
             char === "\r" &&
             next === "\n"
           ) {
+
             i++;
           }
 
-          row.push(cell.trim());
+
+          row.push(
+            cell.trim()
+          );
+
           cell = "";
 
 
           if (
             row.some(
-              value => value !== ""
+              value =>
+                value !== ""
             )
           ) {
+
             rows.push(row);
           }
 
@@ -1380,14 +1507,18 @@
         row.length > 0
       ) {
 
-        row.push(cell.trim());
+        row.push(
+          cell.trim()
+        );
 
 
         if (
           row.some(
-            value => value !== ""
+            value =>
+              value !== ""
           )
         ) {
+
           rows.push(row);
         }
       }
@@ -1397,10 +1528,67 @@
     }
 
 
+    /* =========================================
+       HELPERS
+    ========================================== */
+
     function cleanValue(value) {
-      return String(value || "").trim();
+
+      return String(
+        value || ""
+      ).trim();
+
     }
 
+
+    function preloadImage(url) {
+
+      return new Promise(
+        resolve => {
+
+          if (!url) {
+
+            resolve(false);
+
+            return;
+          }
+
+
+          const preload =
+            new Image();
+
+
+          preload.decoding =
+            "async";
+
+
+          preload.onload =
+            () => {
+
+              resolve(true);
+
+            };
+
+
+          preload.onerror =
+            () => {
+
+              resolve(false);
+
+            };
+
+
+          preload.src = url;
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       NEWS DOTS
+    ========================================== */
 
     function createNewsDots() {
 
@@ -1411,10 +1599,13 @@
         (_, index) => {
 
           const dot =
-            document.createElement("button");
+            document.createElement(
+              "button"
+            );
 
 
           dot.type = "button";
+
 
           dot.className =
             "news-dot";
@@ -1431,15 +1622,22 @@
             () => {
 
               showNews(index);
+
               resetNewsTimer();
 
             }
           );
 
 
-          dotsContainer.appendChild(dot);
+          dotsContainer.appendChild(
+            dot
+          );
+
         }
       );
+
+
+      updateNewsDots();
     }
 
 
@@ -1464,6 +1662,10 @@
     }
 
 
+    /* =========================================
+       DISPLAY NEWS
+    ========================================== */
+
     function showNews(index) {
 
       if (!newsItems.length) {
@@ -1472,90 +1674,109 @@
 
 
       currentNewsIndex =
-        (index + newsItems.length) %
+        (
+          index +
+          newsItems.length
+        ) %
         newsItems.length;
 
 
       const item =
-        newsItems[currentNewsIndex];
+        newsItems[
+          currentNewsIndex
+        ];
 
 
-      description.style.opacity = "0";
+      description.style.opacity =
+        "0";
 
 
-      setTimeout(() => {
+      requestAnimationFrame(
+        () => {
 
-        description.textContent =
-          item.description ||
-          "No current news available.";
-
-
-        description.classList.toggle(
-          "empty",
-          !item.description
-        );
-
-
-        updated.textContent =
-          "Last updated: " +
-          (item.date || "—");
-
-
-        imageContainer.classList.remove(
-          "visible"
-        );
-
-
-        image.removeAttribute(
-          "src"
-        );
-
-
-        if (item.image) {
-
-          image.onload = () => {
-
-            imageContainer.classList.add(
-              "visible"
-            );
-
-          };
-
-
-          image.onerror = () => {
-
-            imageContainer.classList.remove(
-              "visible"
-            );
-
-            image.removeAttribute(
-              "src"
-            );
-
-          };
-
-
-          image.src = item.image;
-
-          image.alt =
+          description.textContent =
             item.description ||
-            "RSF News";
+            "No current news available.";
+
+
+          description.classList.toggle(
+            "empty",
+            !item.description
+          );
+
+
+          updated.textContent =
+            "Last updated: " +
+            (
+              item.date ||
+              "—"
+            );
+
+
+          imageContainer.classList.remove(
+            "visible"
+          );
+
+
+          image.removeAttribute(
+            "src"
+          );
+
+
+          if (item.image) {
+
+            image.src =
+              item.image;
+
+
+            image.alt =
+              item.description ||
+              "RSF News";
+
+
+            if (image.complete) {
+
+              imageContainer.classList.add(
+                "visible"
+              );
+
+            } else {
+
+              image.onload =
+                () => {
+
+                  imageContainer.classList.add(
+                    "visible"
+                  );
+
+                };
+
+            }
+
+          }
+
+
+          updateNewsDots();
+
+
+          description.style.opacity =
+            "1";
+
         }
-
-
-        updateNewsDots();
-
-        description.style.opacity = "1";
-
-      }, 100);
+      );
     }
 
+
+    /* =========================================
+       CAROUSEL
+    ========================================== */
 
     function nextNews() {
 
       showNews(
         currentNewsIndex + 1
       );
+
 
       resetNewsTimer();
     }
@@ -1567,31 +1788,40 @@
         currentNewsIndex - 1
       );
 
+
       resetNewsTimer();
     }
 
 
     function resetNewsTimer() {
 
-      clearInterval(
+      clearTimeout(
         newsTimer
       );
 
 
-      if (newsItems.length > 1) {
+      if (
+        newsItems.length <= 1
+      ) {
 
-        newsTimer =
-          setInterval(
-            () => {
-
-              showNews(
-                currentNewsIndex + 1
-              );
-
-            },
-            AUTO_ADVANCE_MS
-          );
+        return;
       }
+
+
+      newsTimer =
+        setTimeout(
+          () => {
+
+            showNews(
+              currentNewsIndex + 1
+            );
+
+
+            resetNewsTimer();
+
+          },
+          AUTO_ADVANCE_MS
+        );
     }
 
 
@@ -1607,23 +1837,59 @@
     );
 
 
+    /* =========================================
+       LOAD GOOGLE SHEETS
+    ========================================== */
+
     async function loadRSFNews() {
 
+      let timeout;
+
+
       try {
+
+        const controller =
+          new AbortController();
+
+
+        timeout =
+          setTimeout(
+            () => {
+
+              controller.abort();
+
+            },
+            REQUEST_TIMEOUT_MS
+          );
+
 
         const response =
           await fetch(
             NEWS_CSV_URL,
             {
-              cache: "no-store"
+              method: "GET",
+
+              cache: "no-store",
+
+              credentials: "omit",
+
+              signal:
+                controller.signal
             }
           );
 
 
+        clearTimeout(
+          timeout
+        );
+
+
         if (!response.ok) {
+
           throw new Error(
-            "Unable to load news CSV."
+            `News request failed: ${response.status}`
           );
+
         }
 
 
@@ -1632,65 +1898,96 @@
 
 
         const rows =
-          parseCSV(csvText);
+          parseCSV(
+            csvText
+          );
 
 
         /*
-          Every non-empty row is a news report.
+          Every non-empty row is
+          one news report.
 
-          A = image
-          B = description
-          C = date
+          Column A = image
+          Column B = description
+          Column C = date
         */
-
 
         newsItems =
           rows
-            .map(row => ({
+            .map(
+              row => ({
 
-              image:
-                cleanValue(row[0]),
+                image:
+                  cleanValue(
+                    row[0]
+                  ),
 
-              description:
-                cleanValue(row[1]),
+                description:
+                  cleanValue(
+                    row[1]
+                  ),
 
-              date:
-                cleanValue(row[2])
+                date:
+                  cleanValue(
+                    row[2]
+                  )
 
-            }))
-            .filter(item =>
-              item.image ||
-              item.description ||
-              item.date
+              })
+            )
+            .filter(
+              item =>
+                item.image ||
+                item.description ||
+                item.date
             );
 
 
-        if (!newsItems.length) {
+        /*
+          Fallback when the sheet
+          contains no usable rows.
+        */
+
+        if (
+          !newsItems.length
+        ) {
 
           newsItems = [
             {
               image: "",
+
               description:
                 "No current news available.",
+
               date: ""
             }
           ];
+
         }
 
 
+        /*
+          Build the dots immediately.
+        */
+
         createNewsDots();
-
-        showNews(0);
-
-        resetNewsTimer();
 
 
         /*
-          Hide carousel controls when
-          there is only one news item.
+          Display the first story.
         */
 
-        if (newsItems.length <= 1) {
+        showNews(0);
+
+
+        /*
+          Only show carousel controls
+          when there is more than one
+          news report.
+        */
+
+        if (
+          newsItems.length <= 1
+        ) {
 
           controls.style.display =
             "none";
@@ -1703,7 +2000,36 @@
         }
 
 
+        /*
+          Preload all images in parallel.
+
+          This prevents the carousel from
+          waiting on an image after the
+          user changes slides.
+        */
+
+        await Promise.all(
+          newsItems.map(
+            item =>
+              preloadImage(
+                item.image
+              )
+          )
+        );
+
+
+        /*
+          Begin the 20-second timer.
+        */
+
+        resetNewsTimer();
+
       } catch (error) {
+
+        clearTimeout(
+          timeout
+        );
+
 
         console.error(
           "RSF News:",
@@ -1714,8 +2040,10 @@
         newsItems = [
           {
             image: "",
+
             description:
               "RSF news is currently unavailable.",
+
             date: ""
           }
         ];
@@ -1723,13 +2051,19 @@
 
         createNewsDots();
 
+
         showNews(0);
+
 
         controls.style.display =
           "none";
       }
     }
 
+
+    /* =========================================
+       START
+    ========================================== */
 
     loadRSFNews();
 
