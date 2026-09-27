@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,6 +7,7 @@
 
   <title>Terms of Use — RSF</title>
   <meta name="description" content="RSF Terms of Use.">
+  <meta name="theme-color" content="#0F0F0F">
 
   <style>
     @font-face {
@@ -39,14 +41,21 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
+
       background: #0F0F0F;
       color: #FFFFFF;
+
       font-family: "Montserrat", sans-serif;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
 
       opacity: 0;
       transform: translateY(3px);
-      transition: opacity 90ms ease-out, transform 90ms ease-out;
+
+      transition:
+        opacity 90ms ease-out,
+        transform 90ms ease-out;
     }
 
     body.page-loaded {
@@ -57,16 +66,20 @@
     .topbar {
       height: 68px;
       padding: 0 32px;
+
       border-bottom: 1px solid #242424;
+
       display: flex;
       align-items: center;
     }
 
     .logo {
-      color: #fff;
+      color: #FFFFFF;
       text-decoration: none;
+
       font-size: 12px;
       font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .page {
@@ -77,15 +90,19 @@
 
     h1 {
       margin: 0;
+
       font-size: clamp(40px, 7vw, 64px);
-      line-height: .95;
-      letter-spacing: -.06em;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 700;
     }
 
     .updated {
       margin-top: 18px;
+
       font-size: 10px;
-      opacity: .35;
+      line-height: 1.5;
+      opacity: 0.35;
     }
 
     section {
@@ -94,50 +111,89 @@
 
     h2 {
       margin: 0 0 15px;
+
       font-size: 16px;
-      letter-spacing: -.02em;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 700;
     }
 
     p,
     li {
       font-size: 12px;
       line-height: 1.8;
-      opacity: .62;
+      font-weight: 400;
+      opacity: 0.62;
     }
 
     ul {
       padding-left: 18px;
     }
 
-    a {
-      color: #fff;
+    li + li {
+      margin-top: 5px;
     }
 
-    footer {
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 36px;
+      padding: 0 15px;
+      margin-top: 8px;
+
+      border: 1px solid #303030;
+      background: #151515;
+
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 10px;
+      font-weight: 600;
+
+      transition:
+        background 90ms ease-out,
+        border-color 90ms ease-out;
+    }
+
+    .contact-button:hover {
+      background: #202020;
+      border-color: #3A3A3A;
+    }
+
+    .footer {
       min-height: 58px;
       padding: 0 32px;
+
       border-top: 1px solid #242424;
+
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
     }
 
-    footer a,
-    footer span {
-      color: #fff;
-      text-decoration: none;
-      font-size: 9px;
-      opacity: .35;
-    }
-
-    footer a:hover {
-      opacity: .75;
-    }
-
-    .footer-links {
+    .footer-left,
+    .footer-right {
       display: flex;
+      align-items: center;
       gap: 18px;
+    }
+
+    .footer span,
+    .footer a {
+      color: #FFFFFF;
+      text-decoration: none;
+
+      font-size: 9px;
+      font-weight: 500;
+
+      opacity: 0.35;
+    }
+
+    .footer a:hover {
+      opacity: 0.75;
     }
 
     @media (max-width: 600px) {
@@ -149,13 +205,27 @@
         padding: 60px 0 80px;
       }
 
-      footer {
+      .footer {
         padding: 14px 20px;
+
         align-items: flex-start;
         flex-direction: column;
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body,
+      .contact-button {
+        transition: none;
+      }
+
+      body {
+        transform: none;
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -166,140 +236,307 @@
 
   <main class="page">
 
-    <h1>Terms of Use</h1>
 
-    <div class="updated">
-      Last updated: 27 September 2026
-    </div>
+<h1>Terms of Use</h1>
 
-    <section>
-      <h2>1. Acceptance</h2>
-      <p>
-        By accessing or using RSF, you agree to these Terms of Use.
-        If you do not agree with these terms, please do not use the website.
-      </p>
-    </section>
+<div class="updated">
+  Last updated: 27 September 2026
+</div>
 
-    <section>
-      <h2>2. Use of the website</h2>
-      <p>
-        You agree to use RSF lawfully and responsibly. You must not use the
-        website in a way that could damage, disable, overburden, interfere
-        with, or compromise the website or its users.
-      </p>
-    </section>
+<section>
+  <h2>1. Acceptance</h2>
 
-    <section>
-      <h2>3. Content</h2>
-      <p>
-        Unless otherwise stated, RSF and its original content, branding,
-        design and materials are owned by or licensed to the operator.
-      </p>
+  <p>
+    By accessing or using RSF, you agree to these Terms of Use.
+    If you do not agree with these Terms, please do not use RSF.
+  </p>
+</section>
 
-      <p>
-        Third-party materials remain subject to their respective owners'
-        rights and licences.
-      </p>
-    </section>
+<section>
+  <h2>2. About RSF</h2>
 
-    <section>
-      <h2>4. Third-party links and services</h2>
-      <p>
-        RSF may contain links to websites or services operated by third
-        parties. We are not responsible for the content, availability,
-        security or policies of third-party websites.
-      </p>
-    </section>
+  <p>
+    RSF is an independent website and community project.
+  </p>
 
-    <section>
-      <h2>5. Availability</h2>
-      <p>
-        We aim to keep RSF available and accurate, but we do not guarantee
-        that the website will always be available, uninterrupted, secure,
-        error-free, or completely up to date.
-      </p>
-    </section>
+  <p>
+    RSF is not affiliated with, sponsored by, endorsed by, or
+    officially connected to Roblox Corporation.
+  </p>
 
-    <section>
-      <h2>6. No professional advice</h2>
-      <p>
-        Information provided through RSF is for general informational
-        purposes unless explicitly stated otherwise. It should not be
-        treated as professional, legal, financial, medical, or other
-        specialist advice.
-      </p>
-    </section>
+  <p>
+    "Roblox" and related names, trademarks, and intellectual property
+    belong to their respective owners.
+  </p>
+</section>
 
-    <section>
-      <h2>7. Intellectual property</h2>
-      <p>
-        You may not reproduce, redistribute, modify, sell, or commercially
-        exploit RSF's protected content except where permitted by the
-        applicable rights holder or by law.
-      </p>
-    </section>
+<section>
+  <h2>3. Use of RSF</h2>
 
-    <section>
-      <h2>8. Changes</h2>
-      <p>
-        We may update these Terms of Use when necessary. The current version
-        published on this page will apply to future use of the website.
-      </p>
-    </section>
+  <p>
+    You agree to use RSF responsibly and lawfully.
+  </p>
 
-    <section>
-      <h2>9. Contact</h2>
-      <p>
-        Questions regarding these Terms of Use can be sent to
-        [CONTACT EMAIL].
-      </p>
-    </section>
+  <p>
+    You must not use RSF to:
+  </p>
 
-  </main>
+  <ul>
+    <li>Upload or distribute unlawful content</li>
+    <li>Intentionally distribute harmful or malicious material</li>
+    <li>Harass, threaten, or abuse other users</li>
+    <li>Impersonate another person or organization</li>
+    <li>Attempt to gain unauthorized access to accounts or systems</li>
+    <li>Interfere with the operation or security of RSF</li>
+    <li>Abuse bugs or vulnerabilities in a way that harms RSF or its users</li>
+    <li>Submit content that violates applicable law or the rights of others</li>
+  </ul>
+</section>
 
-  <footer>
-    <div>
-      <span>RSF</span>
-    </div>
+<section>
+  <h2>4. User-created content</h2>
 
-    <div class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Use</a>
-    </div>
-  </footer>
+  <p>
+    RSF may allow users to submit content, including posts, comments,
+    statistics, profiles, submissions, or other material.
+  </p>
 
-  <script>
-    window.addEventListener("load", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
-      });
-    });
+  <p>
+    You remain responsible for content you submit.
+  </p>
 
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", event => {
-        const url = new URL(link.href, window.location.href);
+  <p>
+    You represent that you have the necessary rights or permissions
+    to submit content you publish through RSF.
+  </p>
 
-        if (
-          url.origin !== window.location.origin ||
-          event.ctrlKey ||
-          event.metaKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
-        }
+  <p>
+    You must not knowingly submit content that infringes another
+    person's copyright, trademark, privacy, or other legal rights.
+  </p>
 
-        if (url.href === window.location.href) return;
+  <p>
+    By submitting content to RSF, you grant RSF the limited rights
+    reasonably necessary to host, store, display, reproduce, and
+    technically process that content for operating and providing RSF.
+  </p>
 
-        event.preventDefault();
-        document.body.classList.remove("page-loaded");
+  <p>
+    This does not transfer ownership of your original content to RSF.
+  </p>
+</section>
 
-        setTimeout(() => {
-          window.location.href = url.href;
-        }, 90);
-      });
-    });
-  </script>
+<section>
+  <h2>5. Moderation and account suspension</h2>
 
-</body>
-</html>
+  <p>
+    RSF moderators have the right to remove content and suspend or
+    restrict accounts where they reasonably determine that an account
+    or its content is harmful, abusive, unlawful, disruptive, or
+    otherwise violates these Terms.
+  </p>
+
+  <p>
+    This may include content involving:
+  </p>
+
+  <ul>
+    <li>Harassment</li>
+    <li>Threats</li>
+    <li>Malicious activity</li>
+    <li>Illegal material</li>
+    <li>Spam</li>
+    <li>Abuse of RSF features</li>
+    <li>Attempts to manipulate statistics or database information</li>
+    <li>Repeated violations of RSF rules</li>
+  </ul>
+
+  <p>
+    RSF may also take action where necessary to comply with legal
+    obligations or respond to security incidents.
+  </p>
+</section>
+
+<section>
+  <h2>6. Statistics and database information</h2>
+
+  <p>
+    RSF may provide statistics, rankings, player information, team
+    information, historical records, and other database information.
+  </p>
+
+  <p>
+    Although RSF aims to provide accurate information, statistics and
+    database information may contain errors, omissions, outdated
+    information, or inaccuracies.
+  </p>
+
+  <p>
+    RSF does not guarantee that statistics are complete or accurate.
+  </p>
+</section>
+
+<section>
+  <h2>7. Intellectual property</h2>
+
+  <p>
+    RSF's original website design, branding, code, text, graphics,
+    and other original materials are owned by or licensed to RSF
+    unless otherwise stated.
+  </p>
+
+  <p>
+    You may not copy, reproduce, redistribute, sell, or commercially
+    exploit RSF's original materials without permission, except where
+    permitted by applicable law.
+  </p>
+
+  <p>
+    Third-party trademarks, logos, names, images, and other materials
+    remain the property of their respective owners.
+  </p>
+
+  <p>
+    Nothing in these Terms grants you ownership of third-party
+    intellectual property.
+  </p>
+</section>
+
+<section>
+  <h2>8. Roblox</h2>
+
+  <p>
+    RSF is an independent project.
+  </p>
+
+  <p>
+    RSF is not affiliated with, operated by, sponsored by, endorsed by,
+    or otherwise officially connected to Roblox Corporation.
+  </p>
+
+  <p>
+    Roblox and related trademarks and intellectual property belong to
+    Roblox Corporation or their respective owners.
+  </p>
+
+  <p>
+    Any Roblox-related information displayed by RSF is provided for
+    informational or community purposes.
+  </p>
+</section>
+
+<section>
+  <h2>9. Discord</h2>
+
+  <p>
+    Where RSF integrates with Discord, Discord remains a separate
+    service operated by its respective provider.
+  </p>
+
+  <p>
+    RSF is not responsible for Discord's availability, policies,
+    content, or services.
+  </p>
+</section>
+
+<section>
+  <h2>10. Third-party services</h2>
+
+  <p>
+    RSF may link to or interact with third-party services.
+  </p>
+
+  <p>
+    RSF does not control third-party websites, platforms, APIs, or
+    services and does not guarantee their availability, accuracy,
+    security, or reliability.
+  </p>
+</section>
+
+<section>
+  <h2>11. Availability</h2>
+
+  <p>
+    RSF is provided on an availability basis.
+  </p>
+
+  <p>
+    We may modify, suspend, discontinue, or restrict parts of RSF
+    at any time.
+  </p>
+
+  <p>
+    We do not guarantee that RSF will always be available,
+    uninterrupted, secure, error-free, or compatible with every
+    device or browser.
+  </p>
+</section>
+
+<section>
+  <h2>12. Disclaimer of warranties</h2>
+
+  <p>
+    To the maximum extent permitted by applicable law, RSF is provided
+    without warranties or guarantees that are not expressly stated
+    in these Terms.
+  </p>
+</section>
+
+<section>
+  <h2>13. Limitation of liability</h2>
+
+  <p>
+    To the maximum extent permitted by applicable law, RSF and its
+    operators, moderators, contributors, and service providers will
+    not be liable for indirect, incidental, consequential, special,
+    or similar losses arising from or related to your use of RSF.
+  </p>
+
+  <p>
+    This may include loss of data, loss of content, interruption of
+    service, loss of access, or reliance on inaccurate statistics
+    or information.
+  </p>
+
+  <p>
+    Nothing in these Terms excludes or limits liability where doing
+    so would be prohibited by applicable law.
+  </p>
+</section>
+
+<section>
+  <h2>14. Account termination</h2>
+
+  <p>
+    You may stop using RSF at any time.
+  </p>
+
+  <p>
+    RSF may suspend, restrict, or terminate access to an account
+    where permitted under these Terms.
+  </p>
+
+  <p>
+    Where appropriate, RSF may remove or restrict content associated
+    with a suspended or terminated account.
+  </p>
+</section>
+
+<section>
+  <h2>15. Changes to these Terms</h2>
+
+  <p>
+    RSF may update these Terms when necessary.
+  </p>
+
+  <p>
+    The latest version will be published on this page.
+  </p>
+</section>
+
+<section>
+  <h2>16. Severability</h2>
+
+  <p>
+    If any provision of thes
+
