@@ -1,0 +1,248 @@
+.page-loader {
+position: fixed;
+inset: 0;
+z-index: 9999;
+background: #0F0F0F;
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.page-loader.is-loading {
+opacity: 1;
+visibility: visible;
+pointer-events: all;
+}
+
+.skeleton-page {
+width: 100%;
+min-height: 100vh;
+background: #0F0F0F;
+color: #FFFFFF;
+}
+
+/* --------------------------------
+Skeleton navigation
+-------------------------------- */
+
+.skeleton-nav {
+position: relative;
+height: 68px;
+padding: 0 32px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+border-bottom: 1px solid #242424;
+}
+
+.skeleton-block {
+position: relative;
+display: block;
+overflow: hidden;
+background: #202020;
+border-radius: 2px;
+}
+
+.skeleton-block::after {
+content: "";
+position: absolute;
+inset: 0;
+background: linear-gradient(
+90deg,
+transparent 0%,
+#303030 50%,
+transparent 100%
+);
+transform: translateX(-100%);
+animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-logo {
+width: 27px;
+height: 12px;
+}
+
+.skeleton-nav-links {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+align-items: center;
+gap: 34px;
+}
+
+.skeleton-nav-links .skeleton-block {
+width: 48px;
+height: 9px;
+}
+
+.skeleton-nav-links .skeleton-block:nth-child(2) {
+width: 70px;
+}
+
+.skeleton-nav-links .skeleton-block:nth-child(3) {
+width: 72px;
+}
+
+.skeleton-nav-links .skeleton-block:nth-child(4) {
+width: 48px;
+}
+
+/* --------------------------------
+Main skeleton
+-------------------------------- */
+
+.skeleton-main {
+width: min(1180px, calc(100% - 64px));
+min-height: calc(100vh - 126px);
+margin: 0 auto;
+padding-top: 15vh;
+}
+
+/* --------------------------------
+Generic page
+-------------------------------- */
+
+.skeleton-title {
+width: 280px;
+height: 72px;
+margin-bottom: 32px;
+}
+
+.skeleton-text {
+width: 390px;
+max-width: 100%;
+height: 12px;
+margin-bottom: 12px;
+}
+
+.skeleton-text.short {
+width: 270px;
+}
+
+/* --------------------------------
+Database
+-------------------------------- */
+
+.skeleton-database {
+padding-top: 11vh;
+}
+
+.skeleton-database .skeleton-title {
+width: 250px;
+height: 58px;
+margin-bottom: 42px;
+}
+
+.skeleton-search {
+width: 100%;
+max-width: 620px;
+height: 44px;
+margin-bottom: 48px;
+}
+
+.skeleton-row {
+width: 100%;
+height: 58px;
+margin-bottom: 1px;
+border-top: 1px solid #242424;
+}
+
+/* --------------------------------
+Community
+-------------------------------- */
+
+.skeleton-community {
+padding-top: 11vh;
+}
+
+.skeleton-community .skeleton-title {
+width: 290px;
+height: 58px;
+margin-bottom: 42px;
+}
+
+.skeleton-post {
+width: min(720px, 100%);
+height: 100px;
+margin-bottom: 14px;
+border: 1px solid #242424;
+}
+
+/* --------------------------------
+Arcade
+-------------------------------- */
+
+.skeleton-arcade {
+padding-top: 11vh;
+}
+
+.skeleton-arcade .skeleton-title {
+width: 210px;
+height: 58px;
+margin-bottom: 42px;
+}
+
+.skeleton-games {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+max-width: 900px;
+}
+
+.skeleton-game {
+height: 190px;
+border: 1px solid #242424;
+}
+
+/* --------------------------------
+Shimmer
+-------------------------------- */
+
+@keyframes skeleton-shimmer {
+100% {
+transform: translateX(100%);
+}
+}
+
+/* --------------------------------
+Mobile
+-------------------------------- */
+
+@media (max-width: 800px) {
+.skeleton-nav {
+padding: 0 20px;
+}
+
+
+.skeleton-nav-links {
+    right: 20px;
+    left: auto;
+    transform: none;
+    gap: 20px;
+}
+
+.skeleton-nav-links .skeleton-block:nth-child(3),
+.skeleton-nav-links .skeleton-block:nth-child(4) {
+    display: none;
+}
+
+.skeleton-main {
+    width: calc(100% - 40px);
+}
+
+.skeleton-games {
+    grid-template-columns: 1fr;
+}
+
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+.page-loader,
+.skeleton-block::after {
+animation: none;
+transition: none;
+}
+}
