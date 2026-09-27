@@ -7,43 +7,26 @@
   <meta name="description" content="RSF">
   <title>RSF — Main</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    html {
+      background: #0F0F0F;
+    }
+
+    body {
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    body.page-loaded {
+      opacity: 1;
+    }
+  </style>
+
 </head>
 
 <body>
 
-<script>
-document.querySelectorAll('a[href]').forEach(link => {
-    link.addEventListener('click', function (e) {
-        const url = this.href;
-
-        if (
-            !url ||
-            this.target === '_blank' ||
-            url.startsWith('mailto:') ||
-            url.startsWith('tel:') ||
-            new URL(url).origin !== window.location.origin
-        ) {
-            return;
-        }
-
-        e.preventDefault();
-
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 180ms ease';
-
-        setTimeout(() => {
-            window.location.href = url;
-        }, 180);
-    });
-});
-
-window.addEventListener('pageshow', () => {
-    document.body.style.opacity = '1';
-    document.body.style.transition = 'opacity 180ms ease';
-});
-</script>
-
-  
   <header class="topbar">
     <a href="/" class="logo">RSF</a>
 
@@ -79,6 +62,37 @@ window.addEventListener('pageshow', () => {
     <span>RSF</span>
     <span>2026</span>
   </footer>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.body.classList.add("page-loaded");
+    });
+
+    document.querySelectorAll("a[href]").forEach(link => {
+      link.addEventListener("click", event => {
+        const url = new URL(link.href, window.location.href);
+
+        if (
+          url.origin !== window.location.origin ||
+          link.target === "_blank" ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        document.body.classList.remove("page-loaded");
+
+        setTimeout(() => {
+          window.location.href = url.href;
+        }, 180);
+      });
+    });
+  </script>
 
 </body>
 </html>
