@@ -15,22 +15,38 @@
 
 <body>
 
-<div class="page-loader" aria-hidden="true">
-    <div class="skeleton-page">
-        <div class="skeleton-nav">
-            <span class="skeleton-block skeleton-logo"></span>
-            <div class="skeleton-nav-links">
-                <span class="skeleton-block"></span>
-                <span class="skeleton-block"></span>
-                <span class="skeleton-block"></span>
-                <span class="skeleton-block"></span>
-            </div>
-        </div>
+<script>
+document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', function (e) {
+        const url = this.href;
 
-    <div class="skeleton-main" id="skeleton-main"></div>
-</div>
+        if (
+            !url ||
+            this.target === '_blank' ||
+            url.startsWith('mailto:') ||
+            url.startsWith('tel:') ||
+            new URL(url).origin !== window.location.origin
+        ) {
+            return;
+        }
 
-</div>
+        e.preventDefault();
+
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 180ms ease';
+
+        setTimeout(() => {
+            window.location.href = url;
+        }, 180);
+    });
+});
+
+window.addEventListener('pageshow', () => {
+    document.body.style.opacity = '1';
+    document.body.style.transition = 'opacity 180ms ease';
+});
+</script>
+
 
 
 <header class="topbar">
