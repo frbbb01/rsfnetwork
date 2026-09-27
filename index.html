@@ -37,9 +37,6 @@
       --border: #292929;
       --border-soft: #222222;
       --white: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.42);
-      --faint: rgba(255, 255, 255, 0.24);
-      --blue: rgba(50, 112, 190, 0.12);
     }
 
     * {
@@ -48,28 +45,28 @@
 
     html {
       min-height: 100%;
-      background: var(--bg);
+      background: #0F0F0F;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
 
-      background:
-        radial-gradient(
-          circle at 78% 7%,
-          rgba(38, 91, 150, 0.13),
-          transparent 34%
-        ),
-        radial-gradient(
-          circle at 18% 55%,
-          rgba(24, 55, 100, 0.055),
-          transparent 38%
-        ),
-        var(--bg);
-
       color: var(--white);
       font-family: "Montserrat", sans-serif;
+
+      background:
+        radial-gradient(
+          ellipse 900px 600px at 78% 4%,
+          rgba(38, 91, 150, 0.10),
+          transparent 72%
+        ),
+        radial-gradient(
+          ellipse 700px 500px at 12% 58%,
+          rgba(24, 55, 100, 0.045),
+          transparent 72%
+        ),
+        #0F0F0F;
 
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -423,7 +420,7 @@
       background:
         radial-gradient(
           circle,
-          rgba(54, 119, 197, 0.075),
+          rgba(54, 119, 197, 0.065),
           transparent 70%
         );
 
@@ -447,18 +444,6 @@
 
     .module:hover::after {
       opacity: 1;
-    }
-
-    .module-meta {
-      margin-bottom: 11px;
-
-      font-size: 8px;
-      font-weight: 500;
-
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-
-      color: rgba(255, 255, 255, 0.27);
     }
 
     .module-title {
@@ -491,7 +476,7 @@
 
 
     /* =========================================
-       MODULE FOOTER / BUTTON
+       BUTTONS
     ========================================= */
 
     .module-bottom {
@@ -500,20 +485,23 @@
 
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
 
       border-top: 1px solid #222;
-    }
-
-    .module-index {
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.23);
     }
 
     .module-link {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+
+      min-height: 28px;
+      padding: 0 10px;
+
+      border: 1px solid #303030;
+      border-radius: 4px;
+
+      background: rgba(255, 255, 255, 0.018);
 
       font-size: 8px;
       font-weight: 700;
@@ -524,12 +512,26 @@
 
       transition:
         color 140ms ease,
-        gap 140ms ease;
+        background 140ms ease,
+        border-color 140ms ease,
+        gap 140ms ease,
+        transform 140ms ease;
     }
 
     .module-link:hover {
       color: #FFFFFF;
+
+      background: rgba(255, 255, 255, 0.055);
+
+      border-color: #414141;
+
       gap: 11px;
+
+      transform: translateY(-1px);
+    }
+
+    .module-link:active {
+      transform: translateY(0);
     }
 
     .module-arrow {
@@ -559,19 +561,10 @@
       max-width: 270px;
     }
 
-    .database::before {
-      content: "01";
 
-      position: absolute;
-
-      top: 24px;
-      right: 25px;
-
-      font-size: 8px;
-      letter-spacing: 0.08em;
-
-      color: rgba(255, 255, 255, 0.20);
-    }
+    /* =========================================
+       RSF / ARCADE
+    ========================================= */
 
     .rsf-module {
       grid-column: 1;
@@ -633,7 +626,7 @@
       background:
         linear-gradient(
           100deg,
-          rgba(36, 78, 125, 0.045),
+          rgba(36, 78, 125, 0.035),
           rgba(255, 255, 255, 0.008)
         );
 
@@ -648,7 +641,7 @@
       background:
         linear-gradient(
           100deg,
-          rgba(36, 78, 125, 0.075),
+          rgba(36, 78, 125, 0.06),
           rgba(255, 255, 255, 0.012)
         );
     }
@@ -853,10 +846,6 @@
 
 <body>
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
-
   <header class="topbar">
 
 
@@ -921,10 +910,6 @@
 
   </header>
 
-  <!-- =========================================
-       MAIN
-  ========================================== -->
-
   <main>
 
 
@@ -974,18 +959,12 @@
 </section>
 
 
-<!-- MAIN GRID -->
+<!-- GRID -->
 
 <section class="main-grid" aria-label="RSF sections">
 
 
-  <!-- RSF -->
-
   <article class="module rsf-module">
-
-    <div class="module-meta">
-      Community
-    </div>
 
     <h2 class="module-title">
       RSF
@@ -997,10 +976,6 @@
 
     <div class="module-bottom">
 
-      <span class="module-index">
-        02
-      </span>
-
       <a href="/rsf" class="module-link">
         EXPLORE RSF
         <span class="module-arrow">→</span>
@@ -1011,13 +986,7 @@
   </article>
 
 
-  <!-- DATABASE -->
-
   <article class="module database">
-
-    <div class="module-meta">
-      Records / History
-    </div>
 
     <h2 class="module-title">
       DATABASE
@@ -1029,10 +998,6 @@
 
     <div class="module-bottom">
 
-      <span class="module-index">
-        01
-      </span>
-
       <a href="/database" class="module-link">
         OPEN DATABASE
         <span class="module-arrow">→</span>
@@ -1043,13 +1008,7 @@
   </article>
 
 
-  <!-- ARCADE -->
-
   <article class="module arcade-module">
-
-    <div class="module-meta">
-      Interactive
-    </div>
 
     <h2 class="module-title">
       ARCADE
@@ -1061,10 +1020,6 @@
 
     <div class="module-bottom">
 
-      <span class="module-index">
-        03
-      </span>
-
       <a href="/arcade" class="module-link">
         ENTER ARCADE
         <span class="module-arrow">→</span>
@@ -1075,15 +1030,9 @@
   </article>
 
 
-  <!-- COMMUNITY -->
-
   <article class="module community">
 
     <div>
-
-      <div class="module-meta">
-        The wider RSF space
-      </div>
 
       <h2 class="module-title">
         COMMUNITY
@@ -1097,10 +1046,6 @@
 
     <div class="module-bottom">
 
-      <span class="module-index">
-        04
-      </span>
-
       <a href="/community" class="module-link">
         VIEW COMMUNITY
         <span class="module-arrow">→</span>
@@ -1110,8 +1055,6 @@
 
   </article>
 
-
-  <!-- FEATURED -->
 
   <div class="feature">
 
@@ -1129,10 +1072,6 @@
 
 
   </main>
-
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
 
   <footer>
 
@@ -1165,10 +1104,6 @@
 
   </footer>
 
-  <!-- =========================================
-       RSF NEWS — GOOGLE SHEETS
-  ========================================== -->
-
   <script>
 
     const NEWS_CSV_URL =
@@ -1181,7 +1116,6 @@
 
       let row = [];
       let cell = "";
-
       let insideQuotes = false;
 
 
@@ -1322,12 +1256,6 @@
         }
 
 
-        /*
-          A1 = image
-          B1 = description
-          C1 = date
-        */
-
         const imageURL =
           cleanValue(rows[0][0]);
 
@@ -1337,8 +1265,6 @@
         const newsDate =
           cleanValue(rows[0][2]);
 
-
-        /* B1 */
 
         if (newsText) {
 
@@ -1360,14 +1286,10 @@
         }
 
 
-        /* C1 */
-
         updated.textContent =
           "Last updated: " +
           (newsDate || "—");
 
-
-        /* A1 */
 
         if (imageURL) {
 
