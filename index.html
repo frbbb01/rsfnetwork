@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="RSF">
   <title>RSF — Main</title>
+
   <link rel="stylesheet" href="style.css">
 
   <style>
@@ -15,11 +16,15 @@
 
     body {
       opacity: 0;
-      transition: opacity 180ms ease;
+      transform: translateY(4px);
+      transition:
+        opacity 120ms ease-out,
+        transform 120ms ease-out;
     }
 
     body.page-loaded {
       opacity: 1;
+      transform: translateY(0);
     }
   </style>
 
@@ -65,7 +70,9 @@
 
   <script>
     window.addEventListener("load", () => {
-      document.body.classList.add("page-loaded");
+      requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
+      });
     });
 
     document.querySelectorAll("a[href]").forEach(link => {
@@ -89,7 +96,7 @@
 
         setTimeout(() => {
           window.location.href = url.href;
-        }, 180);
+        }, 120);
       });
     });
   </script>
