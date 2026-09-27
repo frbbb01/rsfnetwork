@@ -143,11 +143,11 @@ display: grid;
 
 grid-template-columns:
     minmax(0, 1fr)
-    360px;
+    230px;
 
 align-items: center;
 
-gap: 120px;
+gap: 55px;
 
 
 }
@@ -222,11 +222,11 @@ gap: 14px;
 /* SVG REPO ICON */
 
 .error-icon {
-width: 360px;
-height: 360px;
+width: 230px;
+height: 230px;
 
 
-justify-self: center;
+justify-self: start;
 
 background-image: url("https://www.svgrepo.com/show/57699/repair-wrench.svg");
 
@@ -296,7 +296,7 @@ opacity: 0.35;
 .error-layout {
     grid-template-columns: 1fr;
 
-    gap: 70px;
+    gap: 50px;
 }
 
 
@@ -306,10 +306,10 @@ opacity: 0.35;
 
 
 .error-icon {
-    width: 230px;
-    height: 230px;
+    width: 180px;
+    height: 180px;
 
-    justify-self: center;
+    justify-self: start;
 }
 
 
