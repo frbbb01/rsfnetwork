@@ -1,166 +1,730 @@
-@font-face {
-font-family: "Montserrat";
-src: url("./fonts/Montserrat-Regular.woff2") format("woff2");
-font-weight: 400;
-font-display: swap;
-}
+<style>
+  /* =========================================
+     RSF HOMEPAGE ATMOSPHERE
+  ========================================= */
 
-@font-face {
-font-family: "Montserrat";
-src: url("./fonts/Montserrat-Medium.woff2") format("woff2");
-font-weight: 500;
-font-display: swap;
-}
-
-@font-face {
-font-family: "Montserrat";
-src: url("./fonts/Montserrat-Bold.woff2") format("woff2");
-font-weight: 700;
-font-display: swap;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  body {
+    background:
+      radial-gradient(
+        circle at 78% 8%,
+        rgba(38, 91, 150, 0.13),
+        transparent 34%
+      ),
+      radial-gradient(
+        circle at 18% 55%,
+        rgba(24, 55, 100, 0.055),
+        transparent 38%
+      ),
+      #0F0F0F;
   }
 
-html {
-min-height: 100%;
-}
 
-body {
-min-height: 100vh;
-background: #0F0F0F;
-color: #FFFFFF;
-font-family: "Montserrat", Arial, sans-serif;
-}
+  /* =========================================
+     GRID WRAPPER
+  ========================================= */
 
-a {
-color: #FFFFFF;
-text-decoration: none;
-}
+  main {
+    width: min(1020px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 48px 0 70px;
+  }
 
-.topbar {
-height: 68px;
-padding: 0 32px;
-display: flex;
-align-items: center;
-border-bottom: 1px solid #242424;
-}
 
-.logo {
-font-size: 18px;
-font-weight: 700;
-letter-spacing: -0.07em;
-}
+  /* =========================================
+     RSF NEWS
+  ========================================= */
 
-.navigation {
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-align-items: center;
-gap: 34px;
-}
+  .news {
+    min-height: 132px;
 
-.navigation a {
-font-size: 11px;
-font-weight: 400;
-letter-spacing: 0.02em;
-opacity: 0.55;
-transition: opacity 0.2s ease;
-}
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 230px;
 
-.navigation a:hover {
-opacity: 1;
-}
+    border: 1px solid #292929;
+    background: rgba(255, 255, 255, 0.008);
 
-.navigation a.active {
-font-weight: 700;
-opacity: 1;
-}
+    overflow: hidden;
 
-.home {
-min-height: calc(100vh - 126px);
-display: flex;
-align-items: center;
-padding: 40px 32px;
-}
+    transition:
+      border-color 160ms ease,
+      background 160ms ease;
+  }
 
-.hero {
-width: 100%;
-max-width: 1100px;
-margin: 0 auto;
-}
+  .news:hover {
+    border-color: #363636;
+    background: rgba(255, 255, 255, 0.014);
+  }
 
-.eyebrow {
-display: block;
-margin-bottom: 20px;
-font-size: 10px;
-font-weight: 500;
-letter-spacing: 0.15em;
-opacity: 0.4;
-}
+  .news-content {
+    min-width: 0;
+    padding: 22px 25px 19px;
 
-h1 {
-font-size: clamp(64px, 10vw, 150px);
-line-height: 0.9;
-font-weight: 500;
-letter-spacing: -0.08em;
-}
+    display: flex;
+    flex-direction: column;
+  }
 
-.hero p {
-margin-top: 28px;
-font-size: 13px;
-font-weight: 400;
-opacity: 0.45;
-}
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-footer {
-height: 58px;
-padding: 0 32px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-border-top: 1px solid #242424;
-color: #FFFFFF;
-font-size: 9px;
-font-weight: 400;
-letter-spacing: 0.12em;
-opacity: 0.35;
-}
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
 
-@media (max-width: 700px) {
-.topbar {
-padding: 0 18px;
-}
+  .news-dot {
+    width: 5px;
+    height: 5px;
 
-.navigation {
-position: static;
-transform: none;
-margin-left: auto;
-gap: 16px;
-}
+    border-radius: 50%;
+    background: #4F9BFF;
 
-.navigation a {
-font-size: 9px;
-}
+    box-shadow:
+      0 0 0 3px rgba(79, 155, 255, 0.07);
+  }
 
-.navigation a:nth-child(3),
-.navigation a:nth-child(4) {
-display: none;
-}
+  .news-description {
+    margin-top: 16px;
+    max-width: 670px;
 
-.home {
-padding: 30px 18px;
-}
+    font-size: 12px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
 
-h1 {
-font-size: 22vw;
-}
+    color: rgba(255, 255, 255, 0.72);
+  }
 
-footer {
-padding: 0 18px;
-}
-}
+  .news-description.empty {
+    color: rgba(255, 255, 255, 0.28);
+  }
+
+  .news-footer {
+    margin-top: auto;
+    padding-top: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #202020;
+
+    font-size: 8px;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.30);
+  }
+
+  .news-image {
+    min-width: 0;
+
+    border-left: 1px solid #292929;
+
+    overflow: hidden;
+    background: #111;
+
+    display: none;
+  }
+
+  .news-image.visible {
+    display: block;
+  }
+
+  .news-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0.72;
+
+    transition:
+      opacity 180ms ease,
+      transform 220ms ease;
+  }
+
+  .news:hover .news-image img {
+    opacity: 0.88;
+    transform: scale(1.025);
+  }
+
+
+  /* =========================================
+     MAIN GRID
+  ========================================= */
+
+  .main-grid {
+    margin-top: 14px;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(0, 0.94fr)
+      minmax(0, 1.06fr);
+
+    grid-template-rows:
+      185px
+      185px;
+
+    gap: 14px;
+  }
+
+
+  /* =========================================
+     MODULES
+  ========================================= */
+
+  .module {
+    position: relative;
+
+    min-height: 0;
+
+    padding: 24px 25px 21px;
+
+    border: 1px solid #292929;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.012),
+        rgba(255, 255, 255, 0)
+      );
+
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease;
+  }
+
+  .module::after {
+    content: "";
+
+    position: absolute;
+
+    right: -55px;
+    bottom: -75px;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(54, 119, 197, 0.075),
+        transparent 70%
+      );
+
+    opacity: 0;
+
+    transition: opacity 180ms ease;
+  }
+
+  .module:hover {
+    border-color: #373737;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.018),
+        rgba(255, 255, 255, 0)
+      );
+
+    transform: translateY(-1px);
+  }
+
+  .module:hover::after {
+    opacity: 1;
+  }
+
+
+  /* =========================================
+     MODULE LABELS
+  ========================================= */
+
+  .module-meta {
+    margin-bottom: 11px;
+
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.27);
+  }
+
+  .module-title {
+    margin: 0;
+
+    font-size: clamp(27px, 3.2vw, 39px);
+    line-height: 0.95;
+
+    font-weight: 700;
+    letter-spacing: -0.07em;
+
+    transition:
+      transform 160ms ease,
+      opacity 160ms ease;
+  }
+
+  .module:hover .module-title {
+    transform: translateX(2px);
+  }
+
+  .module-description {
+    margin: 14px 0 0;
+
+    max-width: 350px;
+
+    font-size: 9px;
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, 0.40);
+  }
+
+
+  /* =========================================
+     MODULE FOOTER
+  ========================================= */
+
+  .module-bottom {
+    margin-top: auto;
+
+    padding-top: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #222;
+  }
+
+  .module-index {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.23);
+  }
+
+  .module-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+
+    color: rgba(255, 255, 255, 0.57);
+
+    transition:
+      color 140ms ease,
+      gap 140ms ease;
+  }
+
+  .module-link:hover {
+    color: #FFFFFF;
+    gap: 11px;
+  }
+
+  .module-arrow {
+    font-size: 10px;
+    line-height: 1;
+  }
+
+
+  /* =========================================
+     DATABASE
+  ========================================= */
+
+  .database {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+
+    min-height: 384px;
+
+    padding-right: 29px;
+  }
+
+  .database .module-title {
+    font-size: clamp(35px, 4vw, 52px);
+  }
+
+  .database .module-description {
+    max-width: 270px;
+  }
+
+  .database::before {
+    content: "01";
+
+    position: absolute;
+    top: 24px;
+    right: 25px;
+
+    font-size: 8px;
+    letter-spacing: 0.08em;
+
+    color: rgba(255, 255, 255, 0.20);
+  }
+
+
+  /* =========================================
+     RSF / ARCADE
+  ========================================= */
+
+  .rsf-module {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .arcade-module {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+
+  /* =========================================
+     COMMUNITY
+  ========================================= */
+
+  .community {
+    grid-column: 1 / span 2;
+
+    min-height: 142px;
+
+    padding-top: 22px;
+    padding-bottom: 20px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 35px;
+  }
+
+  .community .module-description {
+    margin-top: 10px;
+    max-width: 470px;
+  }
+
+  .community .module-bottom {
+    grid-column: 1 / span 2;
+  }
+
+
+  /* =========================================
+     FEATURED AREA
+  ========================================= */
+
+  .feature {
+    min-height: 105px;
+
+    grid-column: 1 / span 2;
+
+    border: 1px solid #242424;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    background:
+      linear-gradient(
+        100deg,
+        rgba(36, 78, 125, 0.045),
+        rgba(255, 255, 255, 0.008)
+      );
+
+    transition:
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .feature:hover {
+    border-color: #303030;
+
+    background:
+      linear-gradient(
+        100deg,
+        rgba(36, 78, 125, 0.075),
+        rgba(255, 255, 255, 0.012)
+      );
+  }
+
+  .feature-label {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.30);
+  }
+
+  .feature-note {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.20);
+  }
+
+
+  /* =========================================
+     MOBILE
+  ========================================= */
+
+  @media (max-width: 760px) {
+
+    main {
+      width: min(100% - 28px, 600px);
+      padding-top: 30px;
+    }
+
+    .news {
+      grid-template-columns: 1fr;
+    }
+
+    .news-image {
+      order: -1;
+
+      min-height: 150px;
+
+      border-left: 0;
+      border-bottom: 1px solid #292929;
+    }
+
+    .news-image img {
+      min-height: 150px;
+      max-height: 190px;
+    }
+
+    .main-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+
+    .rsf-module,
+    .arcade-module,
+    .database,
+    .community,
+    .feature {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .database {
+      min-height: 250px;
+    }
+
+    .module {
+      min-height: 190px;
+    }
+
+    .community {
+      min-height: 150px;
+    }
+
+    .feature {
+      min-height: 90px;
+    }
+  }
+</style>
+
+<main>
+
+  <!-- RSF NEWS -->
+
+  <section class="news" aria-label="RSF News">
+
+
+<div class="news-content">
+
+  <div class="section-label">
+    <span class="news-dot"></span>
+    RSF NEWS
+  </div>
+
+  <div
+    id="news-description"
+    class="news-description empty"
+  >
+    Loading latest news...
+  </div>
+
+  <div class="news-footer">
+
+    <span id="news-updated">
+      Last updated: —
+    </span>
+
+    <span>
+      RSF / NEWS
+    </span>
+
+  </div>
+
+</div>
+
+<div id="news-image" class="news-image">
+  <img id="news-image-element" src="" alt="">
+</div>
+
+
+  </section>
+
+  <!-- MAIN GRID -->
+
+  <section class="main-grid" aria-label="RSF sections">
+
+
+<!-- RSF -->
+
+<article class="module rsf-module">
+
+  <div class="module-meta">
+    Community
+  </div>
+
+  <h2 class="module-title">
+    RSF
+  </h2>
+
+  <p class="module-description">
+    The home of RSF, its history, people and everything surrounding the community.
+  </p>
+
+  <div class="module-bottom">
+
+    <span class="module-index">
+      02
+    </span>
+
+    <a href="/rsf" class="module-link">
+      EXPLORE RSF
+      <span class="module-arrow">→</span>
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- DATABASE -->
+
+<article class="module database">
+
+  <div class="module-meta">
+    Records / History
+  </div>
+
+  <h2 class="module-title">
+    DATABASE
+  </h2>
+
+  <p class="module-description">
+    Explore the RSF playerbase, teams, seasons and the records that make up its history.
+  </p>
+
+  <div class="module-bottom">
+
+    <span class="module-index">
+      01
+    </span>
+
+    <a href="/database" class="module-link">
+      OPEN DATABASE
+      <span class="module-arrow">→</span>
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- ARCADE -->
+
+<article class="module arcade-module">
+
+  <div class="module-meta">
+    Interactive
+  </div>
+
+  <h2 class="module-title">
+    ARCADE
+  </h2>
+
+  <p class="module-description">
+    Games, experiments and smaller interactive projects built around RSF.
+  </p>
+
+  <div class="module-bottom">
+
+    <span class="module-index">
+      03
+    </span>
+
+    <a href="/arcade" class="module-link">
+      ENTER ARCADE
+      <span class="module-arrow">→</span>
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- COMMUNITY -->
+
+<article class="module community">
+
+  <div>
+
+    <div class="module-meta">
+      The wider RSF space
+    </div>
+
+    <h2 class="module-title">
+      COMMUNITY
+    </h2>
+
+    <p class="module-description">
+      Videos, development, resources and the latest things happening around RSF.
+    </p>
+
+  </div>
+
+  <div class="module-bottom">
+
+    <span class="module-index">
+      04
+    </span>
+
+    <a href="/community" class="module-link">
+      VIEW COMMUNITY
+      <span class="module-arrow">→</span>
+    </a>
+
+  </div>
+
+</article>
+
+
+<!-- FEATURE -->
+
+<div class="feature">
+
+  <span class="feature-label">
+    Featured
+  </span>
+
+  <span class="feature-note">
+    More from RSF
+  </span>
+
+</div>
+
+
+  </section>
+
+</main>
