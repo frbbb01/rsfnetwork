@@ -4,171 +4,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Privacy Policy — RSF</title>
-  <meta name="description" content="RSF Privacy Policy.">
-  <meta name="theme-color" content="#0F0F0F">
 
   <style>
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-regular.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
       font-weight: 400;
+      font-style: normal;
       font-display: swap;
     }
 
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-medium.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
       font-weight: 500;
+      font-style: normal;
       font-display: swap;
     }
 
     @font-face {
       font-family: "Montserrat";
-      src: url("/fonts/montserrat-bold.woff2") format("woff2");
+      src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
       font-weight: 700;
+      font-style: normal;
       font-display: swap;
-    }
-
-    html {
-      background: #0F0F0F;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-
+    html {
       background: #0F0F0F;
-      color: #FFFFFF;
-
-      font-family: "Montserrat", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-
-      opacity: 0;
-      transform: translateY(3px);
-
-      transition:
-        opacity 90ms ease-out,
-        transform 90ms ease-out;
     }
 
-    body.page-loaded {
-      opacity: 1;
-      transform: translateY(0);
+    body {
+      margin: 0;
+      background: #0F0F0F;
+      color: #FFFFFF;
+      font-family: "Montserrat", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .topbar {
       height: 68px;
       padding: 0 32px;
-
       border-bottom: 1px solid #242424;
-
       display: flex;
       align-items: center;
+      position: relative;
     }
 
     .logo {
-      color: #FFFFFF;
-      text-decoration: none;
-
       font-size: 12px;
       font-weight: 700;
       letter-spacing: -0.02em;
+    }
+
+    .navigation {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-item {
+      position: relative;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      opacity: 0.48;
+      transition: opacity 120ms ease;
+    }
+
+    .nav-item:hover,
+    .nav-item:focus-within,
+    .nav-item.active {
+      opacity: 1;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 68px;
+    }
+
+    .arrow {
+      font-size: 8px;
+      opacity: 0.65;
+      transform: translateY(-1px);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 7px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 170px;
+      padding: 6px;
+      background: #151515;
+      border: 1px solid #292929;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 100ms ease, visibility 100ms ease;
+      z-index: 20;
+    }
+
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .dropdown a {
+      min-height: 32px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 500;
+      opacity: 0.52;
+      transition: background 100ms ease, opacity 100ms ease;
+    }
+
+    .dropdown a:hover {
+      background: #202020;
+      opacity: 1;
     }
 
     .page {
-      width: min(760px, calc(100% - 40px));
+      width: min(760px, calc(100% - 64px));
       margin: 0 auto;
-      padding: 90px 0 110px;
+      padding: 90px 0 100px;
     }
 
-    h1 {
+    .page-header {
+      margin-bottom: 64px;
+    }
+
+    .page-header h1 {
       margin: 0;
-
-      font-size: clamp(40px, 7vw, 64px);
+      font-size: clamp(42px, 6vw, 68px);
       line-height: 0.95;
-      letter-spacing: -0.06em;
       font-weight: 700;
+      letter-spacing: -0.07em;
     }
 
-    .updated {
-      margin-top: 18px;
-
-      font-size: 10px;
-      line-height: 1.5;
-      opacity: 0.35;
+    .page-header p {
+      margin: 20px 0 0;
+      font-size: 11px;
+      line-height: 1.7;
+      opacity: 0.4;
     }
 
-    section {
-      margin-top: 52px;
+    .section {
+      margin-bottom: 48px;
     }
 
-    h2 {
-      margin: 0 0 15px;
-
-      font-size: 16px;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 13px;
+      line-height: 1.4;
       font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
-    p,
-    li {
+    .section p,
+    .section li {
       font-size: 12px;
-      line-height: 1.8;
+      line-height: 1.85;
       font-weight: 400;
-      opacity: 0.62;
+      opacity: 0.58;
     }
 
-    ul {
+    .section p {
+      margin: 0 0 14px;
+    }
+
+    .section ul {
+      margin: 0;
       padding-left: 18px;
     }
 
-    li + li {
-      margin-top: 5px;
+    .section li {
+      margin-bottom: 6px;
     }
 
     .contact-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       min-height: 36px;
-      padding: 0 15px;
+      padding: 0 16px;
       margin-top: 8px;
-
       border: 1px solid #303030;
-      background: #151515;
-
-      color: #FFFFFF;
-      text-decoration: none;
-
       font-size: 10px;
-      font-weight: 600;
-
-      transition:
-        background 90ms ease-out,
-        border-color 90ms ease-out,
-        opacity 90ms ease-out;
+      font-weight: 700;
+      opacity: 0.7;
+      transition: background 100ms ease, opacity 100ms ease;
     }
 
     .contact-button:hover {
-      background: #202020;
-      border-color: #3A3A3A;
+      background: #191919;
+      opacity: 1;
     }
 
     .footer {
       min-height: 58px;
       padding: 0 32px;
-
       border-top: 1px solid #242424;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -180,49 +235,43 @@
       display: flex;
       align-items: center;
       gap: 18px;
-    }
-
-    .footer span,
-    .footer a {
-      color: #FFFFFF;
-      text-decoration: none;
-
       font-size: 9px;
-      font-weight: 500;
-
       opacity: 0.35;
     }
 
     .footer a:hover {
-      opacity: 0.75;
+      opacity: 1;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .topbar {
         padding: 0 20px;
       }
 
+      .navigation {
+        gap: 16px;
+      }
+
+      .nav-item {
+        font-size: 9px;
+      }
+
+      .logo {
+        display: none;
+      }
+
       .page {
-        padding: 60px 0 80px;
+        width: min(100% - 40px, 760px);
+        padding-top: 64px;
       }
 
       .footer {
-        padding: 14px 20px;
-
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 9px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      body,
-      .contact-button {
-        transition: none;
+        padding: 0 20px;
       }
 
-      body {
-        transform: none;
+      .footer-left,
+      .footer-right {
+        gap: 10px;
       }
     }
   </style>
@@ -233,43 +282,83 @@
 
   <header class="topbar">
     <a href="/" class="logo">RSF</a>
+
+
+<nav class="navigation">
+
+  <div class="nav-item">
+    <a href="/" class="nav-link">MAIN</a>
+  </div>
+
+  <div class="nav-item active">
+    <a href="/database" class="nav-link">
+      DATABASE
+      <span class="arrow">▾</span>
+    </a>
+
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/community" class="nav-link">
+      COMMUNITY
+      <span class="arrow">▾</span>
+    </a>
+
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/arcade" class="nav-link">ARCADE</a>
+  </div>
+
+  <div class="nav-item">
+    <a href="/rsf" class="nav-link">RSF</a>
+  </div>
+
+</nav>
+
+
   </header>
 
   <main class="page">
 
 
-<h1>Privacy Policy</h1>
+<header class="page-header">
+  <h1>Privacy Policy.</h1>
+  <p>Last updated: 27 September 2026</p>
+</header>
 
-<div class="updated">
-  Last updated: 27 September 2026
-</div>
-
-<section>
-  <h2>1. Who we are</h2>
-
+<section class="section">
+  <h2>1. About this policy</h2>
   <p>
-    RSF is an independent website and community project.
-    For privacy-related questions, requests, or concerns, you can
-    contact RSF through the contact page.
+    RSF is an independent website and community project. This Privacy Policy
+    explains what information RSF may collect, how it may be used, and the
+    choices available to users.
   </p>
-
-  <a href="/contact" class="contact-button">
-    Contact RSF
-  </a>
+  <p>
+    If you have a privacy question or request, you can contact RSF through
+    the contact page.
+  </p>
+  <a href="/contact" class="contact-button">Contact RSF</a>
 </section>
 
-<section>
+<section class="section">
   <h2>2. Information we collect</h2>
-
   <p>
-    RSF is designed to collect as little personal information as
-    reasonably possible.
+    RSF is designed to collect as little personal information as reasonably
+    possible.
   </p>
-
-  <p>
-    RSF does not intentionally store:
-  </p>
-
+  <p>RSF does not intentionally store:</p>
   <ul>
     <li>IP addresses</li>
     <li>Location information</li>
@@ -278,12 +367,7 @@
     <li>Telephone numbers</li>
     <li>Home addresses</li>
   </ul>
-
-  <p>
-    The information RSF may store is limited to information necessary
-    to operate its features. This may include:
-  </p>
-
+  <p>RSF may store information necessary to operate the service, including:</p>
   <ul>
     <li>User-created content</li>
     <li>Roblox usernames</li>
@@ -292,164 +376,153 @@
   </ul>
 </section>
 
-<section>
-  <h2>3. Logging in is optional</h2>
-
+<section class="section">
+  <h2>3. Optional login</h2>
   <p>
-    You do not need to create or log into an RSF account simply to
-    browse publicly available parts of the website.
-  </p>
-
-  <p>
-    Certain features may require an account or external account
-    connection. Where login is optional, you can continue using
-    portions of RSF that do not require authentication without
-    creating an account.
+    Logging in to RSF is optional unless a particular feature requires an
+    account. Users may browse publicly available parts of the website
+    without creating an account.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>4. User-created content</h2>
-
   <p>
-    If you submit content to RSF, such as posts, comments, statistics,
-    submissions, or other material, that content may be stored so that
-    RSF can provide its features.
+    If you submit content to RSF, such as database information, comments,
+    community submissions, or other material, that content may be stored
+    and displayed as part of the service.
   </p>
-
   <p>
-    You should not submit information that you do not want publicly
-    associated with your Roblox username, Discord account, or RSF
-    account.
-  </p>
-
-  <p>
-    You are responsible for the information and material you choose
-    to publish.
+    You should avoid submitting personal information that you do not want
+    publicly associated with your content.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>5. Roblox usernames</h2>
-
   <p>
-    RSF may store Roblox usernames for purposes such as identifying
-    players, displaying player statistics, maintaining database
-    records, and operating RSF features.
-  </p>
-
-  <p>
-    A Roblox username is not treated by RSF as an indication that the
-    person has provided their real-world identity.
+    Roblox usernames may be stored and displayed where necessary for RSF
+    player records, statistics, rankings, or other community features.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>6. Discord account IDs</h2>
-
   <p>
-    Where Discord integration or authentication is used, RSF may store
-    a Discord account ID.
-  </p>
-
-  <p>
-    A Discord account ID may be used to associate an RSF account with
-    the corresponding Discord account and to provide account-related
+    If you connect or use Discord-related functionality, RSF may receive
+    and store a Discord account ID where necessary to provide that
     functionality.
   </p>
 </section>
 
-<section>
-  <h2>7. How we use information</h2>
-
-  <p>
-    Information stored by RSF may be used to:
-  </p>
-
+<section class="section">
+  <h2>7. How information is used</h2>
+  <p>Information may be used to:</p>
   <ul>
-    <li>Operate the RSF website</li>
+    <li>Operate and maintain RSF</li>
     <li>Provide account functionality</li>
     <li>Display user-created content</li>
-    <li>Associate content with the appropriate user or account</li>
-    <li>Maintain player and team records</li>
-    <li>Provide statistics and database features</li>
+    <li>Associate content with the appropriate user</li>
+    <li>Maintain player, team, season, and statistical records</li>
     <li>Prevent abuse and harmful activity</li>
-    <li>Moderate content</li>
-    <li>Maintain the security and integrity of RSF</li>
+    <li>Moderate the community</li>
+    <li>Maintain the security and integrity of the service</li>
     <li>Investigate violations of the Terms of Use</li>
     <li>Comply with applicable legal obligations</li>
   </ul>
 </section>
 
-<section>
-  <h2>8. Information we do not sell</h2>
-
+<section class="section">
+  <h2>8. Sale of information</h2>
   <p>
-    RSF does not sell users' personal information.
-  </p>
-
-  <p>
-    RSF also does not intentionally build advertising profiles from
-    users' personal information.
+    RSF does not sell personal information. RSF does not intentionally
+    create advertising profiles from user information.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>9. Third-party services</h2>
-
   <p>
-    RSF may rely on third-party services to operate parts of the
-    website, such as hosting, authentication, database infrastructure,
-    or integrations.
+    RSF may rely on third-party services for hosting, authentication,
+    databases, integrations, security, or other technical functions.
+    Those services may process information as necessary to provide their
+    services.
   </p>
-
   <p>
-    The website may also contain links to third-party websites.
-    RSF is not responsible for the privacy practices of websites
-    it does not operate.
+    RSF may also link to third-party websites. RSF is not responsible for
+    the privacy practices of external websites.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>10. Data retention</h2>
-
   <p>
-    RSF keeps information only for as long as reasonably necessary
-    for the purposes described in this Privacy Policy, unless a
-    longer period is required by law.
-  </p>
-
-  <p>
-    User-created content may remain available for as long as it is
-    needed to operate RSF or unless it is removed under RSF's
-    moderation, deletion, or content policies.
+    Information may be retained for as long as reasonably necessary to
+    provide RSF, maintain records, prevent abuse, resolve disputes,
+    maintain security, or satisfy legal obligations.
   </p>
 </section>
 
-<section>
-  <h2>11. Data security</h2>
-
+<section class="section">
+  <h2>11. Security</h2>
   <p>
-    RSF takes reasonable measures to protect information stored by
-    the service against unauthorized access, alteration, disclosure,
-    or destruction.
-  </p>
-
-  <p>
-    However, no internet service can guarantee absolute security.
+    RSF takes reasonable measures intended to protect information from
+    unauthorized access, alteration, disclosure, or destruction. No online
+    service can guarantee absolute security.
   </p>
 </section>
 
-<section>
+<section class="section">
   <h2>12. Your rights</h2>
-
   <p>
-    Depending on where you live and which data protection laws apply
-    to you, you may have rights concerning your personal information,
-    including rights to:
+    Depending on where you live and applicable law, you may have rights
+    concerning personal information, including rights to access, correct,
+    delete, restrict, object to processing, or request portability of
+    certain information.
   </p>
+  <p>
+    Where processing is based on consent, you may also have the right to
+    withdraw that consent. You may have the right to lodge a complaint with
+    your applicable data protection authority.
+  </p>
+  <a href="/contact" class="contact-button">Contact RSF</a>
+</section>
 
-  <ul>
-    <li>Request access to personal information held about you</li>
-    <li>Request correction of inaccurate information</li>
+<section class="section">
+  <h2>13. Children's privacy</h2>
+  <p>
+    RSF does not intentionally collect personal information from children
+    beyond what is reasonably necessary to provide the service. If you
+    believe information has been submitted inappropriately, please contact
+    RSF.
+  </p>
+</section>
 
+<section class="section">
+  <h2>14. Changes to this policy</h2>
+  <p>
+    RSF may update this Privacy Policy from time to time. Changes will be
+    reflected on this page with an updated date.
+  </p>
+</section>
+
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <span>RSF</span>
+      <span>© 2026</span>
+    </div>
+
+
+<div class="footer-right">
+  <a href="/privacy">Privacy Policy</a>
+  <a href="/terms">Terms of Use</a>
+</div>
+
+
+  </footer>
+
+</body>
+</html>
