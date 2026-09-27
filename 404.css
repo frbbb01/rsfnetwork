@@ -35,18 +35,25 @@ min-height: 100%;
 
 body {
 min-height: 100vh;
+
+
 background: #0F0F0F;
 color: #FFFFFF;
+
 font-family: "Montserrat", sans-serif;
+
 -webkit-font-smoothing: antialiased;
+
+
 }
 
 /* TOP BAR */
 
 .topbar {
 position: relative;
-height: 68px;
 
+
+height: 68px;
 
 display: flex;
 align-items: center;
@@ -65,6 +72,7 @@ text-decoration: none;
 
 font-size: 14px;
 font-weight: 700;
+
 letter-spacing: -0.03em;
 
 
@@ -77,6 +85,7 @@ left: 50%;
 
 display: flex;
 align-items: center;
+
 gap: 34px;
 
 transform: translateX(-50%);
@@ -91,6 +100,7 @@ text-decoration: none;
 
 font-size: 11px;
 font-weight: 500;
+
 letter-spacing: 0.04em;
 
 opacity: 0.55;
@@ -109,7 +119,7 @@ opacity: 1;
 font-weight: 700;
 }
 
-/* 404 PAGE */
+/* 404 */
 
 .error-page {
 width: min(1180px, calc(100% - 64px));
@@ -126,14 +136,18 @@ align-items: center;
 }
 
 .error-layout {
-display: flex;
-align-items: center;
+display: grid;
 
+
+grid-template-columns: auto 135px;
+
+column-gap: 28px;
+
+align-items: stretch;
 
 width: max-content;
-max-width: 100%;
 
-gap: 24px;
+max-width: 100%;
 
 
 }
@@ -141,29 +155,34 @@ gap: 24px;
 /* TEXT */
 
 .error-copy {
-flex-shrink: 0;
+display: flex;
+flex-direction: column;
 }
 
 .error-copy h1 {
 margin: 0;
 
 
-font-size: clamp(100px, 12vw, 165px);
+font-size: clamp(105px, 12vw, 165px);
+
 line-height: 0.8;
 
 font-weight: 700;
+
 letter-spacing: -0.095em;
 
 
 }
 
 .error-copy p {
-max-width: 390px;
+width: 390px;
+max-width: 100%;
 
 
 margin: 38px 0 0;
 
 font-size: 13px;
+
 line-height: 1.7;
 
 font-weight: 400;
@@ -180,12 +199,16 @@ align-items: center;
 
 gap: 10px;
 
+width: fit-content;
+
 margin-top: 28px;
 
 color: #FFFFFF;
+
 text-decoration: none;
 
 font-size: 11px;
+
 font-weight: 700;
 
 letter-spacing: 0.04em;
@@ -207,16 +230,27 @@ gap: 14px;
 /* SVG */
 
 .error-icon {
-width: 150px;
-height: 150px;
+width: 135px;
 
 
-flex-shrink: 0;
+align-self: start;
+
+/*
+    The icon follows the height of the
+    404 + description area instead of
+    using an arbitrary large size.
+*/
+
+aspect-ratio: 1 / 1;
+
+margin-top: 0;
 
 background-image: url("https://www.svgrepo.com/show/57699/repair-wrench.svg");
 
 background-repeat: no-repeat;
+
 background-position: center;
+
 background-size: contain;
 
 filter: invert(1);
@@ -239,6 +273,7 @@ justify-content: space-between;
 color: #FFFFFF;
 
 font-size: 10px;
+
 font-weight: 500;
 
 opacity: 0.35;
@@ -261,34 +296,41 @@ opacity: 0.35;
     gap: 20px;
 }
 
+
 .navigation a:nth-child(3),
 .navigation a:nth-child(4) {
     display: none;
 }
 
+
 .error-page {
     width: calc(100% - 40px);
 }
 
-.error-layout {
-    width: 100%;
 
-    gap: 18px;
+.error-layout {
+    grid-template-columns: auto 105px;
+
+    column-gap: 18px;
+
+    width: 100%;
 }
+
 
 .error-copy h1 {
     font-size: clamp(80px, 20vw, 130px);
 }
 
+
 .error-copy p {
-    max-width: 300px;
+    width: 300px;
 
     margin-top: 30px;
 }
 
+
 .error-icon {
-    width: 115px;
-    height: 115px;
+    width: 105px;
 }
 
 
@@ -298,20 +340,25 @@ opacity: 0.35;
 
 
 .error-layout {
+    display: flex;
+
     flex-direction: column;
+
     align-items: flex-start;
 
-    gap: 36px;
+    gap: 35px;
 }
 
+
 .error-icon {
-    width: 110px;
-    height: 110px;
+    width: 100px;
 }
+
 
 .topbar {
     padding: 0 20px;
 }
+
 
 .footer {
     padding: 0 20px;
