@@ -2,111 +2,114 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>404 — RSF</title>
 
-<title>404 — RSF</title>
+  <link rel="stylesheet" href="./404.css">
 
-<link rel="stylesheet" href="./404.css">
-
-<style>
+  <style>
     html {
-        background: #0F0F0F;
+      background: #0F0F0F;
     }
 
     body {
-        opacity: 0;
-        transition: opacity 180ms ease;
+      opacity: 0;
+      transform: translateY(4px);
+      transition:
+        opacity 120ms ease-out,
+        transform 120ms ease-out;
     }
 
     body.page-loaded {
-        opacity: 1;
+      opacity: 1;
+      transform: translateY(0);
     }
-</style>
-
+  </style>
 
 </head>
 
 <body>
 
-<header class="topbar">
+  <header class="topbar">
 
 
 <a href="/" class="logo">RSF</a>
 
 <nav class="navigation">
-    <a href="/" class="active">MAIN</a>
-    <a href="/database.html">DATABASE</a>
-    <a href="/community.html">COMMUNITY</a>
-    <a href="/arcade.html">ARCADE</a>
+  <a href="/" class="active">MAIN</a>
+  <a href="/database.html">DATABASE</a>
+  <a href="/community.html">COMMUNITY</a>
+  <a href="/arcade.html">ARCADE</a>
 </nav>
 
 
-</header>
+  </header>
 
-<main class="error-page">
+  <main class="error-page">
 
 
 <div class="error-layout">
 
-    <section class="error-copy">
+  <section class="error-copy">
 
-        <h1>404</h1>
+    <h1>404</h1>
 
-        <p>
-            The page you're looking for doesn't exist or has been moved.
-        </p>
+    <p>
+      The page you're looking for doesn't exist or has been moved.
+    </p>
 
-        <a href="/" class="return-link">
-            RETURN TO MAIN <span>→</span>
-        </a>
+    <a href="/" class="return-link">
+      RETURN TO MAIN <span>→</span>
+    </a>
 
-    </section>
+  </section>
 
-
-    <div class="error-icon" aria-hidden="true"></div>
+  <div class="error-icon" aria-hidden="true"></div>
 
 </div>
 
 
-</main>
+  </main>
 
-<footer class="footer">
+  <footer class="footer">
     <span>RSF</span>
     <span>2026</span>
-</footer>
+  </footer>
 
-<script>
+  <script>
     window.addEventListener("load", () => {
+      requestAnimationFrame(() => {
         document.body.classList.add("page-loaded");
+      });
     });
 
     document.querySelectorAll("a[href]").forEach(link => {
-        link.addEventListener("click", event => {
-            const url = new URL(link.href, window.location.href);
+      link.addEventListener("click", event => {
+        const url = new URL(link.href, window.location.href);
 
-            if (
-                url.origin !== window.location.origin ||
-                link.target === "_blank" ||
-                event.ctrlKey ||
-                event.metaKey ||
-                event.shiftKey ||
-                event.altKey
-            ) {
-                return;
-            }
+        if (
+          url.origin !== window.location.origin ||
+          link.target === "_blank" ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
 
-            event.preventDefault();
+        event.preventDefault();
 
-            document.body.classList.remove("page-loaded");
+        document.body.classList.remove("page-loaded");
 
-            setTimeout(() => {
-                window.location.href = url.href;
-            }, 180);
-        });
+        setTimeout(() => {
+          window.location.href = url.href;
+        }, 120);
+      });
     });
-</script>
+  </script>
 
 </body>
 </html>
