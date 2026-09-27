@@ -28,114 +28,61 @@
   <main class="error-page">
 
 
-<div class="error-label">404</div>
+<section class="error-content">
 
-<section class="error-layout">
+  <div class="error-left">
 
-  <div class="error-copy">
+    <div class="error-code">404</div>
 
-    <h1>Page not found.</h1>
-
-    <p>
+    <p class="error-description">
       The page you're looking for doesn't exist or has been moved.
     </p>
 
     <a href="/" class="return">
-      <span>Return to main</span>
-      <span class="arrow">→</span>
+      Return to main
+      <span>→</span>
     </a>
 
   </div>
 
-  <div class="error-visual">
+  <div class="error-right">
 
     <svg
-      viewBox="0 0 420 420"
+      class="broken-icon"
+      viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-
-      <circle
-        cx="210"
-        cy="210"
-        r="154"
+      <path
+        d="M32 48h192v160H32z"
         fill="none"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="8"
+      />
+
+      <path
+        d="M32 48l58 72 34-38 42 52 28-34 32 40"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="M128 82v42"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="8"
+        stroke-linecap="round"
       />
 
       <circle
-        cx="210"
-        cy="210"
-        r="104"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-      />
-
-      <circle
-        cx="210"
-        cy="210"
-        r="4"
+        cx="128"
+        cy="148"
+        r="5"
         fill="currentColor"
       />
-
-      <path
-        d="M210 56V364"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-      />
-
-      <path
-        d="M56 210H364"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-      />
-
-      <path
-        d="M101 101L319 319"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-      />
-
-      <path
-        d="M319 101L101 319"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1"
-      />
-
-      <path
-        d="M210 32V56"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-
-      <path
-        d="M210 364V388"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-
-      <path
-        d="M32 210H56"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-
-      <path
-        d="M364 210H388"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      />
-
     </svg>
 
   </div>
