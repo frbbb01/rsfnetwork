@@ -33,11 +33,9 @@
 
     :root {
       --bg: #0F0F0F;
-      --text: #FFFFFF;
       --border: #292929;
-      --border-soft: #242424;
-      --panel: #151515;
-      --panel-hover: #202020;
+      --border-soft: #252525;
+      --white: #FFFFFF;
     }
 
     * {
@@ -45,28 +43,39 @@
     }
 
     html {
-      background: var(--bg);
-      color: var(--text);
+      min-height: 100%;
+      background: #0F0F0F;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--text);
-      font-family: "Montserrat", Arial, sans-serif;
+
+      color: var(--white);
+      font-family: "Montserrat", sans-serif;
+
       background:
         radial-gradient(
-          circle at 15% 20%,
-          rgba(34, 87, 170, 0.10),
-          transparent 32%
+          ellipse 950px 650px at 78% 4%,
+          rgba(42, 103, 175, 0.19),
+          transparent 68%
         ),
         radial-gradient(
-          circle at 85% 45%,
-          rgba(24, 69, 145, 0.07),
-          transparent 34%
+          ellipse 750px 550px at 10% 58%,
+          rgba(25, 68, 125, 0.10),
+          transparent 70%
         ),
-        var(--bg);
-      overflow-x: hidden;
+        radial-gradient(
+          ellipse 600px 450px at 55% 100%,
+          rgba(20, 52, 95, 0.06),
+          transparent 72%
+        ),
+        #0F0F0F;
+
+      background-attachment: fixed;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -74,9 +83,7 @@
       text-decoration: none;
     }
 
-    /* --------------------------------------------------
-       TOP BAR
-    -------------------------------------------------- */
+    /* TOP BAR */
 
     .topbar {
       position: sticky;
@@ -86,25 +93,31 @@
       height: 68px;
       padding: 0 32px;
 
+      border-bottom: 1px solid #242424;
+
+      background: rgba(15, 15, 15, 0.91);
+
       display: flex;
       align-items: center;
 
-      border-bottom: 1px solid var(--border-soft);
-
-      background: rgba(15, 15, 15, 0.86);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .logo {
       font-size: 12px;
+      line-height: 1;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.02em;
     }
 
     .navigation {
       position: absolute;
       left: 50%;
+      top: 0;
+
+      height: 100%;
+
       transform: translateX(-50%);
 
       display: flex;
@@ -114,14 +127,11 @@
 
     .nav-item {
       position: relative;
+
+      height: 100%;
+
       display: flex;
       align-items: center;
-    }
-
-    .nav-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
 
       font-size: 11px;
       font-weight: 500;
@@ -129,21 +139,30 @@
 
       opacity: 0.48;
 
-      transition: opacity 100ms ease;
+      transition: opacity 120ms ease;
     }
 
-    .nav-link:hover,
-    .nav-link:focus-visible {
+    .nav-item:hover,
+    .nav-item:focus-within {
       opacity: 0.9;
     }
 
-    .nav-link.active {
-      font-weight: 700;
+    .nav-item.active {
       opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-label {
+      height: 100%;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .arrow {
       font-size: 8px;
+      line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
     }
@@ -152,20 +171,29 @@
       position: absolute;
       top: calc(100% + 7px);
       left: 50%;
-      transform: translateX(-50%);
 
       width: 170px;
       padding: 6px;
 
-      display: none;
+      transform: translateX(-50%);
 
       background: #151515;
-      border: 1px solid #292929;
+      border: 1px solid var(--border);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease;
     }
 
     .nav-item:hover .dropdown,
     .nav-item:focus-within .dropdown {
-      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     .dropdown a {
@@ -176,195 +204,138 @@
       align-items: center;
 
       font-size: 10px;
-      font-weight: 500;
 
       opacity: 0.52;
 
       transition:
-        opacity 100ms ease,
-        background 100ms ease;
+        background 100ms ease,
+        opacity 100ms ease;
     }
 
     .dropdown a:hover,
     .dropdown a:focus-visible {
-      opacity: 0.95;
-      background: var(--panel-hover);
+      background: #202020;
+      opacity: 1;
+      outline: none;
     }
 
-    /* --------------------------------------------------
-       MAIN
-    -------------------------------------------------- */
+    /* PAGE */
 
     main {
-      width: min(1180px, calc(100% - 64px));
+      width: min(1020px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 64px 0 105px;
+
+      padding: 48px 0 105px;
     }
 
-    /* --------------------------------------------------
-       RSF NEWS
-    -------------------------------------------------- */
+    /* NEWS */
 
-    .news-section {
-      border: 1px solid var(--border);
-
-      min-height: 250px;
-
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 310px;
+    .news {
+      min-height: 132px;
 
       position: relative;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 230px;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.025);
+
       overflow: hidden;
+
+      transition:
+        border-color 160ms ease,
+        background 160ms ease;
     }
 
-    .news-section.no-image {
-      grid-template-columns: 1fr;
+    .news:hover {
+      border-color: #363636;
+      background: rgba(255, 255, 255, 0.032);
     }
 
     .news-content {
       min-width: 0;
 
-      padding: 30px 32px 28px;
+      padding: 22px 25px 19px;
 
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     .section-label {
-      font-size: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      opacity: 0.45;
+    }
+
+    .news-dot-live {
+      width: 5px;
+      height: 5px;
+
+      flex: 0 0 auto;
+
+      border-radius: 50%;
+
+      background: #4F9BFF;
+
+      box-shadow:
+        0 0 0 3px rgba(79, 155, 255, 0.07);
     }
 
     .news-description {
-      max-width: 700px;
+      margin-top: 16px;
 
-      margin: 34px 0 0;
+      max-width: 670px;
 
-      font-size: clamp(18px, 2vw, 27px);
-      line-height: 1.25;
-      font-weight: 500;
-      letter-spacing: -0.025em;
+      font-size: 12px;
+      line-height: 1.55;
+
+      letter-spacing: -0.01em;
+
+      color: rgba(255, 255, 255, 0.72);
+
+      transition: opacity 120ms ease;
     }
 
-    .news-bottom {
-      margin-top: 38px;
-      padding-top: 16px;
+    .news-description.empty {
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    .news-footer {
+      margin-top: auto;
+      padding-top: 14px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
 
       border-top: 1px solid var(--border-soft);
-    }
 
-    .news-date {
-      font-size: 9px;
-      font-weight: 500;
-      opacity: 0.38;
-      white-space: nowrap;
-    }
+      font-size: 8px;
+      letter-spacing: 0.02em;
 
-    .news-controls {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .news-arrow {
-      width: 20px;
-      height: 20px;
-
-      padding: 0;
-      border: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: transparent;
-      color: #fff;
-
-      cursor: pointer;
-      opacity: 0.42;
-
-      transition: opacity 100ms ease;
-    }
-
-    .news-arrow:hover,
-    .news-arrow:focus-visible {
-      opacity: 0.95;
-    }
-
-    .triangle-left,
-    .triangle-right {
-      width: 0;
-      height: 0;
-      display: block;
-    }
-
-    .triangle-left {
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-right: 6px solid currentColor;
-    }
-
-    .triangle-right {
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-left: 6px solid currentColor;
-    }
-
-    .news-dots {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .news-dot {
-      width: 5px;
-      height: 5px;
-
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-
-      background: #fff;
-
-      opacity: 0.22;
-
-      cursor: pointer;
-
-      transition:
-        opacity 100ms ease,
-        transform 100ms ease;
-    }
-
-    .news-dot.active {
-      opacity: 0.85;
-      transform: scale(1.25);
+      color: rgba(255, 255, 255, 0.30);
     }
 
     .news-image {
-      width: 310px;
-      min-height: 250px;
+      min-width: 0;
 
       border-left: 1px solid var(--border);
 
-      display: none;
-      align-items: center;
-      justify-content: center;
-
       overflow: hidden;
 
-      background: #121212;
+      background: #111;
+
+      display: none;
     }
 
     .news-image.visible {
-      display: flex;
+      display: block;
     }
 
     .news-image img {
@@ -374,126 +345,363 @@
       display: block;
 
       object-fit: cover;
+      object-position: center;
+
+      opacity: 0.72;
+
+      transition:
+        opacity 180ms ease,
+        transform 220ms ease;
     }
 
-    /* --------------------------------------------------
-       GRID
-    -------------------------------------------------- */
+    .news:hover .news-image img {
+      opacity: 0.88;
+      transform: scale(1.025);
+    }
 
-    .grid {
-      margin-top: 18px;
+    /* NEWS CONTROLS */
+
+    .news-controls {
+      position: absolute;
+
+      right: 14px;
+      bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      z-index: 5;
+    }
+
+    .news-arrow {
+      width: 18px;
+      height: 18px;
+
+      padding: 0;
+      border: 0;
+
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      opacity: 0.42;
+
+      transition:
+        opacity 120ms ease,
+        transform 120ms ease;
+    }
+
+    .news-arrow:hover {
+      opacity: 0.9;
+    }
+
+    .news-arrow:active {
+      transform: scale(0.9);
+    }
+
+    .news-arrow.left::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-arrow.right::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .news-dot {
+      width: 4px;
+      height: 4px;
+
+      padding: 0;
+
+      border: 0;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.32);
+
+      cursor: pointer;
+
+      transition:
+        width 140ms ease,
+        height 140ms ease,
+        background 140ms ease;
+    }
+
+    .news-dot.active {
+      width: 6px;
+      height: 6px;
+
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    /* MAIN GRID */
+
+    .main-grid {
+      margin-top: 14px;
 
       display: grid;
 
       grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr)
-        minmax(0, 1fr);
+        minmax(0, 0.94fr)
+        minmax(0, 1.06fr);
 
       grid-template-rows:
-        250px
-        250px
-        190px;
+        185px
+        185px;
 
-      border-top: 1px solid var(--border);
-      border-left: 1px solid var(--border);
+      gap: 14px;
     }
 
-    .grid-block {
+    /* GRID MODULES */
+
+    .module {
       position: relative;
 
-      padding: 28px;
+      min-height: 0;
 
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      padding: 24px 25px 21px;
+
+      border: 1px solid var(--border);
+
+      display: flex;
+      flex-direction: column;
 
       overflow: hidden;
 
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.030),
+          rgba(255, 255, 255, 0.018)
+        );
+
       transition:
-        background 120ms ease;
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
     }
 
-    .grid-block:hover {
-      background: rgba(255, 255, 255, 0.015);
+    .module::after {
+      content: "";
+
+      position: absolute;
+
+      right: -55px;
+      bottom: -75px;
+
+      width: 150px;
+      height: 150px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(54, 119, 197, 0.075),
+          transparent 70%
+        );
+
+      opacity: 0;
+
+      transition: opacity 180ms ease;
     }
 
-    .grid-block.rsf {
+    .module:hover {
+      border-color: #373737;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.040),
+          rgba(255, 255, 255, 0.022)
+        );
+
+      transform: translateY(-1px);
+    }
+
+    .module:hover::after {
+      opacity: 1;
+    }
+
+    .module-title {
+      margin: 0;
+
+      font-size: clamp(27px, 3.2vw, 39px);
+      line-height: 0.95;
+
+      font-weight: 700;
+
+      letter-spacing: -0.07em;
+
+      transition: transform 160ms ease;
+    }
+
+    .module:hover .module-title {
+      transform: translateX(2px);
+    }
+
+    .module-description {
+      margin: 14px 0 0;
+
+      max-width: 350px;
+
+      font-size: 9px;
+      line-height: 1.7;
+
+      color: rgba(255, 255, 255, 0.44);
+    }
+
+    /* MODULE BUTTONS */
+
+    .module-bottom {
+      margin-top: auto;
+      padding-top: 17px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      border-top: 1px solid #292929;
+    }
+
+    .module-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      min-height: 25px;
+
+      padding: 0 9px;
+
+      border: 1px solid #383838;
+      border-radius: 7px;
+
+      background: rgba(255, 255, 255, 0.035);
+
+      font-size: 8px;
+      font-weight: 700;
+
+      letter-spacing: 0.06em;
+
+      color: rgba(255, 255, 255, 0.62);
+
+      cursor: pointer;
+
+      transition:
+        color 140ms ease,
+        background 140ms ease,
+        border-color 140ms ease,
+        gap 140ms ease,
+        transform 140ms ease;
+    }
+
+    .module-link:hover {
+      color: #FFFFFF;
+
+      background: rgba(255, 255, 255, 0.075);
+
+      border-color: #4A4A4A;
+
+      gap: 9px;
+
+      transform: translateY(-1px);
+    }
+
+    .module-link:active {
+      transform: translateY(0);
+    }
+
+    .module-arrow {
+      font-size: 9px;
+      line-height: 1;
+    }
+
+    /* DATABASE */
+
+    .database {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+
+      min-height: 384px;
+
+      padding-right: 29px;
+    }
+
+    .database .module-title {
+      font-size: clamp(35px, 4vw, 52px);
+    }
+
+    .database .module-description {
+      max-width: 270px;
+    }
+
+    /* RSF / ARCADE */
+
+    .rsf-module {
       grid-column: 1;
       grid-row: 1;
     }
 
-    .grid-block.database {
-      grid-column: 2 / 4;
-      grid-row: 1 / 3;
-    }
-
-    .grid-block.arcade {
+    .arcade-module {
       grid-column: 1;
       grid-row: 2;
     }
 
-    .grid-block.community {
-      grid-column: 1 / 4;
-      grid-row: 3;
+    /* COMMUNITY */
+
+    .community {
+      grid-column: 1 / span 2;
+
+      min-height: 142px;
+
+      padding-top: 22px;
+      padding-bottom: 20px;
+
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      column-gap: 35px;
     }
 
-    .grid-title {
-      margin: 0;
-
-      font-size: clamp(26px, 3.2vw, 46px);
-      line-height: 0.95;
-      font-weight: 700;
-      letter-spacing: -0.06em;
+    .community .module-description {
+      margin-top: 10px;
+      max-width: 470px;
     }
 
-    .grid-description {
-      max-width: 370px;
-
-      margin: 22px 0 0;
-
-      font-size: 11px;
-      line-height: 1.7;
-
-      opacity: 0.42;
+    .community .module-bottom {
+      grid-column: 1 / span 2;
     }
 
-    .grid-line {
-      position: absolute;
-
-      left: 28px;
-      right: 28px;
-      bottom: 52px;
-
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .grid-arrow {
-      position: absolute;
-
-      right: 28px;
-      bottom: 25px;
-
-      font-size: 14px;
-
-      opacity: 0.42;
-
-      transition:
-        opacity 100ms ease,
-        transform 100ms ease;
-    }
-
-    .grid-block:hover .grid-arrow {
-      opacity: 0.85;
-      transform: translateX(3px);
-    }
-
-    /* --------------------------------------------------
-       FOOTER
-    -------------------------------------------------- */
+    /* FOOTER */
 
     footer {
       position: fixed;
-
       left: 0;
       right: 0;
       bottom: 0;
@@ -501,17 +709,24 @@
       z-index: 100;
 
       min-height: 58px;
+
       padding: 0 32px;
+
+      border-top: 1px solid #242424;
+
+      background: rgba(15, 15, 15, 0.91);
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      border-top: 1px solid var(--border-soft);
+      font-size: 9px;
+      line-height: 1;
 
-      background: rgba(15, 15, 15, 0.86);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      color: rgba(255, 255, 255, 0.30);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .footer-left,
@@ -521,108 +736,165 @@
       gap: 18px;
     }
 
-    footer a {
-      font-size: 9px;
-      font-weight: 500;
-
-      opacity: 0.38;
-
-      transition: opacity 100ms ease;
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 700;
     }
 
-    footer a:hover,
-    footer a:focus-visible {
-      opacity: 0.85;
+    .footer-right a {
+      transition: color 100ms ease;
     }
 
-    .copyright {
-      font-size: 9px;
-      opacity: 0.25;
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
     }
 
-    /* --------------------------------------------------
-       MOBILE
-    -------------------------------------------------- */
+    /* RESPONSIVE */
 
     @media (max-width: 760px) {
 
       .topbar {
-        height: 60px;
         padding: 0 20px;
       }
 
       .navigation {
-        position: static;
-        transform: none;
-
-        margin-left: auto;
-
-        gap: 17px;
-      }
-
-      .nav-link {
-        font-size: 9px;
-      }
-
-      .dropdown {
-        left: auto;
-        right: 0;
-        transform: none;
-      }
-
-      .logo {
-        font-size: 11px;
+        gap: 18px;
       }
 
       main {
-        width: min(100% - 32px, 1180px);
-        padding-top: 38px;
+        width: min(100% - 28px, 600px);
+        padding-top: 30px;
+        padding-bottom: 100px;
       }
 
-      .news-section,
-      .news-section.no-image {
+      .news {
         grid-template-columns: 1fr;
       }
 
       .news-image {
-        width: 100%;
-        height: 190px;
-        min-height: 190px;
+        order: -1;
+
+        min-height: 150px;
 
         border-left: 0;
-        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .news-image img {
+        min-height: 150px;
+        max-height: 190px;
+      }
+
+      .news-controls {
+        right: 11px;
+        bottom: 10px;
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .rsf-module,
+      .arcade-module,
+      .database,
+      .community {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .database {
+        min-height: 250px;
+      }
+
+      .module {
+        min-height: 190px;
+      }
+
+      .community {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 620px) {
+
+      .topbar {
+        height: auto;
+        min-height: 64px;
+
+        padding: 18px 20px;
+
+        align-items: flex-start;
+      }
+
+      .logo {
+        margin-top: 4px;
+      }
+
+      .navigation {
+        position: static;
+
+        height: auto;
+
+        margin-left: auto;
+
+        transform: none;
+
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        gap: 12px 17px;
+      }
+
+      .nav-item {
+        height: auto;
+        min-height: 18px;
+      }
+
+      .dropdown {
+        top: calc(100% + 7px);
       }
 
       .news-content {
-        padding: 24px;
+        padding: 21px 20px 18px;
       }
 
       .news-description {
-        margin-top: 26px;
+        font-size: 11px;
       }
 
-      .grid {
-        display: block;
+      .news-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+
+        padding-right: 80px;
       }
 
-      .grid-block {
-        min-height: 220px;
+      .module {
+        padding: 22px 20px 19px;
       }
 
-      .grid-block.community {
-        min-height: 220px;
+      .module-title {
+        font-size: 33px;
       }
 
       footer {
-        padding: 0 20px;
+        min-height: 54px;
+
+        padding: 15px 20px;
+
+        align-items: center;
       }
 
-      .footer-left {
+      .footer-left,
+      .footer-right {
         gap: 12px;
       }
 
       .footer-right {
-        display: none;
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
     }
   </style>
@@ -630,9 +902,7 @@
 
 <body>
 
-  <!-- ==================================================
-       TOP BAR
-  ================================================== -->
+  <!-- TOP BAR -->
 
   <header class="topbar">
 
@@ -642,11 +912,15 @@
 
     <nav class="navigation" aria-label="Main navigation">
 
-      <!-- DATABASE -->
+      <div class="nav-item active">
+        <a href="/" class="nav-label">
+          MAIN
+        </a>
+      </div>
 
       <div class="nav-item">
 
-        <a href="/database" class="nav-link">
+        <a href="/database" class="nav-label">
           DATABASE
           <span class="arrow">▾</span>
         </a>
@@ -669,12 +943,9 @@
 
       </div>
 
-
-      <!-- COMMUNITY -->
-
       <div class="nav-item">
 
-        <a href="/community" class="nav-link">
+        <a href="/community" class="nav-label">
           COMMUNITY
           <span class="arrow">▾</span>
         </a>
@@ -701,23 +972,17 @@
 
       </div>
 
-
-      <!-- ARCADE -->
-
       <div class="nav-item">
 
-        <a href="/arcade" class="nav-link">
+        <a href="/arcade" class="nav-label">
           ARCADE
         </a>
 
       </div>
 
-
-      <!-- RSF -->
-
       <div class="nav-item">
 
-        <a href="/rsf" class="nav-link">
+        <a href="/rsf" class="nav-label">
           RSF
         </a>
 
@@ -727,568 +992,467 @@
 
   </header>
 
-
-  <!-- ==================================================
-       MAIN
-  ================================================== -->
+  <!-- MAIN -->
 
   <main>
 
-    <!-- ==================================================
-         RSF NEWS
-    ================================================== -->
+    <!-- RSF NEWS -->
 
     <section
-      class="news-section"
-      id="news-section"
+      class="news"
       aria-label="RSF News"
     >
 
       <div class="news-content">
 
-        <div>
+        <div class="section-label">
 
-          <div class="section-label">
-            RSF NEWS
-          </div>
+          <span class="news-dot-live"></span>
 
-          <div
-            class="news-description"
-            id="news-description"
-          >
-            Loading news...
-          </div>
+          RSF NEWS
 
         </div>
 
+        <div
+          id="news-description"
+          class="news-description empty"
+        >
+          Loading latest news...
+        </div>
 
-        <div class="news-bottom">
+        <div class="news-footer">
 
-          <div
-            class="news-date"
-            id="news-date"
-          ></div>
+          <span id="news-updated">
+            Last updated: —
+          </span>
 
-
-          <div
-            class="news-controls"
-            id="news-controls"
-            hidden
-          >
-
-            <button
-              class="news-arrow"
-              id="news-prev"
-              type="button"
-              aria-label="Previous news"
-            >
-              <span class="triangle-left"></span>
-            </button>
-
-
-            <div
-              class="news-dots"
-              id="news-dots"
-              aria-label="News navigation"
-            ></div>
-
-
-            <button
-              class="news-arrow"
-              id="news-next"
-              type="button"
-              aria-label="Next news"
-            >
-              <span class="triangle-right"></span>
-            </button>
-
-          </div>
+          <span>
+            RSF / NEWS
+          </span>
 
         </div>
 
       </div>
 
+      <div
+        id="news-image"
+        class="news-image"
+      >
+
+        <img
+          id="news-image-element"
+          src=""
+          alt=""
+          decoding="async"
+        >
+
+      </div>
 
       <div
-        class="news-image"
-        id="news-image"
-        aria-hidden="true"
-      ></div>
+        id="news-controls"
+        class="news-controls"
+        aria-label="News navigation"
+      >
+
+        <button
+          type="button"
+          class="news-arrow left"
+          id="news-prev"
+          aria-label="Previous news"
+        ></button>
+
+        <div
+          id="news-dots"
+          class="news-dots"
+          aria-label="News slides"
+        ></div>
+
+        <button
+          type="button"
+          class="news-arrow right"
+          id="news-next"
+          aria-label="Next news"
+        ></button>
+
+      </div>
 
     </section>
 
+    <!-- MAIN GRID -->
 
-    <!-- ==================================================
-         MAIN GRID
-    ================================================== -->
+    <section
+      class="main-grid"
+      aria-label="RSF sections"
+    >
 
-    <section class="grid">
+      <article class="module rsf-module">
 
-      <!-- RSF -->
-
-      <a
-        href="/rsf"
-        class="grid-block rsf"
-      >
-
-        <h2 class="grid-title">
+        <h2 class="module-title">
           RSF
         </h2>
 
-        <p class="grid-description">
-          The central hub for RSF information,
-          activity and community updates.
+        <p class="module-description">
+          The home of RSF, its history, people and everything surrounding the community.
         </p>
 
-        <div class="grid-line"></div>
+        <div class="module-bottom">
 
-        <span class="grid-arrow">
-          →
-        </span>
+          <a
+            href="/rsf"
+            class="module-link"
+          >
+            EXPLORE RSF
+            <span class="module-arrow">→</span>
+          </a>
 
-      </a>
+        </div>
 
+      </article>
 
-      <!-- DATABASE -->
+      <article class="module database">
 
-      <a
-        href="/database"
-        class="grid-block database"
-      >
-
-        <h2 class="grid-title">
+        <h2 class="module-title">
           DATABASE
         </h2>
 
-        <p class="grid-description">
-          Explore players, teams, seasons and
-          the wider RSF database.
+        <p class="module-description">
+          Explore the RSF playerbase, teams, seasons and the records that make up its history.
         </p>
 
-        <div class="grid-line"></div>
+        <div class="module-bottom">
 
-        <span class="grid-arrow">
-          →
-        </span>
+          <a
+            href="/database"
+            class="module-link"
+          >
+            OPEN DATABASE
+            <span class="module-arrow">→</span>
+          </a>
 
-      </a>
+        </div>
 
+      </article>
 
-      <!-- ARCADE -->
+      <article class="module arcade-module">
 
-      <a
-        href="/arcade"
-        class="grid-block arcade"
-      >
-
-        <h2 class="grid-title">
+        <h2 class="module-title">
           ARCADE
         </h2>
 
-        <p class="grid-description">
-          Small games, experiments and other
-          interactive RSF projects.
+        <p class="module-description">
+          Games, experiments and smaller interactive projects built around RSF.
         </p>
 
-        <div class="grid-line"></div>
+        <div class="module-bottom">
 
-        <span class="grid-arrow">
-          →
-        </span>
+          <a
+            href="/arcade"
+            class="module-link"
+          >
+            ENTER ARCADE
+            <span class="module-arrow">→</span>
+          </a>
 
-      </a>
+        </div>
 
+      </article>
 
-      <!-- COMMUNITY -->
+      <article class="module community">
 
-      <a
-        href="/community"
-        class="grid-block community"
-      >
+        <div>
 
-        <h2 class="grid-title">
-          COMMUNITY
-        </h2>
+          <h2 class="module-title">
+            COMMUNITY
+          </h2>
 
-        <p class="grid-description">
-          Videos, development, resources and
-          the latest activity from the community.
-        </p>
+          <p class="module-description">
+            Videos, development, resources and the latest things happening around RSF.
+          </p>
 
-        <div class="grid-line"></div>
+        </div>
 
-        <span class="grid-arrow">
-          →
-        </span>
+        <div class="module-bottom">
 
-      </a>
+          <a
+            href="/community"
+            class="module-link"
+          >
+            VIEW COMMUNITY
+            <span class="module-arrow">→</span>
+          </a>
+
+        </div>
+
+      </article>
 
     </section>
 
   </main>
 
-
-  <!-- ==================================================
-       FOOTER
-  ================================================== -->
+  <!-- FOOTER -->
 
   <footer>
 
     <div class="footer-left">
 
-      <a href="/privacy">
-        Privacy
-      </a>
+      <span class="footer-brand">
+        RSF
+      </span>
 
-      <a href="/terms">
-        Terms
-      </a>
-
-      <a href="/contact">
-        Contact
-      </a>
-
-      <span class="copyright">
-        © RSF
+      <span>
+        © 2026
       </span>
 
     </div>
 
-
     <div class="footer-right">
 
-      <a
-        href="https://discord.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Discord
+      <a href="/privacy">
+        Privacy Policy
       </a>
 
-      <a
-        href="https://www.roblox.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Roblox
+      <a href="/terms">
+        Terms of Use
       </a>
 
     </div>
 
   </footer>
 
-
-  <!-- ==================================================
-       RSF NEWS SCRIPT
-  ================================================== -->
+  <!-- RSF NEWS ENGINE -->
 
   <script>
-    /*
-     * ==================================================
-     * CONFIGURATION
-     * ==================================================
-     *
-     * This is a PUBLIC read-only Apps Script endpoint.
-     *
-     * No Google credentials, API keys or OAuth tokens
-     * belong in this file.
-     */
 
-    const NEWS_API =
+    /*
+      ==========================================================
+      RSF NEWS CONFIGURATION
+      ==========================================================
+    */
+
+    const NEWS_API_URL =
       "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
 
-    const AUTO_ADVANCE_MS = 20000;
+
+    /*
+      How often the browser checks for a newly published
+      news snapshot.
+
+      This does NOT control Google Sheet publishing.
+      It only checks the Apps Script endpoint.
+    */
+
+    const NEWS_SYNC_INTERVAL = 15000;
 
 
     /*
-     * ==================================================
-     * STATE
-     * ==================================================
-     */
+      Carousel rotation.
+
+      20 seconds.
+    */
+
+    const NEWS_AUTO_ADVANCE = 20000;
+
+
+    /*
+      Request timeout.
+
+      Prevents a failed Google request from hanging forever.
+    */
+
+    const NEWS_REQUEST_TIMEOUT = 8000;
+
+
+    /*
+      ==========================================================
+      STATE
+      ==========================================================
+    */
 
     let newsItems = [];
-    let currentNews = 0;
-    let autoAdvanceTimer = null;
+
+    let currentNewsIndex = 0;
+
+    let newsTimer = null;
+
+    let syncTimer = null;
+
+    let syncInProgress = false;
+
+    let firstLoad = true;
+
+    let lastServerVersion = null;
 
 
     /*
-     * ==================================================
-     * ELEMENTS
-     * ==================================================
-     */
-
-    const newsSection =
-      document.getElementById("news-section");
-
-    const descriptionElement =
-      document.getElementById("news-description");
-
-    const dateElement =
-      document.getElementById("news-date");
-
-    const imageElement =
-      document.getElementById("news-image");
-
-    const controlsElement =
-      document.getElementById("news-controls");
-
-    const dotsElement =
-      document.getElementById("news-dots");
-
-    const previousButton =
-      document.getElementById("news-prev");
-
-    const nextButton =
-      document.getElementById("news-next");
-
-
-    /*
-     * ==================================================
-     * IMAGE CACHE
-     * ==================================================
-     *
-     * Images are loaded in the background so switching
-     * between reports is fast.
-     */
+      URL -> Image element
+    */
 
     const imageCache = new Map();
 
 
     /*
-     * ==================================================
-     * SAFE IMAGE VALIDATION
-     * ==================================================
-     */
+      ==========================================================
+      ELEMENTS
+      ==========================================================
+    */
 
-    function isSafeImageUrl(value) {
+    const description =
+      document.getElementById(
+        "news-description"
+      );
 
-      if (
-        typeof value !== "string" ||
-        !value.trim()
-      ) {
-        return false;
+    const updated =
+      document.getElementById(
+        "news-updated"
+      );
+
+    const imageContainer =
+      document.getElementById(
+        "news-image"
+      );
+
+    const image =
+      document.getElementById(
+        "news-image-element"
+      );
+
+    const dotsContainer =
+      document.getElementById(
+        "news-dots"
+      );
+
+    const controls =
+      document.getElementById(
+        "news-controls"
+      );
+
+    const previousButton =
+      document.getElementById(
+        "news-prev"
+      );
+
+    const nextButton =
+      document.getElementById(
+        "news-next"
+      );
+
+
+    /*
+      ==========================================================
+      IMAGE PRELOADING
+      ==========================================================
+    */
+
+    function preloadImage(url) {
+
+      if (!url) {
+        return;
       }
 
-      try {
-
-        const url =
-          new URL(value.trim());
-
-        return url.protocol === "https:";
-
-      } catch {
-
-        return false;
+      if (imageCache.has(url)) {
+        return;
       }
+
+      const preload =
+        new Image();
+
+      preload.decoding =
+        "async";
+
+      preload.loading =
+        "eager";
+
+      preload.src =
+        url;
+
+      imageCache.set(
+        url,
+        preload
+      );
+
     }
 
 
     /*
-     * ==================================================
-     * PRELOAD IMAGES
-     * ==================================================
-     */
+      ==========================================================
+      IMAGE CACHE CLEANUP
+      ==========================================================
+    */
 
-    function preloadImages(items) {
+    function cleanupImageCache() {
 
-      for (const item of items) {
+      const activeImages =
+        new Set(
+          newsItems
+            .map(
+              item =>
+                item.image
+            )
+            .filter(Boolean)
+        );
+
+      for (
+        const url of imageCache.keys()
+      ) {
 
         if (
-          !isSafeImageUrl(item.image)
+          !activeImages.has(url)
         ) {
-          continue;
+
+          imageCache.delete(url);
         }
 
-        if (
-          imageCache.has(item.image)
-        ) {
-          continue;
-        }
-
-        const image =
-          new Image();
-
-        image.decoding = "async";
-
-        image.src = item.image;
-
-        imageCache.set(
-          item.image,
-          image
-        );
       }
+
     }
 
 
     /*
-     * ==================================================
-     * CLEAR IMAGE
-     * ==================================================
-     */
+      ==========================================================
+      CLEAN VALUES
+      ==========================================================
+    */
 
-    function clearNewsImage() {
+    function cleanValue(value) {
 
-      imageElement.replaceChildren();
+      return String(
+        value ?? ""
+      ).trim();
 
-      imageElement.classList.remove(
-        "visible"
-      );
     }
 
 
     /*
-     * ==================================================
-     * RENDER IMAGE
-     * ==================================================
-     */
+      ==========================================================
+      NEWS SIGNATURE
+      ==========================================================
+    */
 
-    function renderNewsImage(item) {
+    function getNewsSignature(items) {
 
-      clearNewsImage();
+      return items
+        .map(
+          item =>
+            [
+              item.image,
+              item.description,
+              item.date
+            ].join("|||")
+        )
+        .join("~~~");
 
-      if (
-        !isSafeImageUrl(item.image)
-      ) {
-        return;
-      }
-
-      let image =
-        imageCache.get(item.image);
-
-
-      if (
-        !image ||
-        !image.complete
-      ) {
-
-        image =
-          document.createElement("img");
-
-        image.src =
-          item.image;
-
-        image.alt = "";
-
-        image.decoding =
-          "async";
-
-      }
-
-
-      imageElement.appendChild(
-        image
-      );
-
-      imageElement.classList.add(
-        "visible"
-      );
     }
 
 
     /*
-     * ==================================================
-     * RENDER
-     * ==================================================
-     *
-     * Sheet content is inserted with textContent,
-     * never innerHTML.
-     *
-     * This prevents HTML/JS stored in the Sheet from
-     * becoming executable markup on RSF.
-     */
+      ==========================================================
+      CREATE DOTS
+      ==========================================================
+    */
 
-    function renderNews() {
+    function createNewsDots() {
 
-      if (!newsItems.length) {
-
-        descriptionElement.textContent =
-          "No news is currently available.";
-
-        dateElement.textContent = "";
-
-        clearNewsImage();
-
-        controlsElement.hidden = true;
-
-        newsSection.classList.add(
-          "no-image"
-        );
-
-        dotsElement.replaceChildren();
-
-        return;
-      }
-
-
-      const item =
-        newsItems[currentNews];
-
-
-      /*
-       * Safe text rendering.
-       */
-
-      descriptionElement.textContent =
-        item.description ||
-        "No description available.";
-
-
-      dateElement.textContent =
-        item.date
-          ? "Last updated: " + item.date
-          : "";
-
-
-      /*
-       * Image.
-       */
-
-      if (
-        isSafeImageUrl(item.image)
-      ) {
-
-        newsSection.classList.remove(
-          "no-image"
-        );
-
-        renderNewsImage(item);
-
-      } else {
-
-        newsSection.classList.add(
-          "no-image"
-        );
-
-        clearNewsImage();
-      }
-
-
-      /*
-       * One report:
-       * no arrows and no dots.
-       */
-
-      if (
-        newsItems.length <= 1
-      ) {
-
-        controlsElement.hidden = true;
-
-        dotsElement.replaceChildren();
-
-        return;
-      }
-
-
-      /*
-       * Multiple reports:
-       * display controls.
-       */
-
-      controlsElement.hidden = false;
-
-      dotsElement.replaceChildren();
-
+      dotsContainer.innerHTML = "";
 
       newsItems.forEach(
         (_, index) => {
@@ -1298,300 +1462,803 @@
               "button"
             );
 
-          dot.type = "button";
+          dot.type =
+            "button";
 
           dot.className =
-            "news-dot" +
-            (
-              index === currentNews
-                ? " active"
-                : ""
-            );
+            "news-dot";
 
           dot.setAttribute(
             "aria-label",
-            "Show news " +
-            (index + 1)
+            `Go to news ${index + 1}`
           );
 
           dot.addEventListener(
             "click",
             () => {
-              goToNews(
-                index,
-                true
-              );
+
+              showNews(index);
+
+              resetNewsTimer();
+
             }
           );
 
-          dotsElement.appendChild(
+          dotsContainer.appendChild(
             dot
           );
+
         }
       );
+
+      updateNewsDots();
+
     }
 
 
     /*
-     * ==================================================
-     * AUTO ADVANCE
-     * ==================================================
-     */
+      ==========================================================
+      UPDATE DOTS
+      ==========================================================
+    */
 
-    function resetAutoAdvance() {
+    function updateNewsDots() {
 
-      if (autoAdvanceTimer) {
-
-        clearTimeout(
-          autoAdvanceTimer
+      const dots =
+        dotsContainer.querySelectorAll(
+          ".news-dot"
         );
 
-        autoAdvanceTimer = null;
-      }
+      dots.forEach(
+        (dot, index) => {
 
+          dot.classList.toggle(
+            "active",
+            index === currentNewsIndex
+          );
 
-      if (
-        newsItems.length <= 1
-      ) {
-        return;
-      }
+        }
+      );
 
-
-      autoAdvanceTimer =
-        setTimeout(
-          () => {
-
-            currentNews =
-              (
-                currentNews + 1
-              ) %
-              newsItems.length;
-
-            renderNews();
-
-            resetAutoAdvance();
-
-          },
-          AUTO_ADVANCE_MS
-        );
     }
 
 
     /*
-     * ==================================================
-     * MANUAL NAVIGATION
-     * ==================================================
-     */
+      ==========================================================
+      SHOW NEWS
+      ==========================================================
+    */
 
-    function goToNews(
-      index,
-      manual = false
-    ) {
+    function showNews(index) {
 
       if (
         !newsItems.length
       ) {
+
         return;
       }
 
-
-      currentNews =
+      currentNewsIndex =
         (
           index +
           newsItems.length
         ) %
         newsItems.length;
 
+      const item =
+        newsItems[
+          currentNewsIndex
+        ];
 
-      renderNews();
+      description.style.opacity =
+        "0";
 
+      requestAnimationFrame(
+        () => {
 
-      /*
-       * Manual navigation resets
-       * the 20-second countdown.
-       */
+          description.textContent =
+            item.description ||
+            "No current news available.";
 
-      if (manual) {
-        resetAutoAdvance();
-      }
+          description.classList.toggle(
+            "empty",
+            !item.description
+          );
+
+          updated.textContent =
+            "Last updated: " +
+            (
+              item.date ||
+              "—"
+            );
+
+          imageContainer.classList.remove(
+            "visible"
+          );
+
+          image.onload = null;
+
+          image.onerror = null;
+
+          image.removeAttribute(
+            "src"
+          );
+
+          if (item.image) {
+
+            const cachedImage =
+              imageCache.get(
+                item.image
+              );
+
+            image.alt =
+              item.description ||
+              "RSF News";
+
+            if (
+              cachedImage &&
+              cachedImage.complete &&
+              cachedImage.naturalWidth > 0
+            ) {
+
+              image.src =
+                cachedImage.src;
+
+              imageContainer.classList.add(
+                "visible"
+              );
+
+            } else {
+
+              image.onload =
+                () => {
+
+                  imageContainer.classList.add(
+                    "visible"
+                  );
+
+                };
+
+              image.onerror =
+                () => {
+
+                  imageContainer.classList.remove(
+                    "visible"
+                  );
+
+                };
+
+              image.src =
+                item.image;
+
+            }
+
+          }
+
+          updateNewsDots();
+
+          description.style.opacity =
+            "1";
+
+        }
+      );
+
     }
 
 
-    previousButton.addEventListener(
-      "click",
-      () => {
+    /*
+      ==========================================================
+      NEXT
+      ==========================================================
+    */
 
-        goToNews(
-          currentNews - 1,
-          true
+    function nextNews() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      showNews(
+        currentNewsIndex + 1
+      );
+
+      resetNewsTimer();
+
+    }
+
+
+    /*
+      ==========================================================
+      PREVIOUS
+      ==========================================================
+    */
+
+    function previousNews() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      showNews(
+        currentNewsIndex - 1
+      );
+
+      resetNewsTimer();
+
+    }
+
+
+    /*
+      ==========================================================
+      CAROUSEL TIMER
+      ==========================================================
+    */
+
+    function resetNewsTimer() {
+
+      clearTimeout(
+        newsTimer
+      );
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      newsTimer =
+        setTimeout(
+          () => {
+
+            showNews(
+              currentNewsIndex + 1
+            );
+
+            resetNewsTimer();
+
+          },
+          NEWS_AUTO_ADVANCE
         );
 
-      }
-    );
+    }
 
+
+    /*
+      ==========================================================
+      BUTTON EVENTS
+      ==========================================================
+    */
+
+    previousButton.addEventListener(
+      "click",
+      previousNews
+    );
 
     nextButton.addEventListener(
       "click",
-      () => {
-
-        goToNews(
-          currentNews + 1,
-          true
-        );
-
-      }
+      nextNews
     );
 
 
     /*
-     * ==================================================
-     * LOAD NEWS
-     * ==================================================
-     */
+      ==========================================================
+      UPDATE CONTROLS
+      ==========================================================
+    */
 
-    async function loadNews() {
+    function updateControls() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        controls.style.display =
+          "none";
+
+      } else {
+
+        controls.style.display =
+          "flex";
+
+      }
+
+    }
+
+
+    /*
+      ==========================================================
+      BUILD API URL
+      ==========================================================
+    */
+
+    function getFreshNewsURL() {
+
+      const separator =
+        NEWS_API_URL.includes("?")
+          ? "&"
+          : "?";
+
+      return (
+        NEWS_API_URL +
+        separator +
+        "_rsf=" +
+        Date.now()
+      );
+
+    }
+
+
+    /*
+      ==========================================================
+      FETCH APPS SCRIPT
+      ==========================================================
+    */
+
+    async function fetchNews() {
+
+      const controller =
+        new AbortController();
+
+      const timeout =
+        setTimeout(
+          () => {
+
+            controller.abort();
+
+          },
+          NEWS_REQUEST_TIMEOUT
+        );
 
       try {
 
-        /*
-         * The timestamp only prevents the browser from
-         * reusing its own cached response.
-         *
-         * It does NOT attempt to manipulate Google data.
-         */
-
         const response =
           await fetch(
-            NEWS_API +
-            "?t=" +
-            Date.now(),
+            getFreshNewsURL(),
             {
               method: "GET",
+
               cache: "no-store",
-              credentials: "omit"
+
+              credentials: "omit",
+
+              redirect: "follow",
+
+              signal:
+                controller.signal,
+
+              headers: {
+                "Accept": "application/json"
+              }
             }
           );
-
 
         if (!response.ok) {
 
           throw new Error(
-            "News request failed: " +
-            response.status
+            `RSF News API returned HTTP ${response.status}`
           );
-        }
 
+        }
 
         const data =
           await response.json();
 
 
+        /*
+          The endpoint must return:
+
+          {
+            "version": "...",
+            "items": [
+              {
+                "image": "...",
+                "description": "...",
+                "date": "..."
+              }
+            ]
+          }
+
+          Nothing else from the Google Sheet is
+          consumed by this page.
+        */
+
         if (
           !data ||
-          !Array.isArray(data.news)
+          typeof data !== "object"
         ) {
 
           throw new Error(
-            "Invalid news response."
+            "RSF News API returned invalid JSON."
           );
+
+        }
+
+
+        if (
+          !Array.isArray(
+            data.items
+          )
+        ) {
+
+          throw new Error(
+            "RSF News API returned no valid news items."
+          );
+
         }
 
 
         /*
-         * Validate the structure again on the
-         * client side.
-         */
+          Clean and validate the public data.
+        */
 
-        newsItems =
-          data.news
-            .map(item => ({
+        const incomingItems =
+          data.items
+            .map(
+              item => ({
 
-              image:
-                typeof item.image === "string"
-                  ? item.image.trim()
-                  : "",
+                image:
+                  cleanValue(
+                    item.image
+                  ),
 
-              description:
-                typeof item.description === "string"
-                  ? item.description.trim()
-                  : "",
+                description:
+                  cleanValue(
+                    item.description
+                  ),
 
-              date:
-                typeof item.date === "string"
-                  ? item.date.trim()
-                  : ""
+                date:
+                  cleanValue(
+                    item.date
+                  )
 
-            }))
-            .filter(item =>
-              item.image ||
-              item.description ||
-              item.date
+              })
+            )
+            .filter(
+              item =>
+                item.image ||
+                item.description ||
+                item.date
             );
 
 
-        currentNews = 0;
+        /*
+          Do not destroy working content if the
+          endpoint temporarily returns nothing.
+        */
+
+        if (
+          !incomingItems.length
+        ) {
+
+          if (
+            firstLoad
+          ) {
+
+            newsItems = [
+              {
+                image: "",
+                description:
+                  "No current news available.",
+                date: ""
+              }
+            ];
+
+            createNewsDots();
+
+            updateControls();
+
+            showNews(0);
+
+            firstLoad = false;
+
+          }
+
+          return false;
+        }
 
 
         /*
-         * Display immediately.
-         */
+          Server-side version.
 
-        renderNews();
+          If the Apps Script gives us a version,
+          use that as the authoritative snapshot
+          identifier.
+
+          We still calculate a local signature as
+          a safety fallback.
+        */
+
+        const serverVersion =
+          cleanValue(
+            data.version
+          );
+
+        const oldSignature =
+          getNewsSignature(
+            newsItems
+          );
+
+        const newSignature =
+          getNewsSignature(
+            incomingItems
+          );
 
 
         /*
-         * Preload images in the background.
-         *
-         * We intentionally don't await this.
-         */
+          If the server explicitly says this is
+          the same snapshot, don't touch the UI.
 
-        preloadImages(
-          newsItems
+          Otherwise, if the actual data is identical,
+          also don't touch the UI.
+        */
+
+        if (
+          !firstLoad &&
+          serverVersion &&
+          serverVersion === lastServerVersion
+        ) {
+
+          return false;
+        }
+
+        if (
+          !firstLoad &&
+          oldSignature === newSignature
+        ) {
+
+          lastServerVersion =
+            serverVersion ||
+            lastServerVersion;
+
+          return false;
+        }
+
+
+        /*
+          Remember the current story so that a
+          data refresh doesn't unnecessarily throw
+          the user back to the first story.
+        */
+
+        const currentItem =
+          newsItems[
+            currentNewsIndex
+          ];
+
+        const currentKey =
+          currentItem
+            ? [
+                currentItem.image,
+                currentItem.description,
+                currentItem.date
+              ].join("|||")
+            : "";
+
+
+        /*
+          Replace the snapshot.
+        */
+
+        newsItems =
+          incomingItems;
+
+
+        /*
+          Find the current story again.
+        */
+
+        let newIndex = 0;
+
+        if (currentKey) {
+
+          const matchingIndex =
+            newsItems.findIndex(
+              item =>
+                [
+                  item.image,
+                  item.description,
+                  item.date
+                ].join("|||") ===
+                currentKey
+            );
+
+          if (
+            matchingIndex !== -1
+          ) {
+
+            newIndex =
+              matchingIndex;
+
+          }
+
+        }
+
+
+        /*
+          Preload images without blocking
+          the news UI.
+        */
+
+        newsItems.forEach(
+          item => {
+
+            preloadImage(
+              item.image
+            );
+
+          }
         );
 
 
+        cleanupImageCache();
+
+
         /*
-         * Start the carousel timer.
-         */
+          Rebuild dots.
+        */
 
-        resetAutoAdvance();
+        createNewsDots();
 
 
-      } catch (error) {
+        /*
+          Preserve current story where possible.
+        */
 
-        console.error(
-          "RSF News:",
-          error
+        showNews(
+          newIndex
         );
 
 
-        newsItems = [];
+        updateControls();
 
 
-        descriptionElement.textContent =
-          "News is temporarily unavailable.";
+        /*
+          Start a fresh 20-second carousel cycle
+          after a new snapshot arrives.
+        */
 
-        dateElement.textContent = "";
+        resetNewsTimer();
 
-        clearNewsImage();
 
-        controlsElement.hidden = true;
+        /*
+          Remember authoritative server version.
+        */
 
-        newsSection.classList.add(
-          "no-image"
+        lastServerVersion =
+          serverVersion ||
+          newSignature;
+
+
+        firstLoad = false;
+
+
+        return true;
+
+      } finally {
+
+        clearTimeout(
+          timeout
         );
 
       }
+
     }
 
 
     /*
-     * Load the currently published snapshot once.
-     *
-     * No polling.
-     */
+      ==========================================================
+      SAFE SYNC
+      ==========================================================
+    */
 
-    loadNews();
+    async function syncNews() {
+
+      if (
+        syncInProgress
+      ) {
+
+        return;
+      }
+
+      syncInProgress = true;
+
+      try {
+
+        await fetchNews();
+
+      } catch (error) {
+
+        /*
+          Existing valid content remains on screen.
+        */
+
+        console.warn(
+          "RSF News sync failed:",
+          error
+        );
+
+      } finally {
+
+        syncInProgress = false;
+
+      }
+
+    }
+
+
+    /*
+      ==========================================================
+      START LIVE SYNC
+      ==========================================================
+    */
+
+    async function startNewsSync() {
+
+      await syncNews();
+
+      const scheduleNextSync =
+        () => {
+
+          clearTimeout(
+            syncTimer
+          );
+
+          syncTimer =
+            setTimeout(
+              async () => {
+
+                await syncNews();
+
+                scheduleNextSync();
+
+              },
+              NEWS_SYNC_INTERVAL
+            );
+
+        };
+
+      scheduleNextSync();
+
+    }
+
+
+    /*
+      ==========================================================
+      VISIBILITY HANDLING
+      ==========================================================
+    */
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          document.visibilityState ===
+          "visible"
+        ) {
+
+          syncNews();
+
+        }
+
+      }
+    );
+
+
+    /*
+      ==========================================================
+      START
+      ==========================================================
+    */
+
+    startNewsSync();
 
   </script>
 
