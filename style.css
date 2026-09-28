@@ -1,8 +1,4 @@
 <style>
-  /* =========================================
-     RSF HOMEPAGE ATMOSPHERE
-  ========================================= */
-
   body {
     background:
       radial-gradient(
@@ -18,33 +14,19 @@
       #0F0F0F;
   }
 
-
-  /* =========================================
-     GRID WRAPPER
-  ========================================= */
-
   main {
     width: min(1020px, calc(100% - 48px));
     margin: 0 auto;
     padding: 48px 0 70px;
   }
 
-
-  /* =========================================
-     RSF NEWS
-  ========================================= */
-
   .news {
     min-height: 132px;
-
     display: grid;
     grid-template-columns: minmax(0, 1fr) 230px;
-
     border: 1px solid #292929;
     background: rgba(255, 255, 255, 0.008);
-
     overflow: hidden;
-
     transition:
       border-color 160ms ease,
       background 160ms ease;
@@ -58,7 +40,6 @@
   .news-content {
     min-width: 0;
     padding: 22px 25px 19px;
-
     display: flex;
     flex-direction: column;
   }
@@ -67,7 +48,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -76,10 +56,8 @@
   .news-dot {
     width: 5px;
     height: 5px;
-
     border-radius: 50%;
     background: #4F9BFF;
-
     box-shadow:
       0 0 0 3px rgba(79, 155, 255, 0.07);
   }
@@ -87,11 +65,9 @@
   .news-description {
     margin-top: 16px;
     max-width: 670px;
-
     font-size: 12px;
     line-height: 1.55;
     letter-spacing: -0.01em;
-
     color: rgba(255, 255, 255, 0.72);
   }
 
@@ -102,13 +78,10 @@
   .news-footer {
     margin-top: auto;
     padding-top: 14px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     border-top: 1px solid #202020;
-
     font-size: 8px;
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.30);
@@ -116,12 +89,9 @@
 
   .news-image {
     min-width: 0;
-
     border-left: 1px solid #292929;
-
     overflow: hidden;
     background: #111;
-
     display: none;
   }
 
@@ -132,14 +102,10 @@
   .news-image img {
     width: 100%;
     height: 100%;
-
     display: block;
-
     object-fit: cover;
     object-position: center;
-
     opacity: 0.72;
-
     transition:
       opacity 180ms ease,
       transform 220ms ease;
@@ -150,53 +116,32 @@
     transform: scale(1.025);
   }
 
-
-  /* =========================================
-     MAIN GRID
-  ========================================= */
-
   .main-grid {
     margin-top: 14px;
-
     display: grid;
-
     grid-template-columns:
       minmax(0, 0.94fr)
       minmax(0, 1.06fr);
-
     grid-template-rows:
       185px
       185px;
-
     gap: 14px;
   }
 
-
-  /* =========================================
-     MODULES
-  ========================================= */
-
   .module {
     position: relative;
-
     min-height: 0;
-
     padding: 24px 25px 21px;
-
     border: 1px solid #292929;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
-
     background:
       linear-gradient(
         135deg,
         rgba(255, 255, 255, 0.012),
         rgba(255, 255, 255, 0)
       );
-
     transition:
       border-color 160ms ease,
       background 160ms ease,
@@ -205,26 +150,19 @@
 
   .module::after {
     content: "";
-
     position: absolute;
-
     right: -55px;
     bottom: -75px;
-
     width: 150px;
     height: 150px;
-
     border-radius: 50%;
-
     background:
       radial-gradient(
         circle,
         rgba(54, 119, 197, 0.075),
         transparent 70%
       );
-
     opacity: 0;
-
     transition: opacity 180ms ease;
   }
 
@@ -236,7 +174,6 @@
         rgba(255, 255, 255, 0.018),
         rgba(255, 255, 255, 0)
       );
-
     transform: translateY(-1px);
   }
 
@@ -244,31 +181,21 @@
     opacity: 1;
   }
 
-
-  /* =========================================
-     MODULE LABELS
-  ========================================= */
-
   .module-meta {
     margin-bottom: 11px;
-
     font-size: 8px;
     font-weight: 500;
     letter-spacing: 0.10em;
     text-transform: uppercase;
-
     color: rgba(255, 255, 255, 0.27);
   }
 
   .module-title {
     margin: 0;
-
     font-size: clamp(27px, 3.2vw, 39px);
     line-height: 0.95;
-
     font-weight: 700;
     letter-spacing: -0.07em;
-
     transition:
       transform 160ms ease,
       opacity 160ms ease;
@@ -280,29 +207,18 @@
 
   .module-description {
     margin: 14px 0 0;
-
     max-width: 350px;
-
     font-size: 9px;
     line-height: 1.7;
-
     color: rgba(255, 255, 255, 0.40);
   }
 
-
-  /* =========================================
-     MODULE FOOTER
-  ========================================= */
-
   .module-bottom {
     margin-top: auto;
-
     padding-top: 17px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     border-top: 1px solid #222;
   }
 
@@ -315,13 +231,10 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.07em;
-
     color: rgba(255, 255, 255, 0.57);
-
     transition:
       color 140ms ease,
       gap 140ms ease;
@@ -337,17 +250,10 @@
     line-height: 1;
   }
 
-
-  /* =========================================
-     DATABASE
-  ========================================= */
-
   .database {
     grid-column: 2;
     grid-row: 1 / span 2;
-
     min-height: 384px;
-
     padding-right: 29px;
   }
 
@@ -361,21 +267,13 @@
 
   .database::before {
     content: "01";
-
     position: absolute;
     top: 24px;
     right: 25px;
-
     font-size: 8px;
     letter-spacing: 0.08em;
-
     color: rgba(255, 255, 255, 0.20);
   }
-
-
-  /* =========================================
-     RSF / ARCADE
-  ========================================= */
 
   .rsf-module {
     grid-column: 1;
@@ -387,19 +285,11 @@
     grid-row: 2;
   }
 
-
-  /* =========================================
-     COMMUNITY
-  ========================================= */
-
   .community {
     grid-column: 1 / span 2;
-
     min-height: 142px;
-
     padding-top: 22px;
     padding-bottom: 20px;
-
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: 35px;
@@ -414,31 +304,20 @@
     grid-column: 1 / span 2;
   }
 
-
-  /* =========================================
-     FEATURED AREA
-  ========================================= */
-
   .feature {
     min-height: 105px;
-
     grid-column: 1 / span 2;
-
     border: 1px solid #242424;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 0 25px;
-
     background:
       linear-gradient(
         100deg,
         rgba(36, 78, 125, 0.045),
         rgba(255, 255, 255, 0.008)
       );
-
     transition:
       border-color 160ms ease,
       background 160ms ease;
@@ -446,7 +325,6 @@
 
   .feature:hover {
     border-color: #303030;
-
     background:
       linear-gradient(
         100deg,
@@ -460,7 +338,6 @@
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-
     color: rgba(255, 255, 255, 0.30);
   }
 
@@ -469,13 +346,276 @@
     color: rgba(255, 255, 255, 0.20);
   }
 
+  .profile-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 175px;
+    height: 48px;
+    padding: 5px 10px 5px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 13px;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.045),
+        rgba(255, 255, 255, 0.018)
+      );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.025),
+      0 8px 25px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+    z-index: 100;
+  }
 
-  /* =========================================
-     MOBILE
-  ========================================= */
+  .profile-card:hover {
+    border-color: rgba(255, 255, 255, 0.13);
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.06),
+        rgba(255, 255, 255, 0.022)
+      );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.035),
+      0 10px 30px rgba(0, 0, 0, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .profile-card.profile-open {
+    border-color: rgba(79, 155, 255, 0.24);
+    box-shadow:
+      0 0 0 1px rgba(79, 155, 255, 0.035),
+      0 12px 35px rgba(0, 0, 0, 0.24);
+  }
+
+  .profile-avatar {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #181818;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .profile-avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+  }
+
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .profile-info {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .profile-username {
+    max-width: 105px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: rgba(255, 255, 255, 0.90);
+  }
+
+  .profile-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 7px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.10em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .profile-status::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #4F9BFF;
+    box-shadow:
+      0 0 0 3px rgba(79, 155, 255, 0.07);
+  }
+
+  .profile-card .profile-status {
+    color: rgba(79, 155, 255, 0.75);
+  }
+
+  .profile-card::after {
+    content: "⌄";
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    color: rgba(255, 255, 255, 0.28);
+    font-size: 13px;
+    line-height: 1;
+    transform: translateY(-1px);
+    transition:
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .profile-card:hover::after {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .profile-card.profile-open::after {
+    color: rgba(255, 255, 255, 0.65);
+    transform: rotate(180deg) translateY(1px);
+  }
+
+  .profile-dropdown {
+    position: absolute;
+    top: calc(100% + 9px);
+    right: 0;
+    width: 220px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    border-radius: 14px;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(20, 20, 20, 0.97),
+        rgba(13, 13, 13, 0.97)
+      );
+    box-shadow:
+      0 22px 55px rgba(0, 0, 0, 0.42),
+      0 5px 18px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform:
+      translateY(-7px)
+      scale(0.975);
+    transform-origin: top right;
+    transition:
+      opacity 170ms ease,
+      transform 170ms ease,
+      visibility 170ms ease;
+    z-index: 9999;
+  }
+
+  .profile-dropdown-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  .profile-dropdown-item {
+    position: relative;
+    width: 100%;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 11px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.72);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background 140ms ease,
+      color 140ms ease,
+      transform 140ms ease;
+  }
+
+  .profile-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.055);
+    color: #FFFFFF;
+    transform: translateX(1px);
+  }
+
+  .profile-dropdown-icon {
+    width: 19px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.36);
+    font-size: 12px;
+    transition: color 140ms ease;
+  }
+
+  .profile-dropdown-item:hover .profile-dropdown-icon {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .profile-dropdown-divider {
+    height: 1px;
+    margin: 6px 5px;
+    background: rgba(255, 255, 255, 0.065);
+  }
+
+  .profile-logout {
+    color: rgba(255, 107, 120, 0.78);
+  }
+
+  .profile-logout .profile-dropdown-icon {
+    color: rgba(255, 107, 120, 0.72);
+  }
+
+  .profile-logout:hover {
+    background: rgba(255, 65, 85, 0.075);
+    color: #ff7d88;
+  }
+
+  .profile-logout:hover .profile-dropdown-icon {
+    color: #ff7d88;
+  }
+
+  .profile-dropdown-item:disabled {
+    opacity: 0.45;
+    cursor: default;
+    transform: none;
+  }
 
   @media (max-width: 760px) {
-
     main {
       width: min(100% - 28px, 600px);
       padding-top: 30px;
@@ -487,9 +627,7 @@
 
     .news-image {
       order: -1;
-
       min-height: 150px;
-
       border-left: 0;
       border-bottom: 1px solid #292929;
     }
@@ -528,202 +666,201 @@
     .feature {
       min-height: 90px;
     }
+
+    .profile-card {
+      min-width: 150px;
+      height: 44px;
+      padding-right: 8px;
+    }
+
+    .profile-avatar {
+      width: 34px;
+      height: 34px;
+      flex-basis: 34px;
+    }
+
+    .profile-username {
+      max-width: 82px;
+    }
+
+    .profile-dropdown {
+      right: -4px;
+      width: 205px;
+    }
   }
 </style>
 
 <main>
 
-  <!-- RSF NEWS -->
-
   <section class="news" aria-label="RSF News">
 
+    <div class="news-content">
 
-<div class="news-content">
+      <div class="section-label">
+        <span class="news-dot"></span>
+        RSF NEWS
+      </div>
 
-  <div class="section-label">
-    <span class="news-dot"></span>
-    RSF NEWS
-  </div>
+      <div
+        id="news-description"
+        class="news-description empty"
+      >
+        Loading latest news...
+      </div>
 
-  <div
-    id="news-description"
-    class="news-description empty"
-  >
-    Loading latest news...
-  </div>
+      <div class="news-footer">
 
-  <div class="news-footer">
+        <span id="news-updated">
+          Last updated: —
+        </span>
 
-    <span id="news-updated">
-      Last updated: —
-    </span>
+        <span>
+          RSF / NEWS
+        </span>
 
-    <span>
-      RSF / NEWS
-    </span>
+      </div>
 
-  </div>
+    </div>
 
-</div>
-
-<div id="news-image" class="news-image">
-  <img id="news-image-element" src="" alt="">
-</div>
-
+    <div id="news-image" class="news-image">
+      <img id="news-image-element" src="" alt="">
+    </div>
 
   </section>
 
-  <!-- MAIN GRID -->
-
   <section class="main-grid" aria-label="RSF sections">
 
+    <article class="module rsf-module">
 
-<!-- RSF -->
+      <div class="module-meta">
+        Community
+      </div>
 
-<article class="module rsf-module">
+      <h2 class="module-title">
+        RSF
+      </h2>
 
-  <div class="module-meta">
-    Community
-  </div>
+      <p class="module-description">
+        The home of RSF, its history, people and everything surrounding the community.
+      </p>
 
-  <h2 class="module-title">
-    RSF
-  </h2>
+      <div class="module-bottom">
 
-  <p class="module-description">
-    The home of RSF, its history, people and everything surrounding the community.
-  </p>
+        <span class="module-index">
+          02
+        </span>
 
-  <div class="module-bottom">
+        <a href="/rsf" class="module-link">
+          EXPLORE RSF
+          <span class="module-arrow">→</span>
+        </a>
 
-    <span class="module-index">
-      02
-    </span>
+      </div>
 
-    <a href="/rsf" class="module-link">
-      EXPLORE RSF
-      <span class="module-arrow">→</span>
-    </a>
+    </article>
 
-  </div>
+    <article class="module database">
 
-</article>
+      <div class="module-meta">
+        Records / History
+      </div>
 
+      <h2 class="module-title">
+        DATABASE
+      </h2>
 
-<!-- DATABASE -->
+      <p class="module-description">
+        Explore the RSF playerbase, teams, seasons and the records that make up its history.
+      </p>
 
-<article class="module database">
+      <div class="module-bottom">
 
-  <div class="module-meta">
-    Records / History
-  </div>
+        <span class="module-index">
+          01
+        </span>
 
-  <h2 class="module-title">
-    DATABASE
-  </h2>
+        <a href="/database" class="module-link">
+          OPEN DATABASE
+          <span class="module-arrow">→</span>
+        </a>
 
-  <p class="module-description">
-    Explore the RSF playerbase, teams, seasons and the records that make up its history.
-  </p>
+      </div>
 
-  <div class="module-bottom">
+    </article>
 
-    <span class="module-index">
-      01
-    </span>
+    <article class="module arcade-module">
 
-    <a href="/database" class="module-link">
-      OPEN DATABASE
-      <span class="module-arrow">→</span>
-    </a>
+      <div class="module-meta">
+        Interactive
+      </div>
 
-  </div>
+      <h2 class="module-title">
+        ARCADE
+      </h2>
 
-</article>
+      <p class="module-description">
+        Games, experiments and smaller interactive projects built around RSF.
+      </p>
 
+      <div class="module-bottom">
 
-<!-- ARCADE -->
+        <span class="module-index">
+          03
+        </span>
 
-<article class="module arcade-module">
+        <a href="/arcade" class="module-link">
+          ENTER ARCADE
+          <span class="module-arrow">→</span>
+        </a>
 
-  <div class="module-meta">
-    Interactive
-  </div>
+      </div>
 
-  <h2 class="module-title">
-    ARCADE
-  </h2>
+    </article>
 
-  <p class="module-description">
-    Games, experiments and smaller interactive projects built around RSF.
-  </p>
+    <article class="module community">
 
-  <div class="module-bottom">
+      <div>
 
-    <span class="module-index">
-      03
-    </span>
+        <div class="module-meta">
+          The wider RSF space
+        </div>
 
-    <a href="/arcade" class="module-link">
-      ENTER ARCADE
-      <span class="module-arrow">→</span>
-    </a>
+        <h2 class="module-title">
+          COMMUNITY
+        </h2>
 
-  </div>
+        <p class="module-description">
+          Videos, development, resources and the latest things happening around RSF.
+        </p>
 
-</article>
+      </div>
 
+      <div class="module-bottom">
 
-<!-- COMMUNITY -->
+        <span class="module-index">
+          04
+        </span>
 
-<article class="module community">
+        <a href="/community" class="module-link">
+          VIEW COMMUNITY
+          <span class="module-arrow">→</span>
+        </a>
 
-  <div>
+      </div>
 
-    <div class="module-meta">
-      The wider RSF space
+    </article>
+
+    <div class="feature">
+
+      <span class="feature-label">
+        Featured
+      </span>
+
+      <span class="feature-note">
+        More from RSF
+      </span>
+
     </div>
-
-    <h2 class="module-title">
-      COMMUNITY
-    </h2>
-
-    <p class="module-description">
-      Videos, development, resources and the latest things happening around RSF.
-    </p>
-
-  </div>
-
-  <div class="module-bottom">
-
-    <span class="module-index">
-      04
-    </span>
-
-    <a href="/community" class="module-link">
-      VIEW COMMUNITY
-      <span class="module-arrow">→</span>
-    </a>
-
-  </div>
-
-</article>
-
-
-<!-- FEATURE -->
-
-<div class="feature">
-
-  <span class="feature-label">
-    Featured
-  </span>
-
-  <span class="feature-note">
-    More from RSF
-  </span>
-
-</div>
-
 
   </section>
 
