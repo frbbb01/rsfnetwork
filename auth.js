@@ -1,12 +1,21 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const loginButton = document.getElementById("login-button");
-  const profileCard = document.getElementById("profile-card");
-  const profileAvatar = document.getElementById("profile-avatar");
-  const profileAvatarWrap = profileCard
-    ? profileCard.querySelector(".profile-avatar")
-    : null;
-  const profileUsername = document.getElementById("profile-username");
-  const profileStatus = document.getElementById("profile-status");
+  const loginButton =
+    document.getElementById("login-button");
+
+  const profileCard =
+    document.getElementById("profile-card");
+
+  const profileAvatarContainer =
+    document.getElementById("profile-avatar-container");
+
+  const profileAvatar =
+    document.getElementById("profile-avatar");
+
+  const profileUsername =
+    document.getElementById("profile-username");
+
+  const profileStatus =
+    document.getElementById("profile-status");
 
   if (!profileCard) {
     return;
@@ -15,124 +24,207 @@ document.addEventListener("DOMContentLoaded", async () => {
   let profileMenu = null;
   let profileData = null;
 
-  const profileIcon = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-      <path d="M4.5 20a7.5 7.5 0 0 1 15 0"></path>
-    </svg>
-  `;
+  function createIcon(type) {
+    if (type === "profile") {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25"></circle>
+          <path d="M5.5 19c.7-3.25 2.8-5 6.5-5s5.8 1.75 6.5 5"></path>
+        </svg>
+      `;
+    }
 
-  const settingsIcon = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path>
-      <path d="m19 13.2 1.2 1-1.7 2.9-1.5-.5a7.4 7.4 0 0 1-1.8 1l-.2 1.6H11l-.2-1.6a7.4 7.4 0 0 1-1.8-1l-1.5.5-1.7-2.9 1.2-1A7.4 7.4 0 0 1 7 11.8L5.8 11l1.1-3.1 1.6.1a7.6 7.6 0 0 1 1.6-1L10.4 5h3.2l.3 2a7.6 7.6 0 0 1 1.6 1l1.6-.1L18.2 11l-1.2.8a7.4 7.4 0 0 1 .7 1.4Z"></path>
-    </svg>
-  `;
+    if (type === "settings") {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path>
+          <path d="M19 13.5v-3l-2-.5a7.1 7.1 0 0 0-.8-1.8l1.1-1.8-2.1-2.1-1.8 1.1a7.1 7.1 0 0 0-1.8-.8L11.5 3h-3L8 5a7.1 7.1 0 0 0-1.8.8L4.4 4.7 2.3 6.8l1.1 1.8a7.1 7.1 0 0 0-.8 1.8l-2 .5v3l2 .5a7.1 7.1 0 0 0 .8 1.8l-1.1 1.8 2.1 2.1 1.8-1.1a7.1 7.1 0 0 0 1.8.8l.5 2h3l.5-2a7.1 7.1 0 0 0 1.8-.8l1.8 1.1 2.1-2.1-1.1-1.8a7.1 7.1 0 0 0 .8-1.8l2-.5Z"></path>
+        </svg>
+      `;
+    }
 
-  const logoutIcon = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M10 5H6.5A1.5 1.5 0 0 0 5 6.5v11A1.5 1.5 0 0 0 6.5 19H10"></path>
-      <path d="M13 8l4 4-4 4"></path>
-      <path d="M9 12h8"></path>
-    </svg>
-  `;
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10 5H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H10"></path>
+        <path d="M13 8l4 4-4 4"></path>
+        <path d="M17 12H9"></path>
+      </svg>
+    `;
+  }
 
-  function createMenu(data) {
+  function createProfileMenu(data) {
     if (profileMenu) {
       profileMenu.remove();
     }
 
-    profileMenu = document.createElement("div");
-    profileMenu.className = "profile-dropdown";
+    profileMenu =
+      document.createElement("div");
 
-    let menuItems = "";
+    profileMenu.className =
+      "profile-dropdown";
 
-    if (data.verified && data.robloxUsername) {
-      menuItems += `
-        <button class="profile-dropdown-item" type="button" data-action="profile">
+    const verified =
+      Boolean(
+        data.verified &&
+        data.robloxUsername
+      );
+
+    profileMenu.innerHTML = verified
+      ? `
+        <button
+          class="profile-dropdown-item"
+          type="button"
+          data-action="profile"
+        >
           <span class="profile-dropdown-icon">
-            ${profileIcon}
+            ${createIcon("profile")}
           </span>
-          <span class="profile-dropdown-label">My Profile</span>
+          <span>My Profile</span>
         </button>
 
-        <button class="profile-dropdown-item" type="button" data-action="settings">
+        <button
+          class="profile-dropdown-item"
+          type="button"
+          data-action="settings"
+        >
           <span class="profile-dropdown-icon">
-            ${settingsIcon}
+            ${createIcon("settings")}
           </span>
-          <span class="profile-dropdown-label">Settings</span>
+          <span>Settings</span>
         </button>
 
         <div class="profile-dropdown-divider"></div>
+
+        <button
+          class="profile-dropdown-item profile-logout"
+          type="button"
+          data-action="logout"
+        >
+          <span class="profile-dropdown-icon">
+            ${createIcon("logout")}
+          </span>
+          <span>Log Out</span>
+        </button>
+      `
+      : `
+        <button
+          class="profile-dropdown-item profile-logout"
+          type="button"
+          data-action="logout"
+        >
+          <span class="profile-dropdown-icon">
+            ${createIcon("logout")}
+          </span>
+          <span>Log Out</span>
+        </button>
       `;
-    }
 
-    menuItems += `
-      <button class="profile-dropdown-item profile-logout" type="button" data-action="logout">
-        <span class="profile-dropdown-icon">
-          ${logoutIcon}
-        </span>
-        <span class="profile-dropdown-label">Log Out</span>
-      </button>
-    `;
-
-    profileMenu.innerHTML = menuItems;
     profileCard.appendChild(profileMenu);
 
-    const profileItem = profileMenu.querySelector('[data-action="profile"]');
-    const settingsItem = profileMenu.querySelector('[data-action="settings"]');
-    const logoutItem = profileMenu.querySelector('[data-action="logout"]');
+    const profileItem =
+      profileMenu.querySelector(
+        '[data-action="profile"]'
+      );
+
+    const settingsItem =
+      profileMenu.querySelector(
+        '[data-action="settings"]'
+      );
+
+    const logoutItem =
+      profileMenu.querySelector(
+        '[data-action="logout"]'
+      );
 
     if (profileItem) {
-      profileItem.addEventListener("click", () => {
-        if (!data.robloxUsername) {
-          return;
-        }
+      profileItem.addEventListener(
+        "click",
+        event => {
+          event.stopPropagation();
 
-        window.location.href =
-          `/profile/${encodeURIComponent(data.robloxUsername)}`;
-      });
+          if (
+            !data.verified ||
+            !data.robloxUsername
+          ) {
+            return;
+          }
+
+          window.location.href =
+            `/profile/${encodeURIComponent(
+              data.robloxUsername
+            )}`;
+        }
+      );
     }
 
     if (settingsItem) {
-      settingsItem.addEventListener("click", () => {
-        window.location.href = "/settings";
-      });
+      settingsItem.addEventListener(
+        "click",
+        event => {
+          event.stopPropagation();
+          window.location.href = "/settings";
+        }
+      );
     }
 
-    logoutItem.addEventListener("click", async () => {
-      if (logoutItem.disabled) {
-        return;
-      }
+    if (logoutItem) {
+      logoutItem.addEventListener(
+        "click",
+        async event => {
+          event.stopPropagation();
 
-      logoutItem.disabled = true;
+          if (logoutItem.disabled) {
+            return;
+          }
 
-      try {
-        const response = await fetch("/api/logout", {
-          method: "POST",
-          credentials: "include",
-          cache: "no-store"
-        });
+          logoutItem.disabled = true;
 
-        if (!response.ok) {
-          throw new Error(`Logout failed: ${response.status}`);
+          try {
+            const response =
+              await fetch(
+                "/api/logout",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  cache: "no-store"
+                }
+              );
+
+            if (!response.ok) {
+              throw new Error(
+                `Logout failed: ${response.status}`
+              );
+            }
+
+            window.location.reload();
+          } catch (error) {
+            console.error(
+              "Logout failed:",
+              error
+            );
+
+            logoutItem.disabled = false;
+          }
         }
-
-        window.location.reload();
-      } catch (error) {
-        console.error("Logout failed:", error);
-        logoutItem.disabled = false;
-      }
-    });
+      );
+    }
   }
 
   function closeProfileMenu() {
-    if (!profileMenu) {
-      return;
-    }
+    profileCard.classList.remove(
+      "profile-open"
+    );
 
-    profileCard.classList.remove("profile-open");
-    profileMenu.classList.remove("profile-dropdown-visible");
+    profileCard.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+    if (profileMenu) {
+      profileMenu.classList.remove(
+        "profile-dropdown-visible"
+      );
+    }
   }
 
   function openProfileMenu() {
@@ -140,8 +232,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    profileCard.classList.add("profile-open");
-    profileMenu.classList.add("profile-dropdown-visible");
+    profileCard.classList.add(
+      "profile-open"
+    );
+
+    profileCard.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    profileMenu.classList.add(
+      "profile-dropdown-visible"
+    );
   }
 
   function toggleProfileMenu() {
@@ -149,138 +251,271 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    if (profileCard.classList.contains("profile-open")) {
+    if (
+      profileCard.classList.contains(
+        "profile-open"
+      )
+    ) {
       closeProfileMenu();
     } else {
       openProfileMenu();
     }
   }
 
-  async function loadRobloxHeadshot(username) {
-    if (!username || !profileAvatar || !profileAvatarWrap) {
-      return;
+  async function getRobloxHeadshot(username) {
+    if (!username) {
+      return null;
     }
 
     try {
-      const response = await fetch(
-        `/api/roblox-headshot?username=${encodeURIComponent(username)}`,
-        {
-          method: "GET",
-          cache: "no-store"
-        }
+      const userResponse =
+        await fetch(
+          "https://users.roblox.com/v1/usernames/users",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body: JSON.stringify({
+              usernames: [username],
+              excludeBannedUsers: false
+            }),
+            cache: "no-store"
+          }
+        );
+
+      if (!userResponse.ok) {
+        return null;
+      }
+
+      const userData =
+        await userResponse.json();
+
+      const user =
+        Array.isArray(userData.data)
+          ? userData.data[0]
+          : null;
+
+      if (!user || !user.id) {
+        return null;
+      }
+
+      const thumbnailResponse =
+        await fetch(
+          `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
+            user.id
+          )}&size=150x150&format=Png&isCircular=false`,
+          {
+            method: "GET",
+            cache: "no-store"
+          }
+        );
+
+      if (!thumbnailResponse.ok) {
+        return null;
+      }
+
+      const thumbnailData =
+        await thumbnailResponse.json();
+
+      const thumbnail =
+        Array.isArray(
+          thumbnailData.data
+        )
+          ? thumbnailData.data[0]
+          : null;
+
+      if (
+        !thumbnail ||
+        !thumbnail.imageUrl
+      ) {
+        return null;
+      }
+
+      return thumbnail.imageUrl;
+    } catch (error) {
+      console.warn(
+        "Roblox avatar lookup failed:",
+        error
       );
 
-      if (!response.ok) {
-        throw new Error(`Roblox headshot failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (!data.imageUrl) {
-        throw new Error("No Roblox headshot returned");
-      }
-
-      profileAvatar.src = data.imageUrl;
-      profileAvatarWrap.style.display = "block";
-    } catch (error) {
-      profileAvatar.removeAttribute("src");
-      profileAvatarWrap.style.display = "none";
-      console.error("Roblox headshot failed:", error);
+      return null;
     }
+  }
+
+  async function loadRobloxAvatar(data) {
+    if (
+      !data.verified ||
+      !data.robloxUsername
+    ) {
+      profileAvatarContainer.classList.add(
+        "guest"
+      );
+
+      profileAvatar.removeAttribute(
+        "src"
+      );
+
+      return;
+    }
+
+    profileAvatarContainer.classList.remove(
+      "guest"
+    );
+
+    const avatarUrl =
+      await getRobloxHeadshot(
+        data.robloxUsername
+      );
+
+    if (
+      avatarUrl &&
+      profileData === data
+    ) {
+      profileAvatar.src =
+        avatarUrl;
+    }
+  }
+
+  function applyProfile(data) {
+    profileData = data;
+
+    if (!data.authenticated) {
+      closeProfileMenu();
+
+      if (loginButton) {
+        loginButton.style.display = "";
+      }
+
+      profileCard.style.display =
+        "none";
+
+      return;
+    }
+
+    if (loginButton) {
+      loginButton.style.display =
+        "none";
+    }
+
+    profileCard.style.display =
+      "flex";
+
+    const verified =
+      Boolean(
+        data.verified &&
+        data.robloxUsername
+      );
+
+    profileCard.classList.toggle(
+      "profile-guest",
+      !verified
+    );
+
+    profileUsername.textContent =
+      verified
+        ? data.robloxUsername
+        : (
+            data.discordUsername ||
+            "Guest"
+          );
+
+    profileStatus.textContent =
+      verified
+        ? "VERIFIED"
+        : "GUEST";
+
+    profileAvatarContainer.classList.toggle(
+      "guest",
+      !verified
+    );
+
+    if (!verified) {
+      profileAvatar.removeAttribute(
+        "src"
+      );
+    }
+
+    createProfileMenu(data);
   }
 
   async function syncAuthentication() {
     try {
-      const response = await fetch(`/api/me?_=${Date.now()}`, {
-        method: "GET",
-        credentials: "include",
-        cache: "no-store"
-      });
+      const response =
+        await fetch(
+          "/api/me",
+          {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store"
+          }
+        );
 
       if (!response.ok) {
-        throw new Error(`Authentication check failed: ${response.status}`);
+        throw new Error(
+          `Authentication check failed: ${response.status}`
+        );
       }
 
-      const data = await response.json();
-      profileData = data;
+      const data =
+        await response.json();
 
-      closeProfileMenu();
+      applyProfile(data);
 
-      if (!data.authenticated) {
-        if (loginButton) {
-          loginButton.style.display = "";
-        }
-
-        profileCard.style.display = "none";
-
-        if (profileMenu) {
-          profileMenu.remove();
-          profileMenu = null;
-        }
-
-        return;
-      }
-
-      if (loginButton) {
-        loginButton.style.display = "none";
-      }
-
-      profileCard.style.display = "flex";
-
-      const isVerified =
-        Boolean(data.verified && data.robloxUsername);
-
-      profileCard.classList.toggle(
-        "profile-guest",
-        !isVerified
-      );
-
-      profileCard.classList.toggle(
-        "profile-verified",
-        isVerified
-      );
-
-      profileUsername.textContent =
-        isVerified
-          ? data.robloxUsername
-          : data.discordUsername || "Guest";
-
-      profileStatus.textContent =
-        isVerified
-          ? "VERIFIED"
-          : "GUEST";
-
-      if (profileAvatar) {
-        profileAvatar.removeAttribute("src");
-      }
-
-      if (profileAvatarWrap) {
-        profileAvatarWrap.style.display = "none";
-      }
-
-      createMenu(data);
-
-      if (isVerified) {
-        await loadRobloxHeadshot(data.robloxUsername);
+      if (
+        data.authenticated &&
+        data.verified &&
+        data.robloxUsername
+      ) {
+        await loadRobloxAvatar(data);
       }
     } catch (error) {
-      console.error("Authentication check failed:", error);
+      console.error(
+        "Authentication check failed:",
+        error
+      );
     }
   }
 
-  profileCard.addEventListener("click", event => {
-    if (event.target.closest(".profile-dropdown")) {
-      return;
-    }
+  profileCard.addEventListener(
+    "click",
+    event => {
+      if (
+        event.target.closest(
+          ".profile-dropdown"
+        )
+      ) {
+        return;
+      }
 
-    toggleProfileMenu();
-  });
-
-  document.addEventListener("click", event => {
-    if (!profileCard.contains(event.target)) {
-      closeProfileMenu();
+      toggleProfileMenu();
     }
-  });
+  );
+
+  document.addEventListener(
+    "click",
+    event => {
+      if (
+        !profileCard.contains(
+          event.target
+        )
+      ) {
+        closeProfileMenu();
+      }
+    }
+  );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+      if (
+        event.key === "Escape"
+      ) {
+        closeProfileMenu();
+      }
+    }
+  );
 
   await syncAuthentication();
 });
