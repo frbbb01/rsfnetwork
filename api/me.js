@@ -107,70 +107,6 @@ async function discordFetch(url) {
   };
 }
 
-async function getRobloxAvatar(username) {
-  if (!username) {
-    return null;
-  }
-
-  try {
-    const userResponse = await fetch(
-      "https://users.roblox.com/v1/usernames/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          usernames: [username],
-          excludeBannedUsers: false
-        })
-      }
-    );
-
-    if (!userResponse.ok) {
-      return null;
-    }
-
-    const userData =
-      await userResponse.json();
-
-    if (
-      !Array.isArray(userData.data) ||
-      !userData.data.length ||
-      !userData.data[0].id
-    ) {
-      return null;
-    }
-
-    const robloxUserId =
-      userData.data[0].id;
-
-    const avatarResponse =
-      await fetch(
-        `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${robloxUserId}&size=150x150&format=Png&isCircular=false`
-      );
-
-    if (!avatarResponse.ok) {
-      return null;
-    }
-
-    const avatarData =
-      await avatarResponse.json();
-
-    if (
-      !Array.isArray(avatarData.data) ||
-      !avatarData.data.length ||
-      !avatarData.data[0].imageUrl
-    ) {
-      return null;
-    }
-
-    return avatarData.data[0].imageUrl;
-  } catch {
-    return null;
-  }
-}
-
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res
@@ -238,7 +174,6 @@ export default async function handler(req, res) {
 
     let verified = false;
     let robloxUsername = null;
-    let robloxAvatarUrl = null;
 
     if (memberResult.response.ok) {
       const member =
@@ -253,13 +188,6 @@ export default async function handler(req, res) {
       if (verified) {
         robloxUsername =
           member.nick || null;
-
-        if (robloxUsername) {
-          robloxAvatarUrl =
-            await getRobloxAvatar(
-              robloxUsername
-            );
-        }
       }
     } else if (
       memberResult.response.status !== 404
@@ -290,8 +218,7 @@ export default async function handler(req, res) {
         user.username,
       avatarUrl,
       verified,
-      robloxUsername,
-      robloxAvatarUrl
+      robloxUsername
     });
   } catch (error) {
     console.error(
