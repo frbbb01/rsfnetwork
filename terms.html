@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Terms of Use — RSF</title>
 
   <style>
@@ -31,11 +31,19 @@
       font-display: swap;
     }
 
+    :root {
+      --bg: #0B1220;
+      --border: rgba(120, 164, 215, 0.16);
+      --border-soft: rgba(120, 164, 215, 0.11);
+      --white: #FFFFFF;
+    }
+
     * {
       box-sizing: border-box;
     }
 
     html {
+      min-height: 100%;
       background: #0B1220;
     }
 
@@ -43,17 +51,32 @@
       margin: 0;
       min-height: 100vh;
 
+      color: var(--white);
+      font-family: "Montserrat", sans-serif;
+
       background:
-        radial-gradient(ellipse 900px 620px at 78% 2%, rgba(42, 103, 175, 0.34), transparent 68%),
-        radial-gradient(ellipse 760px 560px at 8% 55%, rgba(25, 75, 145, 0.18), transparent 70%),
-        radial-gradient(ellipse 650px 480px at 55% 105%, rgba(20, 65, 125, 0.13), transparent 72%),
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
         #0B1220;
 
-      color: #FFFFFF;
-      font-family: "Montserrat", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      background-attachment: fixed;
 
-      padding-top: 68px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+
       padding-bottom: 58px;
     }
 
@@ -62,28 +85,30 @@
       text-decoration: none;
     }
 
+    /* TOP BAR */
+
     .topbar {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 100;
 
       height: 68px;
       padding: 0 32px;
 
-      background: rgba(17, 34, 58, 0.34);
-      border-bottom: 1px solid rgba(132, 178, 225, 0.14);
+      border-bottom: 1px solid rgba(120, 164, 215, 0.13);
 
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(8, 15, 27, 0.84);
 
       display: flex;
       align-items: center;
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .logo {
       font-size: 12px;
+      line-height: 1;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
@@ -91,63 +116,77 @@
     .navigation {
       position: absolute;
       left: 50%;
+      top: 0;
+
+      height: 100%;
+
       transform: translateX(-50%);
 
       display: flex;
       align-items: center;
       gap: 34px;
-      height: 100%;
     }
 
     .nav-item {
       position: relative;
 
-      font-size: 11px;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+
+      font-size: 14px;
       font-weight: 500;
       letter-spacing: 0.02em;
 
-      opacity: 0.48;
+      opacity: 0.52;
 
       transition: opacity 120ms ease;
     }
 
     .nav-item:hover,
-    .nav-item:focus-within,
-    .nav-item.active {
-      opacity: 1;
+    .nav-item:focus-within {
+      opacity: 0.92;
     }
 
-    .nav-link {
-      display: flex;
+    .nav-item.active {
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-label {
+      height: 100%;
+
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
-      height: 68px;
+      gap: 6px;
+
+      padding: 0 4px;
     }
 
     .arrow {
-      font-size: 8px;
+      font-size: 9px;
+      line-height: 1;
       opacity: 0.65;
       transform: translateY(-1px);
     }
 
     .dropdown {
       position: absolute;
-      top: calc(100% + 7px);
+      top: 100%;
       left: 50%;
-      transform: translateX(-50%) translateY(-3px);
 
       width: 170px;
       padding: 6px;
 
-      background: rgba(15, 31, 52, 0.88);
-      border: 1px solid rgba(132, 178, 225, 0.15);
+      transform: translateX(-50%) translateY(4px);
+
+      background: rgba(13, 22, 36, 0.98);
+      border: 1px solid rgba(120, 164, 215, 0.18);
+      border-radius: 7px;
 
       box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.035);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+        0 14px 35px rgba(0, 0, 0, 0.28);
 
       opacity: 0;
       visibility: hidden;
@@ -155,19 +194,10 @@
 
       transition:
         opacity 100ms ease,
-        transform 100ms ease,
-        visibility 100ms ease;
+        visibility 100ms ease,
+        transform 100ms ease;
 
-      z-index: 120;
-    }
-
-    .dropdown::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      left: 0;
-      right: 0;
-      height: 8px;
+      z-index: 200;
     }
 
     .nav-item:hover .dropdown,
@@ -179,17 +209,17 @@
     }
 
     .dropdown a {
-      min-height: 32px;
-      padding: 0 10px;
+      min-height: 34px;
+      padding: 0 11px;
 
       display: flex;
       align-items: center;
 
       font-size: 10px;
-      font-weight: 500;
 
-      opacity: 0.52;
       border-radius: 4px;
+
+      opacity: 0.56;
 
       transition:
         background 100ms ease,
@@ -198,17 +228,21 @@
 
     .dropdown a:hover,
     .dropdown a:focus-visible {
-      background: rgba(74, 132, 194, 0.14);
+      background: rgba(96, 145, 205, 0.10);
       opacity: 1;
       outline: none;
     }
 
-    .page {
-      width: min(760px, calc(100% - 64px));
+    /* PAGE */
+
+    main {
+      width: min(760px, calc(100% - 48px));
       margin: 0 auto;
 
-      padding: 90px 0 100px;
+      padding: 78px 0 105px;
     }
+
+    /* HEADER */
 
     .page-header {
       margin-bottom: 64px;
@@ -219,6 +253,7 @@
 
       font-size: clamp(42px, 6vw, 68px);
       line-height: 0.95;
+
       font-weight: 700;
 
       letter-spacing: -0.07em;
@@ -230,8 +265,10 @@
       font-size: 11px;
       line-height: 1.7;
 
-      opacity: 0.4;
+      color: rgba(255, 255, 255, 0.40);
     }
+
+    /* SECTIONS */
 
     .section {
       margin-bottom: 48px;
@@ -242,6 +279,7 @@
 
       font-size: 13px;
       line-height: 1.4;
+
       font-weight: 700;
 
       letter-spacing: -0.01em;
@@ -251,9 +289,10 @@
     .section li {
       font-size: 12px;
       line-height: 1.85;
+
       font-weight: 400;
 
-      opacity: 0.58;
+      color: rgba(255, 255, 255, 0.58);
     }
 
     .section p {
@@ -269,55 +308,80 @@
       margin-bottom: 6px;
     }
 
+    /* CONTACT */
+
     .contact-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
 
-      min-height: 36px;
-      padding: 0 16px;
+      min-height: 29px;
+
+      padding: 0 11px;
       margin-top: 8px;
 
-      border: 1px solid rgba(132, 178, 225, 0.18);
-      background: rgba(50, 96, 145, 0.08);
+      border: 1px solid rgba(120, 164, 215, 0.19);
+      border-radius: 5px;
 
-      font-size: 10px;
+      background: rgba(255, 255, 255, 0.035);
+
+      font-size: 8px;
       font-weight: 700;
 
-      opacity: 0.7;
+      letter-spacing: 0.065em;
+
+      color: rgba(255, 255, 255, 0.58);
 
       transition:
-        background 100ms ease,
-        opacity 100ms ease,
-        border-color 100ms ease;
+        color 140ms ease,
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease;
     }
 
     .contact-button:hover {
-      background: rgba(74, 132, 194, 0.14);
-      border-color: rgba(132, 178, 225, 0.28);
-      opacity: 1;
+      color: #FFFFFF;
+
+      background: rgba(95, 151, 215, 0.10);
+
+      border-color: rgba(120, 164, 215, 0.34);
+
+      transform: translateY(-1px);
     }
 
-    .footer {
+    .contact-button:active {
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+
+    footer {
       position: fixed;
-      bottom: 0;
       left: 0;
       right: 0;
+      bottom: 0;
+
       z-index: 100;
 
       min-height: 58px;
+
       padding: 0 32px;
 
-      background: rgba(12, 27, 47, 0.30);
-      border-top: 1px solid rgba(132, 178, 225, 0.14);
+      border-top: 1px solid rgba(120, 164, 215, 0.13);
 
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(8, 15, 27, 0.84);
 
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+
+      font-size: 9px;
+      line-height: 1;
+
+      color: rgba(255, 255, 255, 0.30);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .footer-left,
@@ -325,130 +389,278 @@
       display: flex;
       align-items: center;
       gap: 18px;
-
-      font-size: 9px;
-      opacity: 0.35;
     }
 
-    .footer a:hover {
-      opacity: 1;
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 700;
     }
 
-    @media (max-width: 700px) {
+    .footer-right a {
+      transition: color 100ms ease;
+    }
+
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+
       .topbar {
         padding: 0 20px;
       }
 
       .navigation {
-        gap: 16px;
+        gap: 18px;
       }
 
       .nav-item {
-        font-size: 9px;
+        font-size: 13px;
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 45px;
+        padding-bottom: 100px;
+      }
+
+      .page-header {
+        margin-bottom: 48px;
+      }
+    }
+
+    @media (max-width: 620px) {
+
+      .topbar {
+        height: auto;
+        min-height: 64px;
+
+        padding: 18px 20px;
+
+        align-items: flex-start;
       }
 
       .logo {
-        display: none;
+        margin-top: 4px;
       }
 
-      .page {
-        width: min(100% - 40px, 760px);
-        padding-top: 64px;
-        padding-bottom: 64px;
+      .navigation {
+        position: static;
+
+        height: auto;
+
+        margin-left: auto;
+
+        transform: none;
+
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        gap: 12px 17px;
       }
 
-      .footer {
-        padding: 0 20px;
+      .nav-item {
+        height: auto;
+        min-height: 18px;
+
+        font-size: 11px;
+      }
+
+      .dropdown {
+        top: calc(100% + 4px);
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 38px;
+        padding-bottom: 90px;
+      }
+
+      .page-header {
+        margin-bottom: 42px;
+      }
+
+      .page-header h1 {
+        font-size: 48px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section p,
+      .section li {
+        font-size: 11px;
+        line-height: 1.8;
+      }
+
+      footer {
+        min-height: 54px;
+
+        padding: 15px 20px;
+
+        align-items: center;
       }
 
       .footer-left,
       .footer-right {
-        gap: 10px;
+        gap: 12px;
+      }
+
+      .footer-right {
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
     }
   </style>
-
 </head>
 
 <body>
 
   <header class="topbar">
-    <a href="/" class="logo">RSF</a>
 
-    <nav class="navigation">
+    <a href="/" class="logo">
+      RSF
+    </a>
+
+    <nav class="navigation" aria-label="Main navigation">
 
       <div class="nav-item">
-        <a href="/" class="nav-link">MAIN</a>
+        <a href="/" class="nav-label">
+          MAIN
+        </a>
       </div>
 
       <div class="nav-item">
-        <a href="/database" class="nav-link">
+
+        <a href="/database" class="nav-label">
           DATABASE
           <span class="arrow">▾</span>
         </a>
 
         <div class="dropdown">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
+
+          <a href="/database">
+            Playerbase
+          </a>
+
+          <a href="/database">
+            Teams
+          </a>
+
+          <a href="/database">
+            Seasons
+          </a>
+
         </div>
+
       </div>
 
       <div class="nav-item">
-        <a href="/community" class="nav-link">
+
+        <a href="/community" class="nav-label">
           COMMUNITY
           <span class="arrow">▾</span>
         </a>
 
         <div class="dropdown">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
+
+          <a href="/community">
+            Videos
+          </a>
+
+          <a href="/community">
+            Community Latest
+          </a>
+
+          <a href="/community">
+            Development
+          </a>
+
+          <a href="/community">
+            Resources
+          </a>
+
         </div>
+
       </div>
 
       <div class="nav-item">
-        <a href="/arcade" class="nav-link">ARCADE</a>
+
+        <a href="/arcade" class="nav-label">
+          ARCADE
+        </a>
+
       </div>
 
       <div class="nav-item">
-        <a href="/rsf" class="nav-link">RSF</a>
+
+        <a href="/rsf" class="nav-label">
+          RSF
+        </a>
+
       </div>
 
     </nav>
 
   </header>
 
-  <main class="page">
+  <main>
 
     <header class="page-header">
-      <h1>Terms of Use.</h1>
-      <p>Last updated: 27 September 2026</p>
+
+      <h1>
+        Terms of Use.
+      </h1>
+
+      <p>
+        Last updated: 27 September 2026
+      </p>
+
     </header>
 
     <section class="section">
-      <h2>1. Acceptance</h2>
+
+      <h2>
+        1. Acceptance
+      </h2>
+
       <p>
         By accessing or using RSF, you agree to these Terms of Use. If you do
         not agree with these terms, you should not use the service.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>2. About RSF</h2>
+
+      <h2>
+        2. About RSF
+      </h2>
+
       <p>
         RSF is an independent website and community project.
       </p>
+
       <p>
         RSF is not affiliated with, sponsored by, endorsed by, or officially
         connected to Roblox Corporation.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>3. Use of RSF</h2>
-      <p>You agree not to use RSF to:</p>
+
+      <h2>
+        3. Use of RSF
+      </h2>
+
+      <p>
+        You agree not to use RSF to:
+      </p>
+
       <ul>
         <li>Submit unlawful or malicious content</li>
         <li>Harass, threaten, or abuse other users</li>
@@ -458,34 +670,50 @@
         <li>Abuse exploits or vulnerabilities</li>
         <li>Violate the rights of other people or organizations</li>
       </ul>
+
     </section>
 
     <section class="section">
-      <h2>4. User-created content</h2>
+
+      <h2>
+        4. User-created content
+      </h2>
+
       <p>
         You are responsible for content you submit to RSF and should only submit
         content you have the right or permission to use.
       </p>
+
       <p>
         You must not knowingly submit content that infringes another person's
         intellectual property or other legal rights.
       </p>
+
       <p>
         By submitting content to RSF, you grant RSF a limited, non-exclusive
         permission to host, store, display, reproduce, and technically process
         that content as reasonably necessary to operate the service. You retain
         ownership of your content.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>5. Moderation and account suspension</h2>
+
+      <h2>
+        5. Moderation and account suspension
+      </h2>
+
       <p>
         RSF moderators may remove content, suspend accounts, or restrict access
         where they reasonably determine that activity is harmful, abusive,
         unlawful, disruptive, or violates these Terms.
       </p>
-      <p>This may include:</p>
+
+      <p>
+        This may include:
+      </p>
+
       <ul>
         <li>Harassment or threats</li>
         <li>Malicious activity</li>
@@ -495,203 +723,260 @@
         <li>Manipulation of statistics or records</li>
         <li>Repeated violations of these Terms</li>
       </ul>
+
       <p>
         RSF may also take action where necessary to protect users, systems, or
         comply with legal or security requirements.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>6. Statistics and database information</h2>
+
+      <h2>
+        6. Statistics and database information
+      </h2>
+
       <p>
         RSF statistics, rankings, player records, team records, seasons, and
         other database information may contain errors, omissions, outdated
         information, or inaccuracies.
       </p>
+
       <p>
         RSF does not guarantee that database information is complete, current,
         or accurate at all times.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>7. Intellectual property</h2>
+
+      <h2>
+        7. Intellectual property
+      </h2>
+
       <p>
         RSF's original design, branding, code, text, graphics, and other
         original materials are owned by RSF or used under appropriate rights.
       </p>
+
       <p>
         You may not copy, reproduce, redistribute, sell, or commercially exploit
         RSF materials without permission, except where permitted by applicable
         law.
       </p>
+
       <p>
         Third-party names, trademarks, logos, and other intellectual property
         remain the property of their respective owners.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>8. Roblox</h2>
+
+      <h2>
+        8. Roblox
+      </h2>
+
       <p>
         RSF is not affiliated with, operated by, sponsored by, endorsed by, or
         officially connected to Roblox Corporation.
       </p>
+
       <p>
         Roblox trademarks and other intellectual property belong to Roblox
         Corporation or their respective owners. RSF uses related information
         for informational and community purposes.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>9. Discord</h2>
+
+      <h2>
+        9. Discord
+      </h2>
+
       <p>
         Discord is a separate service and organization. RSF is not responsible
         for Discord's services, policies, availability, or practices.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>10. Third-party services</h2>
+
+      <h2>
+        10. Third-party services
+      </h2>
+
       <p>
         RSF may rely on third-party providers for hosting, authentication,
         databases, integrations, security, or other technical services.
       </p>
+
       <p>
         RSF may also contain links to external websites. RSF does not control
         those websites and is not responsible for their content, availability,
         or policies.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>11. Availability</h2>
+
+      <h2>
+        11. Availability
+      </h2>
+
       <p>
         RSF may be modified, interrupted, suspended, or discontinued at any
         time. No guarantee is made that the service will always be available or
         operate without interruption.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>12. Disclaimer</h2>
+
+      <h2>
+        12. Disclaimer
+      </h2>
+
       <p>
         RSF is provided on an "as available" basis to the extent permitted by
         applicable law. RSF does not guarantee that the service will be
         uninterrupted, error-free, secure, or completely accurate.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>13. Limitation of liability</h2>
+
+      <h2>
+        13. Limitation of liability
+      </h2>
+
       <p>
         To the maximum extent permitted by applicable law, RSF and its operator
         will not be liable for indirect, incidental, consequential, special, or
         similar losses arising from or related to use of the service.
       </p>
+
       <p>
         This may include loss of data or content, service interruption, loss of
         access, or reliance on inaccurate statistics or information.
       </p>
+
       <p>
         Nothing in these Terms excludes or limits liability where such exclusion
         or limitation is prohibited by applicable law.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>14. Termination</h2>
+
+      <h2>
+        14. Termination
+      </h2>
+
       <p>
         RSF may suspend or terminate access to accounts or parts of the service
         where reasonably necessary, including for violations of these Terms,
         security incidents, abuse, or legal requirements.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>15. Changes to these Terms</h2>
+
+      <h2>
+        15. Changes to these Terms
+      </h2>
+
       <p>
         RSF may update these Terms from time to time. Updated Terms will be
         posted on this page with a revised date.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>16. Severability</h2>
+
+      <h2>
+        16. Severability
+      </h2>
+
       <p>
         If any provision of these Terms is found to be invalid or unenforceable,
         the remaining provisions will continue to apply to the extent permitted
         by law.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>17. Governing law</h2>
+
+      <h2>
+        17. Governing law
+      </h2>
+
       <p>
         These Terms are subject to the laws applicable to RSF and its operator,
         except where applicable law requires otherwise.
       </p>
+
     </section>
 
     <section class="section">
-      <h2>18. Contact</h2>
+
+      <h2>
+        18. Contact
+      </h2>
+
       <p>
         If you have a question about these Terms or need to contact RSF about
         an account, content, moderation, or legal matter, use the contact page.
       </p>
-      <a href="/contact" class="contact-button">Contact RSF</a>
+
+      <a
+        href="/contact"
+        class="contact-button"
+      >
+        CONTACT RSF
+        <span style="font-size:10px; margin-left:7px;">→</span>
+      </a>
+
     </section>
 
   </main>
 
-  <footer class="footer">
+  <footer>
+
     <div class="footer-left">
-      <span>RSF</span>
+
+      <span class="footer-brand">
+        RSF
+      </span>
+
     </div>
 
     <div class="footer-right">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Use</a>
+
+      <a href="/privacy">
+        Privacy Policy
+      </a>
+
+      <a href="/terms">
+        Terms of Use
+      </a>
+
     </div>
+
   </footer>
-
-  <script>
-    window.addEventListener("load", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
-      });
-    });
-
-    document.querySelectorAll("a[href]").forEach(link => {
-      link.addEventListener("click", event => {
-        const url = new URL(link.href, window.location.href);
-
-        if (
-          url.origin !== window.location.origin ||
-          link.target === "_blank" ||
-          event.ctrlKey ||
-          event.metaKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
-        }
-
-        if (url.href === window.location.href) {
-          return;
-        }
-
-        event.preventDefault();
-
-        document.body.classList.remove("page-loaded");
-
-        setTimeout(() => {
-          window.location.href = url.href;
-        }, 90);
-      });
-    });
-  </script>
 
 </body>
 </html>
