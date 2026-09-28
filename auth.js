@@ -1,101 +1,76 @@
-document.addEventListener(
-  "DOMContentLoaded",
-  async () => {
-    const loginButton =
-      document.getElementById(
-        "login-button"
-      );
+document.addEventListener("DOMContentLoaded", async () => {
+  const loginButton =
+    document.getElementById("login-button");
 
-    const profileCard =
-      document.getElementById(
-        "profile-card"
-      );
+  const profileCard =
+    document.getElementById("profile-card");
 
-    const profileAvatar =
-      document.getElementById(
-        "profile-avatar"
-      );
+  const profileAvatar =
+    document.getElementById("profile-avatar");
 
-    const profileUsername =
-      document.getElementById(
-        "profile-username"
-      );
+  const profileUsername =
+    document.getElementById("profile-username");
 
-    const profileStatus =
-      document.getElementById(
-        "profile-status"
-      );
+  const profileStatus =
+    document.getElementById("profile-status");
 
-    if (
-      !loginButton ||
-      !profileCard
-    ) {
+  if (!profileCard) {
+    return;
+  }
+
+  try {
+    const response =
+      await fetch("/api/me", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store"
+      });
+
+    if (!response.ok) {
       return;
     }
 
-    try {
-      const response =
-        await fetch(
-          "/api/me",
-          {
-            method: "GET",
-            credentials: "include",
-            cache: "no-store"
-          }
-        );
+    const data =
+      await response.json();
 
-      if (!response.ok) {
-        return;
+    if (!data.authenticated) {
+      if (loginButton) {
+        loginButton.style.display = "";
       }
-
-      const user =
-        await response.json();
-
-      if (
-        !user.authenticated
-      ) {
-        return;
-      }
-
-      loginButton.style.display =
-        "none";
 
       profileCard.style.display =
-        "flex";
+        "none";
 
-      if (profileUsername) {
-        profileUsername.textContent =
-          user.displayName ||
-          user.discordUsername ||
-          "USER";
-      }
-
-      if (profileStatus) {
-        profileStatus.textContent =
-          user.verified
-            ? "VERIFIED"
-            : "GUEST";
-      }
-
-      if (
-        profileAvatar &&
-        user.avatarUrl
-      ) {
-        profileAvatar.src =
-          user.avatarUrl;
-
-        profileAvatar.onerror =
-          () => {
-            profileAvatar.src =
-              "https://cdn.discordapp.com/embed/avatars/0.png";
-          };
-      }
-
-    } catch (error) {
-      console.error(
-        "Authentication check failed:",
-        error
-      );
+      return;
     }
+
+    if (loginButton) {
+      loginButton.style.display =
+        "none";
+    }
+
+    profileCard.style.display =
+      "flex";
+
+    profileUsername.textContent =
+      data.verified &&
+      data.robloxUsername
+        ? data.robloxUsername
+        : data.discordUsername;
+
+    profileStatus.textContent =
+      data.verified
+        ? "VERIFIED"
+        : "GUEST";
+
+    if (data.avatarUrl) {
+      profileAvatar.src =
+        data.avatarUrl;
+    }
+  } catch (error) {
+    console.error(
+      "Authentication check failed:",
+      error
+    );
   }
-);
+});
