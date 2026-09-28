@@ -59,19 +59,14 @@ function createSession(userId) {
 }
 
 async function sendDebugWebhook(content) {
-  const webhookUrl =
-    process.env.DEBUG_WEBHOOK_URL;
+  const webhookUrl = process.env.DEBUG_WEBHOOK_URL;
 
   if (!webhookUrl) {
-    console.error(
-      "DEBUG_WEBHOOK_URL is not configured."
-    );
-
     return;
   }
 
   try {
-    await fetch(webhookUrl, {
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -80,6 +75,13 @@ async function sendDebugWebhook(content) {
         content
       })
     });
+
+    if (!response.ok) {
+      console.error(
+        "Debug webhook returned:",
+        response.status
+      );
+    }
   } catch (error) {
     console.error(
       "Debug webhook failed:",
@@ -88,17 +90,13 @@ async function sendDebugWebhook(content) {
   }
 }
 
-async function discordFetch(
-  url,
-  options = {}
-) {
+async function discordFetch(url, options = {}) {
   const response = await fetch(
     url,
     options
   );
 
-  const text =
-    await response.text();
+  const text = await response.text();
 
   let data;
 
@@ -121,10 +119,7 @@ async function discordFetch(
   return data;
 }
 
-export default async function handler(
-  req,
-  res
-) {
+export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res
       .status(405)
@@ -165,8 +160,7 @@ export default async function handler(
       );
   }
 
-  const cookies =
-    parseCookies(req);
+  const cookies = parseCookies(req);
 
   if (!cookies.rsf_oauth_state) {
     return res
@@ -210,33 +204,31 @@ export default async function handler(
   }
 
   try {
-    const tokenResponse =
-      await fetch(
-        "https://discord.com/api/v10/oauth2/token",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/x-www-form-urlencoded"
-          },
-          body:
-            new URLSearchParams({
-              client_id:
-                process.env.DISCORD_CLIENT_ID,
+    const tokenResponse = await fetch(
+      "https://discord.com/api/v10/oauth2/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          client_id:
+            process.env.DISCORD_CLIENT_ID,
 
-              client_secret:
-                process.env.DISCORD_CLIENT_SECRET,
+          client_secret:
+            process.env.DISCORD_CLIENT_SECRET,
 
-              grant_type:
-                "authorization_code",
+          grant_type:
+            "authorization_code",
 
-              code,
+          code,
 
-              redirect_uri:
-                REDIRECT_URI
-            })
-        }
-      );
+          redirect_uri:
+            REDIRECT_URI
+        })
+      }
+    );
 
     const tokenText =
       await tokenResponse.text();
@@ -267,13 +259,7 @@ export default async function handler(
         );
     }
 
-    if (
-      !tokenData.access_token
-    ) {
-      await sendDebugWebhook(
-        "❌ **Discord returned no access token**"
-      );
-
+    if (!tokenData.access_token) {
       return res
         .status(500)
         .send(
@@ -281,16 +267,15 @@ export default async function handler(
         );
     }
 
-    const user =
-      await discordFetch(
-        "https://discord.com/api/v10/users/@me",
-        {
-          headers: {
-            Authorization:
-              `Bearer ${tokenData.access_token}`
-          }
+    const user = await discordFetch(
+      "https://discord.com/api/v10/users/@me",
+      {
+        headers: {
+          Authorization:
+            `Bearer ${tokenData.access_token}`
         }
-      );
+      }
+    );
 
     if (!user.id) {
       throw new Error(
@@ -305,7 +290,6 @@ export default async function handler(
       "Set-Cookie",
       [
         `rsf_session=${encodeURIComponent(session)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
-
         "rsf_oauth_state=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax"
       ]
     );
@@ -316,9 +300,7 @@ export default async function handler(
       "Unknown";
 
     await sendDebugWebhook(
-      `🔐 **User logged in**\n` +
-      `Discord: **${discordName}**\n` +
-      `ID: \`${user.id}\``
+      `🔐 **User logged in**\nDiscord: **${discordName}**\nID: \`${user.id}\``
     );
 
     res.statusCode = 302;
