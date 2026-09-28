@@ -50,7 +50,6 @@
     body {
       margin: 0;
       min-height: 100vh;
-
       color: var(--white);
       font-family: "Montserrat", sans-serif;
 
@@ -82,8 +81,6 @@
       color: inherit;
       text-decoration: none;
     }
-
-    /* TOP BAR */
 
     .topbar {
       position: sticky;
@@ -231,8 +228,6 @@
       outline: none;
     }
 
-    /* LOGIN */
-
     .login-button {
       position: absolute;
       right: 32px;
@@ -305,61 +300,89 @@
       object-fit: contain;
     }
 
-    /* PROFILE CARD */
-
     .profile-card {
       position: absolute;
       right: 32px;
 
-      width: 148px;
-      height: 40px;
+      width: 170px;
+      height: 48px;
 
-      padding: 0 10px;
+      padding: 5px 9px 5px 6px;
 
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
 
       border: 1px solid rgba(120, 164, 215, 0.16);
-      border-radius: 6px;
+      border-radius: 11px;
 
-      background: rgba(9, 16, 27, 0.88);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(19, 35, 57, 0.92),
+          rgba(9, 17, 29, 0.94)
+        );
 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
 
       cursor: pointer;
+      user-select: none;
 
       box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.12);
+        0 8px 28px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
 
       transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        box-shadow 140ms ease;
+        background 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
     }
 
     .profile-card:hover {
-      background: rgba(12, 22, 37, 0.94);
-      border-color: rgba(120, 164, 215, 0.25);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(25, 45, 72, 0.96),
+          rgba(10, 20, 34, 0.96)
+        );
+
+      border-color: rgba(120, 164, 215, 0.28);
 
       box-shadow:
-        0 7px 22px rgba(0, 0, 0, 0.18);
+        0 10px 32px rgba(0, 0, 0, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+      transform: translateY(-1px);
+    }
+
+    .profile-card.profile-open {
+      border-color: rgba(88, 150, 225, 0.34);
+
+      box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(88, 150, 225, 0.035);
     }
 
     .profile-avatar {
-      width: 25px;
-      height: 25px;
+      position: relative;
 
-      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+
+      flex: 0 0 36px;
 
       overflow: hidden;
 
-      border-radius: 50%;
+      border-radius: 9px;
 
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.055);
 
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.025);
     }
 
     .profile-avatar img {
@@ -373,17 +396,24 @@
 
     .profile-info {
       min-width: 0;
+      flex: 1;
 
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      justify-content: center;
+
+      gap: 4px;
     }
 
     .profile-username {
+      max-width: 93px;
+
       overflow: hidden;
 
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
+
+      line-height: 1;
 
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -392,15 +422,215 @@
     }
 
     .profile-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
       font-size: 7px;
       font-weight: 700;
 
-      letter-spacing: 0.06em;
+      line-height: 1;
 
-      color: rgba(255, 255, 255, 0.36);
+      letter-spacing: 0.09em;
+
+      color: rgba(255, 255, 255, 0.42);
     }
 
-    /* LOGIN OVERLAY */
+    .profile-status::before {
+      content: "";
+
+      width: 4px;
+      height: 4px;
+
+      flex: 0 0 auto;
+
+      border-radius: 50%;
+
+      background: #4F9BFF;
+
+      box-shadow:
+        0 0 0 3px rgba(79, 155, 255, 0.07);
+    }
+
+    .profile-card::after {
+      content: "⌄";
+
+      width: 17px;
+      height: 17px;
+
+      flex: 0 0 17px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: rgba(255, 255, 255, 0.34);
+
+      font-size: 13px;
+      line-height: 1;
+
+      transform: translateY(-1px);
+
+      transition:
+        color 160ms ease,
+        transform 160ms ease;
+    }
+
+    .profile-card:hover::after {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .profile-card.profile-open::after {
+      color: rgba(255, 255, 255, 0.72);
+      transform: rotate(180deg) translateY(1px);
+    }
+
+    .profile-dropdown {
+      position: absolute;
+
+      top: calc(100% + 9px);
+      right: 0;
+
+      width: 220px;
+
+      padding: 6px;
+
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(13, 24, 40, 0.98),
+          rgba(7, 14, 25, 0.98)
+        );
+
+      box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.42),
+        0 5px 18px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transform:
+        translateY(-7px)
+        scale(0.975);
+
+      transform-origin: top right;
+
+      transition:
+        opacity 170ms ease,
+        transform 170ms ease,
+        visibility 170ms ease;
+
+      z-index: 9999;
+    }
+
+    .profile-dropdown-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+    .profile-dropdown-item {
+      width: 100%;
+      height: 43px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      padding: 0 11px;
+
+      border: 0;
+      border-radius: 8px;
+
+      background: transparent;
+
+      color: rgba(255, 255, 255, 0.72);
+
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        background 140ms ease,
+        color 140ms ease,
+        transform 140ms ease;
+    }
+
+    .profile-dropdown-item:hover {
+      background: rgba(96, 145, 205, 0.09);
+
+      color: #FFFFFF;
+
+      transform: translateX(1px);
+    }
+
+    .profile-dropdown-icon {
+      width: 19px;
+      height: 19px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: rgba(255, 255, 255, 0.38);
+
+      font-size: 12px;
+
+      transition:
+        color 140ms ease;
+    }
+
+    .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .profile-dropdown-divider {
+      height: 1px;
+
+      margin: 6px 5px;
+
+      background: rgba(120, 164, 215, 0.10);
+    }
+
+    .profile-logout {
+      color: rgba(255, 107, 120, 0.78);
+    }
+
+    .profile-logout .profile-dropdown-icon {
+      color: rgba(255, 107, 120, 0.72);
+    }
+
+    .profile-logout:hover {
+      background: rgba(255, 65, 85, 0.075);
+      color: #FF7D88;
+    }
+
+    .profile-logout:hover .profile-dropdown-icon {
+      color: #FF7D88;
+    }
+
+    .profile-dropdown-item:disabled {
+      opacity: 0.45;
+      cursor: default;
+      transform: none;
+    }
 
     .login-overlay {
       position: fixed;
@@ -625,16 +855,12 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
-    /* PAGE */
-
     main {
       width: min(1020px, calc(100% - 48px));
       margin: 0 auto;
 
       padding: 48px 0 105px;
     }
-
-    /* NEWS */
 
     .news {
       min-height: 132px;
@@ -780,8 +1006,6 @@
       transform: scale(1.025);
     }
 
-    /* NEWS CONTROLS */
-
     .news-controls {
       position: absolute;
 
@@ -879,8 +1103,6 @@
       background: rgba(255, 255, 255, 0.92);
     }
 
-    /* MAIN GRID */
-
     .main-grid {
       margin-top: 14px;
 
@@ -896,8 +1118,6 @@
 
       gap: 14px;
     }
-
-    /* GRID MODULES */
 
     .module {
       position: relative;
@@ -979,8 +1199,6 @@
       z-index: 1;
     }
 
-    /* MODULE CONTENT */
-
     .module-title {
       margin: 0;
 
@@ -1025,8 +1243,6 @@
 
       background: rgba(111, 164, 220, 0.52);
     }
-
-    /* MODULE BUTTONS */
 
     .module-bottom {
       margin-top: auto;
@@ -1095,8 +1311,6 @@
       line-height: 1;
     }
 
-    /* DATABASE */
-
     .database {
       grid-column: 2;
       grid-row: 1 / span 2;
@@ -1114,8 +1328,6 @@
       max-width: 270px;
     }
 
-    /* RSF / ARCADE */
-
     .rsf-module {
       grid-column: 1;
       grid-row: 1;
@@ -1125,8 +1337,6 @@
       grid-column: 1;
       grid-row: 2;
     }
-
-    /* COMMUNITY */
 
     .community {
       grid-column: 1 / span 2;
@@ -1151,8 +1361,6 @@
     .community .module-bottom {
       grid-column: 1 / span 2;
     }
-
-    /* FOOTER */
 
     footer {
       position: fixed;
@@ -1203,10 +1411,7 @@
       color: rgba(255, 255, 255, 0.75);
     }
 
-    /* RESPONSIVE */
-
     @media (max-width: 760px) {
-
       .topbar {
         padding: 0 20px;
       }
@@ -1229,12 +1434,21 @@
       .profile-card {
         right: 20px;
         width: 128px;
-        height: 36px;
+        height: 40px;
       }
 
       .profile-avatar {
-        width: 22px;
-        height: 22px;
+        width: 29px;
+        height: 29px;
+        flex-basis: 29px;
+      }
+
+      .profile-username {
+        max-width: 65px;
+      }
+
+      .profile-dropdown {
+        right: -3px;
       }
 
       .discord-logo {
@@ -1302,7 +1516,6 @@
     }
 
     @media (max-width: 620px) {
-
       .topbar {
         height: auto;
         min-height: 64px;
@@ -1361,24 +1574,38 @@
         top: 18px;
 
         width: 108px;
-        height: 34px;
+        height: 38px;
 
-        padding: 0 8px;
+        padding: 4px 7px 4px 5px;
 
         gap: 7px;
       }
 
       .profile-avatar {
-        width: 21px;
-        height: 21px;
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
       }
 
       .profile-username {
+        max-width: 45px;
         font-size: 8px;
       }
 
       .profile-status {
         font-size: 6px;
+      }
+
+      .profile-card::after {
+        width: 13px;
+        height: 13px;
+        flex-basis: 13px;
+        font-size: 11px;
+      }
+
+      .profile-dropdown {
+        width: 205px;
+        right: -4px;
       }
 
       .discord-logo {
@@ -1881,7 +2108,6 @@
   </footer>
 
   <script>
-
     const loginButton =
       document.getElementById(
         "login-button"
@@ -1903,7 +2129,6 @@
       );
 
     function openLoginModal() {
-
       loginOverlay.classList.add(
         "open"
       );
@@ -1915,11 +2140,9 @@
 
       document.body.style.overflow =
         "hidden";
-
     }
 
     function closeLoginModal() {
-
       loginOverlay.classList.remove(
         "open"
       );
@@ -1931,7 +2154,6 @@
 
       document.body.style.overflow =
         "";
-
     }
 
     loginButton.addEventListener(
@@ -1947,42 +2169,34 @@
     loginOverlay.addEventListener(
       "click",
       event => {
-
         if (
           event.target ===
           loginOverlay
         ) {
-
           closeLoginModal();
-
         }
-
       }
     );
 
-loginProceed.addEventListener(
-  "click",
-  () => {
-    window.location.href =
-      "https://discord.com/oauth2/authorize?client_id=1554215697108963430&response_type=code&redirect_uri=https%3A%2F%2Fnetworkrsf.vercel.app%2Fcallback&scope=identify+guilds";
-  }
-);
+    loginProceed.addEventListener(
+      "click",
+      () => {
+        window.location.href =
+          "https://discord.com/oauth2/authorize?client_id=1554215697108963430&response_type=code&redirect_uri=https%3A%2F%2Fnetworkrsf.vercel.app%2Fcallback&scope=identify+guilds";
+      }
+    );
 
     document.addEventListener(
       "keydown",
       event => {
-
         if (
           event.key === "Escape" &&
           loginOverlay.classList.contains(
             "open"
           )
         ) {
-
           closeLoginModal();
-
         }
-
       }
     );
 
@@ -1990,23 +2204,15 @@ loginProceed.addEventListener(
       "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
 
     const NEWS_SYNC_INTERVAL = 15000;
-
     const NEWS_AUTO_ADVANCE = 20000;
-
     const NEWS_REQUEST_TIMEOUT = 8000;
 
     let newsItems = [];
-
     let currentNewsIndex = 0;
-
     let newsTimer = null;
-
     let syncTimer = null;
-
     let syncInProgress = false;
-
     let firstLoad = true;
-
     let lastServerVersion = null;
 
     const imageCache = new Map();
@@ -2052,7 +2258,6 @@ loginProceed.addEventListener(
       );
 
     function preloadImage(url) {
-
       if (!url) {
         return;
       }
@@ -2077,11 +2282,9 @@ loginProceed.addEventListener(
         url,
         preload
       );
-
     }
 
     function cleanupImageCache() {
-
       const activeImages =
         new Set(
           newsItems
@@ -2095,28 +2298,21 @@ loginProceed.addEventListener(
       for (
         const url of imageCache.keys()
       ) {
-
         if (
           !activeImages.has(url)
         ) {
-
           imageCache.delete(url);
         }
-
       }
-
     }
 
     function cleanValue(value) {
-
       return String(
         value ?? ""
       ).trim();
-
     }
 
     function getNewsSignature(items) {
-
       return items
         .map(
           item =>
@@ -2127,16 +2323,13 @@ loginProceed.addEventListener(
             ].join("|||")
         )
         .join("~~~");
-
     }
 
     function createNewsDots() {
-
       dotsContainer.innerHTML = "";
 
       newsItems.forEach(
         (_, index) => {
-
           const dot =
             document.createElement(
               "button"
@@ -2156,27 +2349,21 @@ loginProceed.addEventListener(
           dot.addEventListener(
             "click",
             () => {
-
               showNews(index);
-
               resetNewsTimer();
-
             }
           );
 
           dotsContainer.appendChild(
             dot
           );
-
         }
       );
 
       updateNewsDots();
-
     }
 
     function updateNewsDots() {
-
       const dots =
         dotsContainer.querySelectorAll(
           ".news-dot"
@@ -2184,23 +2371,18 @@ loginProceed.addEventListener(
 
       dots.forEach(
         (dot, index) => {
-
           dot.classList.toggle(
             "active",
             index === currentNewsIndex
           );
-
         }
       );
-
     }
 
     function showNews(index) {
-
       if (
         !newsItems.length
       ) {
-
         return;
       }
 
@@ -2221,7 +2403,6 @@ loginProceed.addEventListener(
 
       requestAnimationFrame(
         () => {
-
           description.textContent =
             item.description ||
             "No current news available.";
@@ -2243,7 +2424,6 @@ loginProceed.addEventListener(
           );
 
           image.onload = null;
-
           image.onerror = null;
 
           image.removeAttribute(
@@ -2251,7 +2431,6 @@ loginProceed.addEventListener(
           );
 
           if (item.image) {
-
             const cachedImage =
               imageCache.get(
                 item.image
@@ -2266,57 +2445,44 @@ loginProceed.addEventListener(
               cachedImage.complete &&
               cachedImage.naturalWidth > 0
             ) {
-
               image.src =
                 cachedImage.src;
 
               imageContainer.classList.add(
                 "visible"
               );
-
             } else {
-
               image.onload =
                 () => {
-
                   imageContainer.classList.add(
                     "visible"
                   );
-
                 };
 
               image.onerror =
                 () => {
-
                   imageContainer.classList.remove(
                     "visible"
                   );
-
                 };
 
               image.src =
                 item.image;
-
             }
-
           }
 
           updateNewsDots();
 
           description.style.opacity =
             "1";
-
         }
       );
-
     }
 
     function nextNews() {
-
       if (
         newsItems.length <= 1
       ) {
-
         return;
       }
 
@@ -2325,15 +2491,12 @@ loginProceed.addEventListener(
       );
 
       resetNewsTimer();
-
     }
 
     function previousNews() {
-
       if (
         newsItems.length <= 1
       ) {
-
         return;
       }
 
@@ -2342,11 +2505,9 @@ loginProceed.addEventListener(
       );
 
       resetNewsTimer();
-
     }
 
     function resetNewsTimer() {
-
       clearTimeout(
         newsTimer
       );
@@ -2354,24 +2515,20 @@ loginProceed.addEventListener(
       if (
         newsItems.length <= 1
       ) {
-
         return;
       }
 
       newsTimer =
         setTimeout(
           () => {
-
             showNews(
               currentNewsIndex + 1
             );
 
             resetNewsTimer();
-
           },
           NEWS_AUTO_ADVANCE
         );
-
     }
 
     previousButton.addEventListener(
@@ -2385,25 +2542,18 @@ loginProceed.addEventListener(
     );
 
     function updateControls() {
-
       if (
         newsItems.length <= 1
       ) {
-
         controls.style.display =
           "none";
-
       } else {
-
         controls.style.display =
           "flex";
-
       }
-
     }
 
     function getFreshNewsURL() {
-
       const separator =
         NEWS_API_URL.includes("?")
           ? "&"
@@ -2415,53 +2565,42 @@ loginProceed.addEventListener(
         "_rsf=" +
         Date.now()
       );
-
     }
 
     async function fetchNews() {
-
       const controller =
         new AbortController();
 
       const timeout =
         setTimeout(
           () => {
-
             controller.abort();
-
           },
           NEWS_REQUEST_TIMEOUT
         );
 
       try {
-
         const response =
           await fetch(
             getFreshNewsURL(),
             {
               method: "GET",
-
               cache: "no-store",
-
               credentials: "omit",
-
               redirect: "follow",
-
               signal:
                 controller.signal,
-
               headers: {
-                "Accept": "application/json"
+                "Accept":
+                  "application/json"
               }
             }
           );
 
         if (!response.ok) {
-
           throw new Error(
             `RSF News API returned HTTP ${response.status}`
           );
-
         }
 
         const data =
@@ -2471,11 +2610,9 @@ loginProceed.addEventListener(
           !data ||
           typeof data !== "object"
         ) {
-
           throw new Error(
             "RSF News API returned invalid JSON."
           );
-
         }
 
         if (
@@ -2483,33 +2620,27 @@ loginProceed.addEventListener(
             data.items
           )
         ) {
-
           throw new Error(
             "RSF News API returned no valid news items."
           );
-
         }
 
         const incomingItems =
           data.items
             .map(
               item => ({
-
                 image:
                   cleanValue(
                     item.image
                   ),
-
                 description:
                   cleanValue(
                     item.description
                   ),
-
                 date:
                   cleanValue(
                     item.date
                   )
-
               })
             )
             .filter(
@@ -2522,11 +2653,9 @@ loginProceed.addEventListener(
         if (
           !incomingItems.length
         ) {
-
           if (
             firstLoad
           ) {
-
             newsItems = [
               {
                 image: "",
@@ -2537,13 +2666,10 @@ loginProceed.addEventListener(
             ];
 
             createNewsDots();
-
             updateControls();
-
             showNews(0);
 
             firstLoad = false;
-
           }
 
           return false;
@@ -2567,17 +2693,17 @@ loginProceed.addEventListener(
         if (
           !firstLoad &&
           serverVersion &&
-          serverVersion === lastServerVersion
+          serverVersion ===
+            lastServerVersion
         ) {
-
           return false;
         }
 
         if (
           !firstLoad &&
-          oldSignature === newSignature
+          oldSignature ===
+            newSignature
         ) {
-
           lastServerVersion =
             serverVersion ||
             lastServerVersion;
@@ -2605,7 +2731,6 @@ loginProceed.addEventListener(
         let newIndex = 0;
 
         if (currentKey) {
-
           const matchingIndex =
             newsItems.findIndex(
               item =>
@@ -2620,21 +2745,16 @@ loginProceed.addEventListener(
           if (
             matchingIndex !== -1
           ) {
-
             newIndex =
               matchingIndex;
-
           }
-
         }
 
         newsItems.forEach(
           item => {
-
             preloadImage(
               item.image
             );
-
           }
         );
 
@@ -2657,54 +2777,39 @@ loginProceed.addEventListener(
         firstLoad = false;
 
         return true;
-
       } finally {
-
         clearTimeout(
           timeout
         );
-
       }
-
     }
 
     async function syncNews() {
-
       if (
         syncInProgress
       ) {
-
         return;
       }
 
       syncInProgress = true;
 
       try {
-
         await fetchNews();
-
       } catch (error) {
-
         console.warn(
           "RSF News sync failed:",
           error
         );
-
       } finally {
-
         syncInProgress = false;
-
       }
-
     }
 
     async function startNewsSync() {
-
       await syncNews();
 
       const scheduleNextSync =
         () => {
-
           clearTimeout(
             syncTimer
           );
@@ -2712,39 +2817,29 @@ loginProceed.addEventListener(
           syncTimer =
             setTimeout(
               async () => {
-
                 await syncNews();
-
                 scheduleNextSync();
-
               },
               NEWS_SYNC_INTERVAL
             );
-
         };
 
       scheduleNextSync();
-
     }
 
     document.addEventListener(
       "visibilitychange",
       () => {
-
         if (
           document.visibilityState ===
           "visible"
         ) {
-
           syncNews();
-
         }
-
       }
     );
 
     startNewsSync();
-
   </script>
 
   <script src="/auth.js"></script>
