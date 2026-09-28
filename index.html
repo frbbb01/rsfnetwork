@@ -237,70 +237,72 @@
       position: absolute;
       right: 32px;
 
-      height: 42px;
+      width: 148px;
+      height: 40px;
 
-      padding: 0 20px;
+      padding: 0 17px;
 
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
 
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 6px;
 
       background:
         linear-gradient(
           135deg,
-          #5865F2 0%,
-          #4F5BD5 100%
+          #5865F2,
+          #5360E8
         );
 
       color: #FFFFFF;
 
       font-family: "Montserrat", sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.055em;
 
       cursor: pointer;
 
+      box-shadow:
+        0 5px 18px rgba(45, 55, 160, 0.16);
+
       transition:
         background 140ms ease,
-        transform 140ms ease;
+        border-color 140ms ease,
+        box-shadow 140ms ease;
     }
 
     .login-button:hover {
       background:
         linear-gradient(
           135deg,
-          #6270FF 0%,
-          #5865F2 100%
+          #6370F5,
+          #5966EB
         );
 
-      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.18);
+
+      box-shadow:
+        0 6px 20px rgba(45, 55, 160, 0.22);
     }
 
     .login-button:active {
-      transform: translateY(0);
+      box-shadow:
+        0 3px 12px rgba(45, 55, 160, 0.16);
     }
 
-    .discord-icon {
-      width: 19px;
-      height: 19px;
+    .discord-logo {
+      width: 22px;
+      height: 22px;
 
       flex: 0 0 auto;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .discord-icon svg {
-      width: 19px;
-      height: 19px;
-
       display: block;
+
+      object-fit: contain;
     }
 
     /* LOGIN OVERLAY */
@@ -317,7 +319,7 @@
 
       padding: 24px;
 
-      background: rgba(3, 8, 16, 0.68);
+      background: rgba(3, 7, 14, 0.66);
 
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
@@ -342,19 +344,15 @@
 
       padding: 28px;
 
-      border: 1px solid rgba(120, 164, 215, 0.20);
-      border-radius: 11px;
+      border: 1px solid rgba(120, 164, 215, 0.17);
+      border-radius: 9px;
 
       background:
-        linear-gradient(
-          145deg,
-          rgba(23, 48, 79, 0.94),
-          rgba(10, 20, 34, 0.96)
-        );
+        rgba(9, 16, 27, 0.94);
 
       box-shadow:
-        0 24px 70px rgba(0, 0, 0, 0.42),
-        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+        0 24px 70px rgba(0, 0, 0, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
 
       transform: translateY(8px) scale(0.985);
 
@@ -1128,8 +1126,14 @@
 
       .login-button {
         right: 20px;
-        height: 40px;
-        padding: 0 17px;
+        width: 128px;
+        height: 36px;
+        padding: 0 14px;
+      }
+
+      .discord-logo {
+        width: 20px;
+        height: 20px;
       }
 
       main {
@@ -1212,7 +1216,7 @@
         height: auto;
 
         margin-left: auto;
-        margin-right: 76px;
+        margin-right: 132px;
 
         transform: none;
 
@@ -1236,17 +1240,19 @@
         right: 20px;
         top: 18px;
 
-        width: 42px;
-        height: 36px;
+        width: 108px;
+        height: 34px;
 
-        padding: 0;
+        padding: 0 11px;
 
-        justify-content: center;
-        gap: 0;
+        gap: 7px;
+
+        font-size: 9px;
       }
 
-      .login-button span:last-child {
-        display: none;
+      .discord-logo {
+        width: 19px;
+        height: 19px;
       }
 
       .news-content {
@@ -1401,22 +1407,12 @@
       aria-label="Login with Discord"
     >
 
-      <span class="discord-icon" aria-hidden="true">
-
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-
-          <path
-            fill="#FFFFFF"
-            d="M19.54 5.21A16.2 16.2 0 0 0 15.57 4l-.49 1a14.7 14.7 0 0 0-4.16 0l-.49-1a16.2 16.2 0 0 0-3.97 1.21C4.95 8.22 4.25 11.13 4.5 14c1.64 1.23 3.22 1.97 4.78 2.46l1.02-1.39c-.56-.2-1.1-.45-1.6-.75l.39-.3c3.09 1.44 6.43 1.44 9.48 0l.39.3c-.5.3-1.04.55-1.6.75l1.02 1.39c1.56-.49 3.14-1.23 4.78-2.46.3-3.32-.51-6.2-3.62-8.79ZM9.75 13.03c-.94 0-1.71-.87-1.71-1.94s.75-1.95 1.71-1.95 1.72.88 1.71 1.95c0 1.07-.75 1.94-1.71 1.94Zm4.5 0c-.94 0-1.71-.87-1.71-1.94s.75-1.95 1.71-1.95 1.72.88 1.71 1.95c0 1.07-.75 1.94-1.71 1.94Z"
-          />
-
-        </svg>
-
-      </span>
+      <img
+        class="discord-logo"
+        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3faf5e455fc248acf0f34_Icon.svg"
+        alt=""
+        aria-hidden="true"
+      >
 
       <span>
         LOGIN
@@ -1442,7 +1438,6 @@
       <div class="login-modal-header">
 
         <div>
-
           <h2
             class="login-modal-title"
             id="login-title"
@@ -1453,7 +1448,6 @@
           <p class="login-modal-subtitle">
             Connect your Discord account to access the full RSF experience.
           </p>
-
         </div>
 
         <button
