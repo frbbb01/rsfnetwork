@@ -25,6 +25,10 @@
     {
       "source": "/terms",
       "destination": "/terms.html"
+    },
+    {
+      "source": "/callback",
+      "destination": "/api/callback"
     }
   ]
 }
