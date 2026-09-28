@@ -32,9 +32,9 @@
     }
 
     :root {
-      --bg: #0F0F0F;
-      --border: #292929;
-      --border-soft: #252525;
+      --bg: #0B1220;
+      --border: rgba(120, 164, 215, 0.16);
+      --border-soft: rgba(120, 164, 215, 0.11);
       --white: #FFFFFF;
     }
 
@@ -44,7 +44,7 @@
 
     html {
       min-height: 100%;
-      background: #0F0F0F;
+      background: #0B1220;
     }
 
     body {
@@ -56,21 +56,21 @@
 
       background:
         radial-gradient(
-          ellipse 950px 650px at 78% 4%,
-          rgba(42, 103, 175, 0.19),
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
           transparent 68%
         ),
         radial-gradient(
-          ellipse 750px 550px at 10% 58%,
-          rgba(25, 68, 125, 0.10),
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 600px 450px at 55% 100%,
-          rgba(20, 52, 95, 0.06),
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
           transparent 72%
         ),
-        #0F0F0F;
+        #0B1220;
 
       background-attachment: fixed;
 
@@ -93,15 +93,15 @@
       height: 68px;
       padding: 0 32px;
 
-      border-bottom: 1px solid #242424;
+      border-bottom: 1px solid rgba(120, 164, 215, 0.13);
 
-      background: rgba(15, 15, 15, 0.91);
+      background: rgba(8, 15, 27, 0.84);
 
       display: flex;
       align-items: center;
 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .logo {
@@ -137,14 +137,14 @@
       font-weight: 500;
       letter-spacing: 0.02em;
 
-      opacity: 0.48;
+      opacity: 0.52;
 
       transition: opacity 120ms ease;
     }
 
     .nav-item:hover,
     .nav-item:focus-within {
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .nav-item.active {
@@ -179,8 +179,12 @@
 
       transform: translateX(-50%) translateY(4px);
 
-      background: #151515;
-      border: 1px solid var(--border);
+      background: rgba(13, 22, 36, 0.98);
+      border: 1px solid rgba(120, 164, 215, 0.18);
+      border-radius: 7px;
+
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.28);
 
       opacity: 0;
       visibility: hidden;
@@ -203,15 +207,17 @@
     }
 
     .dropdown a {
-      min-height: 32px;
-      padding: 0 10px;
+      min-height: 34px;
+      padding: 0 11px;
 
       display: flex;
       align-items: center;
 
       font-size: 10px;
 
-      opacity: 0.52;
+      border-radius: 4px;
+
+      opacity: 0.56;
 
       transition:
         background 100ms ease,
@@ -220,7 +226,7 @@
 
     .dropdown a:hover,
     .dropdown a:focus-visible {
-      background: #202020;
+      background: rgba(96, 145, 205, 0.10);
       opacity: 1;
       outline: none;
     }
@@ -244,11 +250,20 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) 230px;
 
-      border: 1px solid var(--border);
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 10px;
 
-      background: rgba(255, 255, 255, 0.025);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(74, 132, 205, 0.075),
+          rgba(255, 255, 255, 0.018)
+        );
 
       overflow: hidden;
+
+      box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.08);
 
       transition:
         border-color 160ms ease,
@@ -256,8 +271,14 @@
     }
 
     .news:hover {
-      border-color: #363636;
-      background: rgba(255, 255, 255, 0.032);
+      border-color: rgba(120, 164, 215, 0.25);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(74, 132, 205, 0.095),
+          rgba(255, 255, 255, 0.022)
+        );
     }
 
     .news-content {
@@ -303,7 +324,7 @@
 
       letter-spacing: -0.01em;
 
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.70);
 
       transition: opacity 120ms ease;
     }
@@ -335,7 +356,7 @@
 
       overflow: hidden;
 
-      background: #111;
+      background: #0C1523;
 
       display: none;
     }
@@ -491,7 +512,8 @@
 
       padding: 24px 25px 21px;
 
-      border: 1px solid var(--border);
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 10px;
 
       display: flex;
       flex-direction: column;
@@ -501,9 +523,12 @@
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.030),
+          rgba(63, 121, 194, 0.075),
           rgba(255, 255, 255, 0.018)
         );
+
+      box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.08);
 
       transition:
         border-color 160ms ease,
@@ -527,7 +552,7 @@
       background:
         radial-gradient(
           circle,
-          rgba(54, 119, 197, 0.075),
+          rgba(54, 119, 197, 0.11),
           transparent 70%
         );
 
@@ -539,12 +564,12 @@
     }
 
     .module:hover {
-      border-color: #373737;
+      border-color: rgba(120, 164, 215, 0.27);
 
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.040),
+          rgba(63, 121, 194, 0.095),
           rgba(255, 255, 255, 0.022)
         );
 
@@ -560,15 +585,17 @@
       z-index: 1;
     }
 
+    /* MODULE CONTENT */
+
     .module-title {
       margin: 0;
 
-      font-size: clamp(35px, 4.16vw, 51px);
-      line-height: 0.95;
+      font-size: clamp(29px, 3.3vw, 40px);
+      line-height: 0.98;
 
       font-weight: 700;
 
-      letter-spacing: -0.07em;
+      letter-spacing: -0.065em;
 
       transition: transform 160ms ease;
     }
@@ -578,27 +605,44 @@
     }
 
     .module-description {
-      margin: 14px 0 0;
+      position: relative;
 
-      max-width: 350px;
+      margin: 17px 0 0;
+      padding-left: 12px;
+
+      max-width: 340px;
 
       font-size: 9px;
-      line-height: 1.7;
+      line-height: 1.65;
 
-      color: rgba(255, 255, 255, 0.44);
+      color: rgba(255, 255, 255, 0.46);
+    }
+
+    .module-description::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+
+      width: 1px;
+
+      background: rgba(111, 164, 220, 0.52);
     }
 
     /* MODULE BUTTONS */
 
     .module-bottom {
       margin-top: auto;
-      padding-top: 17px;
+      padding-top: 15px;
 
       display: flex;
       align-items: center;
       justify-content: flex-end;
 
-      border-top: 1px solid #292929;
+      border-top: 1px solid var(--border-soft);
     }
 
     .module-link {
@@ -607,21 +651,21 @@
       justify-content: center;
       gap: 7px;
 
-      min-height: 30px;
+      min-height: 29px;
 
       padding: 0 11px;
 
-      border: 1px solid #383838;
-      border-radius: 6px;
+      border: 1px solid rgba(120, 164, 215, 0.19);
+      border-radius: 5px;
 
       background: rgba(255, 255, 255, 0.035);
 
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 700;
 
-      letter-spacing: 0.06em;
+      letter-spacing: 0.065em;
 
-      color: rgba(255, 255, 255, 0.62);
+      color: rgba(255, 255, 255, 0.58);
 
       cursor: pointer;
 
@@ -639,9 +683,9 @@
     .module-link:hover {
       color: #FFFFFF;
 
-      background: rgba(255, 255, 255, 0.075);
+      background: rgba(95, 151, 215, 0.10);
 
-      border-color: #4A4A4A;
+      border-color: rgba(120, 164, 215, 0.34);
 
       gap: 9px;
 
@@ -669,7 +713,7 @@
     }
 
     .database .module-title {
-      font-size: clamp(46px, 5.2vw, 68px);
+      font-size: clamp(41px, 4.6vw, 58px);
     }
 
     .database .module-description {
@@ -706,7 +750,7 @@
     }
 
     .community .module-description {
-      margin-top: 10px;
+      margin-top: 11px;
       max-width: 470px;
     }
 
@@ -728,9 +772,9 @@
 
       padding: 0 32px;
 
-      border-top: 1px solid #242424;
+      border-top: 1px solid rgba(120, 164, 215, 0.13);
 
-      background: rgba(15, 15, 15, 0.91);
+      background: rgba(8, 15, 27, 0.84);
 
       display: flex;
       align-items: center;
@@ -741,8 +785,8 @@
 
       color: rgba(255, 255, 255, 0.30);
 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .footer-left,
@@ -836,7 +880,7 @@
       }
 
       .database .module-title {
-        font-size: 55px;
+        font-size: 50px;
       }
     }
 
@@ -901,11 +945,11 @@
       }
 
       .module-title {
-        font-size: 43px;
+        font-size: 39px;
       }
 
       .database .module-title {
-        font-size: 48px;
+        font-size: 46px;
       }
 
       footer {
@@ -930,8 +974,6 @@
 </head>
 
 <body>
-
-  <!-- TOP BAR -->
 
   <header class="topbar">
 
@@ -1021,15 +1063,11 @@
 
   </header>
 
-  <!-- MAIN -->
-
   <main>
-
-    <!-- RSF NEWS -->
 
     <section
       class="news"
-      aria-label="RSF News"
+      aria-label="Latest News"
     >
 
       <div class="news-content">
@@ -1038,7 +1076,7 @@
 
           <span class="news-dot-live"></span>
 
-          RSF NEWS
+          LATEST NEWS
 
         </div>
 
@@ -1106,8 +1144,6 @@
       </div>
 
     </section>
-
-    <!-- MAIN GRID -->
 
     <section
       class="main-grid"
@@ -1218,8 +1254,6 @@
 
   </main>
 
-  <!-- FOOTER -->
-
   <footer>
 
     <div class="footer-left">
@@ -1243,8 +1277,6 @@
     </div>
 
   </footer>
-
-  <!-- ORIGINAL RSF NEWS ENGINE -->
 
   <script>
 
