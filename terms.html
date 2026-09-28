@@ -36,12 +36,16 @@
     }
 
     html {
-      background: #0F0F0F;
+      background: #0B1220;
     }
 
     body {
       margin: 0;
-      background: #0F0F0F;
+      background:
+        radial-gradient(ellipse 900px 620px at 78% 2%, rgba(42, 103, 175, 0.34), transparent 68%),
+        radial-gradient(ellipse 760px 560px at 8% 55%, rgba(25, 75, 145, 0.18), transparent 70%),
+        radial-gradient(ellipse 650px 480px at 55% 105%, rgba(20, 65, 125, 0.13), transparent 72%),
+        #0B1220;
       color: #FFFFFF;
       font-family: "Montserrat", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -55,7 +59,13 @@
     .topbar {
       height: 68px;
       padding: 0 32px;
-      border-bottom: 1px solid #242424;
+
+      background: rgba(17, 34, 58, 0.34);
+      border-bottom: 1px solid rgba(132, 178, 225, 0.14);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
       display: flex;
       align-items: center;
       position: relative;
@@ -111,12 +121,25 @@
       transform: translateX(-50%);
       width: 170px;
       padding: 6px;
-      background: #151515;
-      border: 1px solid #292929;
+
+      background: rgba(15, 31, 52, 0.88);
+      border: 1px solid rgba(132, 178, 225, 0.15);
+
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 100ms ease, visibility 100ms ease;
+
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease;
+
       z-index: 20;
     }
 
@@ -135,11 +158,15 @@
       font-size: 10px;
       font-weight: 500;
       opacity: 0.52;
-      transition: background 100ms ease, opacity 100ms ease;
+      border-radius: 4px;
+
+      transition:
+        background 100ms ease,
+        opacity 100ms ease;
     }
 
     .dropdown a:hover {
-      background: #202020;
+      background: rgba(74, 132, 194, 0.14);
       opacity: 1;
     }
 
@@ -208,22 +235,36 @@
       min-height: 36px;
       padding: 0 16px;
       margin-top: 8px;
-      border: 1px solid #303030;
+
+      border: 1px solid rgba(132, 178, 225, 0.18);
+      background: rgba(50, 96, 145, 0.08);
+
       font-size: 10px;
       font-weight: 700;
       opacity: 0.7;
-      transition: background 100ms ease, opacity 100ms ease;
+
+      transition:
+        background 100ms ease,
+        opacity 100ms ease,
+        border-color 100ms ease;
     }
 
     .contact-button:hover {
-      background: #191919;
+      background: rgba(74, 132, 194, 0.14);
+      border-color: rgba(132, 178, 225, 0.28);
       opacity: 1;
     }
 
     .footer {
       min-height: 58px;
       padding: 0 32px;
-      border-top: 1px solid #242424;
+
+      background: rgba(12, 27, 47, 0.30);
+      border-top: 1px solid rgba(132, 178, 225, 0.14);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -283,293 +324,285 @@
   <header class="topbar">
     <a href="/" class="logo">RSF</a>
 
+    <nav class="navigation">
 
-<nav class="navigation">
+      <div class="nav-item">
+        <a href="/" class="nav-link">MAIN</a>
+      </div>
 
-  <div class="nav-item">
-    <a href="/" class="nav-link">MAIN</a>
-  </div>
+      <div class="nav-item">
+        <a href="/database" class="nav-link">
+          DATABASE
+          <span class="arrow">▾</span>
+        </a>
 
-  <div class="nav-item">
-    <a href="/database" class="nav-link">
-      DATABASE
-      <span class="arrow">▾</span>
-    </a>
+        <div class="dropdown">
+          <a href="/database">Playerbase</a>
+          <a href="/database">Teams</a>
+          <a href="/database">Seasons</a>
+        </div>
+      </div>
 
-    <div class="dropdown">
-      <a href="/database">Playerbase</a>
-      <a href="/database">Teams</a>
-      <a href="/database">Seasons</a>
-    </div>
-  </div>
+      <div class="nav-item">
+        <a href="/community" class="nav-link">
+          COMMUNITY
+          <span class="arrow">▾</span>
+        </a>
 
-  <div class="nav-item">
-    <a href="/community" class="nav-link">
-      COMMUNITY
-      <span class="arrow">▾</span>
-    </a>
+        <div class="dropdown">
+          <a href="/community">Videos</a>
+          <a href="/community">Community Latest</a>
+          <a href="/community">Development</a>
+          <a href="/community">Resources</a>
+        </div>
+      </div>
 
-    <div class="dropdown">
-      <a href="/community">Videos</a>
-      <a href="/community">Community Latest</a>
-      <a href="/community">Development</a>
-      <a href="/community">Resources</a>
-    </div>
-  </div>
+      <div class="nav-item">
+        <a href="/arcade" class="nav-link">ARCADE</a>
+      </div>
 
-  <div class="nav-item">
-    <a href="/arcade" class="nav-link">ARCADE</a>
-  </div>
+      <div class="nav-item">
+        <a href="/rsf" class="nav-link">RSF</a>
+      </div>
 
-  <div class="nav-item">
-    <a href="/rsf" class="nav-link">RSF</a>
-  </div>
-
-</nav>
-
+    </nav>
 
   </header>
 
   <main class="page">
 
+    <header class="page-header">
+      <h1>Terms of Use.</h1>
+      <p>Last updated: 27 September 2026</p>
+    </header>
 
-<header class="page-header">
-  <h1>Terms of Use.</h1>
-  <p>Last updated: 27 September 2026</p>
-</header>
+    <section class="section">
+      <h2>1. Acceptance</h2>
+      <p>
+        By accessing or using RSF, you agree to these Terms of Use. If you do
+        not agree with these terms, you should not use the service.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>1. Acceptance</h2>
-  <p>
-    By accessing or using RSF, you agree to these Terms of Use. If you do
-    not agree with these terms, you should not use the service.
-  </p>
-</section>
+    <section class="section">
+      <h2>2. About RSF</h2>
+      <p>
+        RSF is an independent website and community project.
+      </p>
+      <p>
+        RSF is not affiliated with, sponsored by, endorsed by, or officially
+        connected to Roblox Corporation.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>2. About RSF</h2>
-  <p>
-    RSF is an independent website and community project.
-  </p>
-  <p>
-    RSF is not affiliated with, sponsored by, endorsed by, or officially
-    connected to Roblox Corporation.
-  </p>
-</section>
+    <section class="section">
+      <h2>3. Use of RSF</h2>
+      <p>You agree not to use RSF to:</p>
+      <ul>
+        <li>Submit unlawful or malicious content</li>
+        <li>Harass, threaten, or abuse other users</li>
+        <li>Impersonate another person or organization</li>
+        <li>Attempt unauthorized access to accounts or systems</li>
+        <li>Interfere with the operation or security of RSF</li>
+        <li>Abuse exploits or vulnerabilities</li>
+        <li>Violate the rights of other people or organizations</li>
+      </ul>
+    </section>
 
-<section class="section">
-  <h2>3. Use of RSF</h2>
-  <p>You agree not to use RSF to:</p>
-  <ul>
-    <li>Submit unlawful or malicious content</li>
-    <li>Harass, threaten, or abuse other users</li>
-    <li>Impersonate another person or organization</li>
-    <li>Attempt unauthorized access to accounts or systems</li>
-    <li>Interfere with the operation or security of RSF</li>
-    <li>Abuse exploits or vulnerabilities</li>
-    <li>Violate the rights of other people or organizations</li>
-  </ul>
-</section>
+    <section class="section">
+      <h2>4. User-created content</h2>
+      <p>
+        You are responsible for content you submit to RSF and should only submit
+        content you have the right or permission to use.
+      </p>
+      <p>
+        You must not knowingly submit content that infringes another person's
+        intellectual property or other legal rights.
+      </p>
+      <p>
+        By submitting content to RSF, you grant RSF a limited, non-exclusive
+        permission to host, store, display, reproduce, and technically process
+        that content as reasonably necessary to operate the service. You retain
+        ownership of your content.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>4. User-created content</h2>
-  <p>
-    You are responsible for content you submit to RSF and should only submit
-    content you have the right or permission to use.
-  </p>
-  <p>
-    You must not knowingly submit content that infringes another person's
-    intellectual property or other legal rights.
-  </p>
-  <p>
-    By submitting content to RSF, you grant RSF a limited, non-exclusive
-    permission to host, store, display, reproduce, and technically process
-    that content as reasonably necessary to operate the service. You retain
-    ownership of your content.
-  </p>
-</section>
+    <section class="section">
+      <h2>5. Moderation and account suspension</h2>
+      <p>
+        RSF moderators may remove content, suspend accounts, or restrict access
+        where they reasonably determine that activity is harmful, abusive,
+        unlawful, disruptive, or violates these Terms.
+      </p>
+      <p>This may include:</p>
+      <ul>
+        <li>Harassment or threats</li>
+        <li>Malicious activity</li>
+        <li>Illegal material</li>
+        <li>Spam or disruptive behavior</li>
+        <li>Abuse of the service</li>
+        <li>Manipulation of statistics or records</li>
+        <li>Repeated violations of these Terms</li>
+      </ul>
+      <p>
+        RSF may also take action where necessary to protect users, systems, or
+        comply with legal or security requirements.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>5. Moderation and account suspension</h2>
-  <p>
-    RSF moderators may remove content, suspend accounts, or restrict access
-    where they reasonably determine that activity is harmful, abusive,
-    unlawful, disruptive, or violates these Terms.
-  </p>
-  <p>This may include:</p>
-  <ul>
-    <li>Harassment or threats</li>
-    <li>Malicious activity</li>
-    <li>Illegal material</li>
-    <li>Spam or disruptive behavior</li>
-    <li>Abuse of the service</li>
-    <li>Manipulation of statistics or records</li>
-    <li>Repeated violations of these Terms</li>
-  </ul>
-  <p>
-    RSF may also take action where necessary to protect users, systems, or
-    comply with legal or security requirements.
-  </p>
-</section>
+    <section class="section">
+      <h2>6. Statistics and database information</h2>
+      <p>
+        RSF statistics, rankings, player records, team records, seasons, and
+        other database information may contain errors, omissions, outdated
+        information, or inaccuracies.
+      </p>
+      <p>
+        RSF does not guarantee that database information is complete, current,
+        or accurate at all times.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>6. Statistics and database information</h2>
-  <p>
-    RSF statistics, rankings, player records, team records, seasons, and
-    other database information may contain errors, omissions, outdated
-    information, or inaccuracies.
-  </p>
-  <p>
-    RSF does not guarantee that database information is complete, current,
-    or accurate at all times.
-  </p>
-</section>
+    <section class="section">
+      <h2>7. Intellectual property</h2>
+      <p>
+        RSF's original design, branding, code, text, graphics, and other
+        original materials are owned by RSF or used under appropriate rights.
+      </p>
+      <p>
+        You may not copy, reproduce, redistribute, sell, or commercially exploit
+        RSF materials without permission, except where permitted by applicable
+        law.
+      </p>
+      <p>
+        Third-party names, trademarks, logos, and other intellectual property
+        remain the property of their respective owners.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>7. Intellectual property</h2>
-  <p>
-    RSF's original design, branding, code, text, graphics, and other
-    original materials are owned by RSF or used under appropriate rights.
-  </p>
-  <p>
-    You may not copy, reproduce, redistribute, sell, or commercially exploit
-    RSF materials without permission, except where permitted by applicable
-    law.
-  </p>
-  <p>
-    Third-party names, trademarks, logos, and other intellectual property
-    remain the property of their respective owners.
-  </p>
-</section>
+    <section class="section">
+      <h2>8. Roblox</h2>
+      <p>
+        RSF is not affiliated with, operated by, sponsored by, endorsed by, or
+        officially connected to Roblox Corporation.
+      </p>
+      <p>
+        Roblox trademarks and other intellectual property belong to Roblox
+        Corporation or their respective owners. RSF uses related information
+        for informational and community purposes.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>8. Roblox</h2>
-  <p>
-    RSF is not affiliated with, operated by, sponsored by, endorsed by, or
-    officially connected to Roblox Corporation.
-  </p>
-  <p>
-    Roblox trademarks and other intellectual property belong to Roblox
-    Corporation or their respective owners. RSF uses related information
-    for informational and community purposes.
-  </p>
-</section>
+    <section class="section">
+      <h2>9. Discord</h2>
+      <p>
+        Discord is a separate service and organization. RSF is not responsible
+        for Discord's services, policies, availability, or practices.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>9. Discord</h2>
-  <p>
-    Discord is a separate service and organization. RSF is not responsible
-    for Discord's services, policies, availability, or practices.
-  </p>
-</section>
+    <section class="section">
+      <h2>10. Third-party services</h2>
+      <p>
+        RSF may rely on third-party providers for hosting, authentication,
+        databases, integrations, security, or other technical services.
+      </p>
+      <p>
+        RSF may also contain links to external websites. RSF does not control
+        those websites and is not responsible for their content, availability,
+        or policies.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>10. Third-party services</h2>
-  <p>
-    RSF may rely on third-party providers for hosting, authentication,
-    databases, integrations, security, or other technical services.
-  </p>
-  <p>
-    RSF may also contain links to external websites. RSF does not control
-    those websites and is not responsible for their content, availability,
-    or policies.
-  </p>
-</section>
+    <section class="section">
+      <h2>11. Availability</h2>
+      <p>
+        RSF may be modified, interrupted, suspended, or discontinued at any
+        time. No guarantee is made that the service will always be available or
+        operate without interruption.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>11. Availability</h2>
-  <p>
-    RSF may be modified, interrupted, suspended, or discontinued at any
-    time. No guarantee is made that the service will always be available or
-    operate without interruption.
-  </p>
-</section>
+    <section class="section">
+      <h2>12. Disclaimer</h2>
+      <p>
+        RSF is provided on an "as available" basis to the extent permitted by
+        applicable law. RSF does not guarantee that the service will be
+        uninterrupted, error-free, secure, or completely accurate.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>12. Disclaimer</h2>
-  <p>
-    RSF is provided on an "as available" basis to the extent permitted by
-    applicable law. RSF does not guarantee that the service will be
-    uninterrupted, error-free, secure, or completely accurate.
-  </p>
-</section>
+    <section class="section">
+      <h2>13. Limitation of liability</h2>
+      <p>
+        To the maximum extent permitted by applicable law, RSF and its operator
+        will not be liable for indirect, incidental, consequential, special, or
+        similar losses arising from or related to use of the service.
+      </p>
+      <p>
+        This may include loss of data or content, service interruption, loss of
+        access, or reliance on inaccurate statistics or information.
+      </p>
+      <p>
+        Nothing in these Terms excludes or limits liability where such exclusion
+        or limitation is prohibited by applicable law.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>13. Limitation of liability</h2>
-  <p>
-    To the maximum extent permitted by applicable law, RSF and its operator
-    will not be liable for indirect, incidental, consequential, special, or
-    similar losses arising from or related to use of the service.
-  </p>
-  <p>
-    This may include loss of data or content, service interruption, loss of
-    access, or reliance on inaccurate statistics or information.
-  </p>
-  <p>
-    Nothing in these Terms excludes or limits liability where such exclusion
-    or limitation is prohibited by applicable law.
-  </p>
-</section>
+    <section class="section">
+      <h2>14. Termination</h2>
+      <p>
+        RSF may suspend or terminate access to accounts or parts of the service
+        where reasonably necessary, including for violations of these Terms,
+        security incidents, abuse, or legal requirements.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>14. Termination</h2>
-  <p>
-    RSF may suspend or terminate access to accounts or parts of the service
-    where reasonably necessary, including for violations of these Terms,
-    security incidents, abuse, or legal requirements.
-  </p>
-</section>
+    <section class="section">
+      <h2>15. Changes to these Terms</h2>
+      <p>
+        RSF may update these Terms from time to time. Updated Terms will be
+        posted on this page with a revised date.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>15. Changes to these Terms</h2>
-  <p>
-    RSF may update these Terms from time to time. Updated Terms will be
-    posted on this page with a revised date.
-  </p>
-</section>
+    <section class="section">
+      <h2>16. Severability</h2>
+      <p>
+        If any provision of these Terms is found to be invalid or unenforceable,
+        the remaining provisions will continue to apply to the extent permitted
+        by law.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>16. Severability</h2>
-  <p>
-    If any provision of these Terms is found to be invalid or unenforceable,
-    the remaining provisions will continue to apply to the extent permitted
-    by law.
-  </p>
-</section>
+    <section class="section">
+      <h2>17. Governing law</h2>
+      <p>
+        These Terms are subject to the laws applicable to RSF and its operator,
+        except where applicable law requires otherwise.
+      </p>
+    </section>
 
-<section class="section">
-  <h2>17. Governing law</h2>
-  <p>
-    These Terms are subject to the laws applicable to RSF and its operator,
-    except where applicable law requires otherwise.
-  </p>
-</section>
-
-<section class="section">
-  <h2>18. Contact</h2>
-  <p>
-    If you have a question about these Terms or need to contact RSF about
-    an account, content, moderation, or legal matter, use the contact page.
-  </p>
-  <a href="/contact" class="contact-button">Contact RSF</a>
-</section>
-
+    <section class="section">
+      <h2>18. Contact</h2>
+      <p>
+        If you have a question about these Terms or need to contact RSF about
+        an account, content, moderation, or legal matter, use the contact page.
+      </p>
+      <a href="/contact" class="contact-button">Contact RSF</a>
+    </section>
 
   </main>
 
   <footer class="footer">
     <div class="footer-left">
       <span>RSF</span>
-      <span>© 2026</span>
     </div>
 
-
-<div class="footer-right">
-  <a href="/privacy">Privacy Policy</a>
-  <a href="/terms">Terms of Use</a>
-</div>
-
-
+    <div class="footer-right">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+    </div>
   </footer>
 
 </body>
