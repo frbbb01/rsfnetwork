@@ -1791,15 +1791,13 @@
       }
     );
 
-    loginProceed.addEventListener(
-      "click",
-      () => {
-
-        window.location.href =
-          "https://networkrsf.vercel.app/callback";
-
-      }
-    );
+loginProceed.addEventListener(
+  "click",
+  () => {
+    window.location.href =
+      "https://discord.com/oauth2/authorize?client_id=1554215697108963430&response_type=code&redirect_uri=https%3A%2F%2Fnetworkrsf.vercel.app%2Fcallback&scope=identify+guilds";
+  }
+);
 
     document.addEventListener(
       "keydown",
