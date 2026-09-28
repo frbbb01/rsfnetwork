@@ -305,6 +305,101 @@
       object-fit: contain;
     }
 
+    /* PROFILE CARD */
+
+    .profile-card {
+      position: absolute;
+      right: 32px;
+
+      width: 148px;
+      height: 40px;
+
+      padding: 0 10px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 6px;
+
+      background: rgba(9, 16, 27, 0.88);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.12);
+
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .profile-card:hover {
+      background: rgba(12, 22, 37, 0.94);
+      border-color: rgba(120, 164, 215, 0.25);
+
+      box-shadow:
+        0 7px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    .profile-avatar {
+      width: 25px;
+      height: 25px;
+
+      flex: 0 0 auto;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.06);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+    }
+
+    .profile-info {
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .profile-username {
+      overflow: hidden;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      color: #FFFFFF;
+    }
+
+    .profile-status {
+      font-size: 7px;
+      font-weight: 700;
+
+      letter-spacing: 0.06em;
+
+      color: rgba(255, 255, 255, 0.36);
+    }
+
     /* LOGIN OVERLAY */
 
     .login-overlay {
@@ -1131,6 +1226,17 @@
         padding: 0 14px;
       }
 
+      .profile-card {
+        right: 20px;
+        width: 128px;
+        height: 36px;
+      }
+
+      .profile-avatar {
+        width: 22px;
+        height: 22px;
+      }
+
       .discord-logo {
         width: 20px;
         height: 20px;
@@ -1248,6 +1354,31 @@
         gap: 7px;
 
         font-size: 9px;
+      }
+
+      .profile-card {
+        right: 20px;
+        top: 18px;
+
+        width: 108px;
+        height: 34px;
+
+        padding: 0 8px;
+
+        gap: 7px;
+      }
+
+      .profile-avatar {
+        width: 21px;
+        height: 21px;
+      }
+
+      .profile-username {
+        font-size: 8px;
+      }
+
+      .profile-status {
+        font-size: 6px;
       }
 
       .discord-logo {
@@ -1415,6 +1546,42 @@
       <span>LOGIN</span>
     </button>
 
+    <div
+      class="profile-card"
+      id="profile-card"
+      style="display: none;"
+    >
+
+      <div class="profile-avatar">
+
+        <img
+          id="profile-avatar"
+          src=""
+          alt=""
+        >
+
+      </div>
+
+      <div class="profile-info">
+
+        <span
+          class="profile-username"
+          id="profile-username"
+        >
+          —
+        </span>
+
+        <span
+          class="profile-status"
+          id="profile-status"
+        >
+          GUEST
+        </span>
+
+      </div>
+
+    </div>
+
   </header>
 
   <div
@@ -1433,6 +1600,7 @@
       <div class="login-modal-header">
 
         <div>
+
           <h2
             class="login-modal-title"
             id="login-title"
@@ -1443,6 +1611,7 @@
           <p class="login-modal-subtitle">
             Connect your Discord account to access the full RSF experience.
           </p>
+
         </div>
 
         <button
@@ -1791,13 +1960,15 @@
       }
     );
 
-loginProceed.addEventListener(
-  "click",
-  () => {
-    window.location.href =
-      "https://discord.com/oauth2/authorize?client_id=1554215697108963430&response_type=code&redirect_uri=https%3A%2F%2Fnetworkrsf.vercel.app%2Fcallback&scope=identify+guilds";
-  }
-);
+    loginProceed.addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "https://discord.com/oauth2/authorize?client_id=1554215697108963430&response_type=code&redirect_uri=https%3A%2F%2Fnetworkrsf.vercel.app%2Fcallback&scope=identify+guilds";
+
+      }
+    );
 
     document.addEventListener(
       "keydown",
@@ -2577,6 +2748,8 @@ loginProceed.addEventListener(
     startNewsSync();
 
   </script>
+
+  <script src="/auth.js"></script>
 
 </body>
 </html>
