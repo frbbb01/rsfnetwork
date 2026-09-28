@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RSF</title>
@@ -43,9 +44,10 @@ body {
     margin: 0;
     min-height: 100vh;
     background:
-        radial-gradient(circle at 50% -15%, rgba(0, 110, 255, .09), transparent 32%),
-        radial-gradient(circle at 0% 100%, rgba(0, 110, 255, .035), transparent 28%),
-        var(--bg);
+        radial-gradient(circle at 50% -20%, rgba(0, 110, 255, .15), transparent 38%),
+        radial-gradient(circle at 15% 40%, rgba(0, 90, 255, .08), transparent 30%),
+        radial-gradient(circle at 85% 85%, rgba(0, 100, 255, .06), transparent 30%),
+        #0F0F0F;
     color: var(--white);
     font-family: Montserrat, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -142,12 +144,12 @@ a {
     position: absolute;
     top: 100%;
     left: 50%;
-    width: 190px;
-    padding: 7px;
-    transform: translateX(-50%) translateY(5px);
+    width: 170px;
+    padding: 6px;
+    transform: translateX(-50%) translateY(4px);
     background: #151515;
     border: 1px solid #303030;
-    border-radius: 8px;
+    border-radius: 7px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
     opacity: 0;
     visibility: hidden;
@@ -170,14 +172,14 @@ a {
 .dropdown a {
     display: flex;
     align-items: center;
-    min-height: 38px;
-    padding: 0 13px;
-    border-radius: 6px;
+    min-height: 32px;
+    padding: 0 10px;
+    border-radius: 5px;
     color: #fff;
     text-decoration: none;
     font-size: 10px;
     font-weight: 500;
-    opacity: .65;
+    opacity: .55;
     transition:
         opacity .15s ease,
         background .15s ease;
@@ -200,7 +202,7 @@ a {
 main {
     width: min(1020px, calc(100% - 40px));
     margin: auto;
-    padding: 48px 0 105px;
+    padding: 48px 0 75px;
 }
 
 .news {
@@ -220,10 +222,22 @@ main {
 
 .news-label {
     margin-bottom: 11px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
     color: rgba(255,255,255,.38);
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 1px;
+}
+
+.news-label::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    flex: 0 0 5px;
+    border-radius: 50%;
+    background: #fff;
 }
 
 .news-title {
@@ -257,7 +271,7 @@ main {
     align-items: center;
     justify-content: center;
     border: 1px solid #333;
-    border-radius: 7px;
+    border-radius: 6px;
     background: transparent;
     color: #fff;
     cursor: pointer;
@@ -305,7 +319,7 @@ main {
     overflow: hidden;
     padding: 24px 25px 21px;
     border: 1px solid var(--border);
-    border-radius: 9px;
+    border-radius: 8px;
     background: rgba(255,255,255,.012);
     display: flex;
     flex-direction: column;
@@ -339,10 +353,10 @@ main {
 .module-title {
     margin: 0;
     max-width: 90%;
-    font-size: clamp(27px, 3vw, 39px);
+    font-size: clamp(35px, 3.9vw, 51px);
     line-height: .95;
     font-weight: 700;
-    letter-spacing: -1.6px;
+    letter-spacing: -2px;
 }
 
 .module-description {
@@ -371,7 +385,7 @@ main {
     justify-content: center;
     gap: 8px;
     border: 1px solid #383838;
-    border-radius: 8px;
+    border-radius: 6px;
     background: rgba(255,255,255,.015);
     color: #fff;
     text-decoration: none;
@@ -396,27 +410,6 @@ main {
 
 .community {
     grid-column: 1 / span 2;
-}
-
-.footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 58px;
-    border-top: 1px solid var(--border-soft);
-    background: rgba(15,15,15,.94);
-    backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 400;
-}
-
-.footer-text {
-    color: rgba(255,255,255,.25);
-    font-size: 8px;
-    letter-spacing: .5px;
 }
 
 @media (max-width: 760px) {
@@ -482,6 +475,10 @@ main {
 
     .module {
         padding: 22px 20px 19px;
+    }
+
+    .module-title {
+        font-size: 39px;
     }
 
     .module-link {
@@ -567,6 +564,7 @@ main {
 
         <article class="module">
             <h2 class="module-title">DATABASE</h2>
+
             <div class="module-description">
                 Explore the RSF database and find information about players, teams, staff and more.
             </div>
@@ -581,6 +579,7 @@ main {
 
         <article class="module">
             <h2 class="module-title">COMMUNITY</h2>
+
             <div class="module-description">
                 Stay connected with the RSF community, keep up with announcements and get involved.
             </div>
@@ -595,6 +594,7 @@ main {
 
         <article class="module">
             <h2 class="module-title">ARCADE</h2>
+
             <div class="module-description">
                 Take a break from the competition and explore the RSF arcade.
             </div>
@@ -609,6 +609,7 @@ main {
 
         <article class="module">
             <h2 class="module-title">RSF</h2>
+
             <div class="module-description">
                 Learn more about RSF, its structure, projects and everything surrounding the federation.
             </div>
@@ -623,6 +624,7 @@ main {
 
         <article class="module community">
             <h2 class="module-title">JOIN THE COMMUNITY</h2>
+
             <div class="module-description">
                 Connect with other members of RSF and stay up to date with everything happening across the federation.
             </div>
@@ -643,10 +645,6 @@ main {
     </section>
 
 </main>
-
-<footer class="footer">
-    <div class="footer-text">RSF © 2026</div>
-</footer>
 
 <script>
 const NEWS_API_URL = "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
