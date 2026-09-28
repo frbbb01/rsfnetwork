@@ -244,17 +244,15 @@ async function loadRobloxAvatar(data) {
   }
 
   try {
-    const response =
-      await fetch(
-        `/api/roblox-avatar?username=${encodeURIComponent(
-          data.robloxUsername
-        )}`,
-        {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store"
-        }
-      );
+const response =
+  await fetch(
+    "/api/roblox-avatar",
+    {
+      method: "GET",
+      credentials: "include",
+      cache: "no-store"
+    }
+  );
 
     if (!response.ok) {
       return;
