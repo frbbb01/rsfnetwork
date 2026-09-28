@@ -231,6 +231,322 @@
       outline: none;
     }
 
+    /* LOGIN */
+
+    .login-button {
+      position: absolute;
+      right: 32px;
+
+      height: 36px;
+
+      padding: 0 13px 0 7px;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      border: 1px solid rgba(114, 169, 235, 0.28);
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(88, 166, 255, 0.24),
+          rgba(45, 104, 184, 0.13)
+        );
+
+      color: #FFFFFF;
+
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.045em;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 4px 16px rgba(36, 105, 185, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .login-button:hover {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(88, 166, 255, 0.34),
+          rgba(45, 104, 184, 0.19)
+        );
+
+      border-color: rgba(114, 169, 235, 0.42);
+
+      box-shadow:
+        0 5px 20px rgba(36, 105, 185, 0.19),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+      transform: translateY(-1px);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .discord-icon {
+      width: 23px;
+      height: 23px;
+
+      flex: 0 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #5865F2;
+    }
+
+    .discord-icon svg {
+      width: 14px;
+      height: 14px;
+
+      display: block;
+    }
+
+    /* LOGIN OVERLAY */
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 500;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      background: rgba(3, 8, 16, 0.62);
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity 150ms ease,
+        visibility 150ms ease;
+    }
+
+    .login-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .login-modal {
+      width: min(440px, 100%);
+
+      padding: 28px;
+
+      border: 1px solid rgba(120, 164, 215, 0.20);
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(23, 48, 79, 0.94),
+          rgba(10, 20, 34, 0.96)
+        );
+
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+      transform: translateY(8px) scale(0.985);
+
+      transition:
+        transform 150ms ease;
+    }
+
+    .login-overlay.open .login-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .login-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .login-modal-title {
+      margin: 0;
+
+      font-size: 24px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+
+    .login-modal-subtitle {
+      margin: 8px 0 0;
+
+      font-size: 10px;
+      line-height: 1.6;
+
+      color: rgba(255, 255, 255, 0.43);
+    }
+
+    .login-close {
+      width: 27px;
+      height: 27px;
+
+      flex: 0 0 auto;
+
+      padding: 0;
+
+      border: 1px solid rgba(120, 164, 215, 0.14);
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.025);
+
+      color: rgba(255, 255, 255, 0.48);
+
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      line-height: 1;
+
+      cursor: pointer;
+
+      transition:
+        background 120ms ease,
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .login-close:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(120, 164, 215, 0.25);
+      color: #FFFFFF;
+    }
+
+    .login-points {
+      margin: 25px 0 0;
+      padding: 0;
+
+      list-style: none;
+
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .login-points li {
+      position: relative;
+
+      padding-left: 17px;
+
+      font-size: 10px;
+      line-height: 1.6;
+
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .login-points li::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      top: 7px;
+
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      background: #5865F2;
+
+      box-shadow:
+        0 0 0 3px rgba(88, 101, 242, 0.08);
+    }
+
+    .login-proceed {
+      width: 100%;
+
+      min-height: 40px;
+
+      margin-top: 26px;
+
+      border: 1px solid rgba(114, 169, 235, 0.28);
+      border-radius: 6px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(88, 101, 242, 0.88),
+          rgba(66, 82, 210, 0.88)
+        );
+
+      color: #FFFFFF;
+
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 7px 22px rgba(58, 78, 210, 0.18);
+
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .login-proceed:hover {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(101, 114, 255, 0.94),
+          rgba(73, 88, 225, 0.94)
+        );
+
+      border-color: rgba(140, 160, 255, 0.42);
+
+      box-shadow:
+        0 9px 26px rgba(58, 78, 210, 0.24);
+
+      transform: translateY(-1px);
+    }
+
+    .login-proceed:active {
+      transform: translateY(0);
+    }
+
+    .login-note {
+      margin: 14px 0 0;
+
+      font-size: 8px;
+      line-height: 1.6;
+
+      text-align: center;
+
+      color: rgba(255, 255, 255, 0.27);
+    }
+
     /* PAGE */
 
     main {
@@ -825,6 +1141,12 @@
         font-size: 13px;
       }
 
+      .login-button {
+        right: 20px;
+        height: 34px;
+        padding-right: 11px;
+      }
+
       main {
         width: min(100% - 28px, 600px);
         padding-top: 30px;
@@ -905,6 +1227,7 @@
         height: auto;
 
         margin-left: auto;
+        margin-right: 76px;
 
         transform: none;
 
@@ -922,6 +1245,23 @@
 
       .dropdown {
         top: calc(100% + 4px);
+      }
+
+      .login-button {
+        right: 20px;
+        top: 18px;
+
+        width: 36px;
+        height: 36px;
+
+        padding: 0;
+
+        justify-content: center;
+        gap: 0;
+      }
+
+      .login-button span:last-child {
+        display: none;
       }
 
       .news-content {
@@ -968,6 +1308,14 @@
       .footer-right {
         flex-wrap: wrap;
         justify-content: flex-end;
+      }
+
+      .login-modal {
+        padding: 24px 21px;
+      }
+
+      .login-modal-title {
+        font-size: 22px;
       }
     }
   </style>
@@ -1061,7 +1409,110 @@
 
     </nav>
 
+    <button
+      type="button"
+      class="login-button"
+      id="login-button"
+      aria-label="Login with Discord"
+    >
+      <span class="discord-icon" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="#FFFFFF"
+            d="M19.54 5.21A16.2 16.2 0 0 0 15.57 4l-.49 1a14.7 14.7 0 0 0-4.16 0l-.49-1a16.2 16.2 0 0 0-3.97 1.21C4.95 8.22 4.25 11.13 4.5 14c1.64 1.23 3.22 1.97 4.78 2.46l1.02-1.39c-.56-.2-1.1-.45-1.6-.75l.39-.3c3.09 1.44 6.43 1.44 9.48 0l.39.3c-.5.3-1.04.55-1.6.75l1.02 1.39c1.56-.49 3.14-1.23 4.78-2.46.3-3.32-.51-6.2-3.62-8.79ZM9.75 13.03c-.94 0-1.71-.87-1.71-1.94s.75-1.95 1.71-1.95 1.72.88 1.71 1.95c0 1.07-.75 1.94-1.71 1.94Zm4.5 0c-.94 0-1.71-.87-1.71-1.94s.75-1.95 1.71-1.95 1.72.88 1.71 1.95c0 1.07-.75 1.94-1.71 1.94Z"
+          />
+        </svg>
+      </span>
+
+      <span>
+        LOGIN
+      </span>
+    </button>
+
   </header>
+
+  <div
+    class="login-overlay"
+    id="login-overlay"
+    aria-hidden="true"
+  >
+
+    <div
+      class="login-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="login-title"
+    >
+
+      <div class="login-modal-header">
+
+        <div>
+          <h2
+            class="login-modal-title"
+            id="login-title"
+          >
+            Login to RSF
+          </h2>
+
+          <p class="login-modal-subtitle">
+            Connect your Discord account to access the full RSF experience.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="login-close"
+          id="login-close"
+          aria-label="Close login"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <ul class="login-points">
+
+        <li>
+          Logging in is completely optional.
+        </li>
+
+        <li>
+          Log in to access all features available across the RSF website.
+        </li>
+
+        <li>
+          Your Discord account is only used to authenticate your RSF account.
+        </li>
+
+        <li>
+          We only use the information required to provide your account and website features.
+        </li>
+
+        <li>
+          You can continue using publicly available parts of the website without logging in.
+        </li>
+
+      </ul>
+
+      <button
+        type="button"
+        class="login-proceed"
+        id="login-proceed"
+      >
+        PROCEED TO LOGIN
+      </button>
+
+      <p class="login-note">
+        By continuing, you will be redirected to Discord to authenticate.
+      </p>
+
+    </div>
+
+  </div>
 
   <main>
 
@@ -1279,6 +1730,109 @@
   </footer>
 
   <script>
+
+    const loginButton =
+      document.getElementById(
+        "login-button"
+      );
+
+    const loginOverlay =
+      document.getElementById(
+        "login-overlay"
+      );
+
+    const loginClose =
+      document.getElementById(
+        "login-close"
+      );
+
+    const loginProceed =
+      document.getElementById(
+        "login-proceed"
+      );
+
+    function openLoginModal() {
+
+      loginOverlay.classList.add(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+    function closeLoginModal() {
+
+      loginOverlay.classList.remove(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+    loginButton.addEventListener(
+      "click",
+      openLoginModal
+    );
+
+    loginClose.addEventListener(
+      "click",
+      closeLoginModal
+    );
+
+    loginOverlay.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          loginOverlay
+        ) {
+
+          closeLoginModal();
+
+        }
+
+      }
+    );
+
+    loginProceed.addEventListener(
+      "click",
+      () => {
+
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape" &&
+          loginOverlay.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeLoginModal();
+
+        }
+
+      }
+    );
 
     const NEWS_API_URL =
       "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
