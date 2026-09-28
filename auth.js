@@ -1,11 +1,33 @@
-const profileCard = document.getElementById("profile-card");
-const profileAvatarContainer = document.getElementById("profile-avatar-container");
-const profileAvatar = document.getElementById("profile-avatar");
-const profileUsername = document.getElementById("profile-username");
-const profileStatus = document.getElementById("profile-status");
-const loginButton = document.getElementById("login-button");
+const profileCard =
+  document.getElementById(
+    "profile-card"
+  );
 
-let profileData = null;
+const profileAvatarContainer =
+  document.getElementById(
+    "profile-avatar-container"
+  );
+
+const profileAvatar =
+  document.getElementById(
+    "profile-avatar"
+  );
+
+const profileUsername =
+  document.getElementById(
+    "profile-username"
+  );
+
+const profileStatus =
+  document.getElementById(
+    "profile-status"
+  );
+
+const loginButton =
+  document.getElementById(
+    "login-button"
+  );
+
 let profileDropdown = null;
 
 function createIcon(type) {
@@ -37,23 +59,45 @@ function createIcon(type) {
 }
 
 function closeProfileMenu() {
-  if (!profileDropdown) return;
+  if (!profileDropdown) {
+    return;
+  }
 
-  profileDropdown.classList.remove("open");
-  profileCard.setAttribute("aria-expanded", "false");
+  profileDropdown.classList.remove(
+    "open"
+  );
+
+  profileCard.setAttribute(
+    "aria-expanded",
+    "false"
+  );
 }
 
 function openProfileMenu() {
-  if (!profileDropdown) return;
+  if (!profileDropdown) {
+    return;
+  }
 
-  profileDropdown.classList.add("open");
-  profileCard.setAttribute("aria-expanded", "true");
+  profileDropdown.classList.add(
+    "open"
+  );
+
+  profileCard.setAttribute(
+    "aria-expanded",
+    "true"
+  );
 }
 
 function toggleProfileMenu() {
-  if (!profileDropdown) return;
+  if (!profileDropdown) {
+    return;
+  }
 
-  if (profileDropdown.classList.contains("open")) {
+  if (
+    profileDropdown.classList.contains(
+      "open"
+    )
+  ) {
     closeProfileMenu();
   } else {
     openProfileMenu();
@@ -66,14 +110,29 @@ function createProfileMenu(data) {
     profileDropdown = null;
   }
 
-  profileDropdown = document.createElement("div");
-  profileDropdown.className = "profile-dropdown";
-  profileDropdown.id = "profile-dropdown";
+  profileDropdown =
+    document.createElement("div");
 
-  if (data.verified && data.robloxUsername) {
-    const profileItem = document.createElement("button");
-    profileItem.className = "profile-dropdown-item";
+  profileDropdown.className =
+    "profile-dropdown";
+
+  profileDropdown.id =
+    "profile-dropdown";
+
+  if (
+    data.verified &&
+    data.robloxUsername
+  ) {
+    const profileItem =
+      document.createElement(
+        "button"
+      );
+
+    profileItem.className =
+      "profile-dropdown-item";
+
     profileItem.type = "button";
+
     profileItem.innerHTML = `
       <span class="profile-dropdown-icon">
         ${createIcon("profile")}
@@ -81,15 +140,30 @@ function createProfileMenu(data) {
       <span>My Profile</span>
     `;
 
-    profileItem.addEventListener("click", () => {
-      window.location.href = `/profile/${encodeURIComponent(data.robloxUsername)}`;
-    });
+    profileItem.addEventListener(
+      "click",
+      () => {
+        window.location.href =
+          `/profile/${encodeURIComponent(
+            data.robloxUsername
+          )}`;
+      }
+    );
 
-    profileDropdown.appendChild(profileItem);
+    profileDropdown.appendChild(
+      profileItem
+    );
 
-    const settingsItem = document.createElement("button");
-    settingsItem.className = "profile-dropdown-item";
+    const settingsItem =
+      document.createElement(
+        "button"
+      );
+
+    settingsItem.className =
+      "profile-dropdown-item";
+
     settingsItem.type = "button";
+
     settingsItem.innerHTML = `
       <span class="profile-dropdown-icon">
         ${createIcon("settings")}
@@ -97,16 +171,29 @@ function createProfileMenu(data) {
       <span>Settings</span>
     `;
 
-    settingsItem.addEventListener("click", () => {
-      window.location.href = "/settings";
-    });
+    settingsItem.addEventListener(
+      "click",
+      () => {
+        window.location.href =
+          "/settings";
+      }
+    );
 
-    profileDropdown.appendChild(settingsItem);
+    profileDropdown.appendChild(
+      settingsItem
+    );
   }
 
-  const logoutItem = document.createElement("button");
-  logoutItem.className = "profile-dropdown-item profile-dropdown-logout";
+  const logoutItem =
+    document.createElement(
+      "button"
+    );
+
+  logoutItem.className =
+    "profile-dropdown-item profile-dropdown-logout";
+
   logoutItem.type = "button";
+
   logoutItem.innerHTML = `
     <span class="profile-dropdown-icon">
       ${createIcon("logout")}
@@ -114,76 +201,158 @@ function createProfileMenu(data) {
     <span>Log Out</span>
   `;
 
-  logoutItem.addEventListener("click", async () => {
-    try {
-      await fetch("/api/logout", {
-        method: "POST",
-        credentials: "include"
-      });
-    } finally {
-      window.location.reload();
+  logoutItem.addEventListener(
+    "click",
+    async () => {
+      try {
+        await fetch(
+          "/api/logout",
+          {
+            method: "POST",
+            credentials: "include"
+          }
+        );
+      } finally {
+        window.location.reload();
+      }
     }
-  });
+  );
 
-  profileDropdown.appendChild(logoutItem);
-  profileCard.appendChild(profileDropdown);
+  profileDropdown.appendChild(
+    logoutItem
+  );
+
+  profileCard.appendChild(
+    profileDropdown
+  );
 }
 
 async function loadRobloxAvatar(data) {
-  profileAvatarContainer.classList.add("guest");
-  profileAvatar.removeAttribute("src");
+  profileAvatarContainer.classList.add(
+    "guest"
+  );
 
-  if (!data.verified || !data.robloxAvatarUrl) {
+  profileAvatar.removeAttribute(
+    "src"
+  );
+
+  if (
+    !data.verified ||
+    !data.robloxUsername
+  ) {
     return;
   }
 
-  profileAvatar.onload = () => {
-    profileAvatarContainer.classList.remove("guest");
-  };
+  try {
+    const response =
+      await fetch(
+        `/api/roblox-avatar?username=${encodeURIComponent(
+          data.robloxUsername
+        )}`,
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store"
+        }
+      );
 
-  profileAvatar.onerror = () => {
-    profileAvatarContainer.classList.add("guest");
-    profileAvatar.removeAttribute("src");
-  };
+    if (!response.ok) {
+      return;
+    }
 
-  profileAvatar.src = data.robloxAvatarUrl;
+    const avatarData =
+      await response.json();
+
+    if (
+      !avatarData.robloxAvatarUrl
+    ) {
+      return;
+    }
+
+    profileAvatar.onload = () => {
+      profileAvatarContainer.classList.remove(
+        "guest"
+      );
+    };
+
+    profileAvatar.onerror = () => {
+      profileAvatarContainer.classList.add(
+        "guest"
+      );
+
+      profileAvatar.removeAttribute(
+        "src"
+      );
+    };
+
+    profileAvatar.src =
+      avatarData.robloxAvatarUrl;
+  } catch (error) {
+    console.error(
+      "Roblox avatar failed to load:",
+      error
+    );
+  }
 }
 
 function applyProfile(data) {
-  profileData = data;
-
-  if (!data || !data.authenticated) {
-    profileCard.style.display = "none";
+  if (
+    !data ||
+    !data.authenticated
+  ) {
+    profileCard.style.display =
+      "none";
 
     if (loginButton) {
-      loginButton.style.display = "";
+      loginButton.style.display =
+        "";
     }
 
     closeProfileMenu();
+
     return;
   }
 
-  profileCard.style.display = "flex";
+  profileCard.style.display =
+    "flex";
 
   if (loginButton) {
-    loginButton.style.display = "none";
+    loginButton.style.display =
+      "none";
   }
 
   const username =
-    data.verified && data.robloxUsername
+    data.verified &&
+    data.robloxUsername
       ? data.robloxUsername
-      : data.discordUsername || "User";
+      : data.discordUsername ||
+        "User";
 
-  profileUsername.textContent = username;
+  profileUsername.textContent =
+    username;
 
   if (data.verified) {
-    profileStatus.textContent = "VERIFIED";
-    profileCard.classList.add("verified");
-    profileCard.classList.remove("guest");
+    profileStatus.textContent =
+      "VERIFIED";
+
+    profileCard.classList.add(
+      "verified"
+    );
+
+    profileCard.classList.remove(
+      "guest"
+    );
   } else {
-    profileStatus.textContent = "GUEST";
-    profileCard.classList.add("guest");
-    profileCard.classList.remove("verified");
+    profileStatus.textContent =
+      "GUEST";
+
+    profileCard.classList.add(
+      "guest"
+    );
+
+    profileCard.classList.remove(
+      "verified"
+    );
   }
 
   createProfileMenu(data);
@@ -191,55 +360,95 @@ function applyProfile(data) {
 
 async function syncAuthentication() {
   try {
-    const response = await fetch("/api/me", {
-      method: "GET",
-      credentials: "include",
-      cache: "no-store"
-    });
+    const response =
+      await fetch(
+        "/api/me",
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store"
+        }
+      );
 
     if (!response.ok) {
-      throw new Error("Authentication request failed");
+      throw new Error(
+        `Authentication request failed: ${response.status}`
+      );
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     applyProfile(data);
-    await loadRobloxAvatar(data);
-  } catch (error) {
-    console.error("Authentication sync failed:", error);
 
-    profileCard.style.display = "none";
+    if (
+      data.authenticated &&
+      data.verified
+    ) {
+      loadRobloxAvatar(data);
+    }
+  } catch (error) {
+    console.error(
+      "Authentication sync failed:",
+      error
+    );
+
+    profileCard.style.display =
+      "none";
 
     if (loginButton) {
-      loginButton.style.display = "";
+      loginButton.style.display =
+        "";
     }
   }
 }
 
 if (profileCard) {
-  profileCard.addEventListener("click", (event) => {
-    if (event.target.closest(".profile-dropdown")) {
+  profileCard.addEventListener(
+    "click",
+    (event) => {
+      if (
+        event.target.closest(
+          ".profile-dropdown"
+        )
+      ) {
+        return;
+      }
+
+      toggleProfileMenu();
+    }
+  );
+}
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (!profileCard) {
       return;
     }
 
-    toggleProfileMenu();
-  });
-}
-
-document.addEventListener("click", (event) => {
-  if (!profileCard) return;
-
-  if (!profileCard.contains(event.target)) {
-    closeProfileMenu();
+    if (
+      !profileCard.contains(
+        event.target
+      )
+    ) {
+      closeProfileMenu();
+    }
   }
-});
+);
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeProfileMenu();
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key === "Escape") {
+      closeProfileMenu();
+    }
   }
-});
+);
 
-document.addEventListener("DOMContentLoaded", () => {
-  syncAuthentication();
-});
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    syncAuthentication();
+  }
+);
