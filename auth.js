@@ -1,44 +1,67 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const loginButton = document.getElementById("login-button");
-  const profileCard = document.getElementById("profile-card");
+  const loginButton =
+    document.getElementById("login-button");
 
-  if (loginButton) {
-    loginButton.addEventListener("click", () => {
-      window.location.href = "/api/login";
-    });
+  const profileCard =
+    document.getElementById("profile-card");
+
+  const profileAvatar =
+    document.getElementById("profile-avatar");
+
+  const profileUsername =
+    document.getElementById("profile-username");
+
+  const profileStatus =
+    document.getElementById("profile-status");
+
+  if (!loginButton || !profileCard) {
+    return;
   }
 
   try {
-    const response = await fetch("/api/me", {
-      method: "GET",
-      credentials: "include"
-    });
+    const response = await fetch(
+      "/api/me",
+      {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store"
+      }
+    );
 
-    if (!response.ok) return;
+    if (!response.ok) {
+      return;
+    }
 
     const user = await response.json();
 
-    if (!user.authenticated) return;
-
-    if (loginButton) {
-      loginButton.style.display = "none";
+    if (!user.authenticated) {
+      return;
     }
 
-    if (profileCard) {
-      profileCard.style.display = "flex";
+    loginButton.style.display = "none";
+    profileCard.style.display = "flex";
 
-      const username = profileCard.querySelector(".profile-username");
-      const status = profileCard.querySelector(".profile-status");
+    if (profileUsername) {
+      profileUsername.textContent =
+        user.verified && user.robloxUsername
+          ? user.robloxUsername
+          : user.discordUsername;
+    }
 
-      if (username) {
-        username.textContent = user.robloxUsername || user.discordUsername;
-      }
+    if (profileStatus) {
+      profileStatus.textContent =
+        user.verified
+          ? "VERIFIED"
+          : "GUEST";
+    }
 
-      if (status) {
-        status.textContent = user.verified ? "VERIFIED" : "GUEST";
-      }
+    if (profileAvatar && user.avatarUrl) {
+      profileAvatar.src = user.avatarUrl;
     }
   } catch (error) {
-    console.error("Authentication check failed:", error);
+    console.error(
+      "Authentication check failed:",
+      error
+    );
   }
 });
