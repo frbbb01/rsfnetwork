@@ -1,767 +1,2013 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RSF</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-@font-face {
-    font-family: Montserrat;
-    src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
-    font-weight: 400;
-}
+  <title>RSF</title>
 
-@font-face {
-    font-family: Montserrat;
-    src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
-    font-weight: 500;
-}
+  <style>
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
 
-@font-face {
-    font-family: Montserrat;
-    src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
-    font-weight: 700;
-}
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
 
-:root {
-    --bg: #0F0F0F;
-    --border: #292929;
-    --border-soft: #252525;
-    --white: #FFFFFF;
-}
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
 
-* {
-    box-sizing: border-box;
-}
+    :root {
+      --bg: #0F0F0F;
+      --border: #292929;
+      --border-soft: #252525;
+      --white: #FFFFFF;
+    }
 
-html {
-    scroll-behavior: smooth;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at 50% -20%, rgba(0, 110, 255, .15), transparent 38%),
-        radial-gradient(circle at 15% 40%, rgba(0, 90, 255, .08), transparent 30%),
-        radial-gradient(circle at 85% 85%, rgba(0, 100, 255, .06), transparent 30%),
+    html {
+      min-height: 100%;
+      background: #0F0F0F;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      color: var(--white);
+      font-family: "Montserrat", sans-serif;
+
+      background:
+        radial-gradient(
+          ellipse 950px 650px at 78% 4%,
+          rgba(42, 103, 175, 0.19),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 750px 550px at 10% 58%,
+          rgba(25, 68, 125, 0.10),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 600px 450px at 55% 100%,
+          rgba(20, 52, 95, 0.06),
+          transparent 72%
+        ),
         #0F0F0F;
-    color: var(--white);
-    font-family: Montserrat, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
 
-a {
-    color: inherit;
-}
+      background-attachment: fixed;
 
-.topbar {
-    height: 68px;
-    position: sticky;
-    top: 0;
-    z-index: 500;
-    border-bottom: 1px solid var(--border-soft);
-    background: rgba(15, 15, 15, .94);
-    backdrop-filter: blur(12px);
-}
-
-.topbar-inner {
-    width: min(1020px, calc(100% - 40px));
-    height: 100%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: -.4px;
-}
-
-.nav {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 26px;
-}
-
-.nav-item {
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.nav-label {
-    height: 100%;
-    padding: 0 8px;
-    margin: 0 -8px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: .7px;
-    opacity: .48;
-    transition: opacity .15s ease;
-}
-
-.nav-label:hover,
-.nav-label:focus-visible,
-.nav-item:hover .nav-label,
-.nav-item:focus-within .nav-label {
-    opacity: .9;
-}
-
-.nav-item.active .nav-label {
-    opacity: 1;
-}
-
-.nav-arrow {
-    width: 5px;
-    height: 5px;
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    transform: rotate(45deg) translateY(-1px);
-    transition: transform .15s ease;
-}
-
-.nav-item:hover .nav-arrow,
-.nav-item:focus-within .nav-arrow {
-    transform: rotate(225deg) translate(-1px, -1px);
-}
-
-.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 170px;
-    padding: 6px;
-    transform: translateX(-50%) translateY(4px);
-    background: #151515;
-    border: 1px solid #303030;
-    border-radius: 7px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-        opacity .15s ease,
-        transform .15s ease,
-        visibility .15s ease;
-    z-index: 100;
-}
-
-.nav-item:hover .dropdown,
-.nav-item:focus-within .dropdown {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-}
-
-.dropdown a {
-    display: flex;
-    align-items: center;
-    min-height: 32px;
-    padding: 0 10px;
-    border-radius: 5px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 10px;
-    font-weight: 500;
-    opacity: .55;
-    transition:
-        opacity .15s ease,
-        background .15s ease;
-}
-
-.dropdown a:hover,
-.dropdown a:focus-visible {
-    opacity: 1;
-    background: #202020;
-}
-
-.nav-label:focus-visible,
-.dropdown a:focus-visible,
-.module-link:focus-visible,
-.news-arrow:focus-visible {
-    outline: 1px solid #fff;
-    outline-offset: 3px;
-}
-
-main {
-    width: min(1020px, calc(100% - 40px));
-    margin: auto;
-    padding: 48px 0 75px;
-}
-
-.news {
-    min-height: 132px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: rgba(255,255,255,.015);
-    display: grid;
-    grid-template-columns: 1fr 230px;
-    overflow: hidden;
-}
-
-.news-content {
-    padding: 25px 27px;
-    min-width: 0;
-}
-
-.news-label {
-    margin-bottom: 11px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    color: rgba(255,255,255,.38);
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.news-label::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    flex: 0 0 5px;
-    border-radius: 50%;
-    background: #fff;
-}
-
-.news-title {
-    margin: 0;
-    font-size: 20px;
-    line-height: 1.15;
-    font-weight: 700;
-    letter-spacing: -.4px;
-}
-
-.news-description {
-    margin-top: 8px;
-    color: rgba(255,255,255,.46);
-    font-size: 9px;
-    line-height: 1.55;
-}
-
-.news-side {
-    border-left: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 15px;
-}
-
-.news-arrow {
-    width: 31px;
-    height: 31px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #333;
-    border-radius: 6px;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-    font-size: 13px;
-    transition:
-        background .15s ease,
-        border-color .15s ease;
-}
-
-.news-arrow:hover {
-    background: #202020;
-    border-color: #444;
-}
-
-.news-dots {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.news-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #444;
-    transition: all .15s ease;
-}
-
-.news-dot.active {
-    width: 12px;
-    border-radius: 4px;
-    background: #fff;
-}
-
-.main-grid {
-    margin-top: 14px;
-    display: grid;
-    grid-template-columns: .94fr 1.06fr;
-    grid-template-rows: 185px 185px;
-    gap: 14px;
-}
-
-.module {
-    position: relative;
-    overflow: hidden;
-    padding: 24px 25px 21px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: rgba(255,255,255,.012);
-    display: flex;
-    flex-direction: column;
-}
-
-.module::after {
-    content: "";
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    right: -55px;
-    bottom: -75px;
-    background: rgba(0, 110, 255, .08);
-    border-radius: 50%;
-    filter: blur(30px);
-    opacity: 0;
-    transition: opacity .2s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.module:hover::after {
-    opacity: 1;
-}
-
-.module > * {
-    position: relative;
-    z-index: 1;
-}
-
-.module-title {
-    margin: 0;
-    max-width: 90%;
-    font-size: clamp(35px, 3.9vw, 51px);
-    line-height: .95;
-    font-weight: 700;
-    letter-spacing: -2px;
-}
-
-.module-description {
-    max-width: 430px;
-    margin-top: 11px;
-    color: rgba(255,255,255,.42);
-    font-size: 9px;
-    line-height: 1.55;
-}
-
-.module-bottom {
-    margin-top: auto;
-    padding-top: 17px;
-    border-top: 1px solid var(--border-soft);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
-.module-link {
-    min-height: 30px;
-    padding: 0 13px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: 1px solid #383838;
-    border-radius: 6px;
-    background: rgba(255,255,255,.015);
-    color: #fff;
-    text-decoration: none;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: .35px;
-    white-space: nowrap;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    transition:
-        background .15s ease,
-        border-color .15s ease,
-        transform .15s ease;
-}
-
-.module-link:hover {
-    background: #202020;
-    border-color: #4a4a4a;
-    transform: translateY(-1px);
-}
-
-.community {
-    grid-column: 1 / span 2;
-}
-
-@media (max-width: 760px) {
-    .nav {
-        gap: 15px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    .main-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .community {
-        grid-column: auto;
-    }
-
-    .module {
-        min-height: 185px;
-    }
-
-    .news {
-        grid-template-columns: 1fr;
-    }
-
-    .news-side {
-        min-height: 58px;
-        border-left: 0;
-        border-top: 1px solid var(--border);
-    }
-}
-
-@media (max-width: 620px) {
-    .topbar-inner,
-    main {
-        width: min(100% - 24px, 1020px);
-    }
+    /* TOP BAR */
 
     .topbar {
-        height: 62px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      height: 68px;
+      padding: 0 32px;
+
+      border-bottom: 1px solid #242424;
+
+      background: rgba(15, 15, 15, 0.91);
+
+      display: flex;
+      align-items: center;
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .logo {
-        font-size: 14px;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
-    .nav {
-        gap: 8px;
+    .navigation {
+      position: absolute;
+      left: 50%;
+      top: 0;
+
+      height: 100%;
+
+      transform: translateX(-50%);
+
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-item {
+      position: relative;
+
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+
+      opacity: 0.48;
+
+      transition: opacity 120ms ease;
+    }
+
+    .nav-item:hover,
+    .nav-item:focus-within {
+      opacity: 0.9;
+    }
+
+    .nav-item.active {
+      opacity: 1;
+      font-weight: 700;
     }
 
     .nav-label {
-        font-size: 7px;
-        padding: 0 5px;
-        margin: 0 -5px;
+      height: 100%;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 0 4px;
+    }
+
+    .arrow {
+      font-size: 9px;
+      line-height: 1;
+      opacity: 0.65;
+      transform: translateY(-1px);
     }
 
     .dropdown {
-        width: 170px;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+
+      width: 170px;
+      padding: 6px;
+
+      transform: translateX(-50%) translateY(4px);
+
+      background: #151515;
+      border: 1px solid var(--border);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease,
+        transform 100ms ease;
+
+      z-index: 200;
     }
+
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown a {
+      min-height: 32px;
+      padding: 0 10px;
+
+      display: flex;
+      align-items: center;
+
+      font-size: 10px;
+
+      opacity: 0.52;
+
+      transition:
+        background 100ms ease,
+        opacity 100ms ease;
+    }
+
+    .dropdown a:hover,
+    .dropdown a:focus-visible {
+      background: #202020;
+      opacity: 1;
+      outline: none;
+    }
+
+    /* PAGE */
 
     main {
-        padding-top: 25px;
+      width: min(1020px, calc(100% - 48px));
+      margin: 0 auto;
+
+      padding: 48px 0 105px;
     }
 
+    /* NEWS */
+
+    .news {
+      min-height: 132px;
+
+      position: relative;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 230px;
+
+      border: 1px solid var(--border);
+
+      background: rgba(255, 255, 255, 0.025);
+
+      overflow: hidden;
+
+      transition:
+        border-color 160ms ease,
+        background 160ms ease;
+    }
+
+    .news:hover {
+      border-color: #363636;
+      background: rgba(255, 255, 255, 0.032);
+    }
+
+    .news-content {
+      min-width: 0;
+
+      padding: 22px 25px 19px;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .news-dot-live {
+      width: 5px;
+      height: 5px;
+
+      flex: 0 0 auto;
+
+      border-radius: 50%;
+
+      background: #FFFFFF;
+
+      box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.06);
+    }
+
+    .news-description {
+      margin-top: 16px;
+
+      max-width: 670px;
+
+      font-size: 12px;
+      line-height: 1.55;
+
+      letter-spacing: -0.01em;
+
+      color: rgba(255, 255, 255, 0.72);
+
+      transition: opacity 120ms ease;
+    }
+
+    .news-description.empty {
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    .news-footer {
+      margin-top: auto;
+      padding-top: 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-top: 1px solid var(--border-soft);
+
+      font-size: 8px;
+      letter-spacing: 0.02em;
+
+      color: rgba(255, 255, 255, 0.30);
+    }
+
+    .news-image {
+      min-width: 0;
+
+      border-left: 1px solid var(--border);
+
+      overflow: hidden;
+
+      background: #111;
+
+      display: none;
+    }
+
+    .news-image.visible {
+      display: block;
+    }
+
+    .news-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+      object-position: center;
+
+      opacity: 0.72;
+
+      transition:
+        opacity 180ms ease,
+        transform 220ms ease;
+    }
+
+    .news:hover .news-image img {
+      opacity: 0.88;
+      transform: scale(1.025);
+    }
+
+    /* NEWS CONTROLS */
+
+    .news-controls {
+      position: absolute;
+
+      right: 14px;
+      bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      z-index: 5;
+    }
+
+    .news-arrow {
+      width: 18px;
+      height: 18px;
+
+      padding: 0;
+      border: 0;
+
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      opacity: 0.42;
+
+      transition:
+        opacity 120ms ease,
+        transform 120ms ease;
+    }
+
+    .news-arrow:hover {
+      opacity: 0.9;
+    }
+
+    .news-arrow:active {
+      transform: scale(0.9);
+    }
+
+    .news-arrow.left::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-arrow.right::before {
+      content: "";
+
+      width: 0;
+      height: 0;
+
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid rgba(255, 255, 255, 0.75);
+    }
+
+    .news-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .news-dot {
+      width: 4px;
+      height: 4px;
+
+      padding: 0;
+
+      border: 0;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.32);
+
+      cursor: pointer;
+
+      transition:
+        width 140ms ease,
+        height 140ms ease,
+        background 140ms ease;
+    }
+
+    .news-dot.active {
+      width: 6px;
+      height: 6px;
+
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    /* MAIN GRID */
+
+    .main-grid {
+      margin-top: 14px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.94fr)
+        minmax(0, 1.06fr);
+
+      grid-template-rows:
+        185px
+        185px;
+
+      gap: 14px;
+    }
+
+    /* GRID MODULES */
+
     .module {
-        padding: 22px 20px 19px;
+      position: relative;
+
+      min-height: 0;
+
+      padding: 24px 25px 21px;
+
+      border: 1px solid var(--border);
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.030),
+          rgba(255, 255, 255, 0.018)
+        );
+
+      transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
+    }
+
+    .module::after {
+      content: "";
+
+      position: absolute;
+
+      right: -55px;
+      bottom: -75px;
+
+      width: 150px;
+      height: 150px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(54, 119, 197, 0.075),
+          transparent 70%
+        );
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: opacity 180ms ease;
+    }
+
+    .module:hover {
+      border-color: #373737;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.040),
+          rgba(255, 255, 255, 0.022)
+        );
+
+      transform: translateY(-1px);
+    }
+
+    .module:hover::after {
+      opacity: 1;
+    }
+
+    .module > * {
+      position: relative;
+      z-index: 1;
     }
 
     .module-title {
-        font-size: 39px;
+      margin: 0;
+
+      font-size: clamp(35px, 4.16vw, 51px);
+      line-height: 0.95;
+
+      font-weight: 700;
+
+      letter-spacing: -0.07em;
+
+      transition: transform 160ms ease;
+    }
+
+    .module:hover .module-title {
+      transform: translateX(2px);
+    }
+
+    .module-description {
+      margin: 14px 0 0;
+
+      max-width: 350px;
+
+      font-size: 9px;
+      line-height: 1.7;
+
+      color: rgba(255, 255, 255, 0.44);
+    }
+
+    /* MODULE BUTTONS */
+
+    .module-bottom {
+      margin-top: auto;
+      padding-top: 17px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      border-top: 1px solid #292929;
     }
 
     .module-link {
-        min-height: 32px;
-        padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      min-height: 30px;
+
+      padding: 0 11px;
+
+      border: 1px solid #383838;
+      border-radius: 6px;
+
+      background: rgba(255, 255, 255, 0.035);
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: 0.06em;
+
+      color: rgba(255, 255, 255, 0.62);
+
+      cursor: pointer;
+
+      position: relative;
+      z-index: 3;
+
+      transition:
+        color 140ms ease,
+        background 140ms ease,
+        border-color 140ms ease,
+        gap 140ms ease,
+        transform 140ms ease;
     }
-}
-</style>
+
+    .module-link:hover {
+      color: #FFFFFF;
+
+      background: rgba(255, 255, 255, 0.075);
+
+      border-color: #4A4A4A;
+
+      gap: 9px;
+
+      transform: translateY(-1px);
+    }
+
+    .module-link:active {
+      transform: translateY(0);
+    }
+
+    .module-arrow {
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    /* DATABASE */
+
+    .database {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+
+      min-height: 384px;
+
+      padding-right: 29px;
+    }
+
+    .database .module-title {
+      font-size: clamp(46px, 5.2vw, 68px);
+    }
+
+    .database .module-description {
+      max-width: 270px;
+    }
+
+    /* RSF / ARCADE */
+
+    .rsf-module {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .arcade-module {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    /* COMMUNITY */
+
+    .community {
+      grid-column: 1 / span 2;
+
+      min-height: 142px;
+
+      padding-top: 22px;
+      padding-bottom: 20px;
+
+      display: grid;
+
+      grid-template-columns: 1fr auto;
+
+      column-gap: 35px;
+    }
+
+    .community .module-description {
+      margin-top: 10px;
+      max-width: 470px;
+    }
+
+    .community .module-bottom {
+      grid-column: 1 / span 2;
+    }
+
+    /* FOOTER */
+
+    footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      z-index: 100;
+
+      min-height: 58px;
+
+      padding: 0 32px;
+
+      border-top: 1px solid #242424;
+
+      background: rgba(15, 15, 15, 0.91);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-size: 9px;
+      line-height: 1;
+
+      color: rgba(255, 255, 255, 0.30);
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 700;
+    }
+
+    .footer-right a {
+      transition: color 100ms ease;
+    }
+
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 760px) {
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .navigation {
+        gap: 18px;
+      }
+
+      .nav-item {
+        font-size: 13px;
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 30px;
+        padding-bottom: 100px;
+      }
+
+      .news {
+        grid-template-columns: 1fr;
+      }
+
+      .news-image {
+        order: -1;
+
+        min-height: 150px;
+
+        border-left: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .news-image img {
+        min-height: 150px;
+        max-height: 190px;
+      }
+
+      .news-controls {
+        right: 11px;
+        bottom: 10px;
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
+      .rsf-module,
+      .arcade-module,
+      .database,
+      .community {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .database {
+        min-height: 250px;
+      }
+
+      .module {
+        min-height: 190px;
+      }
+
+      .community {
+        min-height: 150px;
+      }
+
+      .database .module-title {
+        font-size: 55px;
+      }
+    }
+
+    @media (max-width: 620px) {
+
+      .topbar {
+        height: auto;
+        min-height: 64px;
+
+        padding: 18px 20px;
+
+        align-items: flex-start;
+      }
+
+      .logo {
+        margin-top: 4px;
+      }
+
+      .navigation {
+        position: static;
+
+        height: auto;
+
+        margin-left: auto;
+
+        transform: none;
+
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        gap: 12px 17px;
+      }
+
+      .nav-item {
+        height: auto;
+        min-height: 18px;
+        font-size: 11px;
+      }
+
+      .dropdown {
+        top: calc(100% + 4px);
+      }
+
+      .news-content {
+        padding: 21px 20px 18px;
+      }
+
+      .news-description {
+        font-size: 11px;
+      }
+
+      .news-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+
+        padding-right: 80px;
+      }
+
+      .module {
+        padding: 22px 20px 19px;
+      }
+
+      .module-title {
+        font-size: 43px;
+      }
+
+      .database .module-title {
+        font-size: 48px;
+      }
+
+      footer {
+        min-height: 54px;
+
+        padding: 15px 20px;
+
+        align-items: center;
+      }
+
+      .footer-left,
+      .footer-right {
+        gap: 12px;
+      }
+
+      .footer-right {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="topbar">
-    <div class="topbar-inner">
+  <!-- TOP BAR -->
 
-        <a href="/" class="logo">RSF</a>
+  <header class="topbar">
 
-        <nav class="nav">
+    <a href="/" class="logo">
+      RSF
+    </a>
 
-            <div class="nav-item active">
-                <a href="/" class="nav-label">MAIN</a>
-            </div>
+    <nav class="navigation" aria-label="Main navigation">
 
-            <div class="nav-item">
-                <a href="/database" class="nav-label">
-                    DATABASE
-                    <span class="nav-arrow"></span>
-                </a>
+      <div class="nav-item active">
+        <a href="/" class="nav-label">
+          MAIN
+        </a>
+      </div>
 
-                <div class="dropdown">
-                    <a href="/database/players">Players</a>
-                    <a href="/database/teams">Teams</a>
-                    <a href="/database/staff">Staff</a>
-                    <a href="/database/stadiums">Stadiums</a>
-                </div>
-            </div>
+      <div class="nav-item">
 
-            <div class="nav-item">
-                <a href="/community" class="nav-label">
-                    COMMUNITY
-                    <span class="nav-arrow"></span>
-                </a>
+        <a href="/database" class="nav-label">
+          DATABASE
+          <span class="arrow">▾</span>
+        </a>
 
-                <div class="dropdown">
-                    <a href="/community/discord">Discord</a>
-                    <a href="/community/rules">Rules</a>
-                    <a href="/community/news">News</a>
-                </div>
-            </div>
+        <div class="dropdown">
 
-            <div class="nav-item">
-                <a href="/arcade" class="nav-label">ARCADE</a>
-            </div>
+          <a href="/database">
+            Playerbase
+          </a>
 
-            <div class="nav-item">
-                <a href="/rsf" class="nav-label">RSF</a>
-            </div>
+          <a href="/database">
+            Teams
+          </a>
 
-        </nav>
+          <a href="/database">
+            Seasons
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="nav-item">
+
+        <a href="/community" class="nav-label">
+          COMMUNITY
+          <span class="arrow">▾</span>
+        </a>
+
+        <div class="dropdown">
+
+          <a href="/community">
+            Videos
+          </a>
+
+          <a href="/community">
+            Community Latest
+          </a>
+
+          <a href="/community">
+            Development
+          </a>
+
+          <a href="/community">
+            Resources
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="nav-item">
+
+        <a href="/arcade" class="nav-label">
+          ARCADE
+        </a>
+
+      </div>
+
+      <div class="nav-item">
+
+        <a href="/rsf" class="nav-label">
+          RSF
+        </a>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- MAIN -->
+
+  <main>
+
+    <!-- RSF NEWS -->
+
+    <section
+      class="news"
+      aria-label="RSF News"
+    >
+
+      <div class="news-content">
+
+        <div class="section-label">
+
+          <span class="news-dot-live"></span>
+
+          RSF NEWS
+
+        </div>
+
+        <div
+          id="news-description"
+          class="news-description empty"
+        >
+          Loading latest news...
+        </div>
+
+        <div class="news-footer">
+
+          <span id="news-updated">
+            Last updated: —
+          </span>
+
+          <span>
+            RSF / NEWS
+          </span>
+
+        </div>
+
+      </div>
+
+      <div
+        id="news-image"
+        class="news-image"
+      >
+
+        <img
+          id="news-image-element"
+          src=""
+          alt=""
+          decoding="async"
+        >
+
+      </div>
+
+      <div
+        id="news-controls"
+        class="news-controls"
+        aria-label="News navigation"
+      >
+
+        <button
+          type="button"
+          class="news-arrow left"
+          id="news-prev"
+          aria-label="Previous news"
+        ></button>
+
+        <div
+          id="news-dots"
+          class="news-dots"
+          aria-label="News slides"
+        ></div>
+
+        <button
+          type="button"
+          class="news-arrow right"
+          id="news-next"
+          aria-label="Next news"
+        ></button>
+
+      </div>
+
+    </section>
+
+    <!-- MAIN GRID -->
+
+    <section
+      class="main-grid"
+      aria-label="RSF sections"
+    >
+
+      <article class="module rsf-module">
+
+        <h2 class="module-title">
+          RSF
+        </h2>
+
+        <p class="module-description">
+          The home of RSF, its history, people and everything surrounding the community.
+        </p>
+
+        <div class="module-bottom">
+
+          <a
+            href="/rsf"
+            class="module-link"
+          >
+            EXPLORE RSF
+            <span class="module-arrow">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+      <article class="module database">
+
+        <h2 class="module-title">
+          DATABASE
+        </h2>
+
+        <p class="module-description">
+          Explore the RSF playerbase, teams, seasons and the records that make up its history.
+        </p>
+
+        <div class="module-bottom">
+
+          <a
+            href="/database"
+            class="module-link"
+          >
+            OPEN DATABASE
+            <span class="module-arrow">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+      <article class="module arcade-module">
+
+        <h2 class="module-title">
+          ARCADE
+        </h2>
+
+        <p class="module-description">
+          Games, experiments and smaller interactive projects built around RSF.
+        </p>
+
+        <div class="module-bottom">
+
+          <a
+            href="/arcade"
+            class="module-link"
+          >
+            ENTER ARCADE
+            <span class="module-arrow">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+      <article class="module community">
+
+        <div>
+
+          <h2 class="module-title">
+            COMMUNITY
+          </h2>
+
+          <p class="module-description">
+            Videos, development, resources and the latest things happening around RSF.
+          </p>
+
+        </div>
+
+        <div class="module-bottom">
+
+          <a
+            href="/community"
+            class="module-link"
+          >
+            VIEW COMMUNITY
+            <span class="module-arrow">→</span>
+          </a>
+
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-left">
+
+      <span class="footer-brand">
+        RSF
+      </span>
 
     </div>
-</header>
 
-<main>
+    <div class="footer-right">
 
-    <section class="news">
-        <div class="news-content">
-            <div class="news-label">LATEST NEWS</div>
-            <h1 class="news-title" id="newsTitle">Loading...</h1>
-            <div class="news-description" id="newsDescription"></div>
-        </div>
+      <a href="/privacy">
+        Privacy Policy
+      </a>
 
-        <div class="news-side">
-            <button class="news-arrow" id="newsPrev" type="button" aria-label="Previous news">‹</button>
+      <a href="/terms">
+        Terms of Use
+      </a>
 
-            <div class="news-dots" id="newsDots"></div>
+    </div>
 
-            <button class="news-arrow" id="newsNext" type="button" aria-label="Next news">›</button>
-        </div>
-    </section>
+  </footer>
 
-    <section class="main-grid">
+  <!-- ORIGINAL RSF NEWS ENGINE -->
 
-        <article class="module">
-            <h2 class="module-title">DATABASE</h2>
+  <script>
 
-            <div class="module-description">
-                Explore the RSF database and find information about players, teams, staff and more.
-            </div>
+    const NEWS_API_URL =
+      "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
 
-            <div class="module-bottom">
-                <a href="/database" class="module-link">
-                    EXPLORE DATABASE
-                    <span>→</span>
-                </a>
-            </div>
-        </article>
+    const NEWS_SYNC_INTERVAL = 15000;
 
-        <article class="module">
-            <h2 class="module-title">COMMUNITY</h2>
+    const NEWS_AUTO_ADVANCE = 20000;
 
-            <div class="module-description">
-                Stay connected with the RSF community, keep up with announcements and get involved.
-            </div>
+    const NEWS_REQUEST_TIMEOUT = 8000;
 
-            <div class="module-bottom">
-                <a href="/community" class="module-link">
-                    VIEW COMMUNITY
-                    <span>→</span>
-                </a>
-            </div>
-        </article>
+    let newsItems = [];
 
-        <article class="module">
-            <h2 class="module-title">ARCADE</h2>
+    let currentNewsIndex = 0;
 
-            <div class="module-description">
-                Take a break from the competition and explore the RSF arcade.
-            </div>
+    let newsTimer = null;
 
-            <div class="module-bottom">
-                <a href="/arcade" class="module-link">
-                    ENTER ARCADE
-                    <span>→</span>
-                </a>
-            </div>
-        </article>
+    let syncTimer = null;
 
-        <article class="module">
-            <h2 class="module-title">RSF</h2>
+    let syncInProgress = false;
 
-            <div class="module-description">
-                Learn more about RSF, its structure, projects and everything surrounding the federation.
-            </div>
+    let firstLoad = true;
 
-            <div class="module-bottom">
-                <a href="/rsf" class="module-link">
-                    ABOUT RSF
-                    <span>→</span>
-                </a>
-            </div>
-        </article>
+    let lastServerVersion = null;
 
-        <article class="module community">
-            <h2 class="module-title">JOIN THE COMMUNITY</h2>
+    const imageCache = new Map();
 
-            <div class="module-description">
-                Connect with other members of RSF and stay up to date with everything happening across the federation.
-            </div>
+    const description =
+      document.getElementById(
+        "news-description"
+      );
 
-            <div class="module-bottom">
-                <a href="/community" class="module-link">
-                    COMMUNITY
-                    <span>→</span>
-                </a>
+    const updated =
+      document.getElementById(
+        "news-updated"
+      );
 
-                <a href="https://discord.com" class="module-link" target="_blank" rel="noopener">
-                    DISCORD
-                    <span>↗</span>
-                </a>
-            </div>
-        </article>
+    const imageContainer =
+      document.getElementById(
+        "news-image"
+      );
 
-    </section>
+    const image =
+      document.getElementById(
+        "news-image-element"
+      );
 
-</main>
+    const dotsContainer =
+      document.getElementById(
+        "news-dots"
+      );
 
-<script>
-const NEWS_API_URL = "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
+    const controls =
+      document.getElementById(
+        "news-controls"
+      );
 
-const newsTitle = document.getElementById("newsTitle");
-const newsDescription = document.getElementById("newsDescription");
-const newsDots = document.getElementById("newsDots");
-const newsPrev = document.getElementById("newsPrev");
-const newsNext = document.getElementById("newsNext");
+    const previousButton =
+      document.getElementById(
+        "news-prev"
+      );
 
-let news = [];
-let currentNews = 0;
-let newsInterval = null;
+    const nextButton =
+      document.getElementById(
+        "news-next"
+      );
 
-function normaliseNews(data) {
-    if (Array.isArray(data)) return data;
+    function preloadImage(url) {
 
-    if (Array.isArray(data.news)) return data.news;
-    if (Array.isArray(data.data)) return data.data;
-    if (Array.isArray(data.items)) return data.items;
-
-    return [];
-}
-
-function renderNews() {
-    if (!news.length) {
-        newsTitle.textContent = "No news available";
-        newsDescription.textContent = "";
-        newsDots.innerHTML = "";
+      if (!url) {
         return;
+      }
+
+      if (imageCache.has(url)) {
+        return;
+      }
+
+      const preload =
+        new Image();
+
+      preload.decoding =
+        "async";
+
+      preload.loading =
+        "eager";
+
+      preload.src =
+        url;
+
+      imageCache.set(
+        url,
+        preload
+      );
+
     }
 
-    const item = news[currentNews];
+    function cleanupImageCache() {
 
-    newsTitle.textContent =
-        item.title ||
-        item.name ||
-        item.headline ||
-        "Untitled";
-
-    newsDescription.textContent =
-        item.description ||
-        item.content ||
-        item.text ||
-        "";
-
-    newsDots.innerHTML = "";
-
-    news.forEach((_, index) => {
-        const dot = document.createElement("span");
-
-        dot.className = "news-dot" + (
-            index === currentNews ? " active" : ""
+      const activeImages =
+        new Set(
+          newsItems
+            .map(
+              item =>
+                item.image
+            )
+            .filter(Boolean)
         );
 
-        newsDots.appendChild(dot);
-    });
-}
+      for (
+        const url of imageCache.keys()
+      ) {
 
-function showNews(index) {
-    if (!news.length) return;
+        if (
+          !activeImages.has(url)
+        ) {
 
-    currentNews = (index + news.length) % news.length;
-    renderNews();
-}
-
-function startNewsTimer() {
-    clearInterval(newsInterval);
-
-    if (news.length > 1) {
-        newsInterval = setInterval(() => {
-            showNews(currentNews + 1);
-        }, 20000);
-    }
-}
-
-async function loadNews() {
-    try {
-        const response = await fetch(NEWS_API_URL, {
-            cache: "no-store"
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch news");
+          imageCache.delete(url);
         }
 
-        const data = await response.json();
+      }
 
-        news = normaliseNews(data);
-
-        currentNews = 0;
-
-        renderNews();
-        startNewsTimer();
-    } catch (error) {
-        console.error(error);
-
-        newsTitle.textContent = "Unable to load news";
-        newsDescription.textContent = "Please try again later.";
-        newsDots.innerHTML = "";
     }
-}
 
-newsPrev.addEventListener("click", () => {
-    showNews(currentNews - 1);
-    startNewsTimer();
-});
+    function cleanValue(value) {
 
-newsNext.addEventListener("click", () => {
-    showNews(currentNews + 1);
-    startNewsTimer();
-});
+      return String(
+        value ?? ""
+      ).trim();
 
-loadNews();
+    }
 
-setInterval(loadNews, 15000);
-</script>
+    function getNewsSignature(items) {
+
+      return items
+        .map(
+          item =>
+            [
+              item.image,
+              item.description,
+              item.date
+            ].join("|||")
+        )
+        .join("~~~");
+
+    }
+
+    function createNewsDots() {
+
+      dotsContainer.innerHTML = "";
+
+      newsItems.forEach(
+        (_, index) => {
+
+          const dot =
+            document.createElement(
+              "button"
+            );
+
+          dot.type =
+            "button";
+
+          dot.className =
+            "news-dot";
+
+          dot.setAttribute(
+            "aria-label",
+            `Go to news ${index + 1}`
+          );
+
+          dot.addEventListener(
+            "click",
+            () => {
+
+              showNews(index);
+
+              resetNewsTimer();
+
+            }
+          );
+
+          dotsContainer.appendChild(
+            dot
+          );
+
+        }
+      );
+
+      updateNewsDots();
+
+    }
+
+    function updateNewsDots() {
+
+      const dots =
+        dotsContainer.querySelectorAll(
+          ".news-dot"
+        );
+
+      dots.forEach(
+        (dot, index) => {
+
+          dot.classList.toggle(
+            "active",
+            index === currentNewsIndex
+          );
+
+        }
+      );
+
+    }
+
+    function showNews(index) {
+
+      if (
+        !newsItems.length
+      ) {
+
+        return;
+      }
+
+      currentNewsIndex =
+        (
+          index +
+          newsItems.length
+        ) %
+        newsItems.length;
+
+      const item =
+        newsItems[
+          currentNewsIndex
+        ];
+
+      description.style.opacity =
+        "0";
+
+      requestAnimationFrame(
+        () => {
+
+          description.textContent =
+            item.description ||
+            "No current news available.";
+
+          description.classList.toggle(
+            "empty",
+            !item.description
+          );
+
+          updated.textContent =
+            "Last updated: " +
+            (
+              item.date ||
+              "—"
+            );
+
+          imageContainer.classList.remove(
+            "visible"
+          );
+
+          image.onload = null;
+
+          image.onerror = null;
+
+          image.removeAttribute(
+            "src"
+          );
+
+          if (item.image) {
+
+            const cachedImage =
+              imageCache.get(
+                item.image
+              );
+
+            image.alt =
+              item.description ||
+              "RSF News";
+
+            if (
+              cachedImage &&
+              cachedImage.complete &&
+              cachedImage.naturalWidth > 0
+            ) {
+
+              image.src =
+                cachedImage.src;
+
+              imageContainer.classList.add(
+                "visible"
+              );
+
+            } else {
+
+              image.onload =
+                () => {
+
+                  imageContainer.classList.add(
+                    "visible"
+                  );
+
+                };
+
+              image.onerror =
+                () => {
+
+                  imageContainer.classList.remove(
+                    "visible"
+                  );
+
+                };
+
+              image.src =
+                item.image;
+
+            }
+
+          }
+
+          updateNewsDots();
+
+          description.style.opacity =
+            "1";
+
+        }
+      );
+
+    }
+
+    function nextNews() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      showNews(
+        currentNewsIndex + 1
+      );
+
+      resetNewsTimer();
+
+    }
+
+    function previousNews() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      showNews(
+        currentNewsIndex - 1
+      );
+
+      resetNewsTimer();
+
+    }
+
+    function resetNewsTimer() {
+
+      clearTimeout(
+        newsTimer
+      );
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        return;
+      }
+
+      newsTimer =
+        setTimeout(
+          () => {
+
+            showNews(
+              currentNewsIndex + 1
+            );
+
+            resetNewsTimer();
+
+          },
+          NEWS_AUTO_ADVANCE
+        );
+
+    }
+
+    previousButton.addEventListener(
+      "click",
+      previousNews
+    );
+
+    nextButton.addEventListener(
+      "click",
+      nextNews
+    );
+
+    function updateControls() {
+
+      if (
+        newsItems.length <= 1
+      ) {
+
+        controls.style.display =
+          "none";
+
+      } else {
+
+        controls.style.display =
+          "flex";
+
+      }
+
+    }
+
+    function getFreshNewsURL() {
+
+      const separator =
+        NEWS_API_URL.includes("?")
+          ? "&"
+          : "?";
+
+      return (
+        NEWS_API_URL +
+        separator +
+        "_rsf=" +
+        Date.now()
+      );
+
+    }
+
+    async function fetchNews() {
+
+      const controller =
+        new AbortController();
+
+      const timeout =
+        setTimeout(
+          () => {
+
+            controller.abort();
+
+          },
+          NEWS_REQUEST_TIMEOUT
+        );
+
+      try {
+
+        const response =
+          await fetch(
+            getFreshNewsURL(),
+            {
+              method: "GET",
+
+              cache: "no-store",
+
+              credentials: "omit",
+
+              redirect: "follow",
+
+              signal:
+                controller.signal,
+
+              headers: {
+                "Accept": "application/json"
+              }
+            }
+          );
+
+        if (!response.ok) {
+
+          throw new Error(
+            `RSF News API returned HTTP ${response.status}`
+          );
+
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          !data ||
+          typeof data !== "object"
+        ) {
+
+          throw new Error(
+            "RSF News API returned invalid JSON."
+          );
+
+        }
+
+        if (
+          !Array.isArray(
+            data.items
+          )
+        ) {
+
+          throw new Error(
+            "RSF News API returned no valid news items."
+          );
+
+        }
+
+        const incomingItems =
+          data.items
+            .map(
+              item => ({
+
+                image:
+                  cleanValue(
+                    item.image
+                  ),
+
+                description:
+                  cleanValue(
+                    item.description
+                  ),
+
+                date:
+                  cleanValue(
+                    item.date
+                  )
+
+              })
+            )
+            .filter(
+              item =>
+                item.image ||
+                item.description ||
+                item.date
+            );
+
+        if (
+          !incomingItems.length
+        ) {
+
+          if (
+            firstLoad
+          ) {
+
+            newsItems = [
+              {
+                image: "",
+                description:
+                  "No current news available.",
+                date: ""
+              }
+            ];
+
+            createNewsDots();
+
+            updateControls();
+
+            showNews(0);
+
+            firstLoad = false;
+
+          }
+
+          return false;
+        }
+
+        const serverVersion =
+          cleanValue(
+            data.version
+          );
+
+        const oldSignature =
+          getNewsSignature(
+            newsItems
+          );
+
+        const newSignature =
+          getNewsSignature(
+            incomingItems
+          );
+
+        if (
+          !firstLoad &&
+          serverVersion &&
+          serverVersion === lastServerVersion
+        ) {
+
+          return false;
+        }
+
+        if (
+          !firstLoad &&
+          oldSignature === newSignature
+        ) {
+
+          lastServerVersion =
+            serverVersion ||
+            lastServerVersion;
+
+          return false;
+        }
+
+        const currentItem =
+          newsItems[
+            currentNewsIndex
+          ];
+
+        const currentKey =
+          currentItem
+            ? [
+                currentItem.image,
+                currentItem.description,
+                currentItem.date
+              ].join("|||")
+            : "";
+
+        newsItems =
+          incomingItems;
+
+        let newIndex = 0;
+
+        if (currentKey) {
+
+          const matchingIndex =
+            newsItems.findIndex(
+              item =>
+                [
+                  item.image,
+                  item.description,
+                  item.date
+                ].join("|||") ===
+                currentKey
+            );
+
+          if (
+            matchingIndex !== -1
+          ) {
+
+            newIndex =
+              matchingIndex;
+
+          }
+
+        }
+
+        newsItems.forEach(
+          item => {
+
+            preloadImage(
+              item.image
+            );
+
+          }
+        );
+
+        cleanupImageCache();
+
+        createNewsDots();
+
+        showNews(
+          newIndex
+        );
+
+        updateControls();
+
+        resetNewsTimer();
+
+        lastServerVersion =
+          serverVersion ||
+          newSignature;
+
+        firstLoad = false;
+
+        return true;
+
+      } finally {
+
+        clearTimeout(
+          timeout
+        );
+
+      }
+
+    }
+
+    async function syncNews() {
+
+      if (
+        syncInProgress
+      ) {
+
+        return;
+      }
+
+      syncInProgress = true;
+
+      try {
+
+        await fetchNews();
+
+      } catch (error) {
+
+        console.warn(
+          "RSF News sync failed:",
+          error
+        );
+
+      } finally {
+
+        syncInProgress = false;
+
+      }
+
+    }
+
+    async function startNewsSync() {
+
+      await syncNews();
+
+      const scheduleNextSync =
+        () => {
+
+          clearTimeout(
+            syncTimer
+          );
+
+          syncTimer =
+            setTimeout(
+              async () => {
+
+                await syncNews();
+
+                scheduleNextSync();
+
+              },
+              NEWS_SYNC_INTERVAL
+            );
+
+        };
+
+      scheduleNextSync();
+
+    }
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          document.visibilityState ===
+          "visible"
+        ) {
+
+          syncNews();
+
+        }
+
+      }
+    );
+
+    startNewsSync();
+
+  </script>
 
 </body>
 </html>
