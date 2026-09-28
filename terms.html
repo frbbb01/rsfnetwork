@@ -41,14 +41,20 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
+
       background:
         radial-gradient(ellipse 900px 620px at 78% 2%, rgba(42, 103, 175, 0.34), transparent 68%),
         radial-gradient(ellipse 760px 560px at 8% 55%, rgba(25, 75, 145, 0.18), transparent 70%),
         radial-gradient(ellipse 650px 480px at 55% 105%, rgba(20, 65, 125, 0.13), transparent 72%),
         #0B1220;
+
       color: #FFFFFF;
       font-family: "Montserrat", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
+
+      padding-top: 68px;
+      padding-bottom: 58px;
     }
 
     a {
@@ -57,6 +63,12 @@
     }
 
     .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+
       height: 68px;
       padding: 0 32px;
 
@@ -68,7 +80,6 @@
 
       display: flex;
       align-items: center;
-      position: relative;
     }
 
     .logo {
@@ -81,17 +92,22 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+
       display: flex;
       align-items: center;
       gap: 34px;
+      height: 100%;
     }
 
     .nav-item {
       position: relative;
+
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.02em;
+
       opacity: 0.48;
+
       transition: opacity 120ms ease;
     }
 
@@ -118,7 +134,8 @@
       position: absolute;
       top: calc(100% + 7px);
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(-3px);
+
       width: 170px;
       padding: 6px;
 
@@ -138,9 +155,19 @@
 
       transition:
         opacity 100ms ease,
+        transform 100ms ease,
         visibility 100ms ease;
 
-      z-index: 20;
+      z-index: 120;
+    }
+
+    .dropdown::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
     }
 
     .nav-item:hover .dropdown,
@@ -148,15 +175,19 @@
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
     }
 
     .dropdown a {
       min-height: 32px;
       padding: 0 10px;
+
       display: flex;
       align-items: center;
+
       font-size: 10px;
       font-weight: 500;
+
       opacity: 0.52;
       border-radius: 4px;
 
@@ -165,14 +196,17 @@
         opacity 100ms ease;
     }
 
-    .dropdown a:hover {
+    .dropdown a:hover,
+    .dropdown a:focus-visible {
       background: rgba(74, 132, 194, 0.14);
       opacity: 1;
+      outline: none;
     }
 
     .page {
       width: min(760px, calc(100% - 64px));
       margin: 0 auto;
+
       padding: 90px 0 100px;
     }
 
@@ -182,16 +216,20 @@
 
     .page-header h1 {
       margin: 0;
+
       font-size: clamp(42px, 6vw, 68px);
       line-height: 0.95;
       font-weight: 700;
+
       letter-spacing: -0.07em;
     }
 
     .page-header p {
       margin: 20px 0 0;
+
       font-size: 11px;
       line-height: 1.7;
+
       opacity: 0.4;
     }
 
@@ -201,9 +239,11 @@
 
     .section h2 {
       margin: 0 0 16px;
+
       font-size: 13px;
       line-height: 1.4;
       font-weight: 700;
+
       letter-spacing: -0.01em;
     }
 
@@ -212,6 +252,7 @@
       font-size: 12px;
       line-height: 1.85;
       font-weight: 400;
+
       opacity: 0.58;
     }
 
@@ -232,6 +273,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       min-height: 36px;
       padding: 0 16px;
       margin-top: 8px;
@@ -241,6 +283,7 @@
 
       font-size: 10px;
       font-weight: 700;
+
       opacity: 0.7;
 
       transition:
@@ -256,6 +299,12 @@
     }
 
     .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+
       min-height: 58px;
       padding: 0 32px;
 
@@ -276,6 +325,7 @@
       display: flex;
       align-items: center;
       gap: 18px;
+
       font-size: 9px;
       opacity: 0.35;
     }
@@ -304,6 +354,7 @@
       .page {
         width: min(100% - 40px, 760px);
         padding-top: 64px;
+        padding-bottom: 64px;
       }
 
       .footer {
@@ -604,6 +655,43 @@
       <a href="/terms">Terms of Use</a>
     </div>
   </footer>
+
+  <script>
+    window.addEventListener("load", () => {
+      requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
+      });
+    });
+
+    document.querySelectorAll("a[href]").forEach(link => {
+      link.addEventListener("click", event => {
+        const url = new URL(link.href, window.location.href);
+
+        if (
+          url.origin !== window.location.origin ||
+          link.target === "_blank" ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        if (url.href === window.location.href) {
+          return;
+        }
+
+        event.preventDefault();
+
+        document.body.classList.remove("page-loaded");
+
+        setTimeout(() => {
+          window.location.href = url.href;
+        }, 90);
+      });
+    });
+  </script>
 
 </body>
 </html>
