@@ -128,12 +128,13 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error(
-      "Profile API error:",
+      "PROFILE API ERROR:",
       error
     );
 
     return res.status(500).json({
       error:
+        error.message ||
         "Internal server error"
     });
   }
