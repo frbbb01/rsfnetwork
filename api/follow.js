@@ -141,9 +141,11 @@ async function supabaseRequest(
   let data;
 
   try {
-    data = JSON.parse(text);
+    data =
+      JSON.parse(text);
   } catch {
-    data = text;
+    data =
+      text;
   }
 
   if (!response.ok) {
@@ -159,7 +161,9 @@ async function supabaseRequest(
   return data;
 }
 
-async function getAuthenticatedUser(req) {
+async function getAuthenticatedUser(
+  req
+) {
   const cookies =
     parseCookies(req);
 
@@ -209,11 +213,14 @@ async function getAuthenticatedUser(req) {
 
   return {
     user,
-    player: players[0]
+    player:
+      players[0]
   };
 }
 
-async function getTargetUser(playerId) {
+async function getTargetUser(
+  playerId
+) {
   if (!playerId) {
     return null;
   }
@@ -250,7 +257,8 @@ async function getTargetUser(playerId) {
   }
 
   return {
-    user: users[0],
+    user:
+      users[0],
     player
   };
 }
@@ -273,7 +281,8 @@ async function getFollowData(
       )}`
     );
 
-  let isFollowing = false;
+  let isFollowing =
+    false;
 
   if (viewerId) {
     const existing =
@@ -414,15 +423,19 @@ export default async function handler(
         await supabaseRequest(
           "follows",
           {
-            method: "POST",
+            method:
+              "POST",
+
             headers: {
               Prefer:
                 "return=minimal"
             },
+
             body:
               JSON.stringify({
                 follower_id:
                   followerId,
+
                 following_id:
                   followingId
               })
@@ -441,7 +454,8 @@ export default async function handler(
           followingId
         )}`,
         {
-          method: "DELETE"
+          method:
+            "DELETE"
         }
       );
     }
