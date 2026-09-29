@@ -29,6 +29,10 @@
     {
       "source": "/callback",
       "destination": "/api/callback"
+    },
+    {
+      "source": "/profile/:username",
+      "destination": "/profile.html"
     }
   ]
 }
