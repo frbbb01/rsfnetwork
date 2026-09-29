@@ -13,7 +13,11 @@ export default async function handler(req, res) {
   const supabaseKey = process.env.SUPABASE_SECRET_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
-    return res.status(500).json({ error: "Supabase environment variables are missing" });
+    return res.status(500).json({
+      error: "Supabase environment variables are missing",
+      hasUrl: !!supabaseUrl,
+      hasKey: !!supabaseKey
+    });
   }
 
   try {
@@ -32,22 +36,32 @@ export default async function handler(req, res) {
     url.searchParams.set("limit", "1");
 
     const response = await fetch(url, {
+      method: "GET",
       headers: {
         apikey: supabaseKey,
         Authorization: `Bearer ${supabaseKey}`
       }
     });
 
+    const body = await response.text();
+
     if (!response.ok) {
-      const error = await response.text();
-      console.error("Supabase error:", error);
-      return res.status(500).json({ error: "Failed to query players" });
+      console.error("Supabase status:", response.status);
+      console.error("Supabase response:", body);
+
+      return res.status(500).json({
+        error: "Failed to query players",
+        supabaseStatus: response.status,
+        supabaseResponse: body
+      });
     }
 
-    const players = await response.json();
+    const players = JSON.parse(body);
 
     if (!players.length) {
-      return res.status(404).json({ error: "Player not found" });
+      return res.status(404).json({
+        error: "Player not found"
+      });
     }
 
     return res.status(200).json({
@@ -55,6 +69,10 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Profile API error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+
+    return res.status(500).json({
+      error: "Internal server error",
+      message: error.message
+    });
   }
 }
