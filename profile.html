@@ -605,6 +605,18 @@
       filter: brightness(1.08);
     }
 
+    .profile-action.following {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .profile-action.following:hover {
+      background: rgba(255, 72, 93, 0.08);
+      border-color: rgba(255, 72, 93, 0.24);
+      color: #ff6878;
+    }
+
     .profile-bio {
       max-width: 650px;
       margin: 16px 0 0 131px;
@@ -1246,511 +1258,760 @@
 </head>
 
 <body class="theme-blue">
+
   <script>
     (function () {
       try {
         const authenticated =
           localStorage.getItem("rsf-authenticated") === "true";
 
+        const cachedTheme =
+          localStorage.getItem("rsf-theme");
 
-    const cachedTheme =
-      localStorage.getItem("rsf-theme");
+        const validThemes = [
+          "dark",
+          "light",
+          "blue",
+          "royal",
+          "ocean"
+        ];
 
-    const validThemes = [
-      "dark",
-      "light",
-      "blue",
-      "royal",
-      "ocean"
-    ];
+        if (
+          authenticated &&
+          validThemes.includes(cachedTheme)
+        ) {
+          document.body.classList.remove(
+            "theme-dark",
+            "theme-light",
+            "theme-blue",
+            "theme-royal",
+            "theme-ocean"
+          );
 
-    if (
-      authenticated &&
-      validThemes.includes(cachedTheme)
-    ) {
-      document.body.classList.remove(
-        "theme-dark",
-        "theme-light",
-        "theme-blue",
-        "theme-royal",
-        "theme-ocean"
-      );
-
-      document.body.classList.add(
-        `theme-${cachedTheme}`
-      );
-    }
-  } catch (error) {}
-})();
-
-
+          document.body.classList.add(
+            `theme-${cachedTheme}`
+          );
+        }
+      } catch (error) {}
+    })();
   </script>
 
   <header class="topbar">
+
     <a href="/" class="logo">RSF</a>
 
+    <nav class="navigation">
+      <a href="/" class="nav-item">MAIN</a>
 
-<nav class="navigation">
-  <a href="/" class="nav-item">MAIN</a>
+      <div class="nav-item has-dropdown">
+        DATABASE
+        <div class="nav-dropdown">
+          <a href="/database">Playerbase</a>
+          <a href="/database/teams">Teams</a>
+          <a href="/database/seasons">Seasons</a>
+        </div>
+      </div>
 
-  <div class="nav-item has-dropdown">
-    DATABASE
-    <div class="nav-dropdown">
-      <a href="/database">Playerbase</a>
-      <a href="/database/teams">Teams</a>
-      <a href="/database/seasons">Seasons</a>
+      <div class="nav-item has-dropdown">
+        COMMUNITY
+        <div class="nav-dropdown">
+          <a href="/community/videos">Videos</a>
+          <a href="/community/latest">Community Latest</a>
+          <a href="/community/development">Development</a>
+          <a href="/community/resources">Resources</a>
+        </div>
+      </div>
+
+      <a href="/arcade" class="nav-item">ARCADE</a>
+      <a href="/rsf" class="nav-item">RSF</a>
+    </nav>
+
+    <button
+      type="button"
+      class="login-button"
+      id="login-button"
+      aria-label="Login with Discord"
+    >
+      <img
+        class="discord-logo"
+        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+        alt=""
+        aria-hidden="true"
+      >
+      <span>LOGIN</span>
+    </button>
+
+    <div class="profile-card" id="profile-card" style="display:none;">
+
+      <div class="profile-avatar-container" id="profile-avatar-container">
+        <img class="profile-avatar" id="profile-avatar" alt="">
+        <span class="profile-avatar-fallback" id="profile-avatar-fallback"></span>
+      </div>
+
+      <div class="profile-user-details">
+        <div class="profile-username" id="profile-username"></div>
+        <div class="profile-status" id="profile-status">RSF Member</div>
+      </div>
+
+      <svg class="profile-chevron" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M6 9L12 15L18 9"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <div class="profile-dropdown" id="profile-dropdown">
+        <a href="/profile">PROFILE</a>
+        <a href="/settings">SETTINGS</a>
+        <button type="button" class="logout" id="logout-button">
+          LOG OUT
+        </button>
+      </div>
+
     </div>
-  </div>
-
-  <div class="nav-item has-dropdown">
-    COMMUNITY
-    <div class="nav-dropdown">
-      <a href="/community/videos">Videos</a>
-      <a href="/community/latest">Community Latest</a>
-      <a href="/community/development">Development</a>
-      <a href="/community/resources">Resources</a>
-    </div>
-  </div>
-
-  <a href="/arcade" class="nav-item">ARCADE</a>
-  <a href="/rsf" class="nav-item">RSF</a>
-</nav>
-
-<button
-  type="button"
-  class="login-button"
-  id="login-button"
-  aria-label="Login with Discord"
->
-  <img
-    class="discord-logo"
-    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-    alt=""
-    aria-hidden="true"
-  >
-  <span>LOGIN</span>
-</button>
-
-<div class="profile-card" id="profile-card" style="display:none;">
-  <div class="profile-avatar-container" id="profile-avatar-container">
-    <img class="profile-avatar" id="profile-avatar" alt="">
-    <span class="profile-avatar-fallback" id="profile-avatar-fallback"></span>
-  </div>
-
-  <div class="profile-user-details">
-    <div class="profile-username" id="profile-username"></div>
-    <div class="profile-status" id="profile-status">RSF Member</div>
-  </div>
-
-  <svg class="profile-chevron" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M6 9L12 15L18 9"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-
-  <div class="profile-dropdown" id="profile-dropdown">
-    <a href="/profile">PROFILE</a>
-    <a href="/settings">SETTINGS</a>
-    <button type="button" class="logout" id="logout-button">LOG OUT</button>
-  </div>
-</div>
-
 
   </header>
 
   <div class="login-overlay" id="login-overlay">
+
     <div class="login-modal">
+
       <h2>Login to RSF</h2>
 
+      <p class="login-modal-subtitle">
+        Connect your Discord account to access the full RSF experience.
+      </p>
 
-  <p class="login-modal-subtitle">
-    Connect your Discord account to access the full RSF experience.
-  </p>
+      <ul class="login-points">
+        <li>Logging in is completely optional.</li>
+        <li>Log in to access all features available across the RSF website.</li>
+        <li>Your Discord account is only used to authenticate your RSF account.</li>
+        <li>We only use the information required to provide your account and website features.</li>
+        <li>You can continue using publicly available parts of the website without logging in.</li>
+      </ul>
 
-  <ul class="login-points">
-    <li>Logging in is completely optional.</li>
-    <li>Log in to access all features available across the RSF website.</li>
-    <li>Your Discord account is only used to authenticate your RSF account.</li>
-    <li>We only use the information required to provide your account and website features.</li>
-    <li>You can continue using publicly available parts of the website without logging in.</li>
-  </ul>
+      <button
+        type="button"
+        class="login-proceed"
+        id="login-proceed"
+      >
+        PROCEED TO LOGIN
+      </button>
 
-  <button type="button" class="login-proceed" id="login-proceed">
-    PROCEED TO LOGIN
-  </button>
+      <p class="login-note">
+        By continuing, you will be redirected to Discord to authenticate.
+      </p>
 
-  <p class="login-note">
-    By continuing, you will be redirected to Discord to authenticate.
-  </p>
-</div>
-
+    </div>
 
   </div>
 
   <main>
+
     <div class="profile-page-title">
       <h1>PROFILE</h1>
       <p>Connect with the RSF community.</p>
     </div>
 
+    <section class="profile-cover"></section>
 
-<section class="profile-cover"></section>
+    <section class="social-profile">
 
-<section class="social-profile">
-  <div class="profile-main-row">
-    <div class="main-avatar-wrap">
-      <img
-        class="main-avatar"
-        id="main-avatar"
-        alt=""
-        style="display:none;"
+      <div class="profile-main-row">
+
+        <div class="main-avatar-wrap">
+
+          <img
+            class="main-avatar"
+            id="main-avatar"
+            alt=""
+            style="display:none;"
+          >
+
+          <div
+            class="main-avatar-fallback"
+            id="main-avatar-fallback"
+          >
+            ?
+          </div>
+
+        </div>
+
+        <div class="social-identity">
+
+          <div class="social-username-row">
+
+            <h2
+              class="social-username"
+              id="player-name"
+            >
+              Loading...
+            </h2>
+
+            <span class="verified-badge">✓</span>
+
+          </div>
+
+          <div
+            class="social-handle"
+            id="player-handle"
+          >
+            @loading
+          </div>
+
+        </div>
+
+        <div class="profile-actions">
+
+          <button
+            class="profile-action primary"
+            id="follow-button"
+            type="button"
+          >
+            FOLLOW
+          </button>
+
+          <button
+            class="profile-action"
+            type="button"
+          >
+            MESSAGE
+          </button>
+
+        </div>
+
+      </div>
+
+      <p
+        class="profile-bio"
+        id="profile-bio"
       >
-      <div class="main-avatar-fallback" id="main-avatar-fallback">?</div>
-    </div>
+        RSF member. No bio has been added yet.
+      </p>
 
-    <div class="social-identity">
-      <div class="social-username-row">
-        <h2 class="social-username" id="player-name">Loading...</h2>
-        <span class="verified-badge">✓</span>
-      </div>
+      <div class="social-stats">
 
-      <div class="social-handle" id="player-handle">@loading</div>
-    </div>
-
-    <div class="profile-actions">
-      <button class="profile-action primary" type="button">FOLLOW</button>
-      <button class="profile-action" type="button">MESSAGE</button>
-    </div>
-  </div>
-
-  <p class="profile-bio" id="profile-bio">
-    RSF member. No bio has been added yet.
-  </p>
-
-  <div class="social-stats">
-    <div class="social-stat">
-      <strong>—</strong>
-      <span>Followers</span>
-    </div>
-
-    <div class="social-stat">
-      <strong>—</strong>
-      <span>Following</span>
-    </div>
-
-    <div class="social-stat">
-      <strong>—</strong>
-      <span>Posts</span>
-    </div>
-
-    <div class="social-stat">
-      <strong id="joined-short">—</strong>
-      <span>Joined</span>
-    </div>
-  </div>
-</section>
-
-<nav class="profile-tabs">
-  <button class="profile-tab active" data-tab="overview">OVERVIEW</button>
-  <button class="profile-tab" data-tab="career">CAREER</button>
-  <button class="profile-tab" data-tab="teams">TEAMS</button>
-  <button class="profile-tab" data-tab="activity">ACTIVITY</button>
-  <button class="profile-tab" data-tab="about">ABOUT</button>
-</nav>
-
-<div class="profile-content">
-
-  <section class="tab-content active" id="overview-tab">
-    <div class="content-grid">
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">RECENT POSTS</span>
-          <span class="panel-label">COMMUNITY</span>
+        <div class="social-stat">
+          <strong id="followers-count">—</strong>
+          <span>Followers</span>
         </div>
 
-        <div class="panel-body">
-          <div class="empty-post">
-            <div class="empty-icon">+</div>
-            <div class="empty-title">No Posts Yet</div>
-            <div class="empty-description">
-              This player hasn't posted anything to the RSF community yet.
+        <div class="social-stat">
+          <strong id="following-count">—</strong>
+          <span>Following</span>
+        </div>
+
+        <div class="social-stat">
+          <strong>—</strong>
+          <span>Posts</span>
+        </div>
+
+        <div class="social-stat">
+          <strong id="joined-short">—</strong>
+          <span>Joined</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <nav class="profile-tabs">
+
+      <button
+        class="profile-tab active"
+        data-tab="overview"
+      >
+        OVERVIEW
+      </button>
+
+      <button
+        class="profile-tab"
+        data-tab="career"
+      >
+        CAREER
+      </button>
+
+      <button
+        class="profile-tab"
+        data-tab="teams"
+      >
+        TEAMS
+      </button>
+
+      <button
+        class="profile-tab"
+        data-tab="activity"
+      >
+        ACTIVITY
+      </button>
+
+      <button
+        class="profile-tab"
+        data-tab="about"
+      >
+        ABOUT
+      </button>
+
+    </nav>
+
+    <div class="profile-content">
+
+      <section
+        class="tab-content active"
+        id="overview-tab"
+      >
+
+        <div class="content-grid">
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">RECENT POSTS</span>
+              <span class="panel-label">COMMUNITY</span>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">CURRENT TEAM</span>
-        </div>
+            <div class="panel-body">
 
-        <div class="panel-body">
-          <div class="empty-post">
-            <div class="empty-icon">—</div>
-            <div class="empty-title">No Team</div>
-            <div class="empty-description">
-              Team information will appear here when registered.
-            </div>
-          </div>
-        </div>
-      </div>
+              <div class="empty-post">
 
-    </div>
+                <div class="empty-icon">+</div>
 
-    <div class="content-grid" style="margin-top:14px;">
+                <div class="empty-title">
+                  No Posts Yet
+                </div>
 
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">RECENT ACTIVITY</span>
-          <span class="panel-label">PROFILE</span>
-        </div>
+                <div class="empty-description">
+                  This player hasn't posted anything to the RSF community yet.
+                </div>
 
-        <div class="panel-body">
-          <div class="empty-post">
-            <div class="empty-icon">•</div>
-            <div class="empty-title">No Recent Activity</div>
-            <div class="empty-description">
-              Player activity, posts and community interactions will appear here.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">PEOPLE</span>
-          <span class="panel-label">PLACEHOLDER</span>
-        </div>
-
-        <div class="panel-body">
-          <div class="side-list">
-            <div class="side-user">
-              <div class="side-user-avatar"></div>
-              <div class="side-user-details">
-                <div class="side-user-name">—</div>
-                <div class="side-user-info">No connections yet</div>
               </div>
+
             </div>
 
-            <div class="side-user">
-              <div class="side-user-avatar"></div>
-              <div class="side-user-details">
-                <div class="side-user-name">—</div>
-                <div class="side-user-info">No connections yet</div>
+          </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">CURRENT TEAM</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="empty-post">
+
+                <div class="empty-icon">—</div>
+
+                <div class="empty-title">
+                  No Team
+                </div>
+
+                <div class="empty-description">
+                  Team information will appear here when registered.
+                </div>
+
               </div>
+
             </div>
 
-            <div class="side-user">
-              <div class="side-user-avatar"></div>
-              <div class="side-user-details">
-                <div class="side-user-name">—</div>
-                <div class="side-user-info">No connections yet</div>
+          </div>
+
+        </div>
+
+        <div
+          class="content-grid"
+          style="margin-top:14px;"
+        >
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">RECENT ACTIVITY</span>
+              <span class="panel-label">PROFILE</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="empty-post">
+
+                <div class="empty-icon">•</div>
+
+                <div class="empty-title">
+                  No Recent Activity
+                </div>
+
+                <div class="empty-description">
+                  Player activity, posts and community interactions will appear here.
+                </div>
+
               </div>
+
             </div>
+
           </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">PEOPLE</span>
+              <span class="panel-label">PLACEHOLDER</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="side-list">
+
+                <div class="side-user">
+                  <div class="side-user-avatar"></div>
+
+                  <div class="side-user-details">
+                    <div class="side-user-name">—</div>
+                    <div class="side-user-info">
+                      No connections yet
+                    </div>
+                  </div>
+                </div>
+
+                <div class="side-user">
+                  <div class="side-user-avatar"></div>
+
+                  <div class="side-user-details">
+                    <div class="side-user-name">—</div>
+                    <div class="side-user-info">
+                      No connections yet
+                    </div>
+                  </div>
+                </div>
+
+                <div class="side-user">
+                  <div class="side-user-avatar"></div>
+
+                  <div class="side-user-details">
+                    <div class="side-user-name">—</div>
+                    <div class="side-user-info">
+                      No connections yet
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-      </div>
+
+      </section>
+
+      <section
+        class="tab-content"
+        id="career-tab"
+      >
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <span class="panel-title">CAREER OVERVIEW</span>
+            <span class="panel-label">ALL TIME</span>
+          </div>
+
+          <div class="panel-body">
+
+            <div class="career-grid">
+
+              <div class="career-stat">
+                <div class="career-stat-value">—</div>
+                <div class="career-stat-name">Appearances</div>
+              </div>
+
+              <div class="career-stat">
+                <div class="career-stat-value">—</div>
+                <div class="career-stat-name">Goals</div>
+              </div>
+
+              <div class="career-stat">
+                <div class="career-stat-value">—</div>
+                <div class="career-stat-name">Assists</div>
+              </div>
+
+              <div class="career-stat">
+                <div class="career-stat-value">—</div>
+                <div class="career-stat-name">Average Rating</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="panel career-section">
+
+          <div class="panel-header">
+            <span class="panel-title">SEASON HISTORY</span>
+            <span class="panel-label">STATISTICS</span>
+          </div>
+
+          <div style="overflow-x:auto;">
+
+            <table class="career-table">
+
+              <thead>
+                <tr>
+                  <th>Season</th>
+                  <th>Team</th>
+                  <th>Apps</th>
+                  <th>Goals</th>
+                  <th>Assists</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+        <div class="panel career-section">
+
+          <div class="panel-header">
+            <span class="panel-title">MATCH HISTORY</span>
+            <span class="panel-label">PLACEHOLDER</span>
+          </div>
+
+          <div class="empty-career">
+
+            <div
+              class="empty-icon"
+              style="margin:0 auto 9px;"
+            >
+              —
+            </div>
+
+            <div class="empty-title">
+              No Matches Recorded
+            </div>
+
+            <div
+              class="empty-description"
+              style="margin-left:auto;margin-right:auto;"
+            >
+              Match appearances and ratings will appear here once RSF match statistics are connected.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section
+        class="tab-content"
+        id="teams-tab"
+      >
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <span class="panel-title">TEAM HISTORY</span>
+            <span class="panel-label">RSF</span>
+          </div>
+
+          <div class="empty-career">
+
+            <div
+              class="empty-icon"
+              style="margin:0 auto 9px;"
+            >
+              —
+            </div>
+
+            <div class="empty-title">
+              No Team History
+            </div>
+
+            <div
+              class="empty-description"
+              style="margin-left:auto;margin-right:auto;"
+            >
+              Current and previous teams will appear here once team data is connected.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section
+        class="tab-content"
+        id="activity-tab"
+      >
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <span class="panel-title">ACTIVITY</span>
+            <span class="panel-label">COMMUNITY</span>
+          </div>
+
+          <div class="empty-career">
+
+            <div
+              class="empty-icon"
+              style="margin:0 auto 9px;"
+            >
+              •
+            </div>
+
+            <div class="empty-title">
+              No Activity Yet
+            </div>
+
+            <div
+              class="empty-description"
+              style="margin-left:auto;margin-right:auto;"
+            >
+              Posts, follows, matches, transfers and other activity will appear here.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section
+        class="tab-content"
+        id="about-tab"
+      >
+
+        <div class="content-grid">
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">ABOUT</span>
+              <span class="panel-label">PLAYER</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="info-row">
+                <span class="info-key">Roblox Username</span>
+                <span
+                  class="info-value"
+                  id="info-username"
+                >
+                  —
+                </span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">RSF Status</span>
+                <span class="info-value">PLAYER</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">Joined RSF</span>
+                <span
+                  class="info-value"
+                  id="info-joined"
+                >
+                  —
+                </span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">Last Updated</span>
+                <span
+                  class="info-value"
+                  id="info-updated"
+                >
+                  —
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <span class="panel-title">PROFILE</span>
+            </div>
+
+            <div class="panel-body">
+
+              <div class="info-row">
+                <span class="info-key">Followers</span>
+                <span
+                  class="info-value"
+                  id="about-followers-count"
+                >
+                  —
+                </span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">Following</span>
+                <span
+                  class="info-value"
+                  id="about-following-count"
+                >
+                  —
+                </span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">Posts</span>
+                <span class="info-value">—</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-key">Views</span>
+                <span class="info-value">—</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
-  </section>
-
-  <section class="tab-content" id="career-tab">
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">CAREER OVERVIEW</span>
-        <span class="panel-label">ALL TIME</span>
-      </div>
-
-      <div class="panel-body">
-        <div class="career-grid">
-          <div class="career-stat">
-            <div class="career-stat-value">—</div>
-            <div class="career-stat-name">Appearances</div>
-          </div>
-
-          <div class="career-stat">
-            <div class="career-stat-value">—</div>
-            <div class="career-stat-name">Goals</div>
-          </div>
-
-          <div class="career-stat">
-            <div class="career-stat-value">—</div>
-            <div class="career-stat-name">Assists</div>
-          </div>
-
-          <div class="career-stat">
-            <div class="career-stat-value">—</div>
-            <div class="career-stat-name">Average Rating</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel career-section">
-      <div class="panel-header">
-        <span class="panel-title">SEASON HISTORY</span>
-        <span class="panel-label">STATISTICS</span>
-      </div>
-
-      <div style="overflow-x:auto;">
-        <table class="career-table">
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Team</th>
-              <th>Apps</th>
-              <th>Goals</th>
-              <th>Assists</th>
-              <th>Rating</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel career-section">
-      <div class="panel-header">
-        <span class="panel-title">MATCH HISTORY</span>
-        <span class="panel-label">PLACEHOLDER</span>
-      </div>
-
-      <div class="empty-career">
-        <div class="empty-icon" style="margin:0 auto 9px;">—</div>
-        <div class="empty-title">No Matches Recorded</div>
-        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
-          Match appearances and ratings will appear here once RSF match statistics are connected.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tab-content" id="teams-tab">
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">TEAM HISTORY</span>
-        <span class="panel-label">RSF</span>
-      </div>
-
-      <div class="empty-career">
-        <div class="empty-icon" style="margin:0 auto 9px;">—</div>
-        <div class="empty-title">No Team History</div>
-        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
-          Current and previous teams will appear here once team data is connected.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tab-content" id="activity-tab">
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">ACTIVITY</span>
-        <span class="panel-label">COMMUNITY</span>
-      </div>
-
-      <div class="empty-career">
-        <div class="empty-icon" style="margin:0 auto 9px;">•</div>
-        <div class="empty-title">No Activity Yet</div>
-        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
-          Posts, follows, matches, transfers and other activity will appear here.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="tab-content" id="about-tab">
-    <div class="content-grid">
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">ABOUT</span>
-          <span class="panel-label">PLAYER</span>
-        </div>
-
-        <div class="panel-body">
-          <div class="info-row">
-            <span class="info-key">Roblox Username</span>
-            <span class="info-value" id="info-username">—</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">RSF Status</span>
-            <span class="info-value">PLAYER</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">Joined RSF</span>
-            <span class="info-value" id="info-joined">—</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">Last Updated</span>
-            <span class="info-value" id="info-updated">—</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">PROFILE</span>
-        </div>
-
-        <div class="panel-body">
-          <div class="info-row">
-            <span class="info-key">Followers</span>
-            <span class="info-value">—</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">Following</span>
-            <span class="info-value">—</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">Posts</span>
-            <span class="info-value">—</span>
-          </div>
-
-          <div class="info-row">
-            <span class="info-key">Views</span>
-            <span class="info-value">—</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-</div>
-
 
   </main>
 
   <footer class="footer">
-    <div class="footer-brand">RSF © 2026</div>
 
+    <div class="footer-brand">
+      RSF © 2026
+    </div>
 
-<div class="footer-links">
-  <a href="/privacy">Privacy</a>
-  <a href="/terms">Terms</a>
-</div>
-
+    <div class="footer-links">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
 
   </footer>
 
@@ -1767,8 +2028,25 @@
     const infoJoined = document.getElementById("info-joined");
     const infoUpdated = document.getElementById("info-updated");
 
+    const followButton = document.getElementById("follow-button");
+
+    const followersCount = document.getElementById("followers-count");
+    const followingCount = document.getElementById("following-count");
+
+    const aboutFollowersCount =
+      document.getElementById("about-followers-count");
+
+    const aboutFollowingCount =
+      document.getElementById("about-following-count");
+
+    let currentPlayer = null;
+    let followRequestInProgress = false;
+
     function getUsernameFromPath() {
-      const parts = window.location.pathname.split("/").filter(Boolean);
+      const parts =
+        window.location.pathname
+          .split("/")
+          .filter(Boolean);
 
       if (
         parts.length >= 2 &&
@@ -1781,7 +2059,9 @@
     }
 
     function formatDate(value) {
-      if (!value) return "—";
+      if (!value) {
+        return "—";
+      }
 
       const date = new Date(value);
 
@@ -1799,8 +2079,11 @@
     function setAvatarFallback(username) {
       mainAvatar.style.display = "none";
       mainAvatarFallback.style.display = "flex";
+
       mainAvatarFallback.textContent =
-        username ? username.charAt(0).toUpperCase() : "?";
+        username
+          ? username.charAt(0).toUpperCase()
+          : "?";
     }
 
     async function loadRobloxAvatar(username) {
@@ -1813,26 +2096,42 @@
           throw new Error("Roblox user lookup failed");
         }
 
-        const userData = await userResponse.json();
-        const user = userData.data && userData.data[0];
+        const userData =
+          await userResponse.json();
+
+        const user =
+          userData.data &&
+          userData.data[0];
 
         if (!user || !user.id) {
           throw new Error("Roblox user not found");
         }
 
-        const thumbnailResponse = await fetch(
-          `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${user.id}&size=150x150&format=Png&isCircular=false`
-        );
+        const thumbnailResponse =
+          await fetch(
+            `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${user.id}&size=150x150&format=Png&isCircular=false`
+          );
 
         if (!thumbnailResponse.ok) {
-          throw new Error("Roblox thumbnail lookup failed");
+          throw new Error(
+            "Roblox thumbnail lookup failed"
+          );
         }
 
-        const thumbnailData = await thumbnailResponse.json();
-        const thumbnail = thumbnailData.data && thumbnailData.data[0];
+        const thumbnailData =
+          await thumbnailResponse.json();
 
-        if (!thumbnail || !thumbnail.imageUrl) {
-          throw new Error("No avatar returned");
+        const thumbnail =
+          thumbnailData.data &&
+          thumbnailData.data[0];
+
+        if (
+          !thumbnail ||
+          !thumbnail.imageUrl
+        ) {
+          throw new Error(
+            "No avatar returned"
+          );
         }
 
         mainAvatar.onload = function () {
@@ -1844,15 +2143,193 @@
           setAvatarFallback(username);
         };
 
-        mainAvatar.src = thumbnail.imageUrl;
-        mainAvatar.alt = `${username} Roblox avatar`;
+        mainAvatar.src =
+          thumbnail.imageUrl;
+
+        mainAvatar.alt =
+          `${username} Roblox avatar`;
+
       } catch (error) {
         setAvatarFallback(username);
       }
     }
 
+    function updateFollowButton(isFollowing) {
+      if (!followButton) {
+        return;
+      }
+
+      if (isFollowing) {
+        followButton.textContent = "FOLLOWING";
+
+        followButton.classList.remove("primary");
+        followButton.classList.add("following");
+
+      } else {
+        followButton.textContent = "FOLLOW";
+
+        followButton.classList.remove("following");
+        followButton.classList.add("primary");
+      }
+    }
+
+    function updateFollowCounts(data) {
+      const followers =
+        Number.isFinite(Number(data.followers))
+          ? Number(data.followers)
+          : 0;
+
+      const following =
+        Number.isFinite(Number(data.following))
+          ? Number(data.following)
+          : 0;
+
+      followersCount.textContent =
+        followers.toLocaleString();
+
+      followingCount.textContent =
+        following.toLocaleString();
+
+      aboutFollowersCount.textContent =
+        followers.toLocaleString();
+
+      aboutFollowingCount.textContent =
+        following.toLocaleString();
+    }
+
+    async function loadFollowData(playerId) {
+      if (!playerId) {
+        return;
+      }
+
+      try {
+        const response =
+          await fetch(
+            `/api/follow?playerId=${encodeURIComponent(playerId)}`
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Follow data request failed"
+          );
+        }
+
+        const data =
+          await response.json();
+
+        updateFollowCounts(data);
+
+        updateFollowButton(
+          data.isFollowing === true
+        );
+
+      } catch (error) {
+        followersCount.textContent = "—";
+        followingCount.textContent = "—";
+
+        aboutFollowersCount.textContent = "—";
+        aboutFollowingCount.textContent = "—";
+
+        updateFollowButton(false);
+      }
+    }
+
+    async function toggleFollow() {
+      if (!currentPlayer || followRequestInProgress) {
+        return;
+      }
+
+      if (
+        currentPlayer.id === null ||
+        currentPlayer.id === undefined
+      ) {
+        return;
+      }
+
+      if (
+        typeof window.isRSFAuthenticated === "function" &&
+        !window.isRSFAuthenticated()
+      ) {
+        if (loginOverlay) {
+          loginOverlay.classList.add("open");
+        }
+
+        return;
+      }
+
+      const currentlyFollowing =
+        followButton.classList.contains("following");
+
+      followRequestInProgress = true;
+
+      followButton.disabled = true;
+
+      try {
+        const method =
+          currentlyFollowing
+            ? "DELETE"
+            : "POST";
+
+        const response =
+          await fetch("/api/follow", {
+            method,
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              playerId: currentPlayer.id
+            })
+          });
+
+        let data = {};
+
+        try {
+          data =
+            await response.json();
+        } catch (error) {}
+
+        if (!response.ok) {
+          if (
+            response.status === 401 ||
+            response.status === 403
+          ) {
+            if (loginOverlay) {
+              loginOverlay.classList.add("open");
+            }
+
+            throw new Error(
+              data.error ||
+              "You must be logged in."
+            );
+          }
+
+          throw new Error(
+            data.error ||
+            "Unable to update follow."
+          );
+        }
+
+        updateFollowCounts(data);
+
+        updateFollowButton(
+          data.isFollowing === true
+        );
+
+      } catch (error) {
+        console.error(
+          "Follow request failed:",
+          error
+        );
+
+      } finally {
+        followRequestInProgress = false;
+        followButton.disabled = false;
+      }
+    }
+
     async function loadProfile() {
-      const username = getUsernameFromPath();
+      const username =
+        getUsernameFromPath();
 
       if (!username) {
         window.location.href = "/404";
@@ -1860,9 +2337,10 @@
       }
 
       try {
-        const response = await fetch(
-          `/api/profile?username=${encodeURIComponent(username)}`
-        );
+        const response =
+          await fetch(
+            `/api/profile?username=${encodeURIComponent(username)}`
+          );
 
         if (response.status === 404) {
           window.location.href = "/404";
@@ -1870,102 +2348,209 @@
         }
 
         if (!response.ok) {
-          throw new Error("Profile request failed");
+          throw new Error(
+            "Profile request failed"
+          );
         }
 
-        const data = await response.json();
-        const player = data.player;
+        const data =
+          await response.json();
+
+        const player =
+          data.player;
 
         if (!player) {
           window.location.href = "/404";
           return;
         }
 
-        const name = player.roblox_username || username;
-        const joined = formatDate(player.joined_at);
-        const updated = formatDate(player.updated_at);
+        currentPlayer = player;
 
-        playerName.textContent = name;
-        playerHandle.textContent = `@${name}`;
+        const name =
+          player.roblox_username ||
+          username;
+
+        const joined =
+          formatDate(player.joined_at);
+
+        const updated =
+          formatDate(player.updated_at);
+
+        playerName.textContent =
+          name;
+
+        playerHandle.textContent =
+          `@${name}`;
+
         profileBio.textContent =
           "RSF member. No bio has been added yet.";
 
-        joinedShort.textContent = joined;
-        infoUsername.textContent = name;
-        infoJoined.textContent = joined;
-        infoUpdated.textContent = updated;
+        joinedShort.textContent =
+          joined;
 
-        document.title = `RSF — ${name}`;
+        infoUsername.textContent =
+          name;
 
-        await loadRobloxAvatar(name);
+        infoJoined.textContent =
+          joined;
+
+        infoUpdated.textContent =
+          updated;
+
+        document.title =
+          `RSF — ${name}`;
+
+        await Promise.all([
+          loadRobloxAvatar(name),
+          loadFollowData(player.id)
+        ]);
+
       } catch (error) {
-        playerName.textContent = "Unable to load profile";
-        playerHandle.textContent = "";
+        console.error(
+          "Profile loading failed:",
+          error
+        );
+
+        playerName.textContent =
+          "Unable to load profile";
+
+        playerHandle.textContent =
+          "";
+
         profileBio.textContent =
           "Something went wrong while loading this profile.";
       }
     }
 
-    document.querySelectorAll(".profile-tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const target = tab.dataset.tab;
+    document
+      .querySelectorAll(".profile-tab")
+      .forEach((tab) => {
 
-        document.querySelectorAll(".profile-tab").forEach((item) => {
-          item.classList.remove("active");
+        tab.addEventListener("click", () => {
+
+          const target =
+            tab.dataset.tab;
+
+          document
+            .querySelectorAll(".profile-tab")
+            .forEach((item) => {
+              item.classList.remove("active");
+            });
+
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((content) => {
+              content.classList.remove("active");
+            });
+
+          tab.classList.add("active");
+
+          const content =
+            document.getElementById(
+              `${target}-tab`
+            );
+
+          if (content) {
+            content.classList.add("active");
+          }
         });
 
-        document.querySelectorAll(".tab-content").forEach((content) => {
-          content.classList.remove("active");
-        });
+      });
 
-        tab.classList.add("active");
+    const loginButton =
+      document.getElementById("login-button");
 
-        const content = document.getElementById(`${target}-tab`);
+    const loginOverlay =
+      document.getElementById("login-overlay");
 
-        if (content) {
-          content.classList.add("active");
+    const loginProceed =
+      document.getElementById("login-proceed");
+
+    if (
+      loginButton &&
+      loginOverlay
+    ) {
+      loginButton.addEventListener(
+        "click",
+        () => {
+          loginOverlay.classList.add("open");
         }
-      });
-    });
-
-    const loginButton = document.getElementById("login-button");
-    const loginOverlay = document.getElementById("login-overlay");
-    const loginProceed = document.getElementById("login-proceed");
-
-    if (loginButton && loginOverlay) {
-      loginButton.addEventListener("click", () => {
-        loginOverlay.classList.add("open");
-      });
+      );
     }
 
     if (loginOverlay) {
-      loginOverlay.addEventListener("click", (event) => {
-        if (event.target === loginOverlay) {
-          loginOverlay.classList.remove("open");
+      loginOverlay.addEventListener(
+        "click",
+        (event) => {
+          if (
+            event.target === loginOverlay
+          ) {
+            loginOverlay.classList.remove(
+              "open"
+            );
+          }
         }
-      });
+      );
     }
 
     if (loginProceed) {
-      loginProceed.addEventListener("click", () => {
-        window.location.href = "/auth";
-      });
+      loginProceed.addEventListener(
+        "click",
+        () => {
+          window.location.href =
+            "/auth";
+        }
+      );
     }
 
-    const profileCard = document.getElementById("profile-card");
-    const profileDropdown = document.getElementById("profile-dropdown");
+    if (followButton) {
+      followButton.addEventListener(
+        "click",
+        toggleFollow
+      );
+    }
 
-    if (profileCard && profileDropdown) {
-      profileCard.addEventListener("click", (event) => {
-        event.stopPropagation();
-        profileCard.classList.toggle("open");
-        profileDropdown.classList.toggle("open");
-      });
+    const profileCard =
+      document.getElementById(
+        "profile-card"
+      );
 
-      document.addEventListener("click", () => {
-        profileCard.classList.remove("open");
-        profileDropdown.classList.remove("open");
-      });
+    const profileDropdown =
+      document.getElementById(
+        "profile-dropdown"
+      );
+
+    if (
+      profileCard &&
+      profileDropdown
+    ) {
+      profileCard.addEventListener(
+        "click",
+        (event) => {
+          event.stopPropagation();
+
+          profileCard.classList.toggle(
+            "open"
+          );
+
+          profileDropdown.classList.toggle(
+            "open"
+          );
+        }
+      );
+
+      document.addEventListener(
+        "click",
+        () => {
+          profileCard.classList.remove(
+            "open"
+          );
+
+          profileDropdown.classList.remove(
+            "open"
+          );
+        }
+      );
     }
 
     loadProfile();
