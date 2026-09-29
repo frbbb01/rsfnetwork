@@ -28,10 +28,6 @@ document.getElementById(
 "login-button"
 );
 
-console.log(
-"RSF auth.js loaded"
-);
-
 let profileDropdown = null;
 
 function createIcon(type) {
@@ -55,11 +51,11 @@ return;
 }
 
 profileDropdown.classList.remove(
-"profile-dropdown-visible"
+"open"
 );
 
 profileCard.classList.remove(
-"profile-open"
+"open"
 );
 
 profileCard.setAttribute(
@@ -74,11 +70,11 @@ return;
 }
 
 profileDropdown.classList.add(
-"profile-dropdown-visible"
+"open"
 );
 
 profileCard.classList.add(
-"profile-open"
+"open"
 );
 
 profileCard.setAttribute(
@@ -94,7 +90,7 @@ return;
 
 if (
 profileDropdown.classList.contains(
-"profile-dropdown-visible"
+"open"
 )
 ) {
 closeProfileMenu();
@@ -127,7 +123,7 @@ document.createElement(
 "button"
 );
 
-
+```
 profileItem.className =
   "profile-dropdown-item";
 
@@ -182,7 +178,7 @@ settingsItem.addEventListener(
 profileDropdown.appendChild(
   settingsItem
 );
-
+```
 
 }
 
@@ -253,7 +249,7 @@ cache: "no-store"
 }
 );
 
-
+```
 if (!response.ok) {
   return;
 }
@@ -285,7 +281,7 @@ profileAvatar.onerror = () => {
 
 profileAvatar.src =
   avatarData.robloxAvatarUrl;
-
+```
 
 } catch (error) {
 console.error(
@@ -303,7 +299,7 @@ if (
 profileCard.style.display =
 "none";
 
-
+```
 if (authLoginButton) {
   authLoginButton.style.display =
     "";
@@ -312,7 +308,7 @@ if (authLoginButton) {
 closeProfileMenu();
 
 return;
-
+```
 
 }
 
@@ -338,27 +334,27 @@ if (data.verified) {
 profileStatus.textContent =
 "VERIFIED";
 
-
+```
 profileCard.classList.add(
-  "profile-verified"
+  "verified"
 );
 
 profileCard.classList.remove(
-  "profile-guest"
+  "guest"
 );
-
+```
 
 } else {
 profileStatus.textContent =
 "GUEST";
 
-
+```
 profileCard.classList.add(
-  "profile-guest"
+  "guest"
 );
 
 profileCard.classList.remove(
-  "profile-verified"
+  "verified"
 );
 
 profileAvatarContainer.classList.add(
@@ -368,7 +364,7 @@ profileAvatarContainer.classList.add(
 profileAvatar.removeAttribute(
   "src"
 );
-
+```
 
 }
 
@@ -376,21 +372,19 @@ createProfileMenu(data);
 }
 
 async function syncAuthentication() {
-console.log(
-"RSF authentication sync started"
-);
-
 try {
-const response =
-await fetch(
-"/api/me",
-{
-method: "GET",
-credentials: "include",
-cache: "no-store"
-}
-);
+console.log("RSF auth.js loaded");
 
+```
+const response =
+  await fetch(
+    "/api/me",
+    {
+      method: "GET",
+      credentials: "include",
+      cache: "no-store"
+    }
+  );
 
 const responseText =
   await response.text();
@@ -427,7 +421,7 @@ if (
 ) {
   loadRobloxAvatar(data);
 }
-
+```
 
 } catch (error) {
 console.error(
@@ -435,7 +429,7 @@ console.error(
 error
 );
 
-
+```
 profileCard.style.display =
   "none";
 
@@ -443,7 +437,7 @@ if (authLoginButton) {
   authLoginButton.style.display =
     "";
 }
-
+```
 
 }
 }
@@ -451,7 +445,7 @@ if (authLoginButton) {
 if (profileCard) {
 profileCard.addEventListener(
 "click",
-(event) => {
+event => {
 if (
 event.target.closest(
 ".profile-dropdown"
@@ -460,22 +454,22 @@ event.target.closest(
 return;
 }
 
-
+```
   toggleProfileMenu();
 }
-
+```
 
 );
 }
 
 document.addEventListener(
 "click",
-(event) => {
+event => {
 if (!profileCard) {
 return;
 }
 
-
+```
 if (
   !profileCard.contains(
     event.target
@@ -483,14 +477,14 @@ if (
 ) {
   closeProfileMenu();
 }
-
+```
 
 }
 );
 
 document.addEventListener(
 "keydown",
-(event) => {
+event => {
 if (event.key === "Escape") {
 closeProfileMenu();
 }
@@ -508,4 +502,3 @@ syncAuthentication
 } else {
 syncAuthentication();
 }
-
