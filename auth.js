@@ -29,6 +29,9 @@ document.getElementById(
 );
 
 let profileDropdown = null;
+let currentAuthenticatedState = false;
+let authCheckTimer = null;
+let authReloading = false;
 
 const authChannel =
 typeof BroadcastChannel !== "undefined"
@@ -42,7 +45,7 @@ return `       <svg viewBox="0 0 24 24" aria-hidden="true">         <circle cx="
 }
 
 if (type === "settings") {
-return `       <svg viewBox="0 0 24 24" aria-hidden="true">         <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path>         <path d="M19 13.5v-3l-2-.5a7.1 7.1 0 0 0-.8-1.8l1.1-1.8-2.1-2.1-1.8 1.1a7.1 7.1 0 0 0-1.8-.8L11.5 3h-3L8 5a7.1 7.1 0 0 0-1.8.8L4.4 4.7 2.3 6.8l1.1 1.8 1.8-.8a7.1 7.1 0 0 0 .8-1.8l.5-2h3l.5 2a7.1 7.1 0 0 0 1.8.8l1.8-1.1 2.1 2.1-1.1 1.8a7.1 7.1 0 0 0 .8 1.8l2 .5v3l-2 .5a7.1 7.1 0 0 0-.8 1.8l1.1 1.8-2.1 2.1-1.8-1.1a7.1 7.1 0 0 0-1.8.8l-.5 2h-3l-.5-2a7.1 7.1 0 0 0-1.8-.8l-1.8 1.1-2.1-2.1 1.1-1.8a7.1 7.1 0 0 0-.8-1.8l-2-.5v-3l2-.5a7.1 7.1 0 0 0 .8-1.8l-1.1-1.8 2.1-2.1 1.8 1.1a7.1 7.1 0 0 0 1.8-.8l.5-2h3l.5 2a7.1 7.1 0 0 0 1.8.8l1.8-1.1 2.1 2.1-1.1 1.8a7.1 7.1 0 0 0 .8 1.8l2 .5Z"></path>       </svg>
+return `       <svg viewBox="0 0 24 24" aria-hidden="true">         <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path>         <path d="M19 13.5v-3l-2-.5a7.1 7.1 0 0 0-.8-1.8l1.1-1.8-2.1-2.1-1.8 1.1a7.1 7.1 0 0 0-1.8-.8L11.5 3h-3L8 5a7.1 7.1 0 0 0-1.8.8L4.4 4.7 2.3 6.8l1.1 1.8a7.1 7.1 0 0 0-.8 1.8l-2 .5v3l2 .5a7.1 7.1 0 0 0 .8 1.8l-1.1 1.8 2.1 2.1 1.8-1.1a7.1 7.1 0 0 0 1.8.8l.5 2h3l.5-2a7.1 7.1 0 0 0 1.8-.8l1.8 1.1 2.1-2.1-1.1-1.8a7.1 7.1 0 0 0 .8-1.8l2-.5Z"></path>       </svg>
     `;
 }
 
@@ -359,6 +362,70 @@ profileAvatar.removeAttribute(
 createProfileMenu(data);
 }
 
+async function getAuthenticationState() {
+try {
+const response =
+await fetch(
+"/api/me",
+{
+method: "GET",
+credentials: "include",
+cache: "no-store"
+}
+);
+
+if (!response.ok) {
+return null;
+}
+
+return await response.json();
+} catch (error) {
+return null;
+}
+}
+
+function startAuthenticationWatcher() {
+clearInterval(
+authCheckTimer
+);
+
+authCheckTimer =
+setInterval(
+async () => {
+if (
+currentAuthenticatedState ||
+authReloading
+) {
+return;
+}
+
+const data =
+await getAuthenticationState();
+
+if (
+data &&
+data.authenticated
+) {
+authReloading =
+true;
+
+clearInterval(
+authCheckTimer
+);
+
+if (authChannel) {
+authChannel.postMessage({
+type: "login"
+});
+}
+
+window.location.reload();
+}
+},
+1000
+);
+}
+
 async function syncAuthentication() {
 try {
 console.log("RSF auth.js loaded");
@@ -400,6 +467,9 @@ console.log(
 data
 );
 
+currentAuthenticatedState =
+!!data.authenticated;
+
 applyProfile(data);
 
 if (
@@ -408,11 +478,22 @@ data.verified
 ) {
 loadRobloxAvatar(data);
 }
+
+if (!data.authenticated) {
+startAuthenticationWatcher();
+} else {
+clearInterval(
+authCheckTimer
+);
+}
 } catch (error) {
 console.error(
 "Authentication sync failed:",
 error
 );
+
+currentAuthenticatedState =
+false;
 
 profileCard.style.display =
 "none";
@@ -421,6 +502,8 @@ if (authLoginButton) {
 authLoginButton.style.display =
 "";
 }
+
+startAuthenticationWatcher();
 }
 }
 
@@ -438,13 +521,29 @@ return;
 if (
 event.data.type === "login"
 ) {
+if (
+!currentAuthenticatedState &&
+!authReloading
+) {
+authReloading =
+true;
+
 window.location.reload();
+}
 }
 
 if (
 event.data.type === "logout"
 ) {
+if (
+currentAuthenticatedState &&
+!authReloading
+) {
+authReloading =
+true;
+
 window.location.reload();
+}
 }
 }
 );
