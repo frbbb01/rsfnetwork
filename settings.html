@@ -32,7 +32,7 @@
     }
 
     :root {
-      --bg: #090D16;
+      --bg: #07111F;
       --surface: rgba(13, 22, 36, 0.98);
       --surface-soft: rgba(255, 255, 255, 0.018);
       --border: rgba(120, 164, 215, 0.16);
@@ -50,7 +50,7 @@
 
     html {
       min-height: 100%;
-      background: var(--bg);
+      background: #07111F;
     }
 
     body {
@@ -74,7 +74,7 @@
           rgba(20, 65, 125, 0.13),
           transparent 72%
         ),
-        var(--bg);
+        #07111F;
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -95,7 +95,7 @@
       height: 68px;
       padding: 0 32px;
       border-bottom: 1px solid var(--border-soft);
-      background: rgba(8, 15, 27, 0.84);
+      background: rgba(6, 15, 29, 0.84);
       display: flex;
       align-items: center;
       backdrop-filter: blur(14px);
@@ -832,7 +832,7 @@
       min-height: 58px;
       padding: 0 32px;
       border-top: 1px solid var(--border-soft);
-      background: rgba(8, 15, 27, 0.84);
+      background: rgba(6, 15, 29, 0.84);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -863,229 +863,62 @@
       color: rgba(255, 255, 255, 0.75);
     }
 
-body.theme-dark {
---bg: #090D16;
---accent: #4F9BFF;
---accent-soft: rgba(79, 155, 255, 0.10);
+    body.theme-dark {
+      --bg: #090D16;
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
 
-background:
-radial-gradient(
-ellipse 900px 620px at 78% 2%,
-rgba(42, 103, 175, 0.34),
-transparent 68%
-),
-radial-gradient(
-ellipse 760px 560px at 8% 55%,
-rgba(25, 75, 145, 0.18),
-transparent 70%
-),
-radial-gradient(
-ellipse 650px 480px at 55% 105%,
-rgba(20, 65, 125, 0.13),
-transparent 72%
-),
-#090D16;
-}
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #090D16;
+    }
 
-body.theme-dark .topbar,
-body.theme-dark footer {
-background: rgba(8, 15, 27, 0.84);
-}
+    body.theme-dark .topbar,
+    body.theme-dark footer {
+      background: rgba(8, 15, 27, 0.84);
+    }
 
-body.theme-light {
---bg: #D3D3D3;
---surface: rgba(245, 245, 245, 0.98);
---surface-soft: rgba(0, 0, 0, 0.025);
---border: rgba(30, 40, 50, 0.15);
---border-soft: rgba(30, 40, 50, 0.10);
---text: #15181C;
---muted: rgba(21, 24, 28, 0.58);
---subtle: rgba(21, 24, 28, 0.38);
---accent: #5365D8;
---accent-soft: rgba(83, 101, 216, 0.09);
+    body.theme-light {
+      --bg: #D3D3D3;
+      --surface: rgba(245, 245, 245, 0.98);
+      --surface-soft: rgba(0, 0, 0, 0.025);
+      --border: rgba(30, 40, 50, 0.15);
+      --border-soft: rgba(30, 40, 50, 0.10);
+      --text: #15181C;
+      --muted: rgba(21, 24, 28, 0.58);
+      --subtle: rgba(21, 24, 28, 0.38);
+      --accent: #5365D8;
+      --accent-soft: rgba(83, 101, 216, 0.09);
 
-color: var(--text);
+      color: var(--text);
 
-background:
-radial-gradient(
-ellipse 900px 620px at 78% 2%,
-rgba(255, 255, 255, 0.62),
-transparent 68%
-),
-radial-gradient(
-ellipse 760px 560px at 8% 55%,
-rgba(170, 185, 205, 0.24),
-transparent 70%
-),
-#D3D3D3;
-}
-
-body.theme-light .topbar,
-body.theme-light footer {
-background: rgba(230, 230, 230, 0.88);
-}
-
-body.theme-light .profile-card {
-background: rgba(245, 245, 245, 0.92);
-}
-
-body.theme-light .profile-card:hover,
-body.theme-light .profile-card.open {
-background: rgba(250, 250, 250, 0.96);
-}
-
-body.theme-light .profile-dropdown {
-background: rgba(245, 245, 245, 0.98);
-}
-
-body.theme-light .profile-username {
-color: #15181C;
-}
-
-body.theme-light .profile-status,
-body.theme-light .profile-chevron,
-body.theme-light .profile-dropdown-item {
-color: rgba(21, 24, 28, 0.62);
-}
-
-body.theme-light .theme-group-title,
-body.theme-light .theme-code {
-color: rgba(21, 24, 28, 0.42);
-}
-
-body.theme-light .theme-option {
-background: rgba(0, 0, 0, 0.025);
-}
-
-body.theme-light .theme-option:hover {
-background: rgba(0, 0, 0, 0.045);
-}
-
-body.theme-light .theme-check {
-border-color: rgba(21, 24, 28, 0.18);
-}
-
-body.theme-light .footer-brand {
-color: rgba(21, 24, 28, 0.60);
-}
-
-body.theme-light footer {
-color: rgba(21, 24, 28, 0.42);
-}
-
-body.theme-blue {
---bg: #07111F;
---accent: #4F9BFF;
---accent-soft: rgba(79, 155, 255, 0.10);
-
-background:
-radial-gradient(
-ellipse 900px 620px at 78% 2%,
-rgba(42, 103, 175, 0.34),
-transparent 68%
-),
-radial-gradient(
-ellipse 760px 560px at 8% 55%,
-rgba(25, 75, 145, 0.18),
-transparent 70%
-),
-radial-gradient(
-ellipse 650px 480px at 55% 105%,
-rgba(20, 65, 125, 0.13),
-transparent 72%
-),
-#07111F;
-}
-
-body.theme-blue .topbar,
-body.theme-blue footer {
-background: rgba(6, 15, 29, 0.84);
-}
-
-body.theme-royal {
---bg: #3D0B50;
---accent: #B96BD0;
---accent-soft: rgba(185, 107, 208, 0.11);
-
-background:
-radial-gradient(
-ellipse 900px 620px at 78% 2%,
-rgba(113, 21, 124, 0.58),
-transparent 68%
-),
-radial-gradient(
-ellipse 760px 560px at 8% 55%,
-rgba(93, 21, 124, 0.34),
-transparent 70%
-),
-radial-gradient(
-ellipse 650px 480px at 55% 105%,
-rgba(53, 10, 76, 0.28),
-transparent 72%
-),
-#3D0B50;
-}
-
-body.theme-royal .topbar,
-body.theme-royal footer {
-background: rgba(49, 8, 65, 0.84);
-}
-
-body.theme-royal .profile-card {
-background: rgba(51, 10, 68, 0.88);
-}
-
-body.theme-royal .profile-card:hover,
-body.theme-royal .profile-card.open {
-background: rgba(62, 12, 82, 0.94);
-}
-
-body.theme-royal .profile-dropdown {
-background: rgba(55, 9, 72, 0.98);
-}
-
-body.theme-ocean {
---bg: #0B4B55;
---accent: #67D3DE;
---accent-soft: rgba(103, 211, 222, 0.11);
-
-background:
-radial-gradient(
-ellipse 900px 620px at 78% 2%,
-rgba(23, 109, 120, 0.62),
-transparent 68%
-),
-radial-gradient(
-ellipse 760px 560px at 8% 55%,
-rgba(23, 132, 145, 0.34),
-transparent 70%
-),
-radial-gradient(
-ellipse 650px 480px at 55% 105%,
-rgba(8, 72, 83, 0.28),
-transparent 72%
-),
-#0B4B55;
-}
-
-body.theme-ocean .topbar,
-body.theme-ocean footer {
-background: rgba(7, 61, 70, 0.84);
-}
-
-body.theme-ocean .profile-card {
-background: rgba(8, 68, 78, 0.88);
-}
-
-body.theme-ocean .profile-card:hover,
-body.theme-ocean .profile-card.open {
-background: rgba(10, 80, 91, 0.94);
-}
-
-body.theme-ocean .profile-dropdown {
-background: rgba(8, 70, 80, 0.98);
-}
-
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(255, 255, 255, 0.62),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(170, 185, 205, 0.24),
+          transparent 70%
+        ),
+        #D3D3D3;
+    }
 
     body.theme-light .topbar,
     body.theme-light footer {
@@ -1138,6 +971,129 @@ background: rgba(8, 70, 80, 0.98);
 
     body.theme-light footer {
       color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-blue {
+      --bg: #07111F;
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #07111F;
+    }
+
+    body.theme-blue .topbar,
+    body.theme-blue footer {
+      background: rgba(6, 15, 29, 0.84);
+    }
+
+    body.theme-royal {
+      --bg: #10152B;
+      --accent: #9B7CFF;
+      --accent-soft: rgba(155, 124, 255, 0.11);
+
+      background:
+        radial-gradient(
+          ellipse 920px 620px at 82% 0%,
+          rgba(67, 75, 184, 0.44),
+          transparent 67%
+        ),
+        radial-gradient(
+          ellipse 820px 600px at 8% 48%,
+          rgba(55, 49, 155, 0.32),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 720px 520px at 60% 105%,
+          rgba(113, 21, 124, 0.30),
+          transparent 72%
+        ),
+        linear-gradient(
+          135deg,
+          #07111F 0%,
+          #10152B 44%,
+          #28163F 100%
+        );
+    }
+
+    body.theme-royal .topbar,
+    body.theme-royal footer {
+      background: rgba(8, 15, 32, 0.86);
+    }
+
+    body.theme-royal .profile-card {
+      background: rgba(15, 20, 44, 0.88);
+    }
+
+    body.theme-royal .profile-card:hover,
+    body.theme-royal .profile-card.open {
+      background: rgba(27, 23, 59, 0.94);
+    }
+
+    body.theme-royal .profile-dropdown {
+      background: rgba(20, 20, 51, 0.98);
+    }
+
+    body.theme-ocean {
+      --bg: #071923;
+      --accent: #55D5D8;
+      --accent-soft: rgba(85, 213, 216, 0.11);
+
+      background:
+        radial-gradient(
+          ellipse 920px 620px at 80% 0%,
+          rgba(22, 108, 126, 0.48),
+          transparent 67%
+        ),
+        radial-gradient(
+          ellipse 820px 600px at 8% 48%,
+          rgba(16, 91, 125, 0.34),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 720px 520px at 62% 105%,
+          rgba(21, 157, 159, 0.24),
+          transparent 72%
+        ),
+        linear-gradient(
+          135deg,
+          #07111F 0%,
+          #071923 43%,
+          #0A3B45 100%
+        );
+    }
+
+    body.theme-ocean .topbar,
+    body.theme-ocean footer {
+      background: rgba(6, 21, 31, 0.86);
+    }
+
+    body.theme-ocean .profile-card {
+      background: rgba(7, 31, 41, 0.88);
+    }
+
+    body.theme-ocean .profile-card:hover,
+    body.theme-ocean .profile-card.open {
+      background: rgba(8, 47, 57, 0.94);
+    }
+
+    body.theme-ocean .profile-dropdown {
+      background: rgba(7, 38, 48, 0.98);
     }
 
     @media (max-width: 760px) {
@@ -1583,7 +1539,7 @@ background: rgba(8, 70, 80, 0.98);
 
           <span
             class="theme-preview"
-            style="background: #07111F;"
+            style="background: linear-gradient(135deg, #07111F, #194C86);"
           ></span>
 
           <span class="theme-code">
@@ -1603,7 +1559,7 @@ background: rgba(8, 70, 80, 0.98);
 
           <span
             class="theme-preview"
-            style="background: #71157C;"
+            style="background: linear-gradient(135deg, #07111F, #454AB4, #71157C);"
           ></span>
 
           <span class="theme-code">
@@ -1623,7 +1579,7 @@ background: rgba(8, 70, 80, 0.98);
 
           <span
             class="theme-preview"
-            style="background: #176D78;"
+            style="background: linear-gradient(135deg, #07111F, #155B7A, #176D78);"
           ></span>
 
           <span class="theme-code">
@@ -1693,7 +1649,7 @@ background: rgba(8, 70, 80, 0.98);
 
     function applyTheme(theme) {
       if (!validThemes.includes(theme)) {
-        theme = "dark";
+        theme = "blue";
       }
 
       document.body.classList.remove(
@@ -1718,9 +1674,7 @@ background: rgba(8, 70, 80, 0.98);
       );
     }
 
-    function loadTheme() {
-      let theme = "dark";
-
+    function getSavedTheme() {
       try {
         const savedTheme =
           localStorage.getItem(
@@ -1731,16 +1685,19 @@ background: rgba(8, 70, 80, 0.98);
           savedTheme &&
           validThemes.includes(savedTheme)
         ) {
-          theme = savedTheme;
+          return savedTheme;
         }
       } catch {
-        theme = "dark";
       }
 
-      applyTheme(theme);
+      return "blue";
     }
 
     function saveTheme(theme) {
+      if (!validThemes.includes(theme)) {
+        theme = "blue";
+      }
+
       try {
         localStorage.setItem(
           themeStorageKey,
@@ -1750,6 +1707,44 @@ background: rgba(8, 70, 80, 0.98);
       }
 
       applyTheme(theme);
+    }
+
+    async function checkSettingsAccess() {
+      applyTheme("blue");
+
+      try {
+        const response =
+          await fetch(
+            "/api/me",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          window.location.replace("/");
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          !data.authenticated ||
+          !data.verified
+        ) {
+          window.location.replace("/");
+          return;
+        }
+
+        applyTheme(
+          getSavedTheme()
+        );
+      } catch {
+        window.location.replace("/");
+      }
     }
 
     themeOptions.forEach(
@@ -1824,7 +1819,7 @@ background: rgba(8, 70, 80, 0.98);
       }
     );
 
-    loadTheme();
+    checkSettingsAccess();
   </script>
 
   <script src="/auth.js"></script>
