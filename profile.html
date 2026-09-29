@@ -96,7 +96,6 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      opacity: 0.95;
     }
 
     .navigation {
@@ -436,162 +435,223 @@
       padding: 48px 0 105px;
     }
 
-    .profile-heading {
-      margin-bottom: 24px;
+    .profile-page-title {
+      margin-bottom: 22px;
     }
 
-    .profile-heading h1 {
+    .profile-page-title h1 {
       margin: 0;
       font-size: 27px;
       font-weight: 700;
       letter-spacing: -0.04em;
     }
 
-    .profile-heading p {
+    .profile-page-title p {
       margin: 7px 0 0;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.6;
     }
 
-    .hero-card {
+    .profile-cover {
       position: relative;
+      height: 150px;
       overflow: hidden;
-      min-height: 245px;
-      padding: 30px;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-bottom: 0;
+      border-radius: 10px 10px 0 0;
       background:
-        radial-gradient(circle at 88% 15%, rgba(79, 155, 255, 0.12), transparent 34%),
-        radial-gradient(circle at 15% 100%, rgba(79, 155, 255, 0.06), transparent 35%),
-        var(--surface);
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.10);
+        radial-gradient(circle at 85% 30%, rgba(79, 155, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 15% 100%, rgba(79, 155, 255, 0.08), transparent 40%),
+        rgba(13, 22, 36, 0.98);
     }
 
-    .hero-card::after {
+    .profile-cover::before {
       content: "";
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 38%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(79, 155, 255, 0.45));
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    .hero-avatar-wrap {
-      width: 128px;
-      height: 128px;
-      flex: 0 0 128px;
-      overflow: hidden;
-      border: 1px solid rgba(120, 164, 215, 0.20);
-      border-radius: 15px;
+      inset: 0;
       background:
-        radial-gradient(circle at 50% 30%, rgba(79, 155, 255, 0.22), transparent 55%),
-        rgba(7, 17, 31, 0.75);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.22);
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.018) 50%, transparent 100%);
     }
 
-    .hero-avatar {
+    .profile-cover::after {
+      content: "";
+      position: absolute;
+      right: 8%;
+      bottom: 0;
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(79, 155, 255, 0.55));
+    }
+
+    .social-profile {
+      position: relative;
+      padding: 0 25px 22px;
+      border: 1px solid var(--border);
+      border-top: 0;
+      border-radius: 0 0 10px 10px;
+      background: var(--surface);
+    }
+
+    .profile-main-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 19px;
+    }
+
+    .main-avatar-wrap {
+      width: 112px;
+      height: 112px;
+      flex: 0 0 112px;
+      margin-top: -57px;
+      overflow: hidden;
+      border: 4px solid var(--surface);
+      border-radius: 13px;
+      background: var(--accent-soft);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 2;
+    }
+
+    .main-avatar {
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: cover;
+      display: block;
     }
 
-    .hero-avatar-fallback {
+    .main-avatar-fallback {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent);
-      font-size: 38px;
+      font-size: 34px;
       font-weight: 700;
     }
 
-    .hero-details {
+    .social-identity {
       min-width: 0;
+      flex: 1;
+      padding-bottom: 2px;
     }
 
-    .player-label {
-      display: inline-flex;
+    .social-username-row {
+      display: flex;
       align-items: center;
-      height: 23px;
-      padding: 0 9px;
-      border: 1px solid rgba(79, 155, 255, 0.20);
-      border-radius: 5px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.09em;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .hero-details h2 {
-      margin: 9px 0 0;
-      font-size: 29px;
+    .social-username {
+      margin: 0;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.04em;
       word-break: break-word;
     }
 
-    .hero-description {
-      max-width: 600px;
-      margin: 7px 0 0;
+    .verified-badge {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .social-handle {
+      margin-top: 4px;
       color: var(--muted);
+      font-size: 10px;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 7px;
+      padding-bottom: 3px;
+    }
+
+    .profile-action {
+      height: 34px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease;
+    }
+
+    .profile-action:hover {
+      background: var(--accent-soft);
+      border-color: rgba(79, 155, 255, 0.28);
+    }
+
+    .profile-action.primary {
+      border-color: transparent;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .profile-action.primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .profile-bio {
+      max-width: 650px;
+      margin: 16px 0 0 131px;
+      color: rgba(255,255,255,0.67);
       font-size: 11px;
       line-height: 1.65;
     }
 
-    .profile-meta {
+    .social-stats {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 17px;
+      align-items: center;
+      gap: 23px;
+      margin: 17px 0 0 131px;
     }
 
-    .meta-item {
+    .social-stat {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      align-items: baseline;
+      gap: 5px;
     }
 
-    .meta-value {
-      font-size: 13px;
+    .social-stat strong {
+      font-size: 12px;
       font-weight: 700;
     }
 
-    .meta-label {
+    .social-stat span {
       color: var(--muted);
-      font-size: 8px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-size: 9px;
     }
 
     .profile-tabs {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-top: 15px;
+      gap: 2px;
+      margin-top: 14px;
       padding: 5px;
       overflow-x: auto;
-      border: 1px solid var(--border-soft);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      background: rgba(9, 16, 27, 0.60);
+      background: var(--surface);
     }
 
     .profile-tab {
-      flex: 0 0 auto;
-      padding: 9px 15px;
+      flex: 1;
+      min-width: 105px;
+      height: 36px;
       border: 0;
       border-radius: 5px;
       background: transparent;
@@ -612,27 +672,35 @@
       background: var(--accent-soft);
     }
 
-    .profile-section {
-      margin-top: 15px;
+    .profile-content {
+      margin-top: 14px;
     }
 
-    .profile-grid {
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .content-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(260px, 0.8fr);
-      gap: 15px;
+      grid-template-columns: minmax(0, 1.65fr) minmax(270px, 0.85fr);
+      gap: 14px;
     }
 
     .panel {
       min-width: 0;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 9px;
       background: var(--surface);
       overflow: hidden;
     }
 
     .panel-header {
-      min-height: 54px;
-      padding: 0 18px;
+      min-height: 50px;
+      padding: 0 17px;
       border-bottom: 1px solid var(--border-soft);
       display: flex;
       align-items: center;
@@ -640,68 +708,194 @@
     }
 
     .panel-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
-    .panel-subtitle {
+    .panel-label {
       color: var(--muted);
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 500;
     }
 
     .panel-body {
-      padding: 18px;
+      padding: 16px;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    .post {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .post:first-child {
+      padding-top: 0;
+    }
+
+    .post:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
       gap: 9px;
     }
 
-    .stat-card {
-      min-height: 91px;
-      padding: 15px;
-      border: 1px solid var(--border-soft);
+    .post-avatar {
+      width: 29px;
+      height: 29px;
+      overflow: hidden;
       border-radius: 7px;
-      background: rgba(9, 16, 27, 0.55);
-      transition: border-color 150ms ease, background 150ms ease;
+      background: var(--accent-soft);
+      flex: 0 0 29px;
     }
 
-    .stat-card:hover {
-      border-color: var(--border);
-      background: var(--profile-hover);
+    .post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .stat-number {
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+    .post-user {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
 
-    .stat-name {
-      margin-top: 8px;
+    .post-user strong {
+      font-size: 9px;
+    }
+
+    .post-user span {
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .post-body {
+      margin: 11px 0 0;
+      color: rgba(255,255,255,0.70);
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 17px;
+      margin-top: 12px;
+    }
+
+    .post-action {
       color: var(--muted);
       font-size: 8px;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
     }
 
-    .info-list {
+    .empty-post {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .empty-icon {
+      width: 33px;
+      height: 33px;
+      margin-bottom: 9px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .empty-title {
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .empty-description {
+      max-width: 280px;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.6;
+    }
+
+    .side-list {
       display: flex;
       flex-direction: column;
     }
 
+    .side-user {
+      min-height: 53px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .side-user:last-child {
+      border-bottom: 0;
+    }
+
+    .side-user-avatar {
+      width: 31px;
+      height: 31px;
+      flex: 0 0 31px;
+      overflow: hidden;
+      border-radius: 7px;
+      background: var(--accent-soft);
+    }
+
+    .side-user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .side-user-details {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .side-user-name {
+      overflow: hidden;
+      font-size: 9px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .side-user-info {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .side-user-action {
+      color: var(--accent);
+      font-size: 8px;
+      font-weight: 700;
+    }
+
     .info-row {
       min-height: 43px;
+      border-bottom: 1px solid var(--border-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 15px;
-      border-bottom: 1px solid var(--border-soft);
     }
 
     .info-row:last-child {
@@ -711,13 +905,11 @@
     .info-key {
       color: var(--muted);
       font-size: 9px;
-      font-weight: 500;
     }
 
     .info-value {
       max-width: 65%;
       overflow: hidden;
-      color: var(--text);
       font-size: 9px;
       font-weight: 700;
       text-align: right;
@@ -725,76 +917,67 @@
       white-space: nowrap;
     }
 
-    .empty-state {
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .empty-icon {
-      width: 31px;
-      height: 31px;
-      margin-bottom: 10px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: var(--accent-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .empty-title {
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .empty-text {
-      max-width: 320px;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 8px;
-      line-height: 1.6;
-    }
-
-    .wide-panel {
-      margin-top: 15px;
-    }
-
-    .season-placeholder {
+    .career-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 9px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .season-stat {
-      padding: 13px;
+    .career-stat {
+      min-height: 95px;
+      padding: 16px;
       border: 1px solid var(--border-soft);
       border-radius: 7px;
       background: rgba(9, 16, 27, 0.55);
     }
 
-    .season-stat-value {
-      font-size: 16px;
+    .career-stat-value {
+      font-size: 22px;
       font-weight: 700;
+      letter-spacing: -0.03em;
     }
 
-    .season-stat-label {
-      margin-top: 6px;
+    .career-stat-name {
+      margin-top: 7px;
       color: var(--muted);
       font-size: 8px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
 
-    .hidden-panel {
-      display: none;
+    .career-section {
+      margin-top: 14px;
+    }
+
+    .career-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .career-table th {
+      padding: 12px 15px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 8px;
+      font-weight: 500;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .career-table td {
+      padding: 14px 15px;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 9px;
+      font-weight: 500;
+    }
+
+    .career-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .empty-career {
+      padding: 45px 20px;
+      text-align: center;
     }
 
     .footer {
@@ -916,26 +1099,20 @@
         #061A22;
     }
 
-    .theme-light .hero-avatar-wrap,
-    .theme-light .stat-card,
-    .theme-light .season-stat,
-    .theme-light .profile-tabs {
-      background: rgba(255, 255, 255, 0.45);
-    }
-
-    .theme-light .profile-tabs {
-      background: rgba(245, 245, 245, 0.70);
-    }
-
-    .theme-light .hero-card {
+    .theme-light .profile-cover {
       background:
-        radial-gradient(circle at 88% 15%, rgba(83, 101, 216, 0.10), transparent 34%),
-        radial-gradient(circle at 15% 100%, rgba(83, 101, 216, 0.06), transparent 35%),
+        radial-gradient(circle at 85% 30%, rgba(83, 101, 216, 0.13), transparent 35%),
+        radial-gradient(circle at 15% 100%, rgba(83, 101, 216, 0.07), transparent 40%),
         var(--surface);
     }
 
-    .theme-light .login-overlay {
-      background: rgba(225, 225, 225, 0.66);
+    .theme-light .social-profile {
+      color: var(--text);
+    }
+
+    .theme-light .post-body,
+    .theme-light .profile-bio {
+      color: rgba(21, 24, 28, 0.68);
     }
 
     @media (max-width: 760px) {
@@ -957,16 +1134,22 @@
         padding-top: 30px;
       }
 
-      .profile-grid {
+      .content-grid {
         grid-template-columns: 1fr;
       }
 
-      .stats-grid {
+      .career-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .season-placeholder {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .profile-main-row {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .profile-actions {
+        width: 100%;
+        margin-left: 131px;
       }
     }
 
@@ -998,35 +1181,64 @@
         display: none;
       }
 
-      .hero-card {
-        padding: 22px;
+      main {
+        width: calc(100% - 24px);
       }
 
-      .hero-content {
-        align-items: flex-start;
-        flex-direction: column;
+      .profile-cover {
+        height: 110px;
       }
 
-      .hero-avatar-wrap {
-        width: 94px;
-        height: 94px;
-        flex-basis: 94px;
+      .social-profile {
+        padding: 0 17px 19px;
       }
 
-      .hero-details h2 {
-        font-size: 24px;
+      .profile-main-row {
+        display: block;
       }
 
-      .profile-meta {
-        gap: 15px;
+      .main-avatar-wrap {
+        width: 90px;
+        height: 90px;
+        flex-basis: 90px;
+        margin-top: -45px;
+      }
+
+      .social-identity {
+        margin-top: 12px;
+      }
+
+      .social-username {
+        font-size: 21px;
+      }
+
+      .profile-actions {
+        margin: 13px 0 0;
+      }
+
+      .profile-bio,
+      .social-stats {
+        margin-left: 0;
+      }
+
+      .profile-tabs {
+        overflow-x: auto;
+      }
+
+      .profile-tab {
+        flex: 0 0 auto;
+      }
+
+      .career-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .career-table {
+        min-width: 570px;
       }
 
       .footer {
         padding: 0 18px;
-      }
-
-      .footer-links {
-        gap: 12px;
       }
     }
   </style>
@@ -1180,118 +1392,310 @@
   </div>
 
   <main>
-    <section class="profile-heading">
+    <div class="profile-page-title">
       <h1>PROFILE</h1>
-      <p>RSF player profile and career information.</p>
-    </section>
+      <p>Connect with the RSF community.</p>
+    </div>
 
 
-<section class="hero-card">
-  <div class="hero-content">
-    <div class="hero-avatar-wrap">
+<section class="profile-cover"></section>
+
+<section class="social-profile">
+  <div class="profile-main-row">
+    <div class="main-avatar-wrap">
       <img
-        class="hero-avatar"
-        id="hero-avatar"
+        class="main-avatar"
+        id="main-avatar"
         alt=""
         style="display:none;"
       >
-      <div class="hero-avatar-fallback" id="hero-avatar-fallback">?</div>
+      <div class="main-avatar-fallback" id="main-avatar-fallback">?</div>
     </div>
 
-    <div class="hero-details">
-      <span class="player-label">RSF PLAYER</span>
-
-      <h2 id="player-name">Loading...</h2>
-
-      <p class="hero-description" id="player-description">
-        RSF player profile.
-      </p>
-
-      <div class="profile-meta">
-        <div class="meta-item">
-          <span class="meta-value" id="joined-date">—</span>
-          <span class="meta-label">Joined RSF</span>
-        </div>
-
-        <div class="meta-item">
-          <span class="meta-value">—</span>
-          <span class="meta-label">Profile Views</span>
-        </div>
-
-        <div class="meta-item">
-          <span class="meta-value">—</span>
-          <span class="meta-label">Following</span>
-        </div>
-
-        <div class="meta-item">
-          <span class="meta-value">—</span>
-          <span class="meta-label">Followers</span>
-        </div>
+    <div class="social-identity">
+      <div class="social-username-row">
+        <h2 class="social-username" id="player-name">Loading...</h2>
+        <span class="verified-badge">✓</span>
       </div>
+
+      <div class="social-handle" id="player-handle">@loading</div>
+    </div>
+
+    <div class="profile-actions">
+      <button class="profile-action primary" type="button">FOLLOW</button>
+      <button class="profile-action" type="button">MESSAGE</button>
+    </div>
+  </div>
+
+  <p class="profile-bio" id="profile-bio">
+    RSF member. No bio has been added yet.
+  </p>
+
+  <div class="social-stats">
+    <div class="social-stat">
+      <strong>—</strong>
+      <span>Followers</span>
+    </div>
+
+    <div class="social-stat">
+      <strong>—</strong>
+      <span>Following</span>
+    </div>
+
+    <div class="social-stat">
+      <strong>—</strong>
+      <span>Posts</span>
+    </div>
+
+    <div class="social-stat">
+      <strong id="joined-short">—</strong>
+      <span>Joined</span>
     </div>
   </div>
 </section>
 
-<div class="profile-tabs">
+<nav class="profile-tabs">
   <button class="profile-tab active" data-tab="overview">OVERVIEW</button>
-  <button class="profile-tab" data-tab="player">PLAYER</button>
+  <button class="profile-tab" data-tab="career">CAREER</button>
   <button class="profile-tab" data-tab="teams">TEAMS</button>
   <button class="profile-tab" data-tab="activity">ACTIVITY</button>
-  <button class="profile-tab" data-tab="comments">COMMENTS</button>
-</div>
+  <button class="profile-tab" data-tab="about">ABOUT</button>
+</nav>
 
-<section class="profile-section" id="overview-section">
-  <div class="profile-grid">
+<div class="profile-content">
+
+  <section class="tab-content active" id="overview-tab">
+    <div class="content-grid">
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">RECENT POSTS</span>
+          <span class="panel-label">COMMUNITY</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="empty-post">
+            <div class="empty-icon">+</div>
+            <div class="empty-title">No Posts Yet</div>
+            <div class="empty-description">
+              This player hasn't posted anything to the RSF community yet.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">CURRENT TEAM</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="empty-post">
+            <div class="empty-icon">—</div>
+            <div class="empty-title">No Team</div>
+            <div class="empty-description">
+              Team information will appear here when registered.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="content-grid" style="margin-top:14px;">
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">RECENT ACTIVITY</span>
+          <span class="panel-label">PROFILE</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="empty-post">
+            <div class="empty-icon">•</div>
+            <div class="empty-title">No Recent Activity</div>
+            <div class="empty-description">
+              Player activity, posts and community interactions will appear here.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">PEOPLE</span>
+          <span class="panel-label">PLACEHOLDER</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="side-list">
+            <div class="side-user">
+              <div class="side-user-avatar"></div>
+              <div class="side-user-details">
+                <div class="side-user-name">—</div>
+                <div class="side-user-info">No connections yet</div>
+              </div>
+            </div>
+
+            <div class="side-user">
+              <div class="side-user-avatar"></div>
+              <div class="side-user-details">
+                <div class="side-user-name">—</div>
+                <div class="side-user-info">No connections yet</div>
+              </div>
+            </div>
+
+            <div class="side-user">
+              <div class="side-user-avatar"></div>
+              <div class="side-user-details">
+                <div class="side-user-name">—</div>
+                <div class="side-user-info">No connections yet</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="tab-content" id="career-tab">
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">CAREER</span>
-        <span class="panel-subtitle">ALL TIME</span>
+        <span class="panel-title">CAREER OVERVIEW</span>
+        <span class="panel-label">ALL TIME</span>
       </div>
 
       <div class="panel-body">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-number">—</div>
-            <div class="stat-name">Appearances</div>
+        <div class="career-grid">
+          <div class="career-stat">
+            <div class="career-stat-value">—</div>
+            <div class="career-stat-name">Appearances</div>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-number">—</div>
-            <div class="stat-name">Goals</div>
+          <div class="career-stat">
+            <div class="career-stat-value">—</div>
+            <div class="career-stat-name">Goals</div>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-number">—</div>
-            <div class="stat-name">Assists</div>
+          <div class="career-stat">
+            <div class="career-stat-value">—</div>
+            <div class="career-stat-name">Assists</div>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-number">—</div>
-            <div class="stat-name">Rating</div>
+          <div class="career-stat">
+            <div class="career-stat-value">—</div>
+            <div class="career-stat-name">Average Rating</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel career-section">
       <div class="panel-header">
-        <span class="panel-title">ABOUT</span>
+        <span class="panel-title">SEASON HISTORY</span>
+        <span class="panel-label">STATISTICS</span>
       </div>
 
-      <div class="panel-body">
-        <div class="info-list">
+      <div style="overflow-x:auto;">
+        <table class="career-table">
+          <thead>
+            <tr>
+              <th>Season</th>
+              <th>Team</th>
+              <th>Apps</th>
+              <th>Goals</th>
+              <th>Assists</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel career-section">
+      <div class="panel-header">
+        <span class="panel-title">MATCH HISTORY</span>
+        <span class="panel-label">PLACEHOLDER</span>
+      </div>
+
+      <div class="empty-career">
+        <div class="empty-icon" style="margin:0 auto 9px;">—</div>
+        <div class="empty-title">No Matches Recorded</div>
+        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
+          Match appearances and ratings will appear here once RSF match statistics are connected.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="teams-tab">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">TEAM HISTORY</span>
+        <span class="panel-label">RSF</span>
+      </div>
+
+      <div class="empty-career">
+        <div class="empty-icon" style="margin:0 auto 9px;">—</div>
+        <div class="empty-title">No Team History</div>
+        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
+          Current and previous teams will appear here once team data is connected.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="activity-tab">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">ACTIVITY</span>
+        <span class="panel-label">COMMUNITY</span>
+      </div>
+
+      <div class="empty-career">
+        <div class="empty-icon" style="margin:0 auto 9px;">•</div>
+        <div class="empty-title">No Activity Yet</div>
+        <div class="empty-description" style="margin-left:auto;margin-right:auto;">
+          Posts, follows, matches, transfers and other activity will appear here.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-content" id="about-tab">
+    <div class="content-grid">
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">ABOUT</span>
+          <span class="panel-label">PLAYER</span>
+        </div>
+
+        <div class="panel-body">
           <div class="info-row">
             <span class="info-key">Roblox Username</span>
             <span class="info-value" id="info-username">—</span>
           </div>
 
           <div class="info-row">
-            <span class="info-key">Status</span>
-            <span class="info-value">RSF PLAYER</span>
+            <span class="info-key">RSF Status</span>
+            <span class="info-value">PLAYER</span>
           </div>
 
           <div class="info-row">
-            <span class="info-key">Joined</span>
+            <span class="info-key">Joined RSF</span>
             <span class="info-value" id="info-joined">—</span>
           </div>
 
@@ -1301,159 +1705,39 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="panel wide-panel">
-    <div class="panel-header">
-      <span class="panel-title">SEASONAL STATISTICS</span>
-      <span class="panel-subtitle">PLACEHOLDER</span>
-    </div>
-
-    <div class="panel-body">
-      <div class="season-placeholder">
-        <div class="season-stat">
-          <div class="season-stat-value">—</div>
-          <div class="season-stat-label">Appearances</div>
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">PROFILE</span>
         </div>
 
-        <div class="season-stat">
-          <div class="season-stat-value">—</div>
-          <div class="season-stat-label">Goals</div>
-        </div>
+        <div class="panel-body">
+          <div class="info-row">
+            <span class="info-key">Followers</span>
+            <span class="info-value">—</span>
+          </div>
 
-        <div class="season-stat">
-          <div class="season-stat-value">—</div>
-          <div class="season-stat-label">Assists</div>
-        </div>
+          <div class="info-row">
+            <span class="info-key">Following</span>
+            <span class="info-value">—</span>
+          </div>
 
-        <div class="season-stat">
-          <div class="season-stat-value">—</div>
-          <div class="season-stat-label">Rating</div>
-        </div>
+          <div class="info-row">
+            <span class="info-key">Posts</span>
+            <span class="info-value">—</span>
+          </div>
 
-        <div class="season-stat">
-          <div class="season-stat-value">—</div>
-          <div class="season-stat-label">Matches</div>
+          <div class="info-row">
+            <span class="info-key">Views</span>
+            <span class="info-value">—</span>
+          </div>
         </div>
       </div>
+
     </div>
-  </div>
+  </section>
 
-  <div class="profile-grid wide-panel">
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">CURRENT TEAM</span>
-      </div>
-
-      <div class="empty-state">
-        <div class="empty-icon">—</div>
-        <div class="empty-title">No Team Registered</div>
-        <div class="empty-text">
-          Team information will appear here once this player is registered with an RSF team.
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-title">RECENT ACTIVITY</span>
-      </div>
-
-      <div class="empty-state">
-        <div class="empty-icon">•</div>
-        <div class="empty-title">No Activity Yet</div>
-        <div class="empty-text">
-          Matches, transfers and other player activity will appear here.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="profile-section hidden-panel" id="player-section">
-  <div class="panel">
-    <div class="panel-header">
-      <span class="panel-title">PLAYER STATISTICS</span>
-      <span class="panel-subtitle">PLACEHOLDER</span>
-    </div>
-
-    <div class="panel-body">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">—</div>
-          <div class="stat-name">Appearances</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number">—</div>
-          <div class="stat-name">Goals</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number">—</div>
-          <div class="stat-name">Assists</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-number">—</div>
-          <div class="stat-name">Average Rating</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="profile-section hidden-panel" id="teams-section">
-  <div class="panel">
-    <div class="panel-header">
-      <span class="panel-title">TEAM HISTORY</span>
-      <span class="panel-subtitle">PLACEHOLDER</span>
-    </div>
-
-    <div class="empty-state">
-      <div class="empty-icon">—</div>
-      <div class="empty-title">No Team History</div>
-      <div class="empty-text">
-        Current and previous teams will appear here when team data is added to the RSF database.
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="profile-section hidden-panel" id="activity-section">
-  <div class="panel">
-    <div class="panel-header">
-      <span class="panel-title">PLAYER ACTIVITY</span>
-      <span class="panel-subtitle">PLACEHOLDER</span>
-    </div>
-
-    <div class="empty-state">
-      <div class="empty-icon">•</div>
-      <div class="empty-title">No Activity</div>
-      <div class="empty-text">
-        Matches, transfers, awards and other events will appear here in the future.
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="profile-section hidden-panel" id="comments-section">
-  <div class="panel">
-    <div class="panel-header">
-      <span class="panel-title">COMMENTS</span>
-      <span class="panel-subtitle">COMING SOON</span>
-    </div>
-
-    <div class="empty-state">
-      <div class="empty-icon">—</div>
-      <div class="empty-title">Comments Are Not Available Yet</div>
-      <div class="empty-text">
-        Community comments can be added to player profiles later.
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
 
   </main>
@@ -1472,19 +1756,24 @@
 
   <script>
     const playerName = document.getElementById("player-name");
-    const playerDescription = document.getElementById("player-description");
-    const joinedDate = document.getElementById("joined-date");
+    const playerHandle = document.getElementById("player-handle");
+    const profileBio = document.getElementById("profile-bio");
+    const joinedShort = document.getElementById("joined-short");
+
+    const mainAvatar = document.getElementById("main-avatar");
+    const mainAvatarFallback = document.getElementById("main-avatar-fallback");
+
     const infoUsername = document.getElementById("info-username");
     const infoJoined = document.getElementById("info-joined");
     const infoUpdated = document.getElementById("info-updated");
 
-    const heroAvatar = document.getElementById("hero-avatar");
-    const heroAvatarFallback = document.getElementById("hero-avatar-fallback");
-
     function getUsernameFromPath() {
       const parts = window.location.pathname.split("/").filter(Boolean);
 
-      if (parts.length >= 2 && parts[0].toLowerCase() === "profile") {
+      if (
+        parts.length >= 2 &&
+        parts[0].toLowerCase() === "profile"
+      ) {
         return decodeURIComponent(parts[1]);
       }
 
@@ -1508,12 +1797,10 @@
     }
 
     function setAvatarFallback(username) {
-      heroAvatar.style.display = "none";
-      heroAvatarFallback.style.display = "flex";
-      heroAvatarFallback.textContent =
-        username && username.length
-          ? username.charAt(0).toUpperCase()
-          : "?";
+      mainAvatar.style.display = "none";
+      mainAvatarFallback.style.display = "flex";
+      mainAvatarFallback.textContent =
+        username ? username.charAt(0).toUpperCase() : "?";
     }
 
     async function loadRobloxAvatar(username) {
@@ -1523,7 +1810,7 @@
         );
 
         if (!userResponse.ok) {
-          throw new Error("Failed to resolve Roblox user");
+          throw new Error("Roblox user lookup failed");
         }
 
         const userData = await userResponse.json();
@@ -1538,27 +1825,27 @@
         );
 
         if (!thumbnailResponse.ok) {
-          throw new Error("Failed to load Roblox avatar");
+          throw new Error("Roblox thumbnail lookup failed");
         }
 
         const thumbnailData = await thumbnailResponse.json();
         const thumbnail = thumbnailData.data && thumbnailData.data[0];
 
         if (!thumbnail || !thumbnail.imageUrl) {
-          throw new Error("Avatar unavailable");
+          throw new Error("No avatar returned");
         }
 
-        heroAvatar.onload = function () {
-          heroAvatar.style.display = "block";
-          heroAvatarFallback.style.display = "none";
+        mainAvatar.onload = function () {
+          mainAvatar.style.display = "block";
+          mainAvatarFallback.style.display = "none";
         };
 
-        heroAvatar.onerror = function () {
+        mainAvatar.onerror = function () {
           setAvatarFallback(username);
         };
 
-        heroAvatar.src = thumbnail.imageUrl;
-        heroAvatar.alt = `${username} Roblox avatar`;
+        mainAvatar.src = thumbnail.imageUrl;
+        mainAvatar.alt = `${username} Roblox avatar`;
       } catch (error) {
         setAvatarFallback(username);
       }
@@ -1583,7 +1870,7 @@
         }
 
         if (!response.ok) {
-          throw new Error("Failed to load profile");
+          throw new Error("Profile request failed");
         }
 
         const data = await response.json();
@@ -1595,26 +1882,26 @@
         }
 
         const name = player.roblox_username || username;
-
-        playerName.textContent = name;
-        infoUsername.textContent = name;
-
         const joined = formatDate(player.joined_at);
         const updated = formatDate(player.updated_at);
 
-        joinedDate.textContent = joined;
+        playerName.textContent = name;
+        playerHandle.textContent = `@${name}`;
+        profileBio.textContent =
+          "RSF member. No bio has been added yet.";
+
+        joinedShort.textContent = joined;
+        infoUsername.textContent = name;
         infoJoined.textContent = joined;
         infoUpdated.textContent = updated;
-
-        playerDescription.textContent =
-          "RSF player profile and career information.";
 
         document.title = `RSF — ${name}`;
 
         await loadRobloxAvatar(name);
       } catch (error) {
         playerName.textContent = "Unable to load profile";
-        playerDescription.textContent =
+        playerHandle.textContent = "";
+        profileBio.textContent =
           "Something went wrong while loading this profile.";
       }
     }
@@ -1627,16 +1914,16 @@
           item.classList.remove("active");
         });
 
-        tab.classList.add("active");
-
-        document.querySelectorAll(".profile-section").forEach((section) => {
-          section.classList.add("hidden-panel");
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
         });
 
-        const section = document.getElementById(`${target}-section`);
+        tab.classList.add("active");
 
-        if (section) {
-          section.classList.remove("hidden-panel");
+        const content = document.getElementById(`${target}-tab`);
+
+        if (content) {
+          content.classList.add("active");
         }
       });
     });
@@ -1680,41 +1967,6 @@
         profileDropdown.classList.remove("open");
       });
     }
-
-    (function () {
-      try {
-        const authenticated =
-          localStorage.getItem("rsf-authenticated") === "true";
-
-        const cachedTheme =
-          localStorage.getItem("rsf-theme");
-
-        const validThemes = [
-          "dark",
-          "light",
-          "blue",
-          "royal",
-          "ocean"
-        ];
-
-        if (
-          authenticated &&
-          validThemes.includes(cachedTheme)
-        ) {
-          document.body.classList.remove(
-            "theme-dark",
-            "theme-light",
-            "theme-blue",
-            "theme-royal",
-            "theme-ocean"
-          );
-
-          document.body.classList.add(
-            `theme-${cachedTheme}`
-          );
-        }
-      } catch (error) {}
-    })();
 
     loadProfile();
   </script>
