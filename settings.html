@@ -6,6 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RSF — Settings</title>
 
+  <script>
+    (function () {
+      try {
+        const authenticated =
+          localStorage.getItem("rsf-authenticated") === "true";
+
+        const cachedTheme =
+          localStorage.getItem("rsf-theme");
+
+        const validThemes = [
+          "dark",
+          "light",
+          "blue",
+          "royal",
+          "ocean"
+        ];
+
+        if (
+          authenticated &&
+          validThemes.includes(cachedTheme)
+        ) {
+          document.documentElement.dataset.theme =
+            cachedTheme;
+        }
+      } catch (error) {
+      }
+    })();
+  </script>
+
   <style>
     @font-face {
       font-family: "Montserrat";
@@ -918,9 +947,7 @@
       --profile: rgba(245, 245, 245, 0.94);
       --profile-hover: rgba(250, 250, 250, 0.98);
       --dropdown: rgba(245, 245, 245, 0.99);
-
       color: var(--text);
-
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
@@ -1015,7 +1042,6 @@
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
-
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
@@ -1043,7 +1069,6 @@
       --profile: rgba(16, 14, 39, 0.90);
       --profile-hover: rgba(22, 18, 52, 0.96);
       --dropdown: rgba(17, 14, 42, 0.99);
-
       background:
         radial-gradient(
           ellipse 920px 620px at 78% 0%,
@@ -1071,7 +1096,6 @@
       --profile: rgba(7, 30, 39, 0.90);
       --profile-hover: rgba(9, 39, 50, 0.96);
       --dropdown: rgba(7, 31, 41, 0.99);
-
       background:
         radial-gradient(
           ellipse 920px 620px at 78% 0%,
@@ -1277,6 +1301,7 @@
 
   <header class="topbar">
 
+
 <a href="/" class="logo">
   RSF
 </a>
@@ -1295,12 +1320,11 @@
       <span class="arrow">▾</span>
     </a>
 
-<div class="dropdown">
-  <a href="/database">Playerbase</a>
-  <a href="/database">Teams</a>
-  <a href="/database">Seasons</a>
-</div>
-
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
+    </div>
   </div>
 
   <div class="nav-item">
@@ -1309,13 +1333,12 @@
       <span class="arrow">▾</span>
     </a>
 
-<div class="dropdown">
-  <a href="/community">Videos</a>
-  <a href="/community">Community Latest</a>
-  <a href="/community">Development</a>
-  <a href="/community">Resources</a>
-</div>
-
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
   </div>
 
   <div class="nav-item">
@@ -1333,22 +1356,22 @@
 </nav>
 
 <button
-type="button"
-class="login-button"
-id="login-button"
-aria-label="Login with Discord"
-
+  type="button"
+  class="login-button"
+  id="login-button"
+  aria-label="Login with Discord"
 >
 
-<img
-class="discord-logo"
-src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-alt=""
-aria-hidden="true"
+  <img
+    class="discord-logo"
+    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+    alt=""
+    aria-hidden="true"
+  >
 
->
+  <span>LOGIN</span>
 
-<span>LOGIN</span> </button>
+</button>
 
 <div
   class="profile-card"
@@ -1357,6 +1380,7 @@ aria-hidden="true"
   aria-haspopup="true"
   aria-expanded="false"
 >
+
   <div class="profile-avatar" id="profile-avatar-container">
     <img
       id="profile-avatar"
@@ -1366,6 +1390,7 @@ aria-hidden="true"
   </div>
 
   <div class="profile-info">
+
     <span
       class="profile-username"
       id="profile-username"
@@ -1373,13 +1398,12 @@ aria-hidden="true"
       —
     </span>
 
-<span
-class="profile-status"
-id="profile-status"
-
->
-
-GUEST </span>
+    <span
+      class="profile-status"
+      id="profile-status"
+    >
+      GUEST
+    </span>
 
   </div>
 
@@ -1388,7 +1412,9 @@ GUEST </span>
       <path d="M2 3.5L5 6.5L8 3.5"></path>
     </svg>
   </span>
+
 </div>
+
 
   </header>
 
@@ -1397,6 +1423,7 @@ GUEST </span>
     id="login-overlay"
     aria-hidden="true"
   >
+
 
 <div
   class="login-modal"
@@ -1407,28 +1434,29 @@ GUEST </span>
 
   <div class="login-modal-header">
 
-<div>
-  <h2
-    class="login-modal-title"
-    id="login-title"
-  >
-    Login to RSF
-  </h2>
+    <div>
 
-  <p class="login-modal-subtitle">
-    Connect your Discord account to access the full RSF experience.
-  </p>
-</div>
+      <h2
+        class="login-modal-title"
+        id="login-title"
+      >
+        Login to RSF
+      </h2>
 
-<button
-type="button"
-class="login-close"
-id="login-close"
-aria-label="Close login"
+      <p class="login-modal-subtitle">
+        Connect your Discord account to access the full RSF experience.
+      </p>
 
->
+    </div>
 
-× </button>
+    <button
+      type="button"
+      class="login-close"
+      id="login-close"
+      aria-label="Close login"
+    >
+      ×
+    </button>
 
   </div>
 
@@ -1440,15 +1468,12 @@ aria-label="Close login"
     <li>You can continue using publicly available parts of the website without logging in.</li>
   </ul>
 
-<button
-type="button"
-class="login-proceed"
-id="login-proceed"
-
->
-
-PROCEED TO LOGIN
-
+  <button
+    type="button"
+    class="login-proceed"
+    id="login-proceed"
+  >
+    PROCEED TO LOGIN
   </button>
 
   <p class="login-note">
@@ -1457,9 +1482,11 @@ PROCEED TO LOGIN
 
 </div>
 
+
   </div>
 
   <main>
+
 
 <section class="settings-header">
   <h1 class="settings-title">
@@ -1478,142 +1505,142 @@ PROCEED TO LOGIN
 
   <div class="settings-section">
 
-<h2 class="settings-section-title">
-  Appearance
-</h2>
+    <h2 class="settings-section-title">
+      Appearance
+    </h2>
 
-<p class="settings-section-description">
-  Choose how the RSF website looks for you.
-</p>
+    <p class="settings-section-description">
+      Choose how the RSF website looks for you.
+    </p>
 
-<div class="theme-group">
+    <div class="theme-group">
 
-  <p class="theme-group-title">
-    Background
-  </p>
+      <p class="theme-group-title">
+        Background
+      </p>
 
-  <div
-    class="theme-options"
-    role="radiogroup"
-    aria-label="Background theme"
-  >
+      <div
+        class="theme-options"
+        role="radiogroup"
+        aria-label="Background theme"
+      >
 
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="dark"
+          aria-label="Dark"
+          aria-checked="false"
+        >
+          <span
+            class="theme-preview"
+            style="background: #181818;"
+          ></span>
 
-<button
-  type="button"
-  class="theme-option"
-  data-theme="dark"
-  aria-label="Dark"
-  aria-checked="false"
->
-  <span
-    class="theme-preview"
-    style="background: #181818;"
-  ></span>
+          <span class="theme-check">✓</span>
 
-  <span class="theme-check">✓</span>
+          <span class="theme-name">
+            Dark
+          </span>
+        </button>
 
-  <span class="theme-name">
-    Dark
-  </span>
-</button>
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="light"
+          aria-label="Light"
+          aria-checked="false"
+        >
+          <span
+            class="theme-preview"
+            style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
+          ></span>
 
-<button
-  type="button"
-  class="theme-option"
-  data-theme="light"
-  aria-label="Light"
-  aria-checked="false"
->
-  <span
-    class="theme-preview"
-    style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
-  ></span>
+          <span class="theme-check">✓</span>
 
-  <span class="theme-check">✓</span>
+          <span class="theme-name">
+            Light
+          </span>
+        </button>
 
-  <span class="theme-name">
-    Light
-  </span>
-</button>
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="blue"
+          aria-label="Blue"
+          aria-checked="false"
+        >
+          <span
+            class="theme-preview"
+            style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
+          ></span>
 
-<button
-  type="button"
-  class="theme-option"
-  data-theme="blue"
-  aria-label="Blue"
-  aria-checked="false"
->
-  <span
-    class="theme-preview"
-    style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
-  ></span>
+          <span class="theme-check">✓</span>
 
-  <span class="theme-check">✓</span>
+          <span class="theme-name">
+            Blue
+          </span>
+        </button>
 
-  <span class="theme-name">
-    Blue
-  </span>
-</button>
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="royal"
+          aria-label="Royal"
+          aria-checked="false"
+        >
+          <span
+            class="theme-preview"
+            style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
+          ></span>
 
-<button
-  type="button"
-  class="theme-option"
-  data-theme="royal"
-  aria-label="Royal"
-  aria-checked="false"
->
-  <span
-    class="theme-preview"
-    style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
-  ></span>
+          <span class="theme-check">✓</span>
 
-  <span class="theme-check">✓</span>
+          <span class="theme-name">
+            Royal
+          </span>
+        </button>
 
-  <span class="theme-name">
-    Royal
-  </span>
-</button>
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="ocean"
+          aria-label="Ocean"
+          aria-checked="false"
+        >
+          <span
+            class="theme-preview"
+            style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
+          ></span>
 
-<button
-  type="button"
-  class="theme-option"
-  data-theme="ocean"
-  aria-label="Ocean"
-  aria-checked="false"
->
-  <span
-    class="theme-preview"
-    style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
-  ></span>
+          <span class="theme-check">✓</span>
 
-  <span class="theme-check">✓</span>
+          <span class="theme-name">
+            Ocean
+          </span>
+        </button>
 
-  <span class="theme-name">
-    Ocean
-  </span>
-</button>
+      </div>
 
+      <p
+        class="theme-description"
+        id="theme-description"
+        aria-live="polite"
+      >
+        <strong>Blue</strong> — Deep navy with subtle blue gradients.
+      </p>
 
-  </div>
-
-  <p
-    class="theme-description"
-    id="theme-description"
-    aria-live="polite"
-  >
-    <strong>Blue</strong> — Deep navy with subtle blue gradients.
-  </p>
-
-</div>
+    </div>
 
   </div>
 
 </section>
 
+
   </main>
 
   <footer>
+
 
 <div class="footer-left">
   <span class="footer-brand">
@@ -1622,6 +1649,7 @@ PROCEED TO LOGIN
 </div>
 
 <div class="footer-right">
+
   <a href="/privacy">
     Privacy Policy
   </a>
@@ -1629,7 +1657,9 @@ PROCEED TO LOGIN
   <a href="/terms">
     Terms of Use
   </a>
+
 </div>
+
 
   </footer>
 
@@ -1684,7 +1714,7 @@ PROCEED TO LOGIN
       return "blue";
     }
 
-    function applyTheme(theme) {
+    function applyTheme(theme, save = true) {
       if (!validThemes.includes(theme)) {
         theme = "blue";
       }
@@ -1701,12 +1731,14 @@ PROCEED TO LOGIN
         `theme-${theme}`
       );
 
-      try {
-        localStorage.setItem(
-          "rsf-theme",
-          theme
-        );
-      } catch (error) {
+      if (save) {
+        try {
+          localStorage.setItem(
+            "rsf-theme",
+            theme
+          );
+        } catch (error) {
+        }
       }
 
       themeOptions.forEach(
@@ -1732,7 +1764,8 @@ PROCEED TO LOGIN
 
     function loadCachedTheme() {
       applyTheme(
-        getCachedTheme()
+        getCachedTheme(),
+        false
       );
     }
 
@@ -1751,7 +1784,15 @@ PROCEED TO LOGIN
           );
 
         if (!response.ok) {
-          applyTheme("blue");
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          applyTheme(
+            "blue",
+            false
+          );
+
           return;
         }
 
@@ -1763,11 +1804,11 @@ PROCEED TO LOGIN
           data.theme &&
           validThemes.includes(data.theme)
         ) {
-          applyTheme(data.theme);
+          applyTheme(
+            data.theme
+          );
         }
       } catch (error) {
-        applyTheme("blue");
-
         console.error(
           "Unable to load saved theme:",
           error
@@ -1823,7 +1864,9 @@ PROCEED TO LOGIN
           data.theme &&
           validThemes.includes(data.theme)
         ) {
-          applyTheme(data.theme);
+          applyTheme(
+            data.theme
+          );
         }
       } catch (error) {
         console.error(
@@ -1831,7 +1874,9 @@ PROCEED TO LOGIN
           error
         );
 
-        applyTheme(previousTheme);
+        applyTheme(
+          previousTheme
+        );
       }
     }
 
@@ -1848,7 +1893,15 @@ PROCEED TO LOGIN
           );
 
         if (!response.ok) {
-          applyTheme("blue");
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          applyTheme(
+            "blue",
+            false
+          );
+
           window.location.replace("/");
           return;
         }
@@ -1860,14 +1913,35 @@ PROCEED TO LOGIN
           !data.authenticated ||
           !data.verified
         ) {
-          applyTheme("blue");
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          applyTheme(
+            "blue",
+            false
+          );
+
           window.location.replace("/");
           return;
         }
 
+        localStorage.setItem(
+          "rsf-authenticated",
+          "true"
+        );
+
         await loadSavedTheme();
       } catch {
-        applyTheme("blue");
+        localStorage.removeItem(
+          "rsf-authenticated"
+        );
+
+        applyTheme(
+          "blue",
+          false
+        );
+
         window.location.replace("/");
       }
     }
@@ -1892,7 +1966,31 @@ PROCEED TO LOGIN
           event.key === "rsf-theme" &&
           validThemes.includes(event.newValue)
         ) {
-          applyTheme(event.newValue);
+          if (
+            localStorage.getItem(
+              "rsf-authenticated"
+            ) === "true"
+          ) {
+            applyTheme(
+              event.newValue,
+              false
+            );
+          }
+        }
+
+        if (
+          event.key === "rsf-authenticated"
+        ) {
+          if (
+            event.newValue !== "true"
+          ) {
+            applyTheme(
+              "blue",
+              false
+            );
+
+            window.location.replace("/");
+          }
         }
       }
     );
@@ -1956,7 +2054,7 @@ PROCEED TO LOGIN
       }
     );
 
-    applyTheme("blue");
+    loadCachedTheme();
     checkSettingsAccess();
   </script>
 
