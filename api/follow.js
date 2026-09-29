@@ -1,70 +1,98 @@
 import crypto from "node:crypto";
 
+const SUPABASE_URL =
+  process.env.SUPABASE_URL;
+
+const SUPABASE_SECRET_KEY =
+  process.env.SUPABASE_SECRET_KEY ||
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
+
 function parseCookies(req) {
-  const header = req.headers.cookie || "";
+  const header =
+    req.headers.cookie || "";
+
   const cookies = {};
 
   for (const part of header.split(";")) {
-    const index = part.indexOf("=");
+    const index =
+      part.indexOf("=");
 
     if (index === -1) {
       continue;
     }
 
-    const name = part.slice(0, index).trim();
-    const value = part.slice(index + 1).trim();
+    const name =
+      part.slice(0, index).trim();
 
-    cookies[name] = decodeURIComponent(value);
+    const value =
+      part.slice(index + 1).trim();
+
+    cookies[name] =
+      decodeURIComponent(value);
   }
 
   return cookies;
 }
 
 function verifySession(session) {
-  if (!session || !process.env.SESSION_SECRET) {
+  if (!session) {
     return null;
   }
 
-  const parts = session.split(".");
+  if (!process.env.SESSION_SECRET) {
+    throw new Error(
+      "SESSION_SECRET is missing."
+    );
+  }
+
+  const parts =
+    session.split(".");
 
   if (parts.length !== 2) {
     return null;
   }
 
-  const encoded = parts[0];
-  const signature = parts[1];
+  const encoded =
+    parts[0];
 
-  const expectedSignature = crypto
-    .createHmac(
-      "sha256",
-      process.env.SESSION_SECRET
-    )
-    .update(encoded)
-    .digest("base64url");
+  const signature =
+    parts[1];
 
-  const aa = Buffer.from(signature);
-  const bb = Buffer.from(expectedSignature);
+  const expectedSignature =
+    crypto
+      .createHmac(
+        "sha256",
+        process.env.SESSION_SECRET
+      )
+      .update(encoded)
+      .digest("base64url");
+
+  const aa =
+    Buffer.from(signature);
+
+  const bb =
+    Buffer.from(expectedSignature);
 
   if (
     aa.length !== bb.length ||
-    !crypto.timingSafeEqual(aa, bb)
+    !crypto.timingSafeEqual(
+      aa,
+      bb
+    )
   ) {
     return null;
   }
 
   try {
-    const payload = JSON.parse(
-      Buffer.from(encoded, "base64url").toString("utf8")
-    );
+    const payload =
+      JSON.parse(
+        Buffer.from(
+          encoded,
+          "base64url"
+        ).toString("utf8")
+      );
 
     if (!payload.id) {
-      return null;
-    }
-
-    if (
-      payload.createdAt &&
-      Date.now() - payload.createdAt > 2592000000
-    ) {
       return null;
     }
 
@@ -74,27 +102,46 @@ function verifySession(session) {
   }
 }
 
-async function supabaseRequest(path, options = {}) {
-  const url =
-    `${process.env.SUPABASE_URL}/rest/v1/${path}`;
+async function supabaseRequest(
+  path,
+  options = {}
+) {
+  if (!SUPABASE_URL) {
+    throw new Error(
+      "SUPABASE_URL is missing."
+    );
+  }
 
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      apikey: process.env.SUPABASE_SECRET_KEY,
-      Authorization:
-        `Bearer ${process.env.SUPABASE_SECRET_KEY}`,
-      "Content-Type": "application/json",
-      ...(options.headers || {})
-    }
-  });
+  if (!SUPABASE_SECRET_KEY) {
+    throw new Error(
+      "SUPABASE_SECRET_KEY is missing."
+    );
+  }
 
-  const text = await response.text();
+  const response =
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/${path}`,
+      {
+        ...options,
+        headers: {
+          apikey:
+            SUPABASE_SECRET_KEY,
+          Authorization:
+            `Bearer ${SUPABASE_SECRET_KEY}`,
+          "Content-Type":
+            "application/json",
+          ...(options.headers || {})
+        }
+      }
+    );
 
-  let data = null;
+  const text =
+    await response.text();
+
+  let data;
 
   try {
-    data = text ? JSON.parse(text) : null;
+    data = JSON.parse(text);
   } catch {
     data = text;
   }
@@ -112,209 +159,313 @@ async function supabaseRequest(path, options = {}) {
   return data;
 }
 
-async function getWebsiteUser(req) {
-  const cookies = parseCookies(req);
-  const session = verifySession(cookies.rsf_session);
+async function getAuthenticatedUser(req) {
+  const cookies =
+    parseCookies(req);
 
-  if (!session) {
+  const session =
+    cookies.rsf_session;
+
+  const payload =
+    verifySession(session);
+
+  if (!payload) {
     return null;
   }
 
-  const users = await supabaseRequest(
-    `users?select=id,discord_id&discord_id=eq.${encodeURIComponent(session.id)}&limit=1`
-  );
+  const discordId =
+    payload.id;
 
-  if (!users || !users.length) {
+  const users =
+    await supabaseRequest(
+      `users?select=id,discord_id,discord_username&discord_id=eq.${encodeURIComponent(
+        discordId
+      )}&limit=1`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
     return null;
   }
 
-  return users[0];
+  const user =
+    users[0];
+
+  const players =
+    await supabaseRequest(
+      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(
+        user.id
+      )}&limit=1`
+    );
+
+  if (
+    !Array.isArray(players) ||
+    players.length === 0
+  ) {
+    return null;
+  }
+
+  return {
+    user,
+    player: players[0]
+  };
 }
 
-async function getTargetPlayer(playerId) {
-  const players = await supabaseRequest(
-    `players?select=id& id=eq.${encodeURIComponent(playerId)}&limit=1`
-      .replace("?select=id& id", "?select=id&id")
-  );
-
-  if (!players || !players.length) {
+async function getTargetUser(playerId) {
+  if (!playerId) {
     return null;
   }
 
-  const users = await supabaseRequest(
-    `users?select=id&id=eq.${encodeURIComponent(playerId)}&limit=1`
-  );
+  const players =
+    await supabaseRequest(
+      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(
+        playerId
+      )}&limit=1`
+    );
 
-  if (!users || !users.length) {
+  if (
+    !Array.isArray(players) ||
+    players.length === 0
+  ) {
     return null;
   }
 
-  return players[0];
+  const player =
+    players[0];
+
+  const users =
+    await supabaseRequest(
+      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(
+        player.id
+      )}&limit=1`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
+    return null;
+  }
+
+  return {
+    user: users[0],
+    player
+  };
 }
 
-export default async function handler(req, res) {
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) {
-    return res.status(500).json({
-      error: "Supabase environment variables are missing."
+async function getFollowData(
+  viewerId,
+  targetId
+) {
+  const followers =
+    await supabaseRequest(
+      `follows?select=follower_id&following_id=eq.${encodeURIComponent(
+        targetId
+      )}`
+    );
+
+  const following =
+    await supabaseRequest(
+      `follows?select=following_id&follower_id=eq.${encodeURIComponent(
+        targetId
+      )}`
+    );
+
+  let isFollowing = false;
+
+  if (viewerId) {
+    const existing =
+      await supabaseRequest(
+        `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
+          viewerId
+        )}&following_id=eq.${encodeURIComponent(
+          targetId
+        )}&limit=1`
+      );
+
+    isFollowing =
+      Array.isArray(existing) &&
+      existing.length > 0;
+  }
+
+  return {
+    followers:
+      Array.isArray(followers)
+        ? followers.length
+        : 0,
+
+    following:
+      Array.isArray(following)
+        ? following.length
+        : 0,
+
+    isFollowing
+  };
+}
+
+export default async function handler(
+  req,
+  res
+) {
+  if (
+    req.method !== "GET" &&
+    req.method !== "POST" &&
+    req.method !== "DELETE"
+  ) {
+    return res.status(405).json({
+      error:
+        "Method Not Allowed"
     });
   }
 
   try {
     const playerId =
-      typeof req.query.playerId === "string"
+      req.method === "GET"
         ? req.query.playerId
-        : null;
+        : req.body?.playerId;
 
     if (!playerId) {
       return res.status(400).json({
-        error: "Player ID is required."
+        error:
+          "Missing playerId"
       });
     }
 
-    const targetPlayer =
-      await getTargetPlayer(playerId);
+    const target =
+      await getTargetUser(
+        playerId
+      );
 
-    if (!targetPlayer) {
+    if (!target) {
       return res.status(404).json({
-        error: "This player is not eligible for follows."
+        error:
+          "Target player not found."
       });
     }
 
-    const followers = await supabaseRequest(
-      `follows?select=follower_id&following_id=eq.${encodeURIComponent(playerId)}`
-    );
-
-    const following = await supabaseRequest(
-      `follows?select=following_id&follower_id=eq.${encodeURIComponent(playerId)}`
-    );
-
-    let currentUser = null;
-    let isFollowing = false;
-
-    if (req.method !== "GET") {
-      currentUser = await getWebsiteUser(req);
-
-      if (!currentUser) {
-        return res.status(401).json({
-          error: "You must be logged in."
-        });
-      }
-
-      const currentPlayer =
-        await supabaseRequest(
-          `players?select=id&id=eq.${encodeURIComponent(currentUser.id)}&limit=1`
+    if (req.method === "GET") {
+      const authUser =
+        await getAuthenticatedUser(
+          req
         );
 
-      if (!currentPlayer || !currentPlayer.length) {
-        return res.status(403).json({
-          error: "Only registered players can follow other players."
-        });
-      }
+      const viewerId =
+        authUser
+          ? authUser.user.id
+          : null;
 
-      if (currentUser.id === playerId) {
-        return res.status(400).json({
-          error: "You cannot follow yourself."
-        });
-      }
+      const data =
+        await getFollowData(
+          viewerId,
+          target.user.id
+        );
 
+      return res.status(200).json(
+        data
+      );
+    }
+
+    const authUser =
+      await getAuthenticatedUser(
+        req
+      );
+
+    if (!authUser) {
+      return res.status(401).json({
+        error:
+          "You must be logged in as an RSF player to follow people."
+      });
+    }
+
+    const followerId =
+      authUser.user.id;
+
+    const followingId =
+      target.user.id;
+
+    if (
+      followerId ===
+      followingId
+    ) {
+      return res.status(400).json({
+        error:
+          "You cannot follow yourself."
+      });
+    }
+
+    if (
+      req.method === "POST"
+    ) {
       const existing =
         await supabaseRequest(
-          `follows?select=follower_id,following_id&follower_id=eq.${encodeURIComponent(currentUser.id)}&following_id=eq.${encodeURIComponent(playerId)}&limit=1`
+          `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
+            followerId
+          )}&following_id=eq.${encodeURIComponent(
+            followingId
+          )}&limit=1`
         );
 
-      isFollowing = !!existing.length;
-    }
-
-    if (req.method === "GET") {
-      currentUser = await getWebsiteUser(req);
-
-      if (currentUser) {
-        const currentPlayer =
-          await supabaseRequest(
-            `players?select=id&id=eq.${encodeURIComponent(currentUser.id)}&limit=1`
-          );
-
-        if (currentPlayer && currentPlayer.length) {
-          const existing =
-            await supabaseRequest(
-              `follows?select=follower_id&follower_id=eq.${encodeURIComponent(currentUser.id)}&following_id=eq.${encodeURIComponent(playerId)}&limit=1`
-            );
-
-          isFollowing = !!existing.length;
-        }
+      if (
+        !Array.isArray(existing) ||
+        existing.length === 0
+      ) {
+        await supabaseRequest(
+          "follows",
+          {
+            method: "POST",
+            headers: {
+              Prefer:
+                "return=minimal"
+            },
+            body:
+              JSON.stringify({
+                follower_id:
+                  followerId,
+                following_id:
+                  followingId
+              })
+          }
+        );
       }
     }
 
-    if (req.method === "GET") {
-      return res.status(200).json({
-        followers: followers.length,
-        following: following.length,
-        isFollowing
-      });
-    }
-
-    if (req.method === "POST") {
-      if (isFollowing) {
-        return res.status(200).json({
-          success: true,
-          following: true,
-          followers: followers.length,
-          message: "Already following."
-        });
-      }
-
-      await supabaseRequest("follows", {
-        method: "POST",
-        headers: {
-          Prefer: "return=minimal"
-        },
-        body: JSON.stringify({
-          follower_id: currentUser.id,
-          following_id: playerId
-        })
-      });
-
-      return res.status(200).json({
-        success: true,
-        following: true,
-        followers: followers.length + 1,
-        followingCount: following.length
-      });
-    }
-
-    if (req.method === "DELETE") {
-      if (!isFollowing) {
-        return res.status(200).json({
-          success: true,
-          following: false,
-          followers: followers.length,
-          followingCount: following.length
-        });
-      }
-
+    if (
+      req.method === "DELETE"
+    ) {
       await supabaseRequest(
-        `follows?follower_id=eq.${encodeURIComponent(currentUser.id)}&following_id=eq.${encodeURIComponent(playerId)}`,
+        `follows?follower_id=eq.${encodeURIComponent(
+          followerId
+        )}&following_id=eq.${encodeURIComponent(
+          followingId
+        )}`,
         {
           method: "DELETE"
         }
       );
-
-      return res.status(200).json({
-        success: true,
-        following: false,
-        followers: Math.max(0, followers.length - 1),
-        followingCount: following.length
-      });
     }
 
-    return res.status(405).json({
-      error: "Method not allowed."
-    });
+    const data =
+      await getFollowData(
+        followerId,
+        followingId
+      );
+
+    return res.status(200).json(
+      data
+    );
+
   } catch (error) {
-    console.error("Follow API error:", error);
+    console.error(
+      "FOLLOW API ERROR:",
+      error
+    );
 
     return res.status(500).json({
-      error: "Failed to process follow request."
+      error:
+        error.message ||
+        "Internal server error"
     });
   }
 }
