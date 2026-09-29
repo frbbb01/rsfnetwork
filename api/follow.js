@@ -205,9 +205,39 @@ async function supabaseRequest(
 async function getUserById(
   userId
 ) {
+  if (!userId) {
+    return null;
+  }
+
   const users =
     await supabaseRequest(
-      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(userId)}&limit=1`
+      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(
+        userId
+      )}&limit=1`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
+    return null;
+  }
+
+  return users[0];
+}
+
+async function getUserByDiscordId(
+  discordId
+) {
+  if (!discordId) {
+    return null;
+  }
+
+  const users =
+    await supabaseRequest(
+      `users?select=id,discord_id,discord_username&discord_id=eq.${encodeURIComponent(
+        discordId
+      )}&limit=1`
     );
 
   if (
@@ -223,9 +253,15 @@ async function getUserById(
 async function getPlayerById(
   playerId
 ) {
+  if (!playerId) {
+    return null;
+  }
+
   const players =
     await supabaseRequest(
-      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(playerId)}&limit=1`
+      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(
+        playerId
+      )}&limit=1`
     );
 
   if (
@@ -238,17 +274,84 @@ async function getPlayerById(
   return players[0];
 }
 
-async function getFollowState(
-  viewerId,
-  playerId
+async function getPlayerByDiscordId(
+  discordId
 ) {
-  if (!viewerId) {
+  if (!discordId) {
+    return null;
+  }
+
+  const players =
+    await supabaseRequest(
+      `players?select=id,roblox_username,discord_id&discord_id=eq.${encodeURIComponent(
+        discordId
+      )}&limit=1`
+    );
+
+  if (
+    !Array.isArray(players) ||
+    players.length === 0
+  ) {
+    return null;
+  }
+
+  return players[0];
+}
+
+function getRequestedPlayerId(req) {
+  let body =
+    req.body;
+
+  if (
+    typeof body ===
+    "string"
+  ) {
+    try {
+      body =
+        JSON.parse(body);
+    } catch {
+      body = {};
+    }
+  }
+
+  if (
+    typeof req.query.playerId ===
+    "string" &&
+    req.query.playerId.trim()
+  ) {
+    return req.query.playerId.trim();
+  }
+
+  if (
+    body &&
+    typeof body.playerId ===
+      "string" &&
+    body.playerId.trim()
+  ) {
+    return body.playerId.trim();
+  }
+
+  return "";
+}
+
+async function getFollowState(
+  viewerUserId,
+  targetUserId
+) {
+  if (
+    !viewerUserId ||
+    !targetUserId
+  ) {
     return false;
   }
 
   const follows =
     await supabaseRequest(
-      `follows?select=follower_id&follower_id=eq.${encodeURIComponent(viewerId)}&following_id=eq.${encodeURIComponent(playerId)}&limit=1`
+      `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
+        viewerUserId
+      )}&following_id=eq.${encodeURIComponent(
+        targetUserId
+      )}&limit=1`
     );
 
   return (
@@ -258,17 +361,21 @@ async function getFollowState(
 }
 
 async function getFollowCounts(
-  playerId
+  userId
 ) {
   const [
     followers,
     following
   ] = await Promise.all([
     supabaseRequest(
-      `follows?select=follower_id&following_id=eq.${encodeURIComponent(playerId)}`
+      `follows?select=follower_id&following_id=eq.${encodeURIComponent(
+        userId
+      )}`
     ),
     supabaseRequest(
-      `follows?select=following_id&follower_id=eq.${encodeURIComponent(playerId)}`
+      `follows?select=following_id&follower_id=eq.${encodeURIComponent(
+        userId
+      )}`
     )
   ]);
 
@@ -303,25 +410,8 @@ export default async function handler(
   }
 
   try {
-    let playerId = "";
-
-    if (
-      typeof req.query.playerId ===
-      "string"
-    ) {
-      playerId =
-        req.query.playerId.trim();
-    }
-
-    if (
-      !playerId &&
-      req.body &&
-      typeof req.body.playerId ===
-        "string"
-    ) {
-      playerId =
-        req.body.playerId.trim();
-    }
+    const playerId =
+      getRequestedPlayerId(req);
 
     if (!playerId) {
       return res.status(400).json({
@@ -343,8 +433,8 @@ export default async function handler(
     }
 
     const targetUser =
-      await getUserById(
-        targetPlayer.id
+      await getUserByDiscordId(
+        targetPlayer.discord_id
       );
 
     if (!targetUser) {
@@ -378,10 +468,6 @@ export default async function handler(
         )
       ]);
 
-      const isSelf =
-        viewerUser?.id ===
-        targetUser.id;
-
       return res.status(200).json({
         followers:
           counts.followers,
@@ -391,7 +477,9 @@ export default async function handler(
 
         isFollowing,
 
-        isSelf
+        isSelf:
+          viewerUser?.id ===
+          targetUser.id
       });
     }
 
@@ -403,8 +491,8 @@ export default async function handler(
     }
 
     const viewerPlayer =
-      await getPlayerById(
-        viewerUser.id
+      await getPlayerByDiscordId(
+        viewerUser.discord_id
       );
 
     if (!viewerPlayer) {
@@ -433,7 +521,7 @@ export default async function handler(
 
           headers: {
             Prefer:
-              "resolution=ignore-duplicates,return=minimal"
+              "return=minimal"
           },
 
           body:
