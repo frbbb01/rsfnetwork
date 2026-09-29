@@ -986,6 +986,15 @@
       color: rgba(21, 24, 28, 0.72);
     }
 
+    body.theme-light .dropdown a {
+      color: rgba(21, 24, 28, 0.62);
+    }
+
+    body.theme-light .dropdown a:hover,
+    body.theme-light .dropdown a:focus-visible {
+      color: #15181C;
+    }
+
     body.theme-light .footer-brand {
       color: rgba(21, 24, 28, 0.60);
     }
@@ -1268,7 +1277,7 @@
 
   <header class="topbar">
 
-
+```
 <a href="/" class="logo">
   RSF
 </a>
@@ -1374,7 +1383,7 @@
     </svg>
   </span>
 </div>
-
+```
 
   </header>
 
@@ -1384,7 +1393,7 @@
     aria-hidden="true"
   >
 
-
+```
 <div
   class="login-modal"
   role="dialog"
@@ -1439,13 +1448,13 @@
   </p>
 
 </div>
-
+```
 
   </div>
 
   <main>
 
-
+```
 <section class="settings-header">
   <h1 class="settings-title">
     SETTINGS
@@ -1593,13 +1602,13 @@
   </div>
 
 </section>
-
+```
 
   </main>
 
   <footer>
 
-
+```
 <div class="footer-left">
   <span class="footer-brand">
     RSF
@@ -1615,7 +1624,7 @@
     Terms of Use
   </a>
 </div>
-
+```
 
   </footer>
 
@@ -1637,9 +1646,6 @@
 
     const themeDescription =
       document.getElementById("theme-description");
-
-    const themeStorageKey =
-      "rsf_theme";
 
     const validThemes = [
       "dark",
@@ -1695,39 +1701,103 @@
         `<strong>${theme.charAt(0).toUpperCase() + theme.slice(1)}</strong> — ${themeDescriptions[theme]}`;
     }
 
-    function getSavedTheme() {
+    async function loadSavedTheme() {
       try {
-        const savedTheme =
-          localStorage.getItem(
-            themeStorageKey
+        const response =
+          await fetch(
+            "/api/preferences",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
           );
 
-        if (
-          savedTheme &&
-          validThemes.includes(savedTheme)
-        ) {
-          return savedTheme;
+        if (!response.ok) {
+          throw new Error(
+            `Preference request failed: ${response.status}`
+          );
         }
-      } catch {
-      }
 
-      return "blue";
+        const data =
+          await response.json();
+
+        if (
+          data.theme &&
+          validThemes.includes(data.theme)
+        ) {
+          applyTheme(data.theme);
+        } else {
+          applyTheme("blue");
+        }
+      } catch (error) {
+        console.error(
+          "Unable to load saved theme:",
+          error
+        );
+
+        applyTheme("blue");
+      }
     }
 
-    function saveTheme(theme) {
+    async function saveTheme(theme) {
       if (!validThemes.includes(theme)) {
         theme = "blue";
       }
 
-      try {
-        localStorage.setItem(
-          themeStorageKey,
-          theme
-        );
-      } catch {
-      }
+      const previousTheme =
+        document.body.classList.contains("theme-dark")
+          ? "dark"
+          : document.body.classList.contains("theme-light")
+            ? "light"
+            : document.body.classList.contains("theme-royal")
+              ? "royal"
+              : document.body.classList.contains("theme-ocean")
+                ? "ocean"
+                : "blue";
 
       applyTheme(theme);
+
+      try {
+        const response =
+          await fetch(
+            "/api/preferences",
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body: JSON.stringify({
+                theme
+              })
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `Preference save failed: ${response.status}`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          data.theme &&
+          validThemes.includes(data.theme)
+        ) {
+          applyTheme(data.theme);
+        }
+      } catch (error) {
+        console.error(
+          "Unable to save theme:",
+          error
+        );
+
+        applyTheme(previousTheme);
+      }
     }
 
     async function checkSettingsAccess() {
@@ -1760,9 +1830,7 @@
           return;
         }
 
-        applyTheme(
-          getSavedTheme()
-        );
+        await loadSavedTheme();
       } catch {
         window.location.replace("/");
       }
