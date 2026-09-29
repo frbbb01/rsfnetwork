@@ -2898,16 +2898,42 @@
         }
       );
 
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-      const requestedUsername =
-        (
-          params.get("username") ||
-          ""
-        ).trim();
+let requestedUsername =
+  (
+    params.get("username") ||
+    params.get("player") ||
+    params.get("roblox_username") ||
+    ""
+  ).trim();
+
+if (!requestedUsername) {
+  const pathParts =
+    window.location.pathname
+      .split("/")
+      .filter(Boolean);
+
+  const profileIndex =
+    pathParts.findIndex(
+      part =>
+        part.toLowerCase() ===
+        "profile"
+    );
+
+  if (
+    profileIndex !== -1 &&
+    pathParts[profileIndex + 1]
+  ) {
+    requestedUsername =
+      decodeURIComponent(
+        pathParts[profileIndex + 1]
+      ).trim();
+  }
+}
 
       const playerName =
         document.getElementById(
