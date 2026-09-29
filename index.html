@@ -297,10 +297,10 @@
       box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
     }
 
-    .profile-card.profile-open {
-      border-color: rgba(120, 164, 215, 0.27);
-      background: var(--profile-hover);
-    }
+.profile-card.open {
+  border-color: rgba(120, 164, 215, 0.27);
+  background: var(--profile-hover);
+}
 
     .profile-avatar {
       width: 29px;
@@ -384,10 +384,10 @@
       color: rgba(255, 255, 255, 0.60);
     }
 
-    .profile-card.profile-open .profile-chevron {
-      color: rgba(255, 255, 255, 0.68);
-      transform: rotate(180deg);
-    }
+.profile-card.open .profile-chevron {
+  color: rgba(255, 255, 255, 0.68);
+  transform: rotate(180deg);
+}
 
     .profile-chevron svg {
       width: 10px;
@@ -423,12 +423,12 @@
       z-index: 9999;
     }
 
-    .profile-dropdown-visible {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
+.profile-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
 
     .profile-dropdown-item {
       width: 100%;
