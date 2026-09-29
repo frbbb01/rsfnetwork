@@ -202,12 +202,12 @@ async function supabaseRequest(
   return data;
 }
 
-async function getUserByDiscordId(
-  discordId
+async function getUserById(
+  userId
 ) {
   const users =
     await supabaseRequest(
-      `users?select=id,discord_id,discord_username&id=not.is.null&discord_id=eq.${encodeURIComponent(discordId)}&limit=1`
+      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(userId)}&limit=1`
     );
 
   if (
@@ -238,24 +238,6 @@ async function getPlayerById(
   return players[0];
 }
 
-async function getPlayerUser(
-  playerId
-) {
-  const users =
-    await supabaseRequest(
-      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(playerId)}&limit=1`
-    );
-
-  if (
-    !Array.isArray(users) ||
-    users.length === 0
-  ) {
-    return null;
-  }
-
-  return users[0];
-}
-
 async function getFollowState(
   viewerId,
   playerId
@@ -283,10 +265,10 @@ async function getFollowCounts(
     following
   ] = await Promise.all([
     supabaseRequest(
-      `follows?select=id&following_id=eq.${encodeURIComponent(playerId)}`
+      `follows?select=follower_id&following_id=eq.${encodeURIComponent(playerId)}`
     ),
     supabaseRequest(
-      `follows?select=id&follower_id=eq.${encodeURIComponent(playerId)}`
+      `follows?select=following_id&follower_id=eq.${encodeURIComponent(playerId)}`
     )
   ]);
 
@@ -347,7 +329,7 @@ export default async function handler(
     }
 
     const targetUser =
-      await getPlayerUser(
+      await getUserById(
         playerId
       );
 
@@ -358,17 +340,15 @@ export default async function handler(
       });
     }
 
-    const discordId =
+    const sessionUserId =
       getSessionUserId(req);
 
-    let viewerUser = null;
-
-    if (discordId) {
-      viewerUser =
-        await getUserByDiscordId(
-          discordId
-        );
-    }
+    const viewerUser =
+      sessionUserId
+        ? await getUserById(
+            sessionUserId
+          )
+        : null;
 
     if (req.method === "GET") {
       const [
@@ -376,17 +356,17 @@ export default async function handler(
         isFollowing
       ] = await Promise.all([
         getFollowCounts(
-          playerId
+          targetUser.id
         ),
         getFollowState(
           viewerUser?.id || null,
-          playerId
+          targetUser.id
         )
       ]);
 
       const isSelf =
         viewerUser?.id ===
-        playerId;
+        targetUser.id;
 
       return res.status(200).json({
         followers:
@@ -486,7 +466,11 @@ export default async function handler(
       following:
         counts.following,
 
-      isFollowing
+      isFollowing,
+
+      isSelf:
+        viewerUser.id ===
+        targetUser.id
     });
 
   } catch (error) {
