@@ -5,73 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RSF — Profile</title>
 
-  <script>
-    (function () {
-      try {
-        const authenticated =
-          localStorage.getItem("rsf-authenticated") === "true";
-
-        const cachedTheme =
-          localStorage.getItem("rsf-theme");
-
-        const validThemes = [
-          "dark",
-          "light",
-          "blue",
-          "royal",
-          "ocean"
-        ];
-
-        if (
-          authenticated &&
-          validThemes.includes(cachedTheme)
-        ) {
-          document.documentElement.dataset.theme =
-            cachedTheme;
-        }
-      } catch (error) {
-      }
-    })();
-  </script>
-
   <style>
     @font-face {
-      font-family: "Montserrat";
+      font-family: Montserrat;
       src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
       font-weight: 400;
-      font-style: normal;
-      font-display: swap;
     }
 
     @font-face {
-      font-family: "Montserrat";
+      font-family: Montserrat;
       src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
       font-weight: 500;
-      font-style: normal;
-      font-display: swap;
     }
 
     @font-face {
-      font-family: "Montserrat";
+      font-family: Montserrat;
       src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
       font-weight: 700;
-      font-style: normal;
-      font-display: swap;
     }
 
     :root {
-      --bg: #07111F;
-      --surface: rgba(13, 22, 36, 0.98);
-      --border: rgba(120, 164, 215, 0.16);
-      --border-soft: rgba(120, 164, 215, 0.11);
-      --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.43);
-      --accent: #4F9BFF;
-      --accent-soft: rgba(79, 155, 255, 0.10);
-      --topbar: rgba(6, 15, 29, 0.84);
-      --profile: rgba(9, 16, 27, 0.88);
-      --profile-hover: rgba(12, 22, 37, 0.94);
-      --dropdown: rgba(13, 22, 36, 0.98);
+      --bg: #08090b;
+      --header: rgba(8, 9, 11, 0.92);
+      --card: #0d0f12;
+      --card-hover: #111419;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.52);
+      --profile-hover: rgba(255, 255, 255, 0.04);
+      --accent: #ffffff;
     }
 
     * {
@@ -80,21 +42,15 @@
 
     html {
       min-height: 100%;
-      background: #07111F;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
+      background: var(--bg);
       color: var(--text);
-      font-family: "Montserrat", sans-serif;
-      background: #07111F;
-      background-attachment: fixed;
+      font-family: Montserrat, sans-serif;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      transition:
-        background 180ms ease,
-        color 180ms ease;
     }
 
     a {
@@ -108,292 +64,155 @@
       z-index: 100;
       height: 68px;
       padding: 0 32px;
-      border-bottom: 1px solid var(--border-soft);
-      background: var(--topbar);
       display: flex;
       align-items: center;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease;
+      justify-content: space-between;
+      background: var(--header);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .logo {
-      font-size: 12px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
     }
 
-    .navigation {
+    .logo img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .nav {
       position: absolute;
       left: 50%;
-      top: 0;
-      height: 100%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 34px;
+      gap: 28px;
+      height: 100%;
     }
 
     .nav-item {
       position: relative;
-      height: 100%;
       display: flex;
       align-items: center;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      opacity: 0.52;
-      transition: opacity 120ms ease;
-    }
-
-    .nav-item:hover,
-    .nav-item:focus-within {
-      opacity: 0.92;
-    }
-
-    .nav-item.active {
-      opacity: 1;
-      font-weight: 700;
-    }
-
-    .nav-label {
       height: 100%;
-      display: inline-flex;
-      align-items: center;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+    }
+
+    .nav-item.dropdown {
       gap: 6px;
-      padding: 0 4px;
+      cursor: default;
     }
 
-    .arrow {
-      font-size: 9px;
-      line-height: 1;
-      opacity: 0.65;
-      transform: translateY(-1px);
+    .nav-chevron {
+      width: 7px;
+      height: 7px;
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      transform: rotate(45deg) translateY(-2px);
+      opacity: 0.6;
     }
 
-    .dropdown {
+    .dropdown-menu {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 1px);
       left: 50%;
-      width: 170px;
-      padding: 6px;
-      transform: translateX(-50%) translateY(4px);
-      background: var(--dropdown);
+      transform: translate(-50%, -5px);
+      min-width: 190px;
+      padding: 8px;
       border: 1px solid var(--border);
-      border-radius: 7px;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      border-radius: 9px;
+      background: var(--card);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition:
-        opacity 100ms ease,
-        visibility 100ms ease,
-        transform 100ms ease,
-        background 180ms ease,
-        border-color 180ms ease;
-      z-index: 200;
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
-    .nav-item:hover .dropdown,
-    .nav-item:focus-within .dropdown {
+    .nav-item.dropdown:hover .dropdown-menu {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
+      transform: translate(-50%, 0);
     }
 
-    .dropdown a {
-      min-height: 34px;
-      padding: 0 11px;
+    .dropdown-link {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .dropdown-link:hover {
+      color: var(--text);
+      background: var(--profile-hover);
+    }
+
+    .header-right {
       display: flex;
       align-items: center;
-      font-size: 10px;
-      border-radius: 4px;
-      opacity: 0.56;
-      transition:
-        background 100ms ease,
-        opacity 100ms ease,
-        color 180ms ease;
-    }
-
-    .dropdown a:hover,
-    .dropdown a:focus-visible {
-      background: var(--accent-soft);
-      opacity: 1;
-      outline: none;
+      gap: 12px;
+      flex-shrink: 0;
     }
 
     .login-button {
-      position: absolute;
-      right: 32px;
-      width: 148px;
-      height: 40px;
-      padding: 0 17px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      background:
-        linear-gradient(
-          135deg,
-          #5865F2,
-          #5360E8
-        );
-      color: #FFFFFF;
-      font-family: "Montserrat", sans-serif;
+      height: 36px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.055em;
+      letter-spacing: 0.08em;
       cursor: pointer;
-      box-shadow: 0 5px 18px rgba(45, 55, 160, 0.16);
-      transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        box-shadow 140ms ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .login-button:hover {
-      background:
-        linear-gradient(
-          135deg,
-          #6370F5,
-          #5966EB
-        );
-      border-color: rgba(255, 255, 255, 0.18);
-      box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
-    }
-
-    .login-button:active {
-      box-shadow: 0 3px 12px rgba(45, 55, 160, 0.16);
-    }
-
-    .discord-logo {
-      width: 22px;
-      height: 22px;
-      flex: 0 0 auto;
-      display: block;
-      object-fit: contain;
+      background: var(--profile-hover);
+      border-color: rgba(255, 255, 255, 0.15);
     }
 
     .profile-card {
-      position: absolute;
-      right: 32px;
-      width: 178px;
-      height: 42px;
-      padding: 0 10px 0 7px;
-      display: flex;
+      display: none;
+      position: relative;
       align-items: center;
       gap: 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--profile);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      min-width: 150px;
+      height: 42px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
       cursor: pointer;
-      user-select: none;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease,
-        box-shadow 140ms ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
-    .profile-card:hover {
+    .profile-card:hover,
+    .profile-card.open {
       background: var(--profile-hover);
-      border-color: rgba(120, 164, 215, 0.25);
-      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
     }
 
     .profile-card.open {
       border-color: rgba(120, 164, 215, 0.27);
-      background: var(--profile-hover);
-    }
-
-    .profile-avatar {
-      width: 29px;
-      height: 29px;
-      flex: 0 0 29px;
-      overflow: hidden;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .profile-avatar img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .profile-avatar.guest {
-      display: none;
-    }
-
-    .profile-info {
-      min-width: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .profile-username {
-      max-width: 116px;
-      overflow: hidden;
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      color: #FFFFFF;
-    }
-
-    .profile-status {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 7px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: 0.09em;
-      color: rgba(255, 255, 255, 0.42);
-    }
-
-    .profile-status::before {
-      content: "";
-      width: 4px;
-      height: 4px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.8;
-    }
-
-    .profile-card.guest .profile-status::before {
-      background: rgba(255, 255, 255, 0.34);
-    }
-
-    .profile-chevron {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.30);
-      transition:
-        color 140ms ease,
-        transform 140ms ease;
-    }
-
-    .profile-card:hover .profile-chevron {
-      color: rgba(255, 255, 255, 0.60);
     }
 
     .profile-card.open .profile-chevron {
@@ -401,40 +220,63 @@
       transform: rotate(180deg);
     }
 
-    .profile-chevron svg {
-      width: 10px;
-      height: 10px;
-      display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .profile-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .profile-username {
+      max-width: 95px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .profile-status {
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .profile-chevron {
+      margin-left: auto;
+      width: 7px;
+      height: 7px;
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      transform: rotate(45deg);
+      color: rgba(255, 255, 255, 0.38);
+      transition: transform 0.2s ease, color 0.2s ease;
     }
 
     .profile-dropdown {
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: 195px;
-      padding: 5px;
+      width: 190px;
+      padding: 7px;
       border: 1px solid var(--border);
-      border-radius: 7px;
-      background: var(--dropdown);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      border-radius: 9px;
+      background: var(--card);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: translateY(4px);
-      transition:
-        opacity 100ms ease,
-        visibility 100ms ease,
-        transform 100ms ease,
-        background 180ms ease,
-        border-color 180ms ease;
-      z-index: 9999;
+      transform: translateY(-5px);
+      transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
     }
 
     .profile-dropdown.open {
@@ -444,72 +286,26 @@
       transform: translateY(0);
     }
 
-    .profile-dropdown-item {
-      width: 100%;
-      min-height: 38px;
-      padding: 0 11px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 4px;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.64);
-      font-family: "Montserrat", sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      text-align: left;
-      cursor: pointer;
-      transition:
-        background 100ms ease,
-        color 100ms ease;
-    }
-
-    .profile-dropdown-item:hover {
-      background: var(--accent-soft);
-      color: #FFFFFF;
-    }
-
-    .profile-dropdown-icon {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.40);
-    }
-
-    .profile-dropdown-icon svg {
-      width: 14px;
-      height: 14px;
+    .profile-dropdown-link {
       display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      padding: 10px 11px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
-    .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(255, 255, 255, 0.72);
+    .profile-dropdown-link:hover {
+      color: var(--text);
+      background: var(--profile-hover);
     }
 
-    .profile-dropdown-logout {
-      color: rgba(255, 107, 120, 0.68);
-    }
-
-    .profile-dropdown-logout .profile-dropdown-icon {
-      color: rgba(255, 107, 120, 0.62);
-    }
-
-    .profile-dropdown-logout:hover {
-      background: rgba(255, 65, 85, 0.07);
-      color: #FF7D88;
-    }
-
-    .profile-dropdown-logout:hover .profile-dropdown-icon {
-      color: #FF7D88;
+    .profile-dropdown-divider {
+      height: 1px;
+      margin: 6px 4px;
+      background: var(--border);
     }
 
     main {
@@ -518,64 +314,54 @@
       padding: 48px 0 105px;
     }
 
-    .profile-header {
-      padding: 0 0 24px;
-      border-bottom: 1px solid var(--border-soft);
+    .page-heading {
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .profile-title {
+    .page-heading h1 {
       margin: 0;
-      font-size: clamp(38px, 5vw, 58px);
-      line-height: 0.98;
+      font-size: 38px;
+      line-height: 1;
       font-weight: 700;
-      letter-spacing: -0.065em;
+      letter-spacing: -0.04em;
     }
 
-    .profile-description {
-      margin: 15px 0 0;
-      max-width: 540px;
-      font-size: 10px;
-      line-height: 1.7;
+    .page-heading p {
+      margin: 12px 0 0;
       color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
     }
 
     .profile-content {
-      margin-top: 14px;
-      padding: 28px;
+      margin-top: 22px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(63, 121, 194, 0.075),
-          rgba(255, 255, 255, 0.018)
-        );
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.035),
+        rgba(255, 255, 255, 0.012)
+      );
+      overflow: hidden;
     }
 
-    .player-card {
+    .player-header {
       display: flex;
       align-items: center;
-      gap: 22px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border-soft);
+      gap: 20px;
+      padding: 28px;
+      border-bottom: 1px solid var(--border);
     }
 
     .player-avatar {
-      width: 88px;
-      height: 88px;
-      flex: 0 0 88px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+      width: 76px;
+      height: 76px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .player-avatar img {
-      width: 100%;
-      height: 100%;
-      display: block;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
       object-fit: cover;
+      flex-shrink: 0;
     }
 
     .player-details {
@@ -584,482 +370,268 @@
 
     .player-name {
       margin: 0;
-      font-size: 28px;
-      line-height: 1.1;
+      font-size: 25px;
       font-weight: 700;
-      letter-spacing: -0.045em;
+      letter-spacing: -0.025em;
     }
 
     .player-label {
-      margin: 7px 0 0;
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.11em;
-      color: var(--accent);
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
     }
 
     .player-joined {
-      margin: 13px 0 0;
-      font-size: 9px;
+      margin-top: 10px;
       color: var(--muted);
+      font-size: 9px;
     }
 
     .section {
-      padding-top: 28px;
+      padding: 26px 28px;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border);
     }
 
     .section-title {
-      margin: 0;
-      font-size: 14px;
+      margin: 0 0 16px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .section-description {
-      margin: 7px 0 0;
-      font-size: 9px;
-      line-height: 1.6;
-      color: var(--muted);
+      letter-spacing: 0.1em;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
     }
 
     .stat-card {
-      min-height: 105px;
-      padding: 19px;
+      min-height: 100px;
+      padding: 20px;
       border: 1px solid var(--border);
-      border-radius: 7px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.018);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition:
-        border-color 140ms ease,
-        background 140ms ease;
-    }
-
-    .stat-card:hover {
-      border-color: rgba(120, 164, 215, 0.25);
-      background: rgba(255, 255, 255, 0.028);
     }
 
     .stat-label {
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      color: rgba(255, 255, 255, 0.36);
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
     }
 
     .stat-value {
-      margin-top: 15px;
+      margin-top: 13px;
       font-size: 25px;
-      line-height: 1;
       font-weight: 700;
-      letter-spacing: -0.04em;
     }
 
-    .seasonal-card {
-      margin-top: 20px;
+    .season-placeholder {
       padding: 22px;
       border: 1px solid var(--border);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.018);
-    }
-
-    .seasonal-placeholder {
-      margin: 0;
-      font-size: 9px;
-      line-height: 1.7;
+      border-radius: 8px;
       color: var(--muted);
+      background: rgba(255, 255, 255, 0.018);
+      font-size: 10px;
+      line-height: 1.7;
     }
 
     footer {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
-      min-height: 58px;
-      padding: 0 32px;
-      border-top: 1px solid var(--border-soft);
-      background: var(--topbar);
+      border-top: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+
+    .footer-inner {
+      width: min(1020px, calc(100% - 48px));
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 9px;
-      line-height: 1;
-      color: rgba(255, 255, 255, 0.30);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .footer-left,
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
     }
 
     .footer-brand {
-      color: rgba(255, 255, 255, 0.55);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+    }
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .login-modal {
+      width: min(420px, 100%);
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .login-modal h2 {
+      margin: 0;
+      font-size: 18px;
       font-weight: 700;
     }
 
-    .footer-right a {
-      transition: color 100ms ease;
+    .login-modal p {
+      margin: 10px 0 22px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.7;
     }
 
-    .footer-right a:hover {
-      color: rgba(255, 255, 255, 0.75);
+    .login-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
     }
 
-    body.theme-dark {
-      --bg: #181818;
-      --accent: #5A9EFF;
-      --accent-soft: rgba(90, 158, 255, 0.10);
-      --topbar: rgba(20, 20, 20, 0.94);
-      --profile: rgba(25, 25, 25, 0.94);
-      --profile-hover: rgba(32, 32, 32, 0.98);
-      --dropdown: rgba(27, 27, 27, 0.99);
-      background: #181818;
+    .login-action {
+      height: 36px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      cursor: pointer;
     }
 
-    body.theme-dark .profile-content {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.028),
-          rgba(255, 255, 255, 0.012)
-        );
+    .login-action.primary {
+      background: var(--text);
+      color: var(--bg);
     }
 
     body.theme-light {
-      --bg: #D3D3D3;
-      --surface: rgba(245, 245, 245, 0.98);
-      --border: rgba(30, 40, 50, 0.15);
-      --border-soft: rgba(30, 40, 50, 0.10);
-      --text: #15181C;
-      --muted: rgba(21, 24, 28, 0.58);
-      --accent: #5365D8;
-      --accent-soft: rgba(83, 101, 216, 0.09);
-      --topbar: rgba(230, 230, 230, 0.90);
-      --profile: rgba(245, 245, 245, 0.94);
-      --profile-hover: rgba(250, 250, 250, 0.98);
-      --dropdown: rgba(245, 245, 245, 0.99);
-      color: var(--text);
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(255, 255, 255, 0.62),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(170, 185, 205, 0.24),
-          transparent 70%
-        ),
-        #D3D3D3;
-    }
-
-    body.theme-light .profile-username,
-    body.theme-light .player-name {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-status,
-    body.theme-light .profile-chevron,
-    body.theme-light .profile-dropdown-item {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .profile-card:hover .profile-chevron,
-    body.theme-light .profile-card.open .profile-chevron {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .dropdown a {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .dropdown a:hover,
-    body.theme-light .dropdown a:focus-visible {
-      color: #15181C;
-    }
-
-    body.theme-light .stat-label {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-brand {
-      color: rgba(21, 24, 28, 0.60);
-    }
-
-    body.theme-light footer {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-right a:hover {
-      color: rgba(21, 24, 28, 0.75);
+      --bg: #f5f6f8;
+      --header: rgba(245, 246, 248, 0.92);
+      --card: #ffffff;
+      --card-hover: #f0f1f3;
+      --border: rgba(0, 0, 0, 0.09);
+      --text: #111317;
+      --muted: rgba(17, 19, 23, 0.52);
+      --profile-hover: rgba(0, 0, 0, 0.04);
+      --accent: #111317;
     }
 
     body.theme-blue {
-      --bg: #07111F;
-      --accent: #4F9BFF;
-      --accent-soft: rgba(79, 155, 255, 0.10);
-      --topbar: rgba(6, 15, 29, 0.84);
-      --profile: rgba(9, 16, 27, 0.88);
-      --profile-hover: rgba(12, 22, 37, 0.94);
-      --dropdown: rgba(13, 22, 36, 0.98);
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(42, 103, 175, 0.34),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(25, 75, 145, 0.18),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(20, 65, 125, 0.13),
-          transparent 72%
-        ),
-        #07111F;
+      --bg: #080c13;
+      --header: rgba(8, 12, 19, 0.92);
+      --card: #0d131d;
+      --card-hover: #111925;
+      --border: rgba(140, 175, 220, 0.1);
+      --text: #ffffff;
+      --muted: rgba(210, 225, 245, 0.5);
+      --profile-hover: rgba(120, 164, 215, 0.06);
+      --accent: #78a4d7;
     }
 
     body.theme-royal {
-      --bg: #0E0B20;
-      --accent: #8D79FF;
-      --accent-soft: rgba(141, 121, 255, 0.11);
-      --topbar: rgba(10, 10, 29, 0.88);
-      --profile: rgba(16, 14, 39, 0.90);
-      --profile-hover: rgba(22, 18, 52, 0.96);
-      --dropdown: rgba(17, 14, 42, 0.99);
-      background:
-        radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(73, 56, 170, 0.34),
-          transparent 67%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 52%,
-          rgba(39, 57, 135, 0.25),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(112, 48, 145, 0.18),
-          transparent 72%
-        ),
-        #0E0B20;
+      --bg: #0b0813;
+      --header: rgba(11, 8, 19, 0.92);
+      --card: #120d1d;
+      --card-hover: #181224;
+      --border: rgba(180, 150, 235, 0.1);
+      --text: #ffffff;
+      --muted: rgba(225, 215, 245, 0.5);
+      --profile-hover: rgba(165, 125, 225, 0.06);
+      --accent: #a77de1;
     }
 
     body.theme-ocean {
-      --bg: #061A22;
-      --accent: #52C7D8;
-      --accent-soft: rgba(82, 199, 216, 0.11);
-      --topbar: rgba(5, 24, 32, 0.88);
-      --profile: rgba(7, 30, 39, 0.90);
-      --profile-hover: rgba(9, 39, 50, 0.96);
-      --dropdown: rgba(7, 31, 41, 0.99);
-      background:
-        radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(20, 111, 132, 0.36),
-          transparent 67%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 7% 52%,
-          rgba(15, 76, 111, 0.28),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(31, 139, 143, 0.17),
-          transparent 72%
-        ),
-        #061A22;
+      --bg: #071012;
+      --header: rgba(7, 16, 18, 0.92);
+      --card: #0b1719;
+      --card-hover: #0f1d20;
+      --border: rgba(100, 210, 215, 0.1);
+      --text: #ffffff;
+      --muted: rgba(205, 235, 237, 0.5);
+      --profile-hover: rgba(90, 200, 205, 0.06);
+      --accent: #67d1d5;
     }
 
-    @media (max-width: 760px) {
-      .topbar {
-        padding: 0 20px;
-      }
-
-      .navigation {
-        gap: 18px;
+    @media (max-width: 900px) {
+      .nav {
+        gap: 16px;
       }
 
       .nav-item {
-        font-size: 13px;
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        padding: 0 16px;
       }
 
-      .login-button {
-        right: 20px;
-        width: 128px;
-        height: 36px;
-        padding: 0 14px;
-      }
-
-      .profile-card {
-        right: 20px;
-        width: 128px;
-        height: 38px;
-      }
-
-      .profile-avatar {
-        width: 27px;
-        height: 27px;
-        flex-basis: 27px;
-      }
-
-      .profile-username {
-        max-width: 65px;
-      }
-
-      .profile-dropdown {
-        right: -3px;
-      }
-
-      .discord-logo {
-        width: 20px;
-        height: 20px;
+      .nav {
+        display: none;
       }
 
       main {
-        width: min(100% - 28px, 600px);
-        padding-top: 30px;
-        padding-bottom: 100px;
+        width: min(100% - 32px, 1020px);
+        padding-top: 32px;
       }
 
-      .profile-content {
-        padding: 20px;
+      .page-heading h1 {
+        font-size: 30px;
+      }
+
+      .player-header {
+        padding: 22px;
+      }
+
+      .section {
+        padding: 22px;
       }
 
       .stats-grid {
         grid-template-columns: 1fr;
       }
-    }
 
-    @media (max-width: 620px) {
-      .topbar {
-        height: auto;
-        min-height: 64px;
-        padding: 18px 20px;
-        align-items: flex-start;
+      .footer-inner {
+        width: calc(100% - 32px);
       }
 
-      .logo {
-        margin-top: 4px;
-      }
-
-      .navigation {
-        position: static;
-        height: auto;
-        margin-left: auto;
-        margin-right: 132px;
-        transform: none;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 12px 17px;
-      }
-
-      .nav-item {
-        height: auto;
-        min-height: 18px;
-        font-size: 11px;
-      }
-
-      .dropdown {
-        top: calc(100% + 4px);
-      }
-
-      .login-button {
-        right: 20px;
-        top: 18px;
-        width: 108px;
-        height: 34px;
-        padding: 0 11px;
-        gap: 7px;
-        font-size: 9px;
-      }
-
-      .profile-card {
-        right: 20px;
-        top: 18px;
-        width: 108px;
-        height: 34px;
-        padding: 0 7px 0 5px;
-        gap: 7px;
-      }
-
-      .profile-avatar {
-        width: 24px;
-        height: 24px;
-        flex-basis: 24px;
-      }
-
-      .profile-username {
-        max-width: 43px;
-        font-size: 8px;
-      }
-
-      .profile-status {
-        font-size: 5px;
-      }
-
-      .profile-chevron {
-        width: 11px;
-        height: 11px;
-        flex-basis: 11px;
-      }
-
-      .profile-dropdown {
-        width: 185px;
-        right: -4px;
-      }
-
-      .discord-logo {
-        width: 19px;
-        height: 19px;
-      }
-
-      .player-card {
+      .footer-inner {
         align-items: flex-start;
         flex-direction: column;
-      }
-
-      .player-avatar {
-        width: 72px;
-        height: 72px;
-        flex-basis: 72px;
-      }
-
-      .player-name {
-        font-size: 23px;
-      }
-
-      footer {
-        min-height: 54px;
-        padding: 15px 20px;
-        align-items: center;
-      }
-
-      .footer-left,
-      .footer-right {
-        gap: 12px;
-      }
-
-      .footer-right {
-        flex-wrap: wrap;
-        justify-content: flex-end;
+        gap: 15px;
       }
     }
   </style>
@@ -1068,453 +640,229 @@
 <body class="theme-blue">
 
   <header class="topbar">
-
     <a href="/" class="logo">
-      RSF
+      <img src="/rsf-logo.png" alt="RSF">
     </a>
 
-    <nav class="navigation" aria-label="Main navigation">
+    <nav class="nav">
+      <a href="/" class="nav-item">MAIN</a>
 
-      <div class="nav-item">
-        <a href="/" class="nav-label">
-          MAIN
-        </a>
-      </div>
+      <div class="nav-item dropdown">
+        DATABASE
+        <span class="nav-chevron"></span>
 
-      <div class="nav-item">
-        <a href="/database" class="nav-label">
-          DATABASE
-          <span class="arrow">▾</span>
-        </a>
-
-        <div class="dropdown">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
+        <div class="dropdown-menu">
+          <a href="/database#players" class="dropdown-link">PLAYERBASE</a>
+          <a href="/database#teams" class="dropdown-link">TEAMS</a>
+          <a href="/database#seasons" class="dropdown-link">SEASONS</a>
         </div>
       </div>
 
-      <div class="nav-item">
-        <a href="/community" class="nav-label">
-          COMMUNITY
-          <span class="arrow">▾</span>
-        </a>
+      <div class="nav-item dropdown">
+        COMMUNITY
+        <span class="nav-chevron"></span>
 
-        <div class="dropdown">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
+        <div class="dropdown-menu">
+          <a href="/community#videos" class="dropdown-link">VIDEOS</a>
+          <a href="/community#latest" class="dropdown-link">COMMUNITY LATEST</a>
+          <a href="/community#development" class="dropdown-link">DEVELOPMENT</a>
+          <a href="/community#resources" class="dropdown-link">RESOURCES</a>
         </div>
       </div>
 
-      <div class="nav-item">
-        <a href="/arcade" class="nav-label">
-          ARCADE
-        </a>
-      </div>
-
-      <div class="nav-item">
-        <a href="/rsf" class="nav-label">
-          RSF
-        </a>
-      </div>
-
+      <a href="/arcade" class="nav-item">ARCADE</a>
+      <a href="/rsf" class="nav-item">RSF</a>
     </nav>
 
-    <button
-      type="button"
-      class="login-button"
-      id="login-button"
-      aria-label="Login with Discord"
-    >
+    <div class="header-right">
+      <button class="login-button" id="login-button">LOGIN</button>
 
-      <img
-        class="discord-logo"
-        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-        alt=""
-        aria-hidden="true"
-      >
-
-      <span>LOGIN</span>
-
-    </button>
-
-    <div
-      class="profile-card"
-      id="profile-card"
-      style="display: none;"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-
-      <div class="profile-avatar" id="profile-avatar-container">
+      <div class="profile-card" id="profile-card">
         <img
+          class="profile-avatar"
           id="profile-avatar"
           src=""
           alt=""
         >
+
+        <div class="profile-info">
+          <div class="profile-username" id="profile-username"></div>
+          <div class="profile-status" id="profile-status">VERIFIED</div>
+        </div>
+
+        <div class="profile-chevron"></div>
+
+        <div class="profile-dropdown" id="profile-dropdown">
+          <a href="/profile" class="profile-dropdown-link">PROFILE</a>
+          <a href="/settings" class="profile-dropdown-link">SETTINGS</a>
+
+          <div class="profile-dropdown-divider"></div>
+
+          <a href="#" class="profile-dropdown-link" id="logout-button">LOGOUT</a>
+        </div>
       </div>
-
-      <div class="profile-info">
-
-        <span
-          class="profile-username"
-          id="profile-username"
-        >
-          —
-        </span>
-
-        <span
-          class="profile-status"
-          id="profile-status"
-        >
-          GUEST
-        </span>
-
-      </div>
-
-      <span class="profile-chevron" aria-hidden="true">
-        <svg viewBox="0 0 10 10">
-          <path d="M2 3.5L5 6.5L8 3.5"></path>
-        </svg>
-      </span>
-
     </div>
-
   </header>
 
   <main>
+    <div class="page-heading">
+      <h1>PROFILE</h1>
+      <p>RSF player profile and career information.</p>
+    </div>
 
-    <section class="profile-header">
-      <h1 class="profile-title">
-        PROFILE
-      </h1>
-
-      <p class="profile-description">
-        RSF player profile and career information.
-      </p>
-    </section>
-
-    <section
-      class="profile-content"
-      aria-label="Player profile"
-      id="profile-content"
-    >
-
-      <div class="player-card">
-
-        <div class="player-avatar">
-          <img
-            id="player-avatar"
-            src=""
-            alt=""
-          >
-        </div>
+    <div class="profile-content">
+      <div class="player-header">
+        <div class="player-avatar" id="player-avatar"></div>
 
         <div class="player-details">
-
-          <h2
-            class="player-name"
-            id="player-name"
-          >
-            —
-          </h2>
-
-          <p class="player-label">
-            RSF PLAYER
-          </p>
-
-          <p
-            class="player-joined"
-            id="player-joined"
-          >
-            Joined —
-          </p>
-
+          <h2 class="player-name" id="player-name">Loading...</h2>
+          <div class="player-label">RSF PLAYER</div>
+          <div class="player-joined">
+            Joined <span id="player-joined">—</span>
+          </div>
         </div>
-
       </div>
 
-      <div class="section">
-
-        <h2 class="section-title">
-          Career
-        </h2>
-
-        <p class="section-description">
-          Current career statistics.
-        </p>
+      <section class="section">
+        <h3 class="section-title">CAREER</h3>
 
         <div class="stats-grid">
-
           <div class="stat-card">
-            <span class="stat-label">
-              APPEARANCES
-            </span>
-
-            <span class="stat-value">
-              —
-            </span>
+            <div class="stat-label">APPEARANCES</div>
+            <div class="stat-value">—</div>
           </div>
 
           <div class="stat-card">
-            <span class="stat-label">
-              GOALS
-            </span>
-
-            <span class="stat-value">
-              —
-            </span>
+            <div class="stat-label">GOALS</div>
+            <div class="stat-value">—</div>
           </div>
 
           <div class="stat-card">
-            <span class="stat-label">
-              ASSISTS
-            </span>
-
-            <span class="stat-value">
-              —
-            </span>
+            <div class="stat-label">ASSISTS</div>
+            <div class="stat-value">—</div>
           </div>
-
         </div>
+      </section>
 
-      </div>
+      <section class="section">
+        <h3 class="section-title">SEASONAL STATISTICS</h3>
 
-      <div class="section">
-
-        <h2 class="section-title">
-          Seasonal Statistics
-        </h2>
-
-        <p class="section-description">
-          Season-by-season player statistics will appear here.
-        </p>
-
-        <div class="seasonal-card">
-
-          <p class="seasonal-placeholder">
-            Seasonal statistics are not available yet.
-          </p>
-
+        <div class="season-placeholder">
+          Seasonal statistics will appear here once RSF player statistics are introduced.
         </div>
-
-      </div>
-
-    </section>
-
+      </section>
+    </div>
   </main>
 
   <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">RSF</div>
 
-    <div class="footer-left">
-      <span class="footer-brand">
-        RSF
-      </span>
+      <div class="footer-links">
+        <a href="/privacy" class="footer-link">PRIVACY</a>
+        <a href="/terms" class="footer-link">TERMS</a>
+      </div>
     </div>
-
-    <div class="footer-right">
-
-      <a href="/privacy">
-        Privacy Policy
-      </a>
-
-      <a href="/terms">
-        Terms of Use
-      </a>
-
-    </div>
-
   </footer>
 
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-modal">
+      <h2>LOGIN</h2>
+      <p>
+        Sign in with Discord to access your RSF account and additional features.
+      </p>
+
+      <div class="login-actions">
+        <button class="login-action" id="login-close">CANCEL</button>
+        <button class="login-action primary" id="login-proceed">CONTINUE</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    const savedTheme = localStorage.getItem("rsf-theme");
 
-    const validThemes = [
-      "dark",
-      "light",
-      "blue",
-      "royal",
-      "ocean"
-    ];
-
-    function getCachedTheme() {
-      try {
-        const cachedTheme =
-          localStorage.getItem("rsf-theme");
-
-        if (
-          validThemes.includes(cachedTheme)
-        ) {
-          return cachedTheme;
-        }
-      } catch (error) {
-      }
-
-      return "blue";
+    if (savedTheme) {
+      document.body.className = `theme-${savedTheme}`;
     }
 
-    function applyTheme(theme) {
-      if (!validThemes.includes(theme)) {
-        theme = "blue";
-      }
-
-      document.body.classList.remove(
-        "theme-dark",
-        "theme-light",
-        "theme-blue",
-        "theme-royal",
-        "theme-ocean"
-      );
-
-      document.body.classList.add(
-        `theme-${theme}`
-      );
-    }
-
-    function getUsername() {
-      const path =
-        window.location.pathname
-          .split("/")
-          .filter(Boolean);
-
-      if (
-        path.length < 2 ||
-        path[0].toLowerCase() !== "profile"
-      ) {
-        return null;
-      }
-
-      return decodeURIComponent(
-        path.slice(1).join("/")
-      );
-    }
-
-    function formatJoinedDate(date) {
-      const parsed =
-        new Date(date);
-
-      if (
-        Number.isNaN(parsed.getTime())
-      ) {
-        return "Joined —";
-      }
-
-      return `Joined ${parsed.toLocaleDateString(
-        "en-GB",
-        {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        }
-      )}`;
-    }
-
-    async function loadPlayer() {
-
-      const username =
-        getUsername();
+    async function loadProfile() {
+      const parts = window.location.pathname.split("/").filter(Boolean);
+      const username = parts[1];
 
       if (!username) {
-        window.location.replace("/404");
+        window.location.href = "/404";
         return;
       }
 
       try {
-
-        const response =
-          await fetch(
-            `/api/profile?username=${encodeURIComponent(username)}`,
-            {
-              method: "GET",
-              credentials: "include",
-              cache: "no-store"
-            }
-          );
-
-        if (
-          response.status === 404
-        ) {
-          window.location.replace("/404");
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error(
-            `Profile request failed: ${response.status}`
-          );
-        }
-
-        const data =
-          await response.json();
-
-        if (
-          !data ||
-          !data.player
-        ) {
-          window.location.replace("/404");
-          return;
-        }
-
-        const player =
-          data.player;
-
-        const playerName =
-          document.getElementById(
-            "player-name"
-          );
-
-        const playerJoined =
-          document.getElementById(
-            "player-joined"
-          );
-
-        const playerAvatar =
-          document.getElementById(
-            "player-avatar"
-          );
-
-        playerName.textContent =
-          player.roblox_username || "—";
-
-        playerJoined.textContent =
-          formatJoinedDate(
-            player.joined_at
-          );
-
-        if (
-          player.avatar_url
-        ) {
-          playerAvatar.src =
-            player.avatar_url;
-
-          playerAvatar.alt =
-            player.roblox_username || "";
-        } else {
-          playerAvatar.style.display =
-            "none";
-        }
-
-        document.title =
-          `RSF — ${player.roblox_username || "Profile"}`;
-
-      } catch (error) {
-
-        console.error(
-          "Unable to load player profile:",
-          error
+        const response = await fetch(
+          `/api/profile?username=${encodeURIComponent(username)}`
         );
 
-        window.location.replace("/404");
+        if (!response.ok) {
+          window.location.href = "/404";
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!data.player) {
+          window.location.href = "/404";
+          return;
+        }
+
+        const player = data.player;
+
+        document.getElementById("player-name").textContent =
+          player.roblox_username;
+
+        document.getElementById("player-joined").textContent =
+          new Date(player.joined_at).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+
+        document.title = `RSF — ${player.roblox_username}`;
+      } catch (error) {
+        console.error("Profile loading error:", error);
+        window.location.href = "/404";
       }
     }
 
-    applyTheme(
-      getCachedTheme()
-    );
+    const loginButton = document.getElementById("login-button");
+    const loginOverlay = document.getElementById("login-overlay");
+    const loginClose = document.getElementById("login-close");
+    const loginProceed = document.getElementById("login-proceed");
 
-    loadPlayer();
+    if (loginButton) {
+      loginButton.addEventListener("click", () => {
+        loginOverlay.style.display = "flex";
+      });
+    }
 
+    if (loginClose) {
+      loginClose.addEventListener("click", () => {
+        loginOverlay.style.display = "none";
+      });
+    }
+
+    if (loginOverlay) {
+      loginOverlay.addEventListener("click", event => {
+        if (event.target === loginOverlay) {
+          loginOverlay.style.display = "none";
+        }
+      });
+    }
+
+    if (loginProceed) {
+      loginProceed.addEventListener("click", () => {
+        window.location.href = "/api/login";
+      });
+    }
+
+    loadProfile();
   </script>
 
   <script src="/auth.js"></script>
