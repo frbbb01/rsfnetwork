@@ -33,13 +33,18 @@
 
     :root {
       --bg: #07111F;
-      --surface: rgba(13, 22, 36, 0.98);
+      --surface: rgba(13, 22, 36, 0.97);
+      --surface-strong: rgba(15, 25, 41, 0.98);
+      --surface-soft: rgba(255, 255, 255, 0.025);
       --border: rgba(120, 164, 215, 0.16);
-      --border-soft: rgba(120, 164, 215, 0.11);
+      --border-soft: rgba(120, 164, 215, 0.09);
+      --border-strong: rgba(120, 164, 215, 0.24);
       --text: #FFFFFF;
       --muted: rgba(255, 255, 255, 0.43);
+      --muted-strong: rgba(255, 255, 255, 0.62);
       --accent: #4F9BFF;
       --accent-soft: rgba(79, 155, 255, 0.10);
+      --accent-medium: rgba(79, 155, 255, 0.16);
       --topbar: rgba(6, 15, 29, 0.84);
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
@@ -52,7 +57,7 @@
 
     html {
       min-height: 100%;
-      background: #07111F;
+      background: var(--bg);
     }
 
     body {
@@ -80,9 +85,6 @@
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      transition:
-        background 180ms ease,
-        color 180ms ease;
     }
 
     a {
@@ -106,9 +108,6 @@
       align-items: center;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease;
     }
 
     .logo {
@@ -183,9 +182,7 @@
       transition:
         opacity 100ms ease,
         visibility 100ms ease,
-        transform 100ms ease,
-        background 180ms ease,
-        border-color 180ms ease;
+        transform 100ms ease;
       z-index: 200;
     }
 
@@ -236,7 +233,6 @@
           #5360E8
         );
       color: #FFFFFF;
-      font-family: "Montserrat", sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.055em;
@@ -257,10 +253,6 @@
         );
       border-color: rgba(255, 255, 255, 0.18);
       box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
-    }
-
-    .login-button:active {
-      box-shadow: 0 3px 12px rgba(45, 55, 160, 0.16);
     }
 
     .discord-logo {
@@ -294,15 +286,11 @@
         box-shadow 140ms ease;
     }
 
-    .profile-card:hover {
-      background: var(--profile-hover);
-      border-color: rgba(120, 164, 215, 0.25);
-      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
-    }
-
+    .profile-card:hover,
     .profile-card.open {
-      border-color: rgba(120, 164, 215, 0.27);
       background: var(--profile-hover);
+      border-color: rgba(120, 164, 215, 0.27);
+      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
     }
 
     .profile-avatar {
@@ -319,10 +307,6 @@
       height: 100%;
       display: block;
       object-fit: cover;
-    }
-
-    .profile-avatar.guest {
-      display: none;
     }
 
     .profile-info {
@@ -342,7 +326,6 @@
       line-height: 1;
       white-space: nowrap;
       text-overflow: ellipsis;
-      color: #FFFFFF;
     }
 
     .profile-status {
@@ -360,14 +343,8 @@
       content: "";
       width: 4px;
       height: 4px;
-      flex: 0 0 auto;
       border-radius: 50%;
       background: var(--accent);
-      opacity: 0.8;
-    }
-
-    .profile-card.profile-guest .profile-status::before {
-      background: rgba(255, 255, 255, 0.34);
     }
 
     .profile-chevron {
@@ -381,10 +358,6 @@
       transition:
         color 140ms ease,
         transform 140ms ease;
-    }
-
-    .profile-card:hover .profile-chevron {
-      color: rgba(255, 255, 255, 0.60);
     }
 
     .profile-card.open .profile-chevron {
@@ -413,8 +386,6 @@
       border-radius: 7px;
       background: var(--dropdown);
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -444,7 +415,6 @@
       border-radius: 4px;
       background: transparent;
       color: rgba(255, 255, 255, 0.64);
-      font-family: "Montserrat", sans-serif;
       font-size: 11px;
       font-weight: 500;
       text-align: left;
@@ -459,31 +429,6 @@
       color: #FFFFFF;
     }
 
-    .profile-dropdown-icon {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.40);
-    }
-
-    .profile-dropdown-icon svg {
-      width: 14px;
-      height: 14px;
-      display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(255, 255, 255, 0.72);
-    }
-
     .profile-dropdown-divider {
       height: 1px;
       margin: 5px 4px;
@@ -494,22 +439,9 @@
       color: rgba(255, 107, 120, 0.68);
     }
 
-    .profile-logout .profile-dropdown-icon {
-      color: rgba(255, 107, 120, 0.62);
-    }
-
     .profile-logout:hover {
       background: rgba(255, 65, 85, 0.07);
       color: #FF7D88;
-    }
-
-    .profile-logout:hover .profile-dropdown-icon {
-      color: #FF7D88;
-    }
-
-    .profile-dropdown-item:disabled {
-      opacity: 0.45;
-      cursor: default;
     }
 
     .login-overlay {
@@ -543,9 +475,7 @@
       border: 1px solid var(--border);
       border-radius: 9px;
       background: var(--dropdown);
-      box-shadow:
-        0 24px 70px rgba(0, 0, 0, 0.48),
-        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
       transform: translateY(8px) scale(0.985);
       transition: transform 150ms ease;
     }
@@ -585,20 +515,9 @@
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.025);
       color: rgba(255, 255, 255, 0.48);
-      font-family: "Montserrat", sans-serif;
       font-size: 15px;
       line-height: 1;
       cursor: pointer;
-      transition:
-        background 120ms ease,
-        color 120ms ease,
-        border-color 120ms ease;
-    }
-
-    .login-close:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(120, 164, 215, 0.25);
-      color: #FFFFFF;
     }
 
     .login-points {
@@ -627,7 +546,6 @@
       height: 5px;
       border-radius: 50%;
       background: #5865F2;
-      box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.08);
     }
 
     .login-proceed {
@@ -643,33 +561,10 @@
           rgba(66, 82, 210, 0.88)
         );
       color: #FFFFFF;
-      font-family: "Montserrat", sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.035em;
       cursor: pointer;
-      box-shadow: 0 7px 22px rgba(58, 78, 210, 0.18);
-      transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        transform 140ms ease,
-        box-shadow 140ms ease;
-    }
-
-    .login-proceed:hover {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(101, 114, 255, 0.94),
-          rgba(73, 88, 225, 0.94)
-        );
-      border-color: rgba(140, 160, 255, 0.42);
-      box-shadow: 0 9px 26px rgba(58, 78, 210, 0.24);
-      transform: translateY(-1px);
-    }
-
-    .login-proceed:active {
-      transform: translateY(0);
     }
 
     .login-note {
@@ -680,8 +575,6 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
-    /* PROFILE */
-
     main {
       width: min(1100px, calc(100% - 56px));
       margin: 0 auto;
@@ -691,19 +584,18 @@
     .profile-page {
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .profile-cover {
       position: relative;
       overflow: hidden;
       border: 1px solid var(--border);
-      border-radius: 10px 10px 0 0;
+      border-radius: 11px 11px 0 0;
       background:
         linear-gradient(
           135deg,
-          rgba(63, 121, 194, 0.075),
-          rgba(255, 255, 255, 0.014)
+          rgba(63, 121, 194, 0.09),
+          rgba(255, 255, 255, 0.012)
         );
     }
 
@@ -714,13 +606,13 @@
       background:
         linear-gradient(
           90deg,
-          rgba(7, 17, 31, 0.10),
-          transparent 52%,
-          rgba(79, 155, 255, 0.045)
+          rgba(7, 17, 31, 0.12),
+          transparent 50%,
+          rgba(79, 155, 255, 0.05)
         ),
         radial-gradient(
-          ellipse 600px 260px at 90% 0%,
-          rgba(79, 155, 255, 0.14),
+          ellipse 620px 280px at 90% 0%,
+          rgba(79, 155, 255, 0.15),
           transparent 72%
         );
       pointer-events: none;
@@ -729,46 +621,41 @@
     .profile-cover::after {
       content: "";
       position: absolute;
-      right: -90px;
-      top: -145px;
-      width: 390px;
-      height: 390px;
+      right: -120px;
+      top: -190px;
+      width: 440px;
+      height: 440px;
       border: 1px solid rgba(120, 164, 215, 0.07);
       border-radius: 50%;
       box-shadow:
-        0 0 0 35px rgba(120, 164, 215, 0.018),
-        0 0 0 70px rgba(120, 164, 215, 0.012);
+        0 0 0 38px rgba(120, 164, 215, 0.018),
+        0 0 0 76px rgba(120, 164, 215, 0.012);
       pointer-events: none;
     }
 
     .profile-cover-inner {
       position: relative;
       z-index: 2;
-      padding: 38px 38px 0;
-    }
-
-    .social-profile {
-      width: 100%;
+      padding: 40px 40px 0;
     }
 
     .profile-main-row {
       display: grid;
-      grid-template-columns: 118px minmax(0, 1fr) auto;
+      grid-template-columns: 126px minmax(0, 1fr) auto;
       align-items: end;
-      gap: 24px;
+      gap: 25px;
     }
 
     .main-avatar {
-      width: 118px;
-      height: 118px;
-      flex: 0 0 118px;
+      width: 126px;
+      height: 126px;
       overflow: hidden;
-      border: 1px solid rgba(120, 164, 215, 0.20);
-      border-radius: 8px;
+      border: 1px solid rgba(120, 164, 215, 0.22);
+      border-radius: 9px;
       background: rgba(255, 255, 255, 0.035);
       box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.25),
-        0 0 0 7px rgba(7, 17, 31, 0.50);
+        0 18px 40px rgba(0, 0, 0, 0.28),
+        0 0 0 7px rgba(7, 17, 31, 0.48);
     }
 
     .main-avatar img {
@@ -787,17 +674,17 @@
       background:
         linear-gradient(
           135deg,
-          rgba(79, 155, 255, 0.16),
+          rgba(79, 155, 255, 0.18),
           rgba(255, 255, 255, 0.025)
         );
-      color: rgba(255, 255, 255, 0.70);
-      font-size: 36px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 38px;
       font-weight: 700;
     }
 
     .profile-main-info {
       min-width: 0;
-      padding-bottom: 4px;
+      padding-bottom: 5px;
     }
 
     .profile-name-row {
@@ -809,18 +696,18 @@
 
     .player-name {
       margin: 0;
-      font-size: clamp(28px, 4vw, 43px);
+      font-size: clamp(29px, 4vw, 44px);
       line-height: 0.98;
       font-weight: 700;
       letter-spacing: -0.065em;
     }
 
     .profile-badge {
-      min-height: 21px;
+      min-height: 22px;
       padding: 0 8px;
       display: inline-flex;
       align-items: center;
-      border: 1px solid rgba(79, 155, 255, 0.24);
+      border: 1px solid rgba(79, 155, 255, 0.25);
       border-radius: 4px;
       background: var(--accent-soft);
       color: var(--accent);
@@ -836,11 +723,11 @@
     }
 
     .profile-bio {
-      margin: 13px 0 0;
-      max-width: 590px;
+      margin: 14px 0 0;
+      max-width: 610px;
       font-size: 10px;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.50);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.52);
     }
 
     .joined-short {
@@ -853,17 +740,17 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      padding-bottom: 4px;
+      padding-bottom: 5px;
     }
 
     .profile-action {
-      min-width: 91px;
-      min-height: 35px;
-      padding: 0 14px;
+      min-width: 94px;
+      min-height: 37px;
+      padding: 0 15px;
       border: 1px solid var(--border);
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.028);
-      color: rgba(255, 255, 255, 0.58);
+      color: rgba(255, 255, 255, 0.60);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.065em;
@@ -882,10 +769,6 @@
       transform: translateY(-1px);
     }
 
-    .profile-action:active {
-      transform: translateY(0);
-    }
-
     .profile-action.primary {
       color: #FFFFFF;
       border-color: rgba(79, 155, 255, 0.28);
@@ -893,64 +776,58 @@
     }
 
     .profile-action.primary:hover {
-      background: rgba(79, 155, 255, 0.17);
+      background: rgba(79, 155, 255, 0.18);
       border-color: rgba(120, 164, 215, 0.40);
     }
 
     .profile-action.following {
       border-color: var(--border);
       background: rgba(255, 255, 255, 0.055);
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.74);
     }
 
     .profile-action.following:hover {
       background: var(--profile-hover);
     }
 
-    .profile-action:disabled {
-      cursor: default;
-      opacity: 0.62;
-      transform: none;
-    }
-
     .social-stats {
-      margin-top: 30px;
-      min-height: 55px;
+      margin-top: 31px;
+      min-height: 57px;
       display: flex;
       align-items: center;
-      gap: 29px;
+      gap: 31px;
       border-top: 1px solid var(--border-soft);
     }
 
     .social-stat {
       display: flex;
       align-items: baseline;
-      gap: 6px;
+      gap: 7px;
       font-size: 8px;
       color: rgba(255, 255, 255, 0.34);
     }
 
     .social-stat strong {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 11px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
       font-weight: 700;
     }
 
     .profile-tabs {
-      min-height: 55px;
-      padding: 0 22px;
+      min-height: 57px;
+      padding: 0 24px;
       display: flex;
       align-items: stretch;
-      gap: 25px;
+      gap: 27px;
       border: 1px solid var(--border);
       border-top: 0;
-      border-radius: 0 0 10px 10px;
-      background: rgba(9, 16, 27, 0.68);
+      border-radius: 0 0 11px 11px;
+      background: rgba(9, 16, 27, 0.72);
     }
 
     .profile-tab {
       position: relative;
-      min-height: 55px;
+      min-height: 57px;
       padding: 0 2px;
       border: 0;
       background: transparent;
@@ -988,8 +865,8 @@
 
     .tab-content {
       display: none;
-      padding-top: 25px;
-      animation: profileTabIn 140ms ease;
+      padding-top: 27px;
+      animation: profileTabIn 150ms ease;
     }
 
     .tab-content.active {
@@ -999,7 +876,7 @@
     @keyframes profileTabIn {
       from {
         opacity: 0;
-        transform: translateY(3px);
+        transform: translateY(4px);
       }
 
       to {
@@ -1011,34 +888,53 @@
     .profile-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
-      gap: 25px;
+      gap: 20px;
     }
 
     .profile-panel {
       min-width: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
+      padding: 23px 24px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(16, 27, 44, 0.88),
+          rgba(9, 17, 29, 0.82)
+        );
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
+      transition:
+        border-color 140ms ease,
+        background 140ms ease,
+        transform 140ms ease,
+        box-shadow 140ms ease;
     }
 
     .profile-panel:hover {
-      border-color: transparent;
-      background: transparent;
+      border-color: rgba(120, 164, 215, 0.23);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(17, 29, 47, 0.94),
+          rgba(10, 19, 32, 0.88)
+        );
+      box-shadow:
+        0 13px 34px rgba(0, 0, 0, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.022);
     }
 
     .panel-label {
       display: flex;
       align-items: center;
       gap: 9px;
-      min-height: 32px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-soft);
+      min-height: 22px;
+      margin-bottom: 18px;
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.085em;
+      color: rgba(255, 255, 255, 0.78);
     }
 
     .panel-label::before {
@@ -1055,33 +951,48 @@
       margin: 0;
       max-width: 650px;
       font-size: 10px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: rgba(255, 255, 255, 0.49);
+    }
+
+    .overview-about {
+      min-height: 184px;
+    }
+
+    .overview-profile {
+      min-height: 184px;
+    }
+
+    .overview-activity {
+      min-height: 184px;
     }
 
     .stat-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
-      border-top: 1px solid var(--border-soft);
-      border-left: 1px solid var(--border-soft);
+      gap: 8px;
     }
 
     .stat-box {
-      min-height: 88px;
-      padding: 18px;
-      border-right: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.012);
-      transition: background 120ms ease;
+      min-height: 94px;
+      padding: 17px;
+      border: 1px solid var(--border-soft);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.018);
+      transition:
+        background 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
     }
 
     .stat-box:hover {
-      background: rgba(79, 155, 255, 0.025);
+      background: rgba(79, 155, 255, 0.035);
+      border-color: rgba(79, 155, 255, 0.15);
+      transform: translateY(-1px);
     }
 
     .stat-value {
-      font-size: 22px;
+      font-size: 23px;
       line-height: 1;
       font-weight: 700;
       letter-spacing: -0.045em;
@@ -1102,8 +1013,8 @@
     }
 
     .profile-list-row {
-      min-height: 46px;
-      padding: 0;
+      min-height: 48px;
+      padding: 0 2px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1122,34 +1033,35 @@
       overflow: hidden;
       font-size: 9px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.70);
+      color: rgba(255, 255, 255, 0.72);
       text-align: right;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .empty-state {
-      min-height: 92px;
-      padding: 25px 0;
+      min-height: 112px;
+      padding: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-top: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
+      border: 1px dashed var(--border-soft);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.012);
       text-align: center;
       color: rgba(255, 255, 255, 0.27);
       font-size: 9px;
+      line-height: 1.6;
     }
 
     .activity-list {
       display: flex;
       flex-direction: column;
-      border-top: 1px solid var(--border-soft);
     }
 
     .activity-item {
       min-height: 68px;
-      padding: 14px 0;
+      padding: 13px 0;
       display: flex;
       align-items: center;
       gap: 13px;
@@ -1161,17 +1073,18 @@
     }
 
     .activity-icon {
-      width: 29px;
-      height: 29px;
-      flex: 0 0 29px;
+      width: 32px;
+      height: 32px;
+      flex: 0 0 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.42);
-      font-size: 11px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: rgba(255, 255, 255, 0.60);
+      font-size: 12px;
+      font-weight: 500;
     }
 
     .activity-text {
@@ -1181,6 +1094,7 @@
 
     .activity-title {
       font-size: 9px;
+      line-height: 1.5;
       color: rgba(255, 255, 255, 0.62);
     }
 
@@ -1188,6 +1102,38 @@
       margin-top: 4px;
       font-size: 7px;
       color: rgba(255, 255, 255, 0.25);
+    }
+
+    .career-statistics {
+      grid-column: 1 / -1;
+    }
+
+    .career-statistics .stat-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .career-statistics .stat-box {
+      min-height: 108px;
+    }
+
+    .career-card-wide {
+      min-height: 185px;
+    }
+
+    .teams-panel {
+      min-height: 270px;
+    }
+
+    .activity-panel {
+      min-height: 270px;
+    }
+
+    .about-account {
+      min-height: 250px;
+    }
+
+    .about-connections {
+      min-height: 250px;
     }
 
     footer {
@@ -1208,10 +1154,6 @@
       color: rgba(255, 255, 255, 0.30);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease;
     }
 
     .footer-left,
@@ -1250,10 +1192,13 @@
       --surface: rgba(245, 245, 245, 0.98);
       --border: rgba(30, 40, 50, 0.15);
       --border-soft: rgba(30, 40, 50, 0.10);
+      --border-strong: rgba(30, 40, 50, 0.20);
       --text: #15181C;
       --muted: rgba(21, 24, 28, 0.58);
+      --muted-strong: rgba(21, 24, 28, 0.68);
       --accent: #5365D8;
       --accent-soft: rgba(83, 101, 216, 0.09);
+      --accent-medium: rgba(83, 101, 216, 0.14);
       --topbar: rgba(230, 230, 230, 0.90);
       --profile: rgba(245, 245, 245, 0.94);
       --profile-hover: rgba(250, 250, 250, 0.98);
@@ -1281,33 +1226,6 @@
     body.theme-light .profile-chevron,
     body.theme-light .profile-dropdown-item {
       color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .profile-card:hover .profile-chevron,
-    body.theme-light .profile-card.open .profile-chevron {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.40);
-    }
-
-    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .profile-dropdown-item:hover {
-      background: var(--accent-soft);
-      color: #15181C;
-    }
-
-    body.theme-light .dropdown a {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .dropdown a:hover,
-    body.theme-light .dropdown a:focus-visible {
-      color: #15181C;
     }
 
     body.theme-light .profile-bio,
@@ -1352,6 +1270,24 @@
       color: #15181C;
     }
 
+    body.theme-light .profile-panel {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(247, 247, 247, 0.90),
+          rgba(239, 239, 239, 0.82)
+        );
+    }
+
+    body.theme-light .profile-panel:hover {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(250, 250, 250, 0.96),
+          rgba(242, 242, 242, 0.90)
+        );
+    }
+
     body.theme-light .empty-state {
       color: rgba(21, 24, 28, 0.28);
     }
@@ -1386,98 +1322,34 @@
       color: rgba(21, 24, 28, 0.58);
     }
 
-    body.theme-light .login-close {
-      background: rgba(21, 24, 28, 0.025);
-      color: rgba(21, 24, 28, 0.48);
-    }
-
-    body.theme-light .login-close:hover {
-      background: rgba(21, 24, 28, 0.06);
+    body.theme-light .login-modal-title {
       color: #15181C;
     }
 
-    body.theme-blue {
-      --bg: #07111F;
-      --accent: #4F9BFF;
-      --accent-soft: rgba(79, 155, 255, 0.10);
-      --topbar: rgba(6, 15, 29, 0.84);
-      --profile: rgba(9, 16, 27, 0.88);
-      --profile-hover: rgba(12, 22, 37, 0.94);
-      --dropdown: rgba(13, 22, 36, 0.98);
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(42, 103, 175, 0.34),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(25, 75, 145, 0.18),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(20, 65, 125, 0.13),
-          transparent 72%
-        ),
-        #07111F;
-    }
+    @media (max-width: 1050px) {
+      .profile-main-row {
+        grid-template-columns: 112px minmax(0, 1fr);
+      }
 
-    body.theme-royal {
-      --bg: #0E0B20;
-      --accent: #8D79FF;
-      --accent-soft: rgba(141, 121, 255, 0.11);
-      --topbar: rgba(10, 10, 29, 0.88);
-      --profile: rgba(16, 14, 39, 0.90);
-      --profile-hover: rgba(22, 18, 52, 0.96);
-      --dropdown: rgba(17, 14, 42, 0.99);
-      background:
-        radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(73, 56, 170, 0.34),
-          transparent 67%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 52%,
-          rgba(39, 57, 135, 0.25),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(112, 48, 145, 0.18),
-          transparent 72%
-        ),
-        #0E0B20;
-    }
+      .main-avatar {
+        width: 112px;
+        height: 112px;
+      }
 
-    body.theme-ocean {
-      --bg: #061A22;
-      --accent: #52C7D8;
-      --accent-soft: rgba(82, 199, 216, 0.11);
-      --topbar: rgba(5, 24, 32, 0.88);
-      --profile: rgba(7, 30, 39, 0.90);
-      --profile-hover: rgba(9, 39, 50, 0.96);
-      --dropdown: rgba(7, 31, 41, 0.99);
-      background:
-        radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(20, 111, 132, 0.36),
-          transparent 67%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 7% 52%,
-          rgba(15, 76, 111, 0.28),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(31, 139, 143, 0.17),
-          transparent 72%
-        ),
-        #061A22;
+      .profile-actions {
+        grid-column: 2;
+      }
+
+      .career-statistics .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 900px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
       .profile-main-row {
         grid-template-columns: 105px minmax(0, 1fr);
       }
@@ -1485,16 +1357,11 @@
       .main-avatar {
         width: 105px;
         height: 105px;
-        flex-basis: 105px;
       }
 
       .profile-actions {
         grid-column: 2;
         padding-bottom: 0;
-      }
-
-      .profile-grid {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -1515,7 +1382,6 @@
         right: 20px;
         width: 128px;
         height: 36px;
-        padding: 0 14px;
       }
 
       .profile-card {
@@ -1534,17 +1400,8 @@
         max-width: 65px;
       }
 
-      .profile-dropdown {
-        right: -3px;
-      }
-
-      .discord-logo {
-        width: 20px;
-        height: 20px;
-      }
-
       main {
-        width: min(100% - 28px, 600px);
+        width: min(100% - 28px, 680px);
         padding-top: 30px;
         padding-bottom: 100px;
       }
@@ -1561,7 +1418,6 @@
       .main-avatar {
         width: 92px;
         height: 92px;
-        flex-basis: 92px;
       }
 
       .profile-actions {
@@ -1576,6 +1432,10 @@
       .profile-tabs {
         padding: 0 17px;
         gap: 21px;
+      }
+
+      .profile-panel {
+        padding: 21px;
       }
     }
 
@@ -1679,7 +1539,6 @@
       .main-avatar {
         width: 78px;
         height: 78px;
-        flex-basis: 78px;
         box-shadow:
           0 12px 25px rgba(0, 0, 0, 0.20),
           0 0 0 5px rgba(7, 17, 31, 0.45);
@@ -1749,16 +1608,25 @@
       }
 
       .profile-grid {
-        gap: 26px;
+        gap: 15px;
       }
 
       .profile-panel {
         width: 100%;
+        padding: 19px;
+      }
+
+      .career-statistics .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .stat-box {
         min-height: 76px;
         padding: 15px;
+      }
+
+      .stat-value {
+        font-size: 20px;
       }
 
       footer {
@@ -1780,58 +1648,56 @@
       .login-modal {
         padding: 24px 21px;
       }
+    }
 
-      .login-modal-title {
-        font-size: 22px;
+    @media (max-width: 420px) {
+      .profile-main-row {
+        grid-template-columns: 68px minmax(0, 1fr);
+      }
+
+      .main-avatar {
+        width: 68px;
+        height: 68px;
+      }
+
+      .player-name {
+        font-size: 23px;
+      }
+
+      .profile-name-row {
+        gap: 7px;
+      }
+
+      .profile-bio {
+        font-size: 7.5px;
+      }
+
+      .profile-action {
+        font-size: 7px;
+      }
+
+      .profile-panel {
+        padding: 17px;
+      }
+
+      .panel-text {
+        font-size: 9px;
+      }
+
+      .profile-list-value {
+        max-width: 55%;
       }
     }
   </style>
 </head>
 
-<body class="theme-blue">
-
-  <script>
-    (function () {
-      try {
-        const authenticated =
-          localStorage.getItem("rsf-authenticated") === "true";
-
-        const cachedTheme =
-          localStorage.getItem("rsf-theme");
-
-        const validThemes = [
-          "dark",
-          "light",
-          "blue",
-          "royal",
-          "ocean"
-        ];
-
-        if (
-          authenticated &&
-          validThemes.includes(cachedTheme)
-        ) {
-          document.body.classList.remove(
-            "theme-dark",
-            "theme-light",
-            "theme-blue",
-            "theme-royal",
-            "theme-ocean"
-          );
-
-          document.body.classList.add(
-            `theme-${cachedTheme}`
-          );
-        }
-      } catch (error) {}
-    })();
-  </script>
+<body>
 
   <header class="topbar">
 
     <a href="/" class="logo">RSF</a>
 
-    <nav class="navigation" aria-label="Main navigation">
+    <nav class="navigation">
 
       <div class="nav-item">
         <a href="/" class="nav-label">
@@ -1847,8 +1713,8 @@
 
         <div class="dropdown">
           <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
+          <a href="/teams">Teams</a>
+          <a href="/seasons">Seasons</a>
         </div>
       </div>
 
@@ -1915,7 +1781,6 @@
       </div>
 
       <div class="profile-info">
-
         <span
           class="profile-username"
           id="profile-username"
@@ -1929,7 +1794,6 @@
         >
           GUEST
         </span>
-
       </div>
 
       <span
@@ -1940,6 +1804,39 @@
           <path d="M2 3.5L5 6.5L8 3.5"></path>
         </svg>
       </span>
+
+      <div
+        class="profile-dropdown"
+        id="profile-dropdown"
+      >
+
+        <button
+          type="button"
+          class="profile-dropdown-item"
+          id="profile-dropdown-profile"
+        >
+          PROFILE
+        </button>
+
+        <button
+          type="button"
+          class="profile-dropdown-item"
+          id="profile-dropdown-settings"
+        >
+          SETTINGS
+        </button>
+
+        <div class="profile-dropdown-divider"></div>
+
+        <button
+          type="button"
+          class="profile-dropdown-item profile-logout"
+          id="profile-dropdown-logout"
+        >
+          LOG OUT
+        </button>
+
+      </div>
 
     </div>
 
@@ -2209,7 +2106,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <div class="profile-panel overview-about">
 
             <div class="panel-label">
               ABOUT
@@ -2266,7 +2163,7 @@
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel overview-profile">
 
             <div class="panel-label">
               PROFILE
@@ -2323,14 +2220,34 @@
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel overview-activity">
 
             <div class="panel-label">
               ACTIVITY
             </div>
 
-            <div class="empty-state">
-              No recent public activity.
+            <div class="activity-list">
+
+              <div class="activity-item">
+
+                <div class="activity-icon">
+                  +
+                </div>
+
+                <div class="activity-text">
+
+                  <div class="activity-title">
+                    Profile activity will appear here.
+                  </div>
+
+                  <div class="activity-date">
+                    —
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
 
           </div>
@@ -2346,7 +2263,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <div class="profile-panel career-statistics">
 
             <div class="panel-label">
               CAREER STATISTICS
@@ -2355,30 +2272,58 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">APPEARANCES</div>
+
+                <div class="stat-value">
+                  —
+                </div>
+
+                <div class="stat-name">
+                  APPEARANCES
+                </div>
+
               </div>
 
               <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">GOALS</div>
+
+                <div class="stat-value">
+                  —
+                </div>
+
+                <div class="stat-name">
+                  GOALS
+                </div>
+
               </div>
 
               <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">ASSISTS</div>
+
+                <div class="stat-value">
+                  —
+                </div>
+
+                <div class="stat-name">
+                  ASSISTS
+                </div>
+
               </div>
 
               <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">RATING</div>
+
+                <div class="stat-value">
+                  —
+                </div>
+
+                <div class="stat-name">
+                  RATING
+                </div>
+
               </div>
 
             </div>
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel career-card-wide">
 
             <div class="panel-label">
               SEASONS
@@ -2390,7 +2335,7 @@
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel career-card-wide">
 
             <div class="panel-label">
               TEAM HISTORY
@@ -2402,7 +2347,7 @@
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel career-card-wide">
 
             <div class="panel-label">
               MATCH HISTORY
@@ -2423,7 +2368,7 @@
         id="teams-tab"
       >
 
-        <div class="profile-panel">
+        <div class="profile-panel teams-panel">
 
           <div class="panel-label">
             TEAMS
@@ -2442,7 +2387,7 @@
         id="activity-tab"
       >
 
-        <div class="profile-panel">
+        <div class="profile-panel activity-panel">
 
           <div class="panel-label">
             RECENT ACTIVITY
@@ -2483,7 +2428,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <div class="profile-panel about-account">
 
             <div class="panel-label">
               ACCOUNT
@@ -2555,7 +2500,7 @@
 
           </div>
 
-          <div class="profile-panel">
+          <div class="profile-panel about-connections">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2761,7 +2706,8 @@
         event => {
 
           if (
-            event.key === "rsf-theme"
+            event.key ===
+            "rsf-theme"
           ) {
 
             if (
@@ -2786,7 +2732,7 @@
 
           if (
             event.key ===
-              "rsf-authenticated" &&
+            "rsf-authenticated" &&
             event.newValue !== "true"
           ) {
 
@@ -2908,6 +2854,79 @@
         }
       );
 
+      const profileCard =
+        document.getElementById(
+          "profile-card"
+        );
+
+      const profileDropdown =
+        document.getElementById(
+          "profile-dropdown"
+        );
+
+      if (profileCard) {
+
+        profileCard.addEventListener(
+          "click",
+          event => {
+
+            if (
+              event.target.closest(
+                ".profile-dropdown"
+              )
+            ) {
+              return;
+            }
+
+            const open =
+              profileDropdown.classList.toggle(
+                "open"
+              );
+
+            profileCard.classList.toggle(
+              "open",
+              open
+            );
+
+            profileCard.setAttribute(
+              "aria-expanded",
+              open ? "true" : "false"
+            );
+
+          }
+        );
+
+      }
+
+      document.addEventListener(
+        "click",
+        event => {
+
+          if (
+            profileCard &&
+            !profileCard.contains(
+              event.target
+            )
+          ) {
+
+            profileDropdown.classList.remove(
+              "open"
+            );
+
+            profileCard.classList.remove(
+              "open"
+            );
+
+            profileCard.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+
+        }
+      );
+
       const profileTabs =
         document.querySelectorAll(
           ".profile-tab"
@@ -2945,7 +2964,7 @@
                   content.classList.toggle(
                     "active",
                     content.id ===
-                      `${target}-tab`
+                    `${target}-tab`
                   );
 
                 }
@@ -3146,22 +3165,25 @@
               "Content-Type":
                 "application/json"
             },
-            body: JSON.stringify({
-              usernames: [
-                username
-              ],
-              excludeBannedUsers:
-                false
-            })
+            body:
+              JSON.stringify({
+                usernames: [
+                  username
+                ],
+                excludeBannedUsers:
+                  false
+              })
           }
         )
           .then(
             response => {
 
               if (!response.ok) {
+
                 throw new Error(
                   "Roblox user lookup failed."
                 );
+
               }
 
               return response.json();
@@ -3202,9 +3224,11 @@
               }
 
               if (!response.ok) {
+
                 throw new Error(
                   "Roblox thumbnail lookup failed."
                 );
+
               }
 
               return response.json();
@@ -3261,9 +3285,7 @@
 
         mainAvatarFallback.textContent =
           value
-            ? value
-                .charAt(0)
-                .toUpperCase()
+            ? value.charAt(0).toUpperCase()
             : "?";
 
       }
@@ -3383,9 +3405,11 @@
             );
 
           if (!response.ok) {
+
             throw new Error(
               "Unable to load follow data."
             );
+
           }
 
           const data =
