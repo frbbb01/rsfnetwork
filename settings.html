@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSF — Settings</title>
+
+  <style>
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Montserrat";
+      src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #0B1220;
+      --border: rgba(120, 164, 215, 0.16);
+      --border-soft: rgba(120, 164, 215, 0.11);
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: #0B1220;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--white);
+      font-family: "Montserrat", sans-serif;
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #0B1220;
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 68px;
+      padding: 0 32px;
+      border-bottom: 1px solid rgba(120, 164, 215, 0.13);
+      background: rgba(8, 15, 27, 0.84);
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .logo {
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .navigation {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 100%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      opacity: 0.52;
+      transition: opacity 120ms ease;
+    }
+
+    .nav-item:hover,
+    .nav-item:focus-within {
+      opacity: 0.92;
+    }
+
+    .nav-item.active {
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-label {
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .arrow {
+      font-size: 9px;
+      line-height: 1;
+      opacity: 0.65;
+      transform: translateY(-1px);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 170px;
+      padding: 6px;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(13, 22, 36, 0.98);
+      border: 1px solid rgba(120, 164, 215, 0.18);
+      border-radius: 7px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease,
+        transform 100ms ease;
+      z-index: 200;
+    }
+
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown a {
+      min-height: 34px;
+      padding: 0 11px;
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      border-radius: 4px;
+      opacity: 0.56;
+      transition:
+        background 100ms ease,
+        opacity 100ms ease;
+    }
+
+    .dropdown a:hover,
+    .dropdown a:focus-visible {
+      background: rgba(96, 145, 205, 0.10);
+      opacity: 1;
+      outline: none;
+    }
+
+    .login-button {
+      position: absolute;
+      right: 32px;
+      width: 148px;
+      height: 40px;
+      padding: 0 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      background:
+        linear-gradient(
+          135deg,
+          #5865F2,
+          #5360E8
+        );
+      color: #FFFFFF;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.055em;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(45, 55, 160, 0.16);
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .login-button:hover {
+      background:
+        linear-gradient(
+          135deg,
+          #6370F5,
+          #5966EB
+        );
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
+    }
+
+    .login-button:active {
+      box-shadow: 0 3px 12px rgba(45, 55, 160, 0.16);
+    }
+
+    .discord-logo {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .profile-card {
+      position: absolute;
+      right: 32px;
+      width: 178px;
+      height: 42px;
+      padding: 0 10px 0 7px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 6px;
+      background: rgba(9, 16, 27, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .profile-card:hover {
+      background: rgba(12, 22, 37, 0.94);
+      border-color: rgba(120, 164, 215, 0.25);
+      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    .profile-card.open {
+      border-color: rgba(120, 164, 215, 0.27);
+      background: rgba(12, 22, 37, 0.94);
+    }
+
+    .profile-avatar {
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
+      overflow: hidden;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .profile-avatar.guest {
+      display: none;
+    }
+
+    .profile-info {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .profile-username {
+      max-width: 116px;
+      overflow: hidden;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: #FFFFFF;
+    }
+
+    .profile-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 7px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      color: rgba(255, 255, 255, 0.42);
+    }
+
+    .profile-status::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #4F9BFF;
+      opacity: 0.8;
+    }
+
+    .profile-card.guest .profile-status::before {
+      background: rgba(255, 255, 255, 0.34);
+    }
+
+    .profile-chevron {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.30);
+      transition:
+        color 140ms ease,
+        transform 140ms ease;
+    }
+
+    .profile-card:hover .profile-chevron {
+      color: rgba(255, 255, 255, 0.60);
+    }
+
+    .profile-card.open .profile-chevron {
+      color: rgba(255, 255, 255, 0.68);
+      transform: rotate(180deg);
+    }
+
+    .profile-chevron svg {
+      width: 10px;
+      height: 10px;
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 195px;
+      padding: 5px;
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 7px;
+      background: rgba(13, 22, 36, 0.98);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease,
+        transform 100ms ease;
+      z-index: 9999;
+    }
+
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .profile-dropdown-item {
+      width: 100%;
+      min-height: 38px;
+      padding: 0 11px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.64);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        background 100ms ease,
+        color 100ms ease;
+    }
+
+    .profile-dropdown-item:hover {
+      background: rgba(96, 145, 205, 0.10);
+      color: #FFFFFF;
+    }
+
+    .profile-dropdown-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.40);
+    }
+
+    .profile-dropdown-icon svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .profile-dropdown-logout {
+      color: rgba(255, 107, 120, 0.68);
+    }
+
+    .profile-dropdown-logout .profile-dropdown-icon {
+      color: rgba(255, 107, 120, 0.62);
+    }
+
+    .profile-dropdown-logout:hover {
+      background: rgba(255, 65, 85, 0.07);
+      color: #FF7D88;
+    }
+
+    .profile-dropdown-logout:hover .profile-dropdown-icon {
+      color: #FF7D88;
+    }
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(3, 7, 14, 0.66);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 150ms ease,
+        visibility 150ms ease;
+    }
+
+    .login-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .login-modal {
+      width: min(440px, 100%);
+      padding: 28px;
+      border: 1px solid rgba(120, 164, 215, 0.17);
+      border-radius: 9px;
+      background: rgba(9, 16, 27, 0.94);
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+      transform: translateY(8px) scale(0.985);
+      transition: transform 150ms ease;
+    }
+
+    .login-overlay.open .login-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .login-modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .login-modal-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+
+    .login-modal-subtitle {
+      margin: 8px 0 0;
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.43);
+    }
+
+    .login-close {
+      width: 27px;
+      height: 27px;
+      flex: 0 0 auto;
+      padding: 0;
+      border: 1px solid rgba(120, 164, 215, 0.14);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.025);
+      color: rgba(255, 255, 255, 0.48);
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background 120ms ease,
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .login-close:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(120, 164, 215, 0.25);
+      color: #FFFFFF;
+    }
+
+    .login-points {
+      margin: 25px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .login-points li {
+      position: relative;
+      padding-left: 17px;
+      font-size: 10px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .login-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #5865F2;
+      box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.08);
+    }
+
+    .login-proceed {
+      width: 100%;
+      min-height: 40px;
+      margin-top: 26px;
+      border: 1px solid rgba(114, 169, 235, 0.28);
+      border-radius: 6px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(88, 101, 242, 0.88),
+          rgba(66, 82, 210, 0.88)
+        );
+      color: #FFFFFF;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+      cursor: pointer;
+      box-shadow: 0 7px 22px rgba(58, 78, 210, 0.18);
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .login-proceed:hover {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(101, 114, 255, 0.94),
+          rgba(73, 88, 225, 0.94)
+        );
+      border-color: rgba(140, 160, 255, 0.42);
+      box-shadow: 0 9px 26px rgba(58, 78, 210, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .login-proceed:active {
+      transform: translateY(0);
+    }
+
+    .login-note {
+      margin: 14px 0 0;
+      font-size: 8px;
+      line-height: 1.6;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.27);
+    }
+
+    main {
+      width: min(1020px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 48px 0 105px;
+    }
+
+    .settings-header {
+      padding: 0 0 24px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .settings-title {
+      margin: 0;
+      font-size: clamp(38px, 5vw, 58px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.065em;
+    }
+
+    .settings-description {
+      margin: 15px 0 0;
+      max-width: 540px;
+      font-size: 10px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.43);
+    }
+
+    .settings-content {
+      min-height: 280px;
+      margin-top: 14px;
+      border: 1px solid rgba(120, 164, 215, 0.16);
+      border-radius: 10px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(63, 121, 194, 0.075),
+          rgba(255, 255, 255, 0.018)
+        );
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      min-height: 58px;
+      padding: 0 32px;
+      border-top: 1px solid rgba(120, 164, 215, 0.13);
+      background: rgba(8, 15, 27, 0.84);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.30);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 700;
+    }
+
+    .footer-right a {
+      transition: color 100ms ease;
+    }
+
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .navigation {
+        gap: 18px;
+      }
+
+      .nav-item {
+        font-size: 13px;
+      }
+
+      .login-button {
+        right: 20px;
+        width: 128px;
+        height: 36px;
+        padding: 0 14px;
+      }
+
+      .profile-card {
+        right: 20px;
+        width: 128px;
+        height: 38px;
+      }
+
+      .profile-avatar {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+      }
+
+      .profile-username {
+        max-width: 65px;
+      }
+
+      .profile-dropdown {
+        right: -3px;
+      }
+
+      .discord-logo {
+        width: 20px;
+        height: 20px;
+      }
+
+      main {
+        width: min(100% - 28px, 600px);
+        padding-top: 30px;
+        padding-bottom: 100px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar {
+        height: auto;
+        min-height: 64px;
+        padding: 18px 20px;
+        align-items: flex-start;
+      }
+
+      .logo {
+        margin-top: 4px;
+      }
+
+      .navigation {
+        position: static;
+        height: auto;
+        margin-left: auto;
+        margin-right: 132px;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px 17px;
+      }
+
+      .nav-item {
+        height: auto;
+        min-height: 18px;
+        font-size: 11px;
+      }
+
+      .dropdown {
+        top: calc(100% + 4px);
+      }
+
+      .login-button {
+        right: 20px;
+        top: 18px;
+        width: 108px;
+        height: 34px;
+        padding: 0 11px;
+        gap: 7px;
+        font-size: 9px;
+      }
+
+      .profile-card {
+        right: 20px;
+        top: 18px;
+        width: 108px;
+        height: 34px;
+        padding: 0 7px 0 5px;
+        gap: 7px;
+      }
+
+      .profile-avatar {
+        width: 24px;
+        height: 24px;
+        flex-basis: 24px;
+      }
+
+      .profile-username {
+        max-width: 43px;
+        font-size: 8px;
+      }
+
+      .profile-status {
+        font-size: 5px;
+      }
+
+      .profile-chevron {
+        width: 11px;
+        height: 11px;
+        flex-basis: 11px;
+      }
+
+      .profile-dropdown {
+        width: 185px;
+        right: -4px;
+      }
+
+      .discord-logo {
+        width: 19px;
+        height: 19px;
+      }
+
+      footer {
+        min-height: 54px;
+        padding: 15px 20px;
+        align-items: center;
+      }
+
+      .footer-left,
+      .footer-right {
+        gap: 12px;
+      }
+
+      .footer-right {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header class="topbar">
+
+```
+<a href="/" class="logo">
+  RSF
+</a>
+
+<nav class="navigation" aria-label="Main navigation">
+
+  <div class="nav-item">
+    <a href="/" class="nav-label">
+      MAIN
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="/database" class="nav-label">
+      DATABASE
+      <span class="arrow">▾</span>
+    </a>
+
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/community" class="nav-label">
+      COMMUNITY
+      <span class="arrow">▾</span>
+    </a>
+
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/arcade" class="nav-label">
+      ARCADE
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="/rsf" class="nav-label">
+      RSF
+    </a>
+  </div>
+
+</nav>
+
+<button
+  type="button"
+  class="login-button"
+  id="login-button"
+  aria-label="Login with Discord"
+>
+  <img
+    class="discord-logo"
+    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+    alt=""
+    aria-hidden="true"
+  >
+  <span>LOGIN</span>
+</button>
+
+<div
+  class="profile-card"
+  id="profile-card"
+  style="display: none;"
+  aria-haspopup="true"
+  aria-expanded="false"
+>
+  <div class="profile-avatar" id="profile-avatar-container">
+    <img
+      id="profile-avatar"
+      src=""
+      alt=""
+    >
+  </div>
+
+  <div class="profile-info">
+    <span
+      class="profile-username"
+      id="profile-username"
+    >
+      —
+    </span>
+
+    <span
+      class="profile-status"
+      id="profile-status"
+    >
+      GUEST
+    </span>
+  </div>
+
+  <span class="profile-chevron" aria-hidden="true">
+    <svg viewBox="0 0 10 10">
+      <path d="M2 3.5L5 6.5L8 3.5"></path>
+    </svg>
+  </span>
+</div>
+```
+
+  </header>
+
+  <div
+    class="login-overlay"
+    id="login-overlay"
+    aria-hidden="true"
+  >
+
+```
+<div
+  class="login-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="login-title"
+>
+
+  <div class="login-modal-header">
+
+    <div>
+      <h2
+        class="login-modal-title"
+        id="login-title"
+      >
+        Login to RSF
+      </h2>
+
+      <p class="login-modal-subtitle">
+        Connect your Discord account to access the full RSF experience.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="login-close"
+      id="login-close"
+      aria-label="Close login"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <ul class="login-points">
+    <li>Logging in is completely optional.</li>
+    <li>Log in to access all features available across the RSF website.</li>
+    <li>Your Discord account is only used to authenticate your RSF account.</li>
+    <li>We only use the information required to provide your account and website features.</li>
+    <li>You can continue using publicly available parts of the website without logging in.</li>
+  </ul>
+
+  <button
+    type="button"
+    class="login-proceed"
+    id="login-proceed"
+  >
+    PROCEED TO LOGIN
+  </button>
+
+  <p class="login-note">
+    By continuing, you will be redirected to Discord to authenticate.
+  </p>
+
+</div>
+```
+
+  </div>
+
+  <main>
+
+```
+<section class="settings-header">
+  <h1 class="settings-title">
+    SETTINGS
+  </h1>
+
+  <p class="settings-description">
+    Manage your RSF account and website preferences.
+  </p>
+</section>
+
+<section
+  class="settings-content"
+  aria-label="Settings"
+>
+</section>
+```
+
+  </main>
+
+  <footer>
+
+```
+<div class="footer-left">
+  <span class="footer-brand">
+    RSF
+  </span>
+</div>
+
+<div class="footer-right">
+  <a href="/privacy">
+    Privacy Policy
+  </a>
+
+  <a href="/terms">
+    Terms of Use
+  </a>
+</div>
+```
+
+  </footer>
+
+  <script>
+    const loginButton =
+      document.getElementById("login-button");
+
+    const loginOverlay =
+      document.getElementById("login-overlay");
+
+    const loginClose =
+      document.getElementById("login-close");
+
+    const loginProceed =
+      document.getElementById("login-proceed");
+
+    function openLoginModal() {
+      loginOverlay.classList.add("open");
+      loginOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLoginModal() {
+      loginOverlay.classList.remove("open");
+      loginOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    loginButton.addEventListener(
+      "click",
+      openLoginModal
+    );
+
+    loginClose.addEventListener(
+      "click",
+      closeLoginModal
+    );
+
+    loginOverlay.addEventListener(
+      "click",
+      event => {
+        if (event.target === loginOverlay) {
+          closeLoginModal();
+        }
+      }
+    );
+
+    loginProceed.addEventListener(
+      "click",
+      () => {
+        window.location.href = "/api/login";
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Escape" &&
+          loginOverlay.classList.contains("open")
+        ) {
+          closeLoginModal();
+        }
+      }
+    );
+  </script>
+
+  <script src="/auth.js"></script>
+
+</body>
+</html>
