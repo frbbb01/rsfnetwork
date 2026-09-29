@@ -1461,6 +1461,42 @@
 
 <body data-theme="blue">
 
+  <script>
+    (function () {
+      const validThemes = [
+        "dark",
+        "light",
+        "blue",
+        "royal",
+        "ocean"
+      ];
+
+      try {
+        if (
+          localStorage.getItem(
+            "rsf-authenticated"
+          ) === "true"
+        ) {
+          const cachedTheme =
+            localStorage.getItem(
+              "rsf-theme"
+            );
+
+          if (
+            cachedTheme &&
+            validThemes.includes(
+              cachedTheme
+            )
+          ) {
+            document.body.dataset.theme =
+              cachedTheme;
+          }
+        }
+      } catch (error) {
+      }
+    })();
+  </script>
+
   <header class="topbar">
 
 <a href="/" class="logo">
@@ -1905,7 +1941,19 @@ aria-label="Next news"
 
         if (!meResponse.ok) {
           authenticatedUser = false;
-          applyTheme("blue", false);
+
+          try {
+            localStorage.removeItem(
+              "rsf-authenticated"
+            );
+          } catch (error) {
+          }
+
+          applyTheme(
+            "blue",
+            false
+          );
+
           return;
         }
 
@@ -1917,11 +1965,31 @@ aria-label="Next news"
           !meData.verified
         ) {
           authenticatedUser = false;
-          applyTheme("blue", false);
+
+          try {
+            localStorage.removeItem(
+              "rsf-authenticated"
+            );
+          } catch (error) {
+          }
+
+          applyTheme(
+            "blue",
+            false
+          );
+
           return;
         }
 
         authenticatedUser = true;
+
+        try {
+          localStorage.setItem(
+            "rsf-authenticated",
+            "true"
+          );
+        } catch (error) {
+        }
 
         loadCachedTheme();
 
@@ -1964,6 +2032,26 @@ aria-label="Next news"
       "storage",
       event => {
         if (
+          event.key ===
+          "rsf-authenticated"
+        ) {
+          if (
+            event.newValue !==
+            "true"
+          ) {
+            authenticatedUser =
+              false;
+
+            applyTheme(
+              "blue",
+              false
+            );
+          }
+
+          return;
+        }
+
+        if (
           event.key !==
           "rsf-theme"
         ) {
@@ -1971,9 +2059,15 @@ aria-label="Next news"
         }
 
         if (
-          !authenticatedUser
+          localStorage.getItem(
+            "rsf-authenticated"
+          ) !== "true"
         ) {
-          applyTheme("blue", false);
+          applyTheme(
+            "blue",
+            false
+          );
+
           return;
         }
 
