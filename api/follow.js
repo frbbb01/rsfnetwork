@@ -86,9 +86,7 @@ function getSessionDiscordId(req) {
   const signature =
     parts[1];
 
-  if (
-    !process.env.SESSION_SECRET
-  ) {
+  if (!process.env.SESSION_SECRET) {
     return null;
   }
 
@@ -336,6 +334,25 @@ function getRequestedPlayerId(req) {
   return "";
 }
 
+function getBody(req) {
+  let body =
+    req.body;
+
+  if (
+    typeof body ===
+    "string"
+  ) {
+    try {
+      body =
+        JSON.parse(body);
+    } catch {
+      body = {};
+    }
+  }
+
+  return body || {};
+}
+
 async function getFollowState(
   followerId,
   followingId
@@ -394,6 +411,209 @@ async function getFollowCounts(
   };
 }
 
+async function getFollowList(
+  userId,
+  type
+) {
+  const column =
+    type === "followers"
+      ? "following_id"
+      : "follower_id";
+
+  const relationshipColumn =
+    type === "followers"
+      ? "follower_id"
+      : "following_id";
+
+  const follows =
+    await supabaseRequest(
+      `follows?select=${relationshipColumn},created_at&${column}=eq.${encodeURIComponent(
+        userId
+      )}&order=created_at.desc`
+    );
+
+  if (
+    !Array.isArray(follows) ||
+    follows.length === 0
+  ) {
+    return [];
+  }
+
+  const relationshipIds =
+    follows
+      .map(item =>
+        item[relationshipColumn]
+      )
+      .filter(Boolean);
+
+  if (!relationshipIds.length) {
+    return [];
+  }
+
+  const uniqueIds =
+    [...new Set(relationshipIds)];
+
+  const idFilter =
+    uniqueIds
+      .map(id =>
+        `"${String(id).replace(/"/g, '\\"')}"`
+      )
+      .join(",");
+
+  const users =
+    await supabaseRequest(
+      `users?select=id,discord_id,discord_username&id=in.(${encodeURIComponent(
+        idFilter
+      )})`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
+    return [];
+  }
+
+  const discordIds =
+    users
+      .map(user =>
+        user.discord_id
+      )
+      .filter(Boolean);
+
+  let players = [];
+
+  if (discordIds.length) {
+    const discordFilter =
+      discordIds
+        .map(id =>
+          `"${String(id).replace(/"/g, '\\"')}"`
+        )
+        .join(",");
+
+    players =
+      await supabaseRequest(
+        `players?select=id,roblox_username,discord_id&discord_id=in.(${encodeURIComponent(
+          discordFilter
+        )})`
+      );
+  }
+
+  const userMap =
+    new Map(
+      users.map(user => [
+        String(user.id),
+        user
+      ])
+    );
+
+  const playerMap =
+    new Map(
+      players.map(player => [
+        String(player.discord_id),
+        player
+      ])
+    );
+
+  return follows
+    .map(item => {
+      const relationshipId =
+        item[relationshipColumn];
+
+      const user =
+        userMap.get(
+          String(relationshipId)
+        );
+
+      if (!user) {
+        return null;
+      }
+
+      const player =
+        playerMap.get(
+          String(user.discord_id)
+        );
+
+      return {
+        userId:
+          user.id,
+
+        discordId:
+          user.discord_id,
+
+        discordUsername:
+          user.discord_username ||
+          "Unknown",
+
+        playerId:
+          player?.id || null,
+
+        robloxUsername:
+          player?.roblox_username ||
+          null,
+
+        followedAt:
+          item.created_at || null
+      };
+    })
+    .filter(Boolean);
+}
+
+async function getFollowData(
+  targetUser,
+  viewerUser
+) {
+  const [
+    counts,
+    isFollowing
+  ] = await Promise.all([
+    getFollowCounts(
+      targetUser.id
+    ),
+
+    getFollowState(
+      viewerUser?.id || null,
+      targetUser.id
+    )
+  ]);
+
+  return {
+    followers:
+      counts.followers,
+
+    following:
+      counts.following,
+
+    isFollowing,
+
+    isSelf:
+      viewerUser?.id ===
+      targetUser.id
+  };
+}
+
+async function deleteFollow(
+  followerId,
+  followingId
+) {
+  await supabaseRequest(
+    `follows?follower_id=eq.${encodeURIComponent(
+      followerId
+    )}&following_id=eq.${encodeURIComponent(
+      followingId
+    )}`,
+    {
+      method:
+        "DELETE",
+
+      headers: {
+        Prefer:
+          "return=minimal"
+      }
+    }
+  );
+}
+
 export default async function handler(
   req,
   res
@@ -405,10 +625,12 @@ export default async function handler(
       "DELETE"
     ].includes(req.method)
   ) {
-    return res.status(405).json({
-      error:
-        "Method Not Allowed"
-    });
+    return res
+      .status(405)
+      .json({
+        error:
+          "Method Not Allowed"
+      });
   }
 
   try {
@@ -416,10 +638,12 @@ export default async function handler(
       getRequestedPlayerId(req);
 
     if (!playerId) {
-      return res.status(400).json({
-        error:
-          "Missing player ID."
-      });
+      return res
+        .status(400)
+        .json({
+          error:
+            "Missing player ID."
+        });
     }
 
     const targetPlayer =
@@ -428,10 +652,12 @@ export default async function handler(
       );
 
     if (!targetPlayer) {
-      return res.status(404).json({
-        error:
-          "Player not found."
-      });
+      return res
+        .status(404)
+        .json({
+          error:
+            "Player not found."
+        });
     }
 
     const targetUser =
@@ -440,10 +666,12 @@ export default async function handler(
       );
 
     if (!targetUser) {
-      return res.status(404).json({
-        error:
-          "This player does not have a website account."
-      });
+      return res
+        .status(404)
+        .json({
+          error:
+            "This player does not have a website account."
+        });
     }
 
     const sessionDiscordId =
@@ -457,39 +685,60 @@ export default async function handler(
         : null;
 
     if (req.method === "GET") {
-      const [
-        counts,
-        isFollowing
-      ] = await Promise.all([
-        getFollowCounts(
-          targetUser.id
-        ),
-        getFollowState(
-          viewerUser?.id || null,
-          targetUser.id
-        )
-      ]);
+      const body =
+        getBody(req);
 
-      return res.status(200).json({
-        followers:
-          counts.followers,
+      const list =
+        typeof req.query.list ===
+          "string"
+          ? req.query.list
+          : body.list;
 
-        following:
-          counts.following,
+      if (
+        list === "followers" ||
+        list === "following"
+      ) {
+        const [
+          followData,
+          people
+        ] = await Promise.all([
+          getFollowData(
+            targetUser,
+            viewerUser
+          ),
 
-        isFollowing,
+          getFollowList(
+            targetUser.id,
+            list
+          )
+        ]);
 
-        isSelf:
-          viewerUser?.id ===
-          targetUser.id
-      });
+        return res
+          .status(200)
+          .json({
+            ...followData,
+            list,
+            people
+          });
+      }
+
+      return res
+        .status(200)
+        .json(
+          await getFollowData(
+            targetUser,
+            viewerUser
+          )
+        );
     }
 
     if (!viewerUser) {
-      return res.status(401).json({
-        error:
-          "You must be logged in."
-      });
+      return res
+        .status(401)
+        .json({
+          error:
+            "You must be logged in."
+        });
     }
 
     const viewerPlayer =
@@ -498,102 +747,162 @@ export default async function handler(
       );
 
     if (!viewerPlayer) {
-      return res.status(403).json({
-        error:
-          "You must be a registered RSF player to follow people."
-      });
+      return res
+        .status(403)
+        .json({
+          error:
+            "You must be a registered RSF player to follow people."
+        });
     }
+
+    const body =
+      getBody(req);
 
     if (
       viewerUser.id ===
       targetUser.id
     ) {
-      return res.status(400).json({
-        error:
-          "You cannot follow yourself."
-      });
+      if (
+        req.method === "POST"
+      ) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "You cannot follow yourself."
+          });
+      }
+
+      if (
+        req.method === "DELETE" &&
+        body.action ===
+          "remove-follower"
+      ) {
+        const followerPlayerId =
+          typeof body.followerPlayerId ===
+            "string"
+            ? body.followerPlayerId.trim()
+            : "";
+
+        if (!followerPlayerId) {
+          return res
+            .status(400)
+            .json({
+              error:
+                "Missing follower player ID."
+            });
+        }
+
+        const followerPlayer =
+          await getPlayerById(
+            followerPlayerId
+          );
+
+        if (!followerPlayer) {
+          return res
+            .status(404)
+            .json({
+              error:
+                "Follower not found."
+            });
+        }
+
+        const followerUser =
+          await getUserByDiscordId(
+            followerPlayer.discord_id
+          );
+
+        if (!followerUser) {
+          return res
+            .status(404)
+            .json({
+              error:
+                "Follower account not found."
+            });
+        }
+
+        await deleteFollow(
+          followerUser.id,
+          viewerUser.id
+        );
+
+        return res
+          .status(200)
+          .json(
+            await getFollowData(
+              targetUser,
+              viewerUser
+            )
+          );
+      }
+
+      return res
+        .status(400)
+        .json({
+          error:
+            "Invalid follow action."
+        });
     }
 
     if (req.method === "POST") {
-      await supabaseRequest(
-        "follows",
-        {
-          method:
-            "POST",
+      const alreadyFollowing =
+        await getFollowState(
+          viewerUser.id,
+          targetUser.id
+        );
 
-          headers: {
-            Prefer:
-              "return=minimal"
-          },
+      if (!alreadyFollowing) {
+        await supabaseRequest(
+          "follows",
+          {
+            method:
+              "POST",
 
-          body:
-            JSON.stringify({
-              follower_id:
-                viewerUser.id,
+            headers: {
+              Prefer:
+                "return=minimal"
+            },
 
-              following_id:
-                targetUser.id
-            })
-        }
-      );
+            body:
+              JSON.stringify({
+                follower_id:
+                  viewerUser.id,
+
+                following_id:
+                  targetUser.id
+              })
+          }
+        );
+      }
     }
 
     if (req.method === "DELETE") {
-      await supabaseRequest(
-        `follows?follower_id=eq.${encodeURIComponent(
-          viewerUser.id
-        )}&following_id=eq.${encodeURIComponent(
-          targetUser.id
-        )}`,
-        {
-          method:
-            "DELETE",
-
-          headers: {
-            Prefer:
-              "return=minimal"
-          }
-        }
+      await deleteFollow(
+        viewerUser.id,
+        targetUser.id
       );
     }
 
-    const [
-      counts,
-      isFollowing
-    ] = await Promise.all([
-      getFollowCounts(
-        targetUser.id
-      ),
-      getFollowState(
-        viewerUser.id,
-        targetUser.id
-      )
-    ]);
-
-    return res.status(200).json({
-      followers:
-        counts.followers,
-
-      following:
-        counts.following,
-
-      isFollowing,
-
-      isSelf:
-        viewerUser.id ===
-        targetUser.id
-    });
-
+    return res
+      .status(200)
+      .json(
+        await getFollowData(
+          targetUser,
+          viewerUser
+        )
+      );
   } catch (error) {
     console.error(
       "FOLLOW API ERROR:",
       error
     );
 
-    return res.status(500).json({
-      error:
-        error.message ||
-        "Internal server error."
-    });
+    return res
+      .status(500)
+      .json({
+        error:
+          error.message ||
+          "Internal server error."
+      });
   }
 }
