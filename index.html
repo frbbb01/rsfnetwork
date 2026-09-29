@@ -32,16 +32,17 @@
     }
 
     :root {
-      --bg: #0B1220;
+      --bg: #07111F;
+      --surface: rgba(13, 22, 36, 0.98);
       --border: rgba(120, 164, 215, 0.16);
       --border-soft: rgba(120, 164, 215, 0.11);
-      --white: #FFFFFF;
       --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.70);
-      --muted-soft: rgba(255, 255, 255, 0.46);
-      --panel: rgba(255, 255, 255, 0.018);
-      --panel-hover: rgba(255, 255, 255, 0.022);
-      --topbar: rgba(8, 15, 27, 0.84);
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+      --topbar: rgba(6, 15, 29, 0.84);
+      --profile: rgba(9, 16, 27, 0.88);
+      --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
       --module-glow: rgba(54, 119, 197, 0.11);
     }
@@ -52,7 +53,7 @@
 
     html {
       min-height: 100%;
-      background: #0B1220;
+      background: #07111F;
     }
 
     body {
@@ -76,7 +77,7 @@
           rgba(20, 65, 125, 0.13),
           transparent 72%
         ),
-        #0B1220;
+        #07111F;
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -85,30 +86,37 @@
         color 180ms ease;
     }
 
-    body[data-theme="dark"] {
+    body.theme-dark {
       --bg: #181818;
+      --surface: rgba(27, 27, 27, 0.99);
       --border: rgba(255, 255, 255, 0.10);
       --border-soft: rgba(255, 255, 255, 0.07);
-      --topbar: rgba(18, 18, 18, 0.90);
-      --dropdown: rgba(28, 28, 28, 0.98);
-      --panel: rgba(255, 255, 255, 0.018);
-      --panel-hover: rgba(255, 255, 255, 0.028);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #5A9EFF;
+      --accent-soft: rgba(90, 158, 255, 0.10);
+      --topbar: rgba(20, 20, 20, 0.94);
+      --profile: rgba(25, 25, 25, 0.94);
+      --profile-hover: rgba(32, 32, 32, 0.98);
+      --dropdown: rgba(27, 27, 27, 0.99);
       --module-glow: rgba(255, 255, 255, 0.055);
 
       background: #181818;
     }
 
-    body[data-theme="light"] {
-      --bg: #F4F6F9;
-      --border: rgba(34, 55, 78, 0.13);
-      --border-soft: rgba(34, 55, 78, 0.09);
-      --text: #172233;
-      --muted: rgba(23, 34, 51, 0.68);
-      --muted-soft: rgba(23, 34, 51, 0.48);
-      --panel: rgba(255, 255, 255, 0.72);
-      --panel-hover: rgba(255, 255, 255, 0.90);
-      --topbar: rgba(244, 246, 249, 0.88);
-      --dropdown: rgba(255, 255, 255, 0.98);
+    body.theme-light {
+      --bg: #D3D3D3;
+      --surface: rgba(245, 245, 245, 0.98);
+      --border: rgba(30, 40, 50, 0.15);
+      --border-soft: rgba(30, 40, 50, 0.10);
+      --text: #15181C;
+      --muted: rgba(21, 24, 28, 0.58);
+      --accent: #5365D8;
+      --accent-soft: rgba(83, 101, 216, 0.09);
+      --topbar: rgba(230, 230, 230, 0.90);
+      --profile: rgba(245, 245, 245, 0.94);
+      --profile-hover: rgba(250, 250, 250, 0.98);
+      --dropdown: rgba(245, 245, 245, 0.99);
       --module-glow: rgba(80, 125, 180, 0.10);
 
       background:
@@ -127,19 +135,21 @@
           rgba(90, 135, 190, 0.10),
           transparent 72%
         ),
-        #F4F6F9;
+        #D3D3D3;
     }
 
-    body[data-theme="blue"] {
-      --bg: #0B1220;
+    body.theme-blue {
+      --bg: #07111F;
+      --surface: rgba(13, 22, 36, 0.98);
       --border: rgba(120, 164, 215, 0.16);
       --border-soft: rgba(120, 164, 215, 0.11);
       --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.70);
-      --muted-soft: rgba(255, 255, 255, 0.46);
-      --panel: rgba(255, 255, 255, 0.018);
-      --panel-hover: rgba(255, 255, 255, 0.022);
-      --topbar: rgba(8, 15, 27, 0.84);
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+      --topbar: rgba(6, 15, 29, 0.84);
+      --profile: rgba(9, 16, 27, 0.88);
+      --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
       --module-glow: rgba(54, 119, 197, 0.11);
 
@@ -159,20 +169,22 @@
           rgba(20, 65, 125, 0.13),
           transparent 72%
         ),
-        #0B1220;
+        #07111F;
     }
 
-    body[data-theme="royal"] {
-      --bg: #0B1020;
-      --border: rgba(126, 130, 220, 0.16);
-      --border-soft: rgba(126, 130, 220, 0.11);
+    body.theme-royal {
+      --bg: #0E0B20;
+      --surface: rgba(17, 14, 42, 0.99);
+      --border: rgba(141, 121, 255, 0.16);
+      --border-soft: rgba(141, 121, 255, 0.11);
       --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.70);
-      --muted-soft: rgba(255, 255, 255, 0.46);
-      --panel: rgba(255, 255, 255, 0.018);
-      --panel-hover: rgba(255, 255, 255, 0.024);
-      --topbar: rgba(8, 12, 27, 0.86);
-      --dropdown: rgba(17, 20, 40, 0.98);
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #8D79FF;
+      --accent-soft: rgba(141, 121, 255, 0.11);
+      --topbar: rgba(10, 10, 29, 0.88);
+      --profile: rgba(16, 14, 39, 0.90);
+      --profile-hover: rgba(22, 18, 52, 0.96);
+      --dropdown: rgba(17, 14, 42, 0.99);
       --module-glow: rgba(86, 75, 190, 0.12);
 
       background:
@@ -191,20 +203,22 @@
           rgba(76, 42, 145, 0.16),
           transparent 72%
         ),
-        #0B1020;
+        #0E0B20;
     }
 
-    body[data-theme="ocean"] {
-      --bg: #08171D;
-      --border: rgba(91, 178, 193, 0.16);
-      --border-soft: rgba(91, 178, 193, 0.11);
+    body.theme-ocean {
+      --bg: #061A22;
+      --surface: rgba(7, 31, 41, 0.99);
+      --border: rgba(82, 199, 216, 0.16);
+      --border-soft: rgba(82, 199, 216, 0.11);
       --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.70);
-      --muted-soft: rgba(255, 255, 255, 0.46);
-      --panel: rgba(255, 255, 255, 0.018);
-      --panel-hover: rgba(255, 255, 255, 0.024);
-      --topbar: rgba(5, 18, 23, 0.86);
-      --dropdown: rgba(11, 29, 35, 0.98);
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #52C7D8;
+      --accent-soft: rgba(82, 199, 216, 0.11);
+      --topbar: rgba(5, 24, 32, 0.88);
+      --profile: rgba(7, 30, 39, 0.90);
+      --profile-hover: rgba(9, 39, 50, 0.96);
+      --dropdown: rgba(7, 31, 41, 0.99);
       --module-glow: rgba(25, 139, 151, 0.12);
 
       background:
@@ -223,7 +237,83 @@
           rgba(19, 123, 132, 0.15),
           transparent 72%
         ),
-        #08171D;
+        #061A22;
+    }
+
+    body.theme-light .profile-username,
+    body.theme-light .profile-status {
+      color: rgba(21, 24, 28, 0.70);
+    }
+
+    body.theme-light .profile-chevron {
+      color: rgba(21, 24, 28, 0.30);
+    }
+
+    body.theme-light .profile-card:hover .profile-chevron {
+      color: rgba(21, 24, 28, 0.60);
+    }
+
+    body.theme-light .profile-card.open .profile-chevron {
+      color: rgba(21, 24, 28, 0.68);
+    }
+
+    body.theme-light .profile-dropdown-item {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .profile-dropdown-item:hover {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.48);
+    }
+
+    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.72);
+    }
+
+    body.theme-light .profile-dropdown-logout {
+      color: rgba(190, 48, 65, 0.68);
+    }
+
+    body.theme-light .profile-dropdown-logout .profile-dropdown-icon {
+      color: rgba(190, 48, 65, 0.62);
+    }
+
+    body.theme-light .profile-dropdown-logout:hover {
+      color: #C93D51;
+    }
+
+    body.theme-light .profile-dropdown-logout:hover .profile-dropdown-icon {
+      color: #C93D51;
+    }
+
+    body.theme-light .dropdown a:hover,
+    body.theme-light .dropdown a:focus-visible,
+    body.theme-light .profile-dropdown-item:hover {
+      background: rgba(83, 101, 216, 0.08);
+    }
+
+    body.theme-light .footer-brand {
+      color: rgba(21, 24, 28, 0.70);
+    }
+
+    body.theme-light .news-image {
+      background: #D5D9DE;
+    }
+
+    body.theme-light .login-close {
+      background: rgba(21, 24, 28, 0.025);
+    }
+
+    body.theme-light .login-close:hover {
+      background: rgba(21, 24, 28, 0.06);
+    }
+
+    body.theme-light .login-points li::before {
+      background: #5365D8;
+      box-shadow: 0 0 0 3px rgba(83, 101, 216, 0.08);
     }
 
     a {
@@ -414,7 +504,7 @@
       gap: 10px;
       border: 1px solid var(--border);
       border-radius: 6px;
-      background: var(--topbar);
+      background: var(--profile);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       cursor: pointer;
@@ -427,6 +517,7 @@
     }
 
     .profile-card:hover {
+      background: var(--profile-hover);
       border-color: rgba(120, 164, 215, 0.25);
       box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
     }
@@ -482,7 +573,7 @@
       font-weight: 700;
       line-height: 1;
       letter-spacing: 0.09em;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .profile-status::before {
@@ -491,7 +582,7 @@
       height: 4px;
       flex: 0 0 auto;
       border-radius: 50%;
-      background: #4F9BFF;
+      background: var(--accent);
       opacity: 0.8;
     }
 
@@ -595,7 +686,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .profile-dropdown-icon svg {
@@ -696,7 +787,7 @@
       margin: 8px 0 0;
       font-size: 10px;
       line-height: 1.6;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .login-close {
@@ -707,7 +798,7 @@
       border: 1px solid var(--border);
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.025);
-      color: var(--muted-soft);
+      color: var(--muted);
       font-family: "Montserrat", sans-serif;
       font-size: 15px;
       line-height: 1;
@@ -800,7 +891,7 @@
       font-size: 8px;
       line-height: 1.6;
       text-align: center;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     main {
@@ -816,7 +907,7 @@
       grid-template-columns: minmax(0, 1fr) 230px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      background: var(--panel);
+      background: var(--surface);
       overflow: hidden;
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
       transition:
@@ -826,7 +917,7 @@
 
     .news:hover {
       border-color: rgba(120, 164, 215, 0.25);
-      background: var(--panel-hover);
+      background: var(--profile-hover);
     }
 
     .news-content {
@@ -865,7 +956,7 @@
     }
 
     .news-description.empty {
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .news-footer {
@@ -877,7 +968,7 @@
       border-top: 1px solid var(--border-soft);
       font-size: 8px;
       letter-spacing: 0.02em;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .news-image {
@@ -1009,7 +1100,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      background: var(--panel);
+      background: var(--surface);
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
       transition:
         border-color 160ms ease,
@@ -1038,7 +1129,7 @@
 
     .module:hover {
       border-color: rgba(120, 164, 215, 0.27);
-      background: var(--panel-hover);
+      background: var(--profile-hover);
       transform: translateY(-1px);
     }
 
@@ -1071,7 +1162,7 @@
       max-width: 340px;
       font-size: 9px;
       line-height: 1.65;
-      color: var(--muted-soft);
+      color: var(--muted);
     }
 
     .module-description::before {
@@ -1081,7 +1172,8 @@
       top: 2px;
       bottom: 2px;
       width: 1px;
-      background: rgba(111, 164, 220, 0.52);
+      background: var(--accent);
+      opacity: 0.52;
     }
 
     .module-bottom {
@@ -1120,7 +1212,7 @@
 
     .module-link:hover {
       color: var(--text);
-      background: rgba(95, 151, 215, 0.10);
+      background: var(--accent-soft);
       border-color: rgba(120, 164, 215, 0.34);
       gap: 9px;
       transform: translateY(-1px);
@@ -1194,7 +1286,7 @@
       justify-content: space-between;
       font-size: 9px;
       line-height: 1;
-      color: var(--muted-soft);
+      color: var(--muted);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
@@ -1459,7 +1551,7 @@
 
 </head>
 
-<body data-theme="blue">
+<body class="theme-blue">
 
   <script>
     (function () {
@@ -1472,25 +1564,27 @@
       ];
 
       try {
-        if (
-          localStorage.getItem(
-            "rsf-authenticated"
-          ) === "true"
-        ) {
-          const cachedTheme =
-            localStorage.getItem(
-              "rsf-theme"
-            );
+        const authenticated =
+          localStorage.getItem("rsf-authenticated") === "true";
 
-          if (
-            cachedTheme &&
-            validThemes.includes(
-              cachedTheme
-            )
-          ) {
-            document.body.dataset.theme =
-              cachedTheme;
-          }
+        const cachedTheme =
+          localStorage.getItem("rsf-theme");
+
+        if (
+          authenticated &&
+          validThemes.includes(cachedTheme)
+        ) {
+          document.body.classList.remove(
+            "theme-dark",
+            "theme-light",
+            "theme-blue",
+            "theme-royal",
+            "theme-ocean"
+          );
+
+          document.body.classList.add(
+            `theme-${cachedTheme}`
+          );
         }
       } catch (error) {
       }
@@ -1498,6 +1592,7 @@
   </script>
 
   <header class="topbar">
+
 
 <a href="/" class="logo">
   RSF
@@ -1517,12 +1612,11 @@
       <span class="arrow">▾</span>
     </a>
 
-<div class="dropdown">
-  <a href="/database">Playerbase</a>
-  <a href="/database">Teams</a>
-  <a href="/database">Seasons</a>
-</div>
-
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
+    </div>
   </div>
 
   <div class="nav-item">
@@ -1531,13 +1625,12 @@
       <span class="arrow">▾</span>
     </a>
 
-<div class="dropdown">
-  <a href="/community">Videos</a>
-  <a href="/community">Community Latest</a>
-  <a href="/community">Development</a>
-  <a href="/community">Resources</a>
-</div>
-
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
   </div>
 
   <div class="nav-item">
@@ -1555,22 +1648,19 @@
 </nav>
 
 <button
-type="button"
-class="login-button"
-id="login-button"
-aria-label="Login with Discord"
-
+  type="button"
+  class="login-button"
+  id="login-button"
+  aria-label="Login with Discord"
 >
-
-<img
-class="discord-logo"
-src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-alt=""
-aria-hidden="true"
-
->
-
-<span>LOGIN</span> </button>
+  <img
+    class="discord-logo"
+    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+    alt=""
+    aria-hidden="true"
+  >
+  <span>LOGIN</span>
+</button>
 
 <div
   class="profile-card"
@@ -1595,14 +1685,12 @@ aria-hidden="true"
       —
     </span>
 
-<span
-class="profile-status"
-id="profile-status"
-
->
-
-GUEST </span>
-
+    <span
+      class="profile-status"
+      id="profile-status"
+    >
+      GUEST
+    </span>
   </div>
 
   <span class="profile-chevron" aria-hidden="true">
@@ -1612,6 +1700,7 @@ GUEST </span>
   </span>
 </div>
 
+
   </header>
 
   <div
@@ -1619,6 +1708,7 @@ GUEST </span>
     id="login-overlay"
     aria-hidden="true"
   >
+
 
 <div
   class="login-modal"
@@ -1629,28 +1719,27 @@ GUEST </span>
 
   <div class="login-modal-header">
 
-<div>
-  <h2
-    class="login-modal-title"
-    id="login-title"
-  >
-    Login to RSF
-  </h2>
+    <div>
+      <h2
+        class="login-modal-title"
+        id="login-title"
+      >
+        Login to RSF
+      </h2>
 
-  <p class="login-modal-subtitle">
-    Connect your Discord account to access the full RSF experience.
-  </p>
-</div>
+      <p class="login-modal-subtitle">
+        Connect your Discord account to access the full RSF experience.
+      </p>
+    </div>
 
-<button
-type="button"
-class="login-close"
-id="login-close"
-aria-label="Close login"
-
->
-
-× </button>
+    <button
+      type="button"
+      class="login-close"
+      id="login-close"
+      aria-label="Close login"
+    >
+      ×
+    </button>
 
   </div>
 
@@ -1662,14 +1751,13 @@ aria-label="Close login"
     <li>You can continue using publicly available parts of the website without logging in.</li>
   </ul>
 
-<button
-type="button"
-class="login-proceed"
-id="login-proceed"
-
->
-
-PROCEED TO LOGIN </button>
+  <button
+    type="button"
+    class="login-proceed"
+    id="login-proceed"
+  >
+    PROCEED TO LOGIN
+  </button>
 
   <p class="login-note">
     By continuing, you will be redirected to Discord to authenticate.
@@ -1677,9 +1765,11 @@ PROCEED TO LOGIN </button>
 
 </div>
 
+
   </div>
 
   <main>
+
 
 <section
   class="news"
@@ -1688,27 +1778,27 @@ PROCEED TO LOGIN </button>
 
   <div class="news-content">
 
-<div class="section-label">
-  <span class="news-dot-live"></span>
-  LATEST NEWS
-</div>
+    <div class="section-label">
+      <span class="news-dot-live"></span>
+      LATEST NEWS
+    </div>
 
-<div
-  id="news-description"
-  class="news-description empty"
->
-  Loading latest news...
-</div>
+    <div
+      id="news-description"
+      class="news-description empty"
+    >
+      Loading latest news...
+    </div>
 
-<div class="news-footer">
-  <span id="news-updated">
-    Last updated: —
-  </span>
+    <div class="news-footer">
+      <span id="news-updated">
+        Last updated: —
+      </span>
 
-  <span>
-    RSF / NEWS
-  </span>
-</div>
+      <span>
+        RSF / NEWS
+      </span>
+    </div>
 
   </div>
 
@@ -1736,19 +1826,18 @@ PROCEED TO LOGIN </button>
       aria-label="Previous news"
     ></button>
 
-<div
-  id="news-dots"
-  class="news-dots"
-  aria-label="News slides"
-></div>
+    <div
+      id="news-dots"
+      class="news-dots"
+      aria-label="News slides"
+    ></div>
 
-<button
-type="button"
-class="news-arrow right"
-id="news-next"
-aria-label="Next news"
-
-> </button>
+    <button
+      type="button"
+      class="news-arrow right"
+      id="news-next"
+      aria-label="Next news"
+    ></button>
 
   </div>
 
@@ -1761,99 +1850,101 @@ aria-label="Next news"
 
   <article class="module rsf-module">
 
-<h2 class="module-title">
-  RSF
-</h2>
+    <h2 class="module-title">
+      RSF
+    </h2>
 
-<p class="module-description">
-  The home of RSF, its history, people and everything surrounding the community.
-</p>
+    <p class="module-description">
+      The home of RSF, its history, people and everything surrounding the community.
+    </p>
 
-<div class="module-bottom">
-  <a
-    href="/rsf"
-    class="module-link"
-  >
-    EXPLORE RSF
-    <span class="module-arrow">→</span>
-  </a>
-</div>
+    <div class="module-bottom">
+      <a
+        href="/rsf"
+        class="module-link"
+      >
+        EXPLORE RSF
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
   </article>
 
   <article class="module database">
 
-<h2 class="module-title">
-  DATABASE
-</h2>
+    <h2 class="module-title">
+      DATABASE
+    </h2>
 
-<p class="module-description">
-  Explore the RSF playerbase, teams, seasons and the records that make up its history.
-</p>
+    <p class="module-description">
+      Explore the RSF playerbase, teams, seasons and the records that make up its history.
+    </p>
 
-<div class="module-bottom">
-  <a
-    href="/database"
-    class="module-link"
-  >
-    OPEN DATABASE
-    <span class="module-arrow">→</span>
-  </a>
-</div>
+    <div class="module-bottom">
+      <a
+        href="/database"
+        class="module-link"
+      >
+        OPEN DATABASE
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
   </article>
 
   <article class="module arcade-module">
 
-<h2 class="module-title">
-  ARCADE
-</h2>
+    <h2 class="module-title">
+      ARCADE
+    </h2>
 
-<p class="module-description">
-  Games, experiments and smaller interactive projects built around RSF.
-</p>
+    <p class="module-description">
+      Games, experiments and smaller interactive projects built around RSF.
+    </p>
 
-<div class="module-bottom">
-  <a
-    href="/arcade"
-    class="module-link"
-  >
-    ENTER ARCADE
-    <span class="module-arrow">→</span>
-  </a>
-</div>
+    <div class="module-bottom">
+      <a
+        href="/arcade"
+        class="module-link"
+      >
+        ENTER ARCADE
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
   </article>
 
   <article class="module community">
 
-<div>
-  <h2 class="module-title">
-    COMMUNITY
-  </h2>
+    <div>
+      <h2 class="module-title">
+        COMMUNITY
+      </h2>
 
-  <p class="module-description">
-    Videos, development, resources and the latest things happening around RSF.
-  </p>
-</div>
+      <p class="module-description">
+        Videos, development, resources and the latest things happening around RSF.
+      </p>
+    </div>
 
-<div class="module-bottom">
-  <a
-    href="/community"
-    class="module-link"
-  >
-    VIEW COMMUNITY
-    <span class="module-arrow">→</span>
-  </a>
-</div>
+    <div class="module-bottom">
+      <a
+        href="/community"
+        class="module-link"
+      >
+        VIEW COMMUNITY
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
   </article>
 
 </section>
 
+
   </main>
 
   <footer>
+
 
 <div class="footer-left">
   <span class="footer-brand">
@@ -1870,6 +1961,7 @@ aria-label="Next news"
     Terms of Use
   </a>
 </div>
+
 
   </footer>
 
@@ -1889,8 +1981,17 @@ aria-label="Next news"
         theme = "blue";
       }
 
-      document.body.dataset.theme =
-        theme;
+      document.body.classList.remove(
+        "theme-dark",
+        "theme-light",
+        "theme-blue",
+        "theme-royal",
+        "theme-ocean"
+      );
+
+      document.body.classList.add(
+        `theme-${theme}`
+      );
 
       if (save) {
         try {
@@ -1916,8 +2017,10 @@ aria-label="Next news"
             cachedTheme
           )
         ) {
-          document.body.dataset.theme =
-            cachedTheme;
+          applyTheme(
+            cachedTheme,
+            false
+          );
 
           return true;
         }
@@ -2077,8 +2180,10 @@ aria-label="Next news"
             event.newValue
           )
         ) {
-          document.body.dataset.theme =
-            event.newValue;
+          applyTheme(
+            event.newValue,
+            false
+          );
         }
       }
     );
