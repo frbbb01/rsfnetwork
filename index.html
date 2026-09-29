@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -35,6 +36,14 @@
       --border: rgba(120, 164, 215, 0.16);
       --border-soft: rgba(120, 164, 215, 0.11);
       --white: #FFFFFF;
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.70);
+      --muted-soft: rgba(255, 255, 255, 0.46);
+      --panel: rgba(255, 255, 255, 0.018);
+      --panel-hover: rgba(255, 255, 255, 0.022);
+      --topbar: rgba(8, 15, 27, 0.84);
+      --dropdown: rgba(13, 22, 36, 0.98);
+      --module-glow: rgba(54, 119, 197, 0.11);
     }
 
     * {
@@ -49,7 +58,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--white);
+      color: var(--text);
       font-family: "Montserrat", sans-serif;
       background:
         radial-gradient(
@@ -71,6 +80,150 @@
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      transition:
+        background 180ms ease,
+        color 180ms ease;
+    }
+
+    body[data-theme="dark"] {
+      --bg: #181818;
+      --border: rgba(255, 255, 255, 0.10);
+      --border-soft: rgba(255, 255, 255, 0.07);
+      --topbar: rgba(18, 18, 18, 0.90);
+      --dropdown: rgba(28, 28, 28, 0.98);
+      --panel: rgba(255, 255, 255, 0.018);
+      --panel-hover: rgba(255, 255, 255, 0.028);
+      --module-glow: rgba(255, 255, 255, 0.055);
+
+      background: #181818;
+    }
+
+    body[data-theme="light"] {
+      --bg: #F4F6F9;
+      --border: rgba(34, 55, 78, 0.13);
+      --border-soft: rgba(34, 55, 78, 0.09);
+      --text: #172233;
+      --muted: rgba(23, 34, 51, 0.68);
+      --muted-soft: rgba(23, 34, 51, 0.48);
+      --panel: rgba(255, 255, 255, 0.72);
+      --panel-hover: rgba(255, 255, 255, 0.90);
+      --topbar: rgba(244, 246, 249, 0.88);
+      --dropdown: rgba(255, 255, 255, 0.98);
+      --module-glow: rgba(80, 125, 180, 0.10);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(135, 174, 219, 0.28),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(105, 150, 205, 0.15),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(90, 135, 190, 0.10),
+          transparent 72%
+        ),
+        #F4F6F9;
+    }
+
+    body[data-theme="blue"] {
+      --bg: #0B1220;
+      --border: rgba(120, 164, 215, 0.16);
+      --border-soft: rgba(120, 164, 215, 0.11);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.70);
+      --muted-soft: rgba(255, 255, 255, 0.46);
+      --panel: rgba(255, 255, 255, 0.018);
+      --panel-hover: rgba(255, 255, 255, 0.022);
+      --topbar: rgba(8, 15, 27, 0.84);
+      --dropdown: rgba(13, 22, 36, 0.98);
+      --module-glow: rgba(54, 119, 197, 0.11);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #0B1220;
+    }
+
+    body[data-theme="royal"] {
+      --bg: #0B1020;
+      --border: rgba(126, 130, 220, 0.16);
+      --border-soft: rgba(126, 130, 220, 0.11);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.70);
+      --muted-soft: rgba(255, 255, 255, 0.46);
+      --panel: rgba(255, 255, 255, 0.018);
+      --panel-hover: rgba(255, 255, 255, 0.024);
+      --topbar: rgba(8, 12, 27, 0.86);
+      --dropdown: rgba(17, 20, 40, 0.98);
+      --module-glow: rgba(86, 75, 190, 0.12);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(67, 62, 174, 0.32),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(46, 61, 155, 0.20),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(76, 42, 145, 0.16),
+          transparent 72%
+        ),
+        #0B1020;
+    }
+
+    body[data-theme="ocean"] {
+      --bg: #08171D;
+      --border: rgba(91, 178, 193, 0.16);
+      --border-soft: rgba(91, 178, 193, 0.11);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.70);
+      --muted-soft: rgba(255, 255, 255, 0.46);
+      --panel: rgba(255, 255, 255, 0.018);
+      --panel-hover: rgba(255, 255, 255, 0.024);
+      --topbar: rgba(5, 18, 23, 0.86);
+      --dropdown: rgba(11, 29, 35, 0.98);
+      --module-glow: rgba(25, 139, 151, 0.12);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(22, 117, 145, 0.32),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(20, 89, 125, 0.20),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(19, 123, 132, 0.15),
+          transparent 72%
+        ),
+        #08171D;
     }
 
     a {
@@ -84,8 +237,8 @@
       z-index: 100;
       height: 68px;
       padding: 0 32px;
-      border-bottom: 1px solid rgba(120, 164, 215, 0.13);
-      background: rgba(8, 15, 27, 0.84);
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--topbar);
       display: flex;
       align-items: center;
       backdrop-filter: blur(14px);
@@ -154,8 +307,8 @@
       width: 170px;
       padding: 6px;
       transform: translateX(-50%) translateY(4px);
-      background: rgba(13, 22, 36, 0.98);
-      border: 1px solid rgba(120, 164, 215, 0.18);
+      background: var(--dropdown);
+      border: 1px solid var(--border);
       border-radius: 7px;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
       opacity: 0;
@@ -250,235 +403,232 @@
       object-fit: contain;
     }
 
-.profile-card {
-position: absolute;
-right: 32px;
-width: 178px;
-height: 42px;
-padding: 0 10px 0 7px;
-display: flex;
-align-items: center;
-gap: 10px;
-border: 1px solid rgba(120, 164, 215, 0.16);
-border-radius: 6px;
-background: rgba(9, 16, 27, 0.88);
-backdrop-filter: blur(14px);
--webkit-backdrop-filter: blur(14px);
-cursor: pointer;
-user-select: none;
-box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
-transition:
-background 140ms ease,
-border-color 140ms ease,
-box-shadow 140ms ease;
-}
+    .profile-card {
+      position: absolute;
+      right: 32px;
+      width: 178px;
+      height: 42px;
+      padding: 0 10px 0 7px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--topbar);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        box-shadow 140ms ease;
+    }
 
-.profile-card:hover {
-background: rgba(12, 22, 37, 0.94);
-border-color: rgba(120, 164, 215, 0.25);
-box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
-}
+    .profile-card:hover {
+      border-color: rgba(120, 164, 215, 0.25);
+      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
+    }
 
-.profile-card.open {
-border-color: rgba(120, 164, 215, 0.27);
-background: rgba(12, 22, 37, 0.94);
-}
+    .profile-card.open {
+      border-color: rgba(120, 164, 215, 0.27);
+    }
 
-.profile-avatar {
-width: 29px;
-height: 29px;
-flex: 0 0 29px;
-overflow: hidden;
-border-radius: 5px;
-background: rgba(255, 255, 255, 0.035);
-}
+    .profile-avatar {
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
+      overflow: hidden;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.035);
+    }
 
-.profile-avatar img {
-width: 100%;
-height: 100%;
-display: block;
-object-fit: cover;
-}
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
 
-.profile-avatar.guest {
-display: none;
-}
+    .profile-avatar.guest {
+      display: none;
+    }
 
-.profile-info {
-min-width: 0;
-flex: 1;
-display: flex;
-flex-direction: column;
-justify-content: center;
-gap: 4px;
-}
+    .profile-info {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
 
-.profile-username {
-max-width: 116px;
-overflow: hidden;
-font-size: 11px;
-font-weight: 600;
-line-height: 1;
-white-space: nowrap;
-text-overflow: ellipsis;
-color: #FFFFFF;
-}
+    .profile-username {
+      max-width: 116px;
+      overflow: hidden;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
 
-.profile-status {
-display: flex;
-align-items: center;
-gap: 5px;
-font-size: 7px;
-font-weight: 700;
-line-height: 1;
-letter-spacing: 0.09em;
-color: rgba(255, 255, 255, 0.42);
-}
+    .profile-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 7px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.09em;
+      color: var(--muted-soft);
+    }
 
-.profile-status::before {
-content: "";
-width: 4px;
-height: 4px;
-flex: 0 0 auto;
-border-radius: 50%;
-background: #4F9BFF;
-opacity: 0.8;
-}
+    .profile-status::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #4F9BFF;
+      opacity: 0.8;
+    }
 
-.profile-card.guest .profile-status::before {
-background: rgba(255, 255, 255, 0.34);
-}
+    .profile-card.guest .profile-status::before {
+      background: rgba(255, 255, 255, 0.34);
+    }
 
-.profile-chevron {
-width: 14px;
-height: 14px;
-flex: 0 0 14px;
-display: flex;
-align-items: center;
-justify-content: center;
-color: rgba(255, 255, 255, 0.30);
-transition:
-color 140ms ease,
-transform 140ms ease;
-}
+    .profile-chevron {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.30);
+      transition:
+        color 140ms ease,
+        transform 140ms ease;
+    }
 
-.profile-card:hover .profile-chevron {
-color: rgba(255, 255, 255, 0.60);
-}
+    .profile-card:hover .profile-chevron {
+      color: rgba(255, 255, 255, 0.60);
+    }
 
-.profile-card.open .profile-chevron {
-color: rgba(255, 255, 255, 0.68);
-transform: rotate(180deg);
-}
+    .profile-card.open .profile-chevron {
+      color: rgba(255, 255, 255, 0.68);
+      transform: rotate(180deg);
+    }
 
-.profile-chevron svg {
-width: 10px;
-height: 10px;
-display: block;
-fill: none;
-stroke: currentColor;
-stroke-width: 1.5;
-stroke-linecap: round;
-stroke-linejoin: round;
-}
+    .profile-chevron svg {
+      width: 10px;
+      height: 10px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-.profile-dropdown {
-position: absolute;
-top: calc(100% + 8px);
-right: 0;
-width: 195px;
-padding: 5px;
-border: 1px solid rgba(120, 164, 215, 0.16);
-border-radius: 7px;
-background: rgba(13, 22, 36, 0.98);
-box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-backdrop-filter: blur(14px);
--webkit-backdrop-filter: blur(14px);
-opacity: 0;
-visibility: hidden;
-pointer-events: none;
-transform: translateY(4px);
-transition:
-opacity 100ms ease,
-visibility 100ms ease,
-transform 100ms ease;
-z-index: 9999;
-}
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 195px;
+      padding: 5px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--dropdown);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease,
+        transform 100ms ease;
+      z-index: 9999;
+    }
 
-.profile-dropdown.open {
-opacity: 1;
-visibility: visible;
-pointer-events: auto;
-transform: translateY(0);
-}
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
 
-.profile-dropdown-item {
-width: 100%;
-min-height: 38px;
-padding: 0 11px;
-display: flex;
-align-items: center;
-gap: 10px;
-border: 0;
-border-radius: 4px;
-background: transparent;
-color: rgba(255, 255, 255, 0.64);
-font-family: "Montserrat", sans-serif;
-font-size: 11px;
-font-weight: 500;
-text-align: left;
-cursor: pointer;
-transition:
-background 100ms ease,
-color 100ms ease;
-}
+    .profile-dropdown-item {
+      width: 100%;
+      min-height: 38px;
+      padding: 0 11px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        background 100ms ease,
+        color 100ms ease;
+    }
 
-.profile-dropdown-item:hover {
-background: rgba(96, 145, 205, 0.10);
-color: #FFFFFF;
-}
+    .profile-dropdown-item:hover {
+      background: rgba(96, 145, 205, 0.10);
+      color: var(--text);
+    }
 
-.profile-dropdown-icon {
-width: 16px;
-height: 16px;
-flex: 0 0 16px;
-display: flex;
-align-items: center;
-justify-content: center;
-color: rgba(255, 255, 255, 0.40);
-}
+    .profile-dropdown-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted-soft);
+    }
 
-.profile-dropdown-icon svg {
-width: 14px;
-height: 14px;
-display: block;
-fill: none;
-stroke: currentColor;
-stroke-width: 1.6;
-stroke-linecap: round;
-stroke-linejoin: round;
-}
+    .profile-dropdown-icon svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-.profile-dropdown-item:hover .profile-dropdown-icon {
-color: rgba(255, 255, 255, 0.72);
-}
+    .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(255, 255, 255, 0.72);
+    }
 
-.profile-dropdown-logout {
-color: rgba(255, 107, 120, 0.68);
-}
+    .profile-dropdown-logout {
+      color: rgba(255, 107, 120, 0.68);
+    }
 
-.profile-dropdown-logout .profile-dropdown-icon {
-color: rgba(255, 107, 120, 0.62);
-}
+    .profile-dropdown-logout .profile-dropdown-icon {
+      color: rgba(255, 107, 120, 0.62);
+    }
 
-.profile-dropdown-logout:hover {
-background: rgba(255, 65, 85, 0.07);
-color: #FF7D88;
-}
+    .profile-dropdown-logout:hover {
+      background: rgba(255, 65, 85, 0.07);
+      color: #FF7D88;
+    }
 
-.profile-dropdown-logout:hover .profile-dropdown-icon {
-color: #FF7D88;
-}
+    .profile-dropdown-logout:hover .profile-dropdown-icon {
+      color: #FF7D88;
+    }
 
     .profile-dropdown-item:disabled {
       opacity: 0.45;
@@ -513,9 +663,9 @@ color: #FF7D88;
     .login-modal {
       width: min(440px, 100%);
       padding: 28px;
-      border: 1px solid rgba(120, 164, 215, 0.17);
+      border: 1px solid var(--border);
       border-radius: 9px;
-      background: rgba(9, 16, 27, 0.94);
+      background: var(--dropdown);
       box-shadow:
         0 24px 70px rgba(0, 0, 0, 0.48),
         inset 0 1px 0 rgba(255, 255, 255, 0.025);
@@ -546,7 +696,7 @@ color: #FF7D88;
       margin: 8px 0 0;
       font-size: 10px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.43);
+      color: var(--muted-soft);
     }
 
     .login-close {
@@ -554,10 +704,10 @@ color: #FF7D88;
       height: 27px;
       flex: 0 0 auto;
       padding: 0;
-      border: 1px solid rgba(120, 164, 215, 0.14);
+      border: 1px solid var(--border);
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.48);
+      color: var(--muted-soft);
       font-family: "Montserrat", sans-serif;
       font-size: 15px;
       line-height: 1;
@@ -571,7 +721,7 @@ color: #FF7D88;
     .login-close:hover {
       background: rgba(255, 255, 255, 0.06);
       border-color: rgba(120, 164, 215, 0.25);
-      color: #FFFFFF;
+      color: var(--text);
     }
 
     .login-points {
@@ -588,7 +738,7 @@ color: #FF7D88;
       padding-left: 17px;
       font-size: 10px;
       line-height: 1.6;
-      color: rgba(255, 255, 255, 0.62);
+      color: var(--muted);
     }
 
     .login-points li::before {
@@ -650,7 +800,7 @@ color: #FF7D88;
       font-size: 8px;
       line-height: 1.6;
       text-align: center;
-      color: rgba(255, 255, 255, 0.27);
+      color: var(--muted-soft);
     }
 
     main {
@@ -664,14 +814,9 @@ color: #FF7D88;
       position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 230px;
-      border: 1px solid rgba(120, 164, 215, 0.16);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(74, 132, 205, 0.075),
-          rgba(255, 255, 255, 0.018)
-        );
+      background: var(--panel);
       overflow: hidden;
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
       transition:
@@ -681,12 +826,7 @@ color: #FF7D88;
 
     .news:hover {
       border-color: rgba(120, 164, 215, 0.25);
-      background:
-        linear-gradient(
-          135deg,
-          rgba(74, 132, 205, 0.095),
-          rgba(255, 255, 255, 0.022)
-        );
+      background: var(--panel-hover);
     }
 
     .news-content {
@@ -710,7 +850,7 @@ color: #FF7D88;
       height: 5px;
       flex: 0 0 auto;
       border-radius: 50%;
-      background: #FFFFFF;
+      background: currentColor;
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
     }
 
@@ -720,12 +860,12 @@ color: #FF7D88;
       font-size: 12px;
       line-height: 1.55;
       letter-spacing: -0.01em;
-      color: rgba(255, 255, 255, 0.70);
+      color: var(--muted);
       transition: opacity 120ms ease;
     }
 
     .news-description.empty {
-      color: rgba(255, 255, 255, 0.28);
+      color: var(--muted-soft);
     }
 
     .news-footer {
@@ -737,7 +877,7 @@ color: #FF7D88;
       border-top: 1px solid var(--border-soft);
       font-size: 8px;
       letter-spacing: 0.02em;
-      color: rgba(255, 255, 255, 0.30);
+      color: var(--muted-soft);
     }
 
     .news-image {
@@ -809,7 +949,7 @@ color: #FF7D88;
       height: 0;
       border-top: 4px solid transparent;
       border-bottom: 4px solid transparent;
-      border-right: 6px solid rgba(255, 255, 255, 0.75);
+      border-right: 6px solid currentColor;
     }
 
     .news-arrow.right::before {
@@ -818,7 +958,7 @@ color: #FF7D88;
       height: 0;
       border-top: 4px solid transparent;
       border-bottom: 4px solid transparent;
-      border-left: 6px solid rgba(255, 255, 255, 0.75);
+      border-left: 6px solid currentColor;
     }
 
     .news-dots {
@@ -833,18 +973,19 @@ color: #FF7D88;
       padding: 0;
       border: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.32);
+      background: currentColor;
+      opacity: 0.32;
       cursor: pointer;
       transition:
         width 140ms ease,
         height 140ms ease,
-        background 140ms ease;
+        opacity 140ms ease;
     }
 
     .news-dot.active {
       width: 6px;
       height: 6px;
-      background: rgba(255, 255, 255, 0.92);
+      opacity: 0.92;
     }
 
     .main-grid {
@@ -863,17 +1004,12 @@ color: #FF7D88;
       position: relative;
       min-height: 0;
       padding: 24px 25px 21px;
-      border: 1px solid rgba(120, 164, 215, 0.16);
+      border: 1px solid var(--border);
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(63, 121, 194, 0.075),
-          rgba(255, 255, 255, 0.018)
-        );
+      background: var(--panel);
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
       transition:
         border-color 160ms ease,
@@ -892,7 +1028,7 @@ color: #FF7D88;
       background:
         radial-gradient(
           circle,
-          rgba(54, 119, 197, 0.11),
+          var(--module-glow),
           transparent 70%
         );
       opacity: 0;
@@ -902,12 +1038,7 @@ color: #FF7D88;
 
     .module:hover {
       border-color: rgba(120, 164, 215, 0.27);
-      background:
-        linear-gradient(
-          135deg,
-          rgba(63, 121, 194, 0.095),
-          rgba(255, 255, 255, 0.022)
-        );
+      background: var(--panel-hover);
       transform: translateY(-1px);
     }
 
@@ -940,7 +1071,7 @@ color: #FF7D88;
       max-width: 340px;
       font-size: 9px;
       line-height: 1.65;
-      color: rgba(255, 255, 255, 0.46);
+      color: var(--muted-soft);
     }
 
     .module-description::before {
@@ -969,13 +1100,13 @@ color: #FF7D88;
       gap: 7px;
       min-height: 29px;
       padding: 0 11px;
-      border: 1px solid rgba(120, 164, 215, 0.19);
+      border: 1px solid var(--border);
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.035);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.065em;
-      color: rgba(255, 255, 255, 0.58);
+      color: var(--muted);
       cursor: pointer;
       position: relative;
       z-index: 3;
@@ -988,7 +1119,7 @@ color: #FF7D88;
     }
 
     .module-link:hover {
-      color: #FFFFFF;
+      color: var(--text);
       background: rgba(95, 151, 215, 0.10);
       border-color: rgba(120, 164, 215, 0.34);
       gap: 9px;
@@ -1056,14 +1187,14 @@ color: #FF7D88;
       z-index: 100;
       min-height: 58px;
       padding: 0 32px;
-      border-top: 1px solid rgba(120, 164, 215, 0.13);
-      background: rgba(8, 15, 27, 0.84);
+      border-top: 1px solid var(--border-soft);
+      background: var(--topbar);
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 9px;
       line-height: 1;
-      color: rgba(255, 255, 255, 0.30);
+      color: var(--muted-soft);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
@@ -1076,7 +1207,7 @@ color: #FF7D88;
     }
 
     .footer-brand {
-      color: rgba(255, 255, 255, 0.55);
+      color: var(--muted);
       font-weight: 700;
     }
 
@@ -1085,7 +1216,7 @@ color: #FF7D88;
     }
 
     .footer-right a:hover {
-      color: rgba(255, 255, 255, 0.75);
+      color: var(--text);
     }
 
     @media (max-width: 760px) {
@@ -1325,117 +1456,120 @@ color: #FF7D88;
       }
     }
   </style>
+
 </head>
 
-<body>
+<body data-theme="blue">
 
   <header class="topbar">
 
-    <a href="/" class="logo">
-      RSF
+```
+<a href="/" class="logo">
+  RSF
+</a>
+
+<nav class="navigation" aria-label="Main navigation">
+
+  <div class="nav-item active">
+    <a href="/" class="nav-label">
+      MAIN
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="/database" class="nav-label">
+      DATABASE
+      <span class="arrow">▾</span>
     </a>
 
-    <nav class="navigation" aria-label="Main navigation">
-
-      <div class="nav-item active">
-        <a href="/" class="nav-label">
-          MAIN
-        </a>
-      </div>
-
-      <div class="nav-item">
-        <a href="/database" class="nav-label">
-          DATABASE
-          <span class="arrow">▾</span>
-        </a>
-
-        <div class="dropdown">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
-        </div>
-      </div>
-
-      <div class="nav-item">
-        <a href="/community" class="nav-label">
-          COMMUNITY
-          <span class="arrow">▾</span>
-        </a>
-
-        <div class="dropdown">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
-        </div>
-      </div>
-
-      <div class="nav-item">
-        <a href="/arcade" class="nav-label">
-          ARCADE
-        </a>
-      </div>
-
-      <div class="nav-item">
-        <a href="/rsf" class="nav-label">
-          RSF
-        </a>
-      </div>
-
-    </nav>
-
-    <button
-      type="button"
-      class="login-button"
-      id="login-button"
-      aria-label="Login with Discord"
-    >
-      <img
-        class="discord-logo"
-        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-        alt=""
-        aria-hidden="true"
-      >
-      <span>LOGIN</span>
-    </button>
-
-    <div
-      class="profile-card"
-      id="profile-card"
-      style="display: none;"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <div class="profile-avatar" id="profile-avatar-container">
-        <img
-          id="profile-avatar"
-          src=""
-          alt=""
-        >
-      </div>
-
-      <div class="profile-info">
-        <span
-          class="profile-username"
-          id="profile-username"
-        >
-          —
-        </span>
-
-        <span
-          class="profile-status"
-          id="profile-status"
-        >
-          GUEST
-        </span>
-      </div>
-
-      <span class="profile-chevron" aria-hidden="true">
-        <svg viewBox="0 0 10 10">
-          <path d="M2 3.5L5 6.5L8 3.5"></path>
-        </svg>
-      </span>
+    <div class="dropdown">
+      <a href="/database">Playerbase</a>
+      <a href="/database">Teams</a>
+      <a href="/database">Seasons</a>
     </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/community" class="nav-label">
+      COMMUNITY
+      <span class="arrow">▾</span>
+    </a>
+
+    <div class="dropdown">
+      <a href="/community">Videos</a>
+      <a href="/community">Community Latest</a>
+      <a href="/community">Development</a>
+      <a href="/community">Resources</a>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/arcade" class="nav-label">
+      ARCADE
+    </a>
+  </div>
+
+  <div class="nav-item">
+    <a href="/rsf" class="nav-label">
+      RSF
+    </a>
+  </div>
+
+</nav>
+
+<button
+  type="button"
+  class="login-button"
+  id="login-button"
+  aria-label="Login with Discord"
+>
+  <img
+    class="discord-logo"
+    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+    alt=""
+    aria-hidden="true"
+  >
+  <span>LOGIN</span>
+</button>
+
+<div
+  class="profile-card"
+  id="profile-card"
+  style="display: none;"
+  aria-haspopup="true"
+  aria-expanded="false"
+>
+  <div class="profile-avatar" id="profile-avatar-container">
+    <img
+      id="profile-avatar"
+      src=""
+      alt=""
+    >
+  </div>
+
+  <div class="profile-info">
+    <span
+      class="profile-username"
+      id="profile-username"
+    >
+      —
+    </span>
+
+    <span
+      class="profile-status"
+      id="profile-status"
+    >
+      GUEST
+    </span>
+  </div>
+
+  <span class="profile-chevron" aria-hidden="true">
+    <svg viewBox="0 0 10 10">
+      <path d="M2 3.5L5 6.5L8 3.5"></path>
+    </svg>
+  </span>
+</div>
+```
 
   </header>
 
@@ -1445,278 +1579,364 @@ color: #FF7D88;
     aria-hidden="true"
   >
 
-    <div
-      class="login-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="login-title"
-    >
+```
+<div
+  class="login-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="login-title"
+>
 
-      <div class="login-modal-header">
+  <div class="login-modal-header">
 
-        <div>
-          <h2
-            class="login-modal-title"
-            id="login-title"
-          >
-            Login to RSF
-          </h2>
-
-          <p class="login-modal-subtitle">
-            Connect your Discord account to access the full RSF experience.
-          </p>
-        </div>
-
-        <button
-          type="button"
-          class="login-close"
-          id="login-close"
-          aria-label="Close login"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <ul class="login-points">
-        <li>Logging in is completely optional.</li>
-        <li>Log in to access all features available across the RSF website.</li>
-        <li>Your Discord account is only used to authenticate your RSF account.</li>
-        <li>We only use the information required to provide your account and website features.</li>
-        <li>You can continue using publicly available parts of the website without logging in.</li>
-      </ul>
-
-      <button
-        type="button"
-        class="login-proceed"
-        id="login-proceed"
+    <div>
+      <h2
+        class="login-modal-title"
+        id="login-title"
       >
-        PROCEED TO LOGIN
-      </button>
+        Login to RSF
+      </h2>
 
-      <p class="login-note">
-        By continuing, you will be redirected to Discord to authenticate.
+      <p class="login-modal-subtitle">
+        Connect your Discord account to access the full RSF experience.
       </p>
-
     </div>
+
+    <button
+      type="button"
+      class="login-close"
+      id="login-close"
+      aria-label="Close login"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <ul class="login-points">
+    <li>Logging in is completely optional.</li>
+    <li>Log in to access all features available across the RSF website.</li>
+    <li>Your Discord account is only used to authenticate your RSF account.</li>
+    <li>We only use the information required to provide your account and website features.</li>
+    <li>You can continue using publicly available parts of the website without logging in.</li>
+  </ul>
+
+  <button
+    type="button"
+    class="login-proceed"
+    id="login-proceed"
+  >
+    PROCEED TO LOGIN
+  </button>
+
+  <p class="login-note">
+    By continuing, you will be redirected to Discord to authenticate.
+  </p>
+
+</div>
+```
 
   </div>
 
   <main>
 
-    <section
-      class="news"
-      aria-label="Latest News"
+```
+<section
+  class="news"
+  aria-label="Latest News"
+>
+
+  <div class="news-content">
+
+    <div class="section-label">
+      <span class="news-dot-live"></span>
+      LATEST NEWS
+    </div>
+
+    <div
+      id="news-description"
+      class="news-description empty"
     >
+      Loading latest news...
+    </div>
 
-      <div class="news-content">
+    <div class="news-footer">
+      <span id="news-updated">
+        Last updated: —
+      </span>
 
-        <div class="section-label">
-          <span class="news-dot-live"></span>
-          LATEST NEWS
-        </div>
+      <span>
+        RSF / NEWS
+      </span>
+    </div>
 
-        <div
-          id="news-description"
-          class="news-description empty"
-        >
-          Loading latest news...
-        </div>
+  </div>
 
-        <div class="news-footer">
-          <span id="news-updated">
-            Last updated: —
-          </span>
-
-          <span>
-            RSF / NEWS
-          </span>
-        </div>
-
-      </div>
-
-      <div
-        id="news-image"
-        class="news-image"
-      >
-        <img
-          id="news-image-element"
-          src=""
-          alt=""
-          decoding="async"
-        >
-      </div>
-
-      <div
-        id="news-controls"
-        class="news-controls"
-        aria-label="News navigation"
-      >
-        <button
-          type="button"
-          class="news-arrow left"
-          id="news-prev"
-          aria-label="Previous news"
-        ></button>
-
-        <div
-          id="news-dots"
-          class="news-dots"
-          aria-label="News slides"
-        ></div>
-
-        <button
-          type="button"
-          class="news-arrow right"
-          id="news-next"
-          aria-label="Next news"
-        ></button>
-      </div>
-
-    </section>
-
-    <section
-      class="main-grid"
-      aria-label="RSF sections"
+  <div
+    id="news-image"
+    class="news-image"
+  >
+    <img
+      id="news-image-element"
+      src=""
+      alt=""
+      decoding="async"
     >
+  </div>
 
-      <article class="module rsf-module">
+  <div
+    id="news-controls"
+    class="news-controls"
+    aria-label="News navigation"
+  >
+    <button
+      type="button"
+      class="news-arrow left"
+      id="news-prev"
+      aria-label="Previous news"
+    ></button>
 
-        <h2 class="module-title">
-          RSF
-        </h2>
+    <div
+      id="news-dots"
+      class="news-dots"
+      aria-label="News slides"
+    ></div>
 
-        <p class="module-description">
-          The home of RSF, its history, people and everything surrounding the community.
-        </p>
+    <button
+      type="button"
+      class="news-arrow right"
+      id="news-next"
+      aria-label="Next news"
+    ></button>
+  </div>
 
-        <div class="module-bottom">
-          <a
-            href="/rsf"
-            class="module-link"
-          >
-            EXPLORE RSF
-            <span class="module-arrow">→</span>
-          </a>
-        </div>
+</section>
 
-      </article>
+<section
+  class="main-grid"
+  aria-label="RSF sections"
+>
 
-      <article class="module database">
+  <article class="module rsf-module">
 
-        <h2 class="module-title">
-          DATABASE
-        </h2>
+    <h2 class="module-title">
+      RSF
+    </h2>
 
-        <p class="module-description">
-          Explore the RSF playerbase, teams, seasons and the records that make up its history.
-        </p>
+    <p class="module-description">
+      The home of RSF, its history, people and everything surrounding the community.
+    </p>
 
-        <div class="module-bottom">
-          <a
-            href="/database"
-            class="module-link"
-          >
-            OPEN DATABASE
-            <span class="module-arrow">→</span>
-          </a>
-        </div>
+    <div class="module-bottom">
+      <a
+        href="/rsf"
+        class="module-link"
+      >
+        EXPLORE RSF
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
-      </article>
+  </article>
 
-      <article class="module arcade-module">
+  <article class="module database">
 
-        <h2 class="module-title">
-          ARCADE
-        </h2>
+    <h2 class="module-title">
+      DATABASE
+    </h2>
 
-        <p class="module-description">
-          Games, experiments and smaller interactive projects built around RSF.
-        </p>
+    <p class="module-description">
+      Explore the RSF playerbase, teams, seasons and the records that make up its history.
+    </p>
 
-        <div class="module-bottom">
-          <a
-            href="/arcade"
-            class="module-link"
-          >
-            ENTER ARCADE
-            <span class="module-arrow">→</span>
-          </a>
-        </div>
+    <div class="module-bottom">
+      <a
+        href="/database"
+        class="module-link"
+      >
+        OPEN DATABASE
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
-      </article>
+  </article>
 
-      <article class="module community">
+  <article class="module arcade-module">
 
-        <div>
-          <h2 class="module-title">
-            COMMUNITY
-          </h2>
+    <h2 class="module-title">
+      ARCADE
+    </h2>
 
-          <p class="module-description">
-            Videos, development, resources and the latest things happening around RSF.
-          </p>
-        </div>
+    <p class="module-description">
+      Games, experiments and smaller interactive projects built around RSF.
+    </p>
 
-        <div class="module-bottom">
-          <a
-            href="/community"
-            class="module-link"
-          >
-            VIEW COMMUNITY
-            <span class="module-arrow">→</span>
-          </a>
-        </div>
+    <div class="module-bottom">
+      <a
+        href="/arcade"
+        class="module-link"
+      >
+        ENTER ARCADE
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
 
-      </article>
+  </article>
 
-    </section>
+  <article class="module community">
+
+    <div>
+      <h2 class="module-title">
+        COMMUNITY
+      </h2>
+
+      <p class="module-description">
+        Videos, development, resources and the latest things happening around RSF.
+      </p>
+    </div>
+
+    <div class="module-bottom">
+      <a
+        href="/community"
+        class="module-link"
+      >
+        VIEW COMMUNITY
+        <span class="module-arrow">→</span>
+      </a>
+    </div>
+
+  </article>
+
+</section>
+```
 
   </main>
 
   <footer>
 
-    <div class="footer-left">
-      <span class="footer-brand">
-        RSF
-      </span>
-    </div>
+```
+<div class="footer-left">
+  <span class="footer-brand">
+    RSF
+  </span>
+</div>
 
-    <div class="footer-right">
-      <a href="/privacy">
-        Privacy Policy
-      </a>
+<div class="footer-right">
+  <a href="/privacy">
+    Privacy Policy
+  </a>
 
-      <a href="/terms">
-        Terms of Use
-      </a>
-    </div>
+  <a href="/terms">
+    Terms of Use
+  </a>
+</div>
+```
 
   </footer>
 
   <script>
+    const validThemes = [
+      "dark",
+      "light",
+      "blue",
+      "royal",
+      "ocean"
+    ];
+
+    function applyTheme(theme) {
+      if (!validThemes.includes(theme)) {
+        theme = "blue";
+      }
+
+      document.body.dataset.theme =
+        theme;
+    }
+
+    async function loadSavedTheme() {
+      applyTheme("blue");
+
+      try {
+        const response =
+          await fetch(
+            "/api/preferences",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          data &&
+          validThemes.includes(
+            data.theme
+          )
+        ) {
+          applyTheme(
+            data.theme
+          );
+        }
+      } catch (error) {
+        console.warn(
+          "RSF theme sync failed:",
+          error
+        );
+      }
+    }
+
     const loginButton =
-      document.getElementById("login-button");
+      document.getElementById(
+        "login-button"
+      );
 
     const loginOverlay =
-      document.getElementById("login-overlay");
+      document.getElementById(
+        "login-overlay"
+      );
 
     const loginClose =
-      document.getElementById("login-close");
+      document.getElementById(
+        "login-close"
+      );
 
     const loginProceed =
-      document.getElementById("login-proceed");
+      document.getElementById(
+        "login-proceed"
+      );
 
     function openLoginModal() {
-      loginOverlay.classList.add("open");
-      loginOverlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
+      loginOverlay.classList.add(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
     }
 
     function closeLoginModal() {
-      loginOverlay.classList.remove("open");
-      loginOverlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
+      loginOverlay.classList.remove(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
     }
 
     loginButton.addEventListener(
@@ -1732,7 +1952,10 @@ color: #FF7D88;
     loginOverlay.addEventListener(
       "click",
       event => {
-        if (event.target === loginOverlay) {
+        if (
+          event.target ===
+          loginOverlay
+        ) {
           closeLoginModal();
         }
       }
@@ -1741,7 +1964,8 @@ color: #FF7D88;
     loginProceed.addEventListener(
       "click",
       () => {
-        window.location.href = "/api/login";
+        window.location.href =
+          "/api/login";
       }
     );
 
@@ -1750,7 +1974,9 @@ color: #FF7D88;
       event => {
         if (
           event.key === "Escape" &&
-          loginOverlay.classList.contains("open")
+          loginOverlay.classList.contains(
+            "open"
+          )
         ) {
           closeLoginModal();
         }
@@ -1760,9 +1986,14 @@ color: #FF7D88;
     const NEWS_API_URL =
       "https://script.google.com/macros/s/AKfycbx9_XcOHD7oqz_xYqiMYX8x1DOEcEb66PdADEY3gGyGrXDeWWZSBgaopBvCd0xlQiftpQ/exec";
 
-    const NEWS_SYNC_INTERVAL = 15000;
-    const NEWS_AUTO_ADVANCE = 20000;
-    const NEWS_REQUEST_TIMEOUT = 8000;
+    const NEWS_SYNC_INTERVAL =
+      15000;
+
+    const NEWS_AUTO_ADVANCE =
+      20000;
+
+    const NEWS_REQUEST_TIMEOUT =
+      8000;
 
     let newsItems = [];
     let currentNewsIndex = 0;
@@ -1772,66 +2003,105 @@ color: #FF7D88;
     let firstLoad = true;
     let lastServerVersion = null;
 
-    const imageCache = new Map();
+    const imageCache =
+      new Map();
 
     const description =
-      document.getElementById("news-description");
+      document.getElementById(
+        "news-description"
+      );
 
     const updated =
-      document.getElementById("news-updated");
+      document.getElementById(
+        "news-updated"
+      );
 
     const imageContainer =
-      document.getElementById("news-image");
+      document.getElementById(
+        "news-image"
+      );
 
     const image =
-      document.getElementById("news-image-element");
+      document.getElementById(
+        "news-image-element"
+      );
 
     const dotsContainer =
-      document.getElementById("news-dots");
+      document.getElementById(
+        "news-dots"
+      );
 
     const controls =
-      document.getElementById("news-controls");
+      document.getElementById(
+        "news-controls"
+      );
 
     const previousButton =
-      document.getElementById("news-prev");
+      document.getElementById(
+        "news-prev"
+      );
 
     const nextButton =
-      document.getElementById("news-next");
+      document.getElementById(
+        "news-next"
+      );
 
     function preloadImage(url) {
-      if (!url || imageCache.has(url)) {
+      if (
+        !url ||
+        imageCache.has(url)
+      ) {
         return;
       }
 
-      const preload = new Image();
+      const preload =
+        new Image();
 
-      preload.decoding = "async";
-      preload.loading = "eager";
-      preload.src = url;
+      preload.decoding =
+        "async";
 
-      imageCache.set(url, preload);
+      preload.loading =
+        "eager";
+
+      preload.src =
+        url;
+
+      imageCache.set(
+        url,
+        preload
+      );
     }
 
     function cleanupImageCache() {
       const activeImages =
         new Set(
           newsItems
-            .map(item => item.image)
+            .map(
+              item => item.image
+            )
             .filter(Boolean)
         );
 
-      for (const url of imageCache.keys()) {
-        if (!activeImages.has(url)) {
+      for (
+        const url of imageCache.keys()
+      ) {
+        if (
+          !activeImages.has(url)
+        ) {
           imageCache.delete(url);
         }
       }
     }
 
     function cleanValue(value) {
-      return String(value ?? "").trim();
+      return String(
+        value ?? ""
+      ).trim();
     }
 
-    function getNewsSignature(items) {
+    function getNewsSignature(
+      items
+    ) {
       return items
         .map(
           item =>
@@ -1845,15 +2115,21 @@ color: #FF7D88;
     }
 
     function createNewsDots() {
-      dotsContainer.innerHTML = "";
+      dotsContainer.innerHTML =
+        "";
 
       newsItems.forEach(
         (_, index) => {
           const dot =
-            document.createElement("button");
+            document.createElement(
+              "button"
+            );
 
-          dot.type = "button";
-          dot.className = "news-dot";
+          dot.type =
+            "button";
+
+          dot.className =
+            "news-dot";
 
           dot.setAttribute(
             "aria-label",
@@ -1868,7 +2144,9 @@ color: #FF7D88;
             }
           );
 
-          dotsContainer.appendChild(dot);
+          dotsContainer.appendChild(
+            dot
+          );
         }
       );
 
@@ -1877,13 +2155,16 @@ color: #FF7D88;
 
     function updateNewsDots() {
       const dots =
-        dotsContainer.querySelectorAll(".news-dot");
+        dotsContainer.querySelectorAll(
+          ".news-dot"
+        );
 
       dots.forEach(
         (dot, index) => {
           dot.classList.toggle(
             "active",
-            index === currentNewsIndex
+            index ===
+              currentNewsIndex
           );
         }
       );
@@ -1895,13 +2176,17 @@ color: #FF7D88;
       }
 
       currentNewsIndex =
-        (index + newsItems.length) %
+        (index +
+          newsItems.length) %
         newsItems.length;
 
       const item =
-        newsItems[currentNewsIndex];
+        newsItems[
+          currentNewsIndex
+        ];
 
-      description.style.opacity = "0";
+      description.style.opacity =
+        "0";
 
       requestAnimationFrame(
         () => {
@@ -1918,16 +2203,22 @@ color: #FF7D88;
             "Last updated: " +
             (item.date || "—");
 
-          imageContainer.classList.remove("visible");
+          imageContainer.classList.remove(
+            "visible"
+          );
 
           image.onload = null;
           image.onerror = null;
 
-          image.removeAttribute("src");
+          image.removeAttribute(
+            "src"
+          );
 
           if (item.image) {
             const cachedImage =
-              imageCache.get(item.image);
+              imageCache.get(
+                item.image
+              );
 
             image.alt =
               item.description ||
@@ -1936,58 +2227,89 @@ color: #FF7D88;
             if (
               cachedImage &&
               cachedImage.complete &&
-              cachedImage.naturalWidth > 0
+              cachedImage.naturalWidth >
+                0
             ) {
-              image.src = cachedImage.src;
-              imageContainer.classList.add("visible");
+              image.src =
+                cachedImage.src;
+
+              imageContainer.classList.add(
+                "visible"
+              );
             } else {
-              image.onload = () => {
-                imageContainer.classList.add("visible");
-              };
+              image.onload =
+                () => {
+                  imageContainer.classList.add(
+                    "visible"
+                  );
+                };
 
-              image.onerror = () => {
-                imageContainer.classList.remove("visible");
-              };
+              image.onerror =
+                () => {
+                  imageContainer.classList.remove(
+                    "visible"
+                  );
+                };
 
-              image.src = item.image;
+              image.src =
+                item.image;
             }
           }
 
           updateNewsDots();
-          description.style.opacity = "1";
+
+          description.style.opacity =
+            "1";
         }
       );
     }
 
     function nextNews() {
-      if (newsItems.length <= 1) {
+      if (
+        newsItems.length <= 1
+      ) {
         return;
       }
 
-      showNews(currentNewsIndex + 1);
+      showNews(
+        currentNewsIndex + 1
+      );
+
       resetNewsTimer();
     }
 
     function previousNews() {
-      if (newsItems.length <= 1) {
+      if (
+        newsItems.length <= 1
+      ) {
         return;
       }
 
-      showNews(currentNewsIndex - 1);
+      showNews(
+        currentNewsIndex - 1
+      );
+
       resetNewsTimer();
     }
 
     function resetNewsTimer() {
-      clearTimeout(newsTimer);
+      clearTimeout(
+        newsTimer
+      );
 
-      if (newsItems.length <= 1) {
+      if (
+        newsItems.length <= 1
+      ) {
         return;
       }
 
       newsTimer =
         setTimeout(
           () => {
-            showNews(currentNewsIndex + 1);
+            showNews(
+              currentNewsIndex + 1
+            );
+
             resetNewsTimer();
           },
           NEWS_AUTO_ADVANCE
@@ -2046,7 +2368,8 @@ color: #FF7D88;
               redirect: "follow",
               signal: controller.signal,
               headers: {
-                Accept: "application/json"
+                Accept:
+                  "application/json"
               }
             }
           );
@@ -2062,14 +2385,19 @@ color: #FF7D88;
 
         if (
           !data ||
-          typeof data !== "object"
+          typeof data !==
+            "object"
         ) {
           throw new Error(
             "RSF News API returned invalid JSON."
           );
         }
 
-        if (!Array.isArray(data.items)) {
+        if (
+          !Array.isArray(
+            data.items
+          )
+        ) {
           throw new Error(
             "RSF News API returned no valid news items."
           );
@@ -2079,9 +2407,18 @@ color: #FF7D88;
           data.items
             .map(
               item => ({
-                image: cleanValue(item.image),
-                description: cleanValue(item.description),
-                date: cleanValue(item.date)
+                image:
+                  cleanValue(
+                    item.image
+                  ),
+                description:
+                  cleanValue(
+                    item.description
+                  ),
+                date:
+                  cleanValue(
+                    item.date
+                  )
               })
             )
             .filter(
@@ -2091,7 +2428,9 @@ color: #FF7D88;
                 item.date
             );
 
-        if (!incomingItems.length) {
+        if (
+          !incomingItems.length
+        ) {
           if (firstLoad) {
             newsItems = [
               {
@@ -2106,32 +2445,41 @@ color: #FF7D88;
             updateControls();
             showNews(0);
 
-            firstLoad = false;
+            firstLoad =
+              false;
           }
 
           return false;
         }
 
         const serverVersion =
-          cleanValue(data.version);
+          cleanValue(
+            data.version
+          );
 
         const oldSignature =
-          getNewsSignature(newsItems);
+          getNewsSignature(
+            newsItems
+          );
 
         const newSignature =
-          getNewsSignature(incomingItems);
+          getNewsSignature(
+            incomingItems
+          );
 
         if (
           !firstLoad &&
           serverVersion &&
-          serverVersion === lastServerVersion
+          serverVersion ===
+            lastServerVersion
         ) {
           return false;
         }
 
         if (
           !firstLoad &&
-          oldSignature === newSignature
+          oldSignature ===
+            newSignature
         ) {
           lastServerVersion =
             serverVersion ||
@@ -2141,7 +2489,9 @@ color: #FF7D88;
         }
 
         const currentItem =
-          newsItems[currentNewsIndex];
+          newsItems[
+            currentNewsIndex
+          ];
 
         const currentKey =
           currentItem
@@ -2152,7 +2502,8 @@ color: #FF7D88;
               ].join("|||")
             : "";
 
-        newsItems = incomingItems;
+        newsItems =
+          incomingItems;
 
         let newIndex = 0;
 
@@ -2164,17 +2515,23 @@ color: #FF7D88;
                   item.image,
                   item.description,
                   item.date
-                ].join("|||") === currentKey
+                ].join("|||") ===
+                currentKey
             );
 
-          if (matchingIndex !== -1) {
-            newIndex = matchingIndex;
+          if (
+            matchingIndex !== -1
+          ) {
+            newIndex =
+              matchingIndex;
           }
         }
 
         newsItems.forEach(
           item => {
-            preloadImage(item.image);
+            preloadImage(
+              item.image
+            );
           }
         );
 
@@ -2188,11 +2545,14 @@ color: #FF7D88;
           serverVersion ||
           newSignature;
 
-        firstLoad = false;
+        firstLoad =
+          false;
 
         return true;
       } finally {
-        clearTimeout(timeout);
+        clearTimeout(
+          timeout
+        );
       }
     }
 
@@ -2201,7 +2561,8 @@ color: #FF7D88;
         return;
       }
 
-      syncInProgress = true;
+      syncInProgress =
+        true;
 
       try {
         await fetchNews();
@@ -2211,7 +2572,8 @@ color: #FF7D88;
           error
         );
       } finally {
-        syncInProgress = false;
+        syncInProgress =
+          false;
       }
     }
 
@@ -2220,7 +2582,9 @@ color: #FF7D88;
 
       const scheduleNextSync =
         () => {
-          clearTimeout(syncTimer);
+          clearTimeout(
+            syncTimer
+          );
 
           syncTimer =
             setTimeout(
@@ -2239,13 +2603,16 @@ color: #FF7D88;
       "visibilitychange",
       () => {
         if (
-          document.visibilityState === "visible"
+          document.visibilityState ===
+          "visible"
         ) {
           syncNews();
+          loadSavedTheme();
         }
       }
     );
 
+    loadSavedTheme();
     startNewsSync();
   </script>
 
