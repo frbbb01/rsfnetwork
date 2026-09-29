@@ -90,11 +90,8 @@
       text-decoration: none;
     }
 
-    button,
-    input,
-    textarea,
-    select {
-      font-family: inherit;
+    button {
+      font-family: "Montserrat", sans-serif;
     }
 
     .topbar {
@@ -406,12 +403,6 @@
       stroke-linejoin: round;
     }
 
-    /*
-      IMPORTANT:
-      auth.js creates and controls .profile-dropdown.
-      There is intentionally NO profile-dropdown HTML in this file.
-    */
-
     .profile-dropdown {
       position: absolute;
       top: calc(100% + 8px);
@@ -689,60 +680,18 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
-    footer {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 100;
-      min-height: 58px;
-      padding: 0 32px;
-      border-top: 1px solid var(--border-soft);
-      background: var(--topbar);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 9px;
-      line-height: 1;
-      color: rgba(255, 255, 255, 0.30);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease;
-    }
-
-    .footer-left,
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .footer-brand {
-      color: rgba(255, 255, 255, 0.55);
-      font-weight: 700;
-    }
-
-    .footer-right a {
-      transition: color 100ms ease;
-    }
-
-    .footer-right a:hover {
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    /* PROFILE */
+    /* PROFILE CONTENT */
 
     main {
-      width: min(1020px, calc(100% - 48px));
+      width: min(1100px, calc(100% - 56px));
       margin: 0 auto;
-      padding: 48px 0 105px;
+      padding: 42px 0 105px;
     }
 
     .profile-page {
       display: flex;
       flex-direction: column;
+      gap: 0;
     }
 
     .profile-cover {
@@ -753,27 +702,49 @@
       background:
         linear-gradient(
           135deg,
-          var(--accent-soft),
-          rgba(255, 255, 255, 0.018)
+          rgba(63, 121, 194, 0.075),
+          rgba(255, 255, 255, 0.014)
         );
     }
 
     .profile-cover::before {
       content: "";
       position: absolute;
-      width: 420px;
-      height: 260px;
-      top: -170px;
-      right: -120px;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(7, 17, 31, 0.10),
+          transparent 52%,
+          rgba(79, 155, 255, 0.045)
+        ),
+        radial-gradient(
+          ellipse 600px 260px at 90% 0%,
+          rgba(79, 155, 255, 0.14),
+          transparent 72%
+        );
+      pointer-events: none;
+    }
+
+    .profile-cover::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -145px;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(120, 164, 215, 0.07);
       border-radius: 50%;
-      background: var(--accent-soft);
-      filter: blur(20px);
+      box-shadow:
+        0 0 0 35px rgba(120, 164, 215, 0.018),
+        0 0 0 70px rgba(120, 164, 215, 0.012);
       pointer-events: none;
     }
 
     .profile-cover-inner {
       position: relative;
-      padding: 34px 34px 0;
+      z-index: 2;
+      padding: 38px 38px 0;
     }
 
     .social-profile {
@@ -792,7 +763,7 @@
       height: 118px;
       flex: 0 0 118px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(120, 164, 215, 0.20);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.035);
       box-shadow:
@@ -816,7 +787,7 @@
       background:
         linear-gradient(
           135deg,
-          var(--accent-soft),
+          rgba(79, 155, 255, 0.16),
           rgba(255, 255, 255, 0.025)
         );
       color: rgba(255, 255, 255, 0.70);
@@ -832,8 +803,8 @@
     .profile-name-row {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .player-name {
@@ -841,7 +812,7 @@
       font-size: clamp(28px, 4vw, 43px);
       line-height: 0.98;
       font-weight: 700;
-      letter-spacing: -0.055em;
+      letter-spacing: -0.065em;
     }
 
     .profile-badge {
@@ -849,34 +820,34 @@
       padding: 0 8px;
       display: inline-flex;
       align-items: center;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(79, 155, 255, 0.20);
       border-radius: 4px;
-      background: var(--accent-soft);
-      color: var(--accent);
+      background: rgba(79, 155, 255, 0.08);
+      color: #FFFFFF;
       font-size: 7px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.075em;
     }
 
     .player-handle {
       margin-top: 9px;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 500;
-      color: var(--muted);
+      color: rgba(255, 255, 255, 0.38);
     }
 
     .profile-bio {
       margin: 13px 0 0;
-      max-width: 610px;
-      font-size: 11px;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.58);
+      max-width: 650px;
+      font-size: 10px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.49);
     }
 
     .joined-short {
-      margin-top: 12px;
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.30);
+      margin-top: 11px;
+      font-size: 7px;
+      color: rgba(255, 255, 255, 0.31);
     }
 
     .profile-actions {
@@ -887,51 +858,68 @@
     }
 
     .profile-action {
-      min-width: 84px;
-      height: 34px;
+      min-width: 78px;
+      min-height: 34px;
       padding: 0 13px;
       border: 1px solid var(--border);
       border-radius: 5px;
-      background: transparent;
-      color: var(--muted);
+      background: rgba(255, 255, 255, 0.025);
+      color: rgba(255, 255, 255, 0.50);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.065em;
       cursor: pointer;
       transition:
-        background 120ms ease,
         color 120ms ease,
-        border-color 120ms ease;
+        background 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
     }
 
     .profile-action:hover {
+      color: #FFFFFF;
       background: var(--accent-soft);
-      color: var(--text);
-      border-color: var(--border);
+      border-color: rgba(120, 164, 215, 0.34);
+      transform: translateY(-1px);
+    }
+
+    .profile-action:active {
+      transform: translateY(0);
     }
 
     .profile-action.primary {
-      border-color: rgba(120, 164, 215, 0.22);
-      background: var(--accent-soft);
-      color: var(--text);
+      color: #FFFFFF;
+      border-color: rgba(79, 155, 255, 0.28);
+      background: rgba(79, 155, 255, 0.11);
     }
 
     .profile-action.primary:hover {
-      border-color: var(--accent);
-      background: var(--accent-soft);
+      background: rgba(79, 155, 255, 0.17);
+      border-color: rgba(120, 164, 215, 0.40);
     }
 
     .profile-action.following {
-      background: transparent;
-      color: var(--muted);
+      border-color: var(--border);
+      background: rgba(255, 255, 255, 0.055);
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .profile-action.following:hover {
+      background: var(--profile-hover);
+    }
+
+    .profile-action:disabled {
+      cursor: default;
+      opacity: 0.62;
+      transform: none;
     }
 
     .social-stats {
-      margin-top: 28px;
-      padding: 15px 0 17px;
+      margin-top: 30px;
+      min-height: 55px;
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 29px;
       border-top: 1px solid var(--border-soft);
     }
 
@@ -939,54 +927,43 @@
       display: flex;
       align-items: baseline;
       gap: 6px;
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.34);
     }
 
     .social-stat strong {
-      font-size: 12px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 11px;
       font-weight: 700;
     }
 
-    .social-stat span {
-      font-size: 8px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-
     .profile-tabs {
+      min-height: 55px;
+      padding: 0 22px;
       display: flex;
-      align-items: center;
-      gap: 28px;
-      min-height: 53px;
-      padding: 0 20px;
+      align-items: stretch;
+      gap: 25px;
       border: 1px solid var(--border);
       border-top: 0;
-      background: var(--profile);
+      border-radius: 0 0 10px 10px;
+      background: rgba(9, 16, 27, 0.68);
     }
 
     .profile-tab {
       position: relative;
-      height: 53px;
-      padding: 0;
+      min-height: 55px;
+      padding: 0 2px;
       border: 0;
       background: transparent;
-      color: var(--muted);
-      font-family: "Montserrat", sans-serif;
+      color: rgba(255, 255, 255, 0.34);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.065em;
       cursor: pointer;
       transition: color 120ms ease;
     }
 
-    .profile-tab:hover {
-      color: var(--text);
-    }
-
-    .profile-tab.active {
-      color: var(--text);
-    }
-
-    .profile-tab.active::after {
+    .profile-tab::after {
       content: "";
       position: absolute;
       left: 0;
@@ -994,43 +971,70 @@
       bottom: -1px;
       height: 2px;
       border-radius: 2px 2px 0 0;
+      background: transparent;
+      transition: background 120ms ease;
+    }
+
+    .profile-tab:hover {
+      color: rgba(255, 255, 255, 0.70);
+    }
+
+    .profile-tab.active {
+      color: #FFFFFF;
+    }
+
+    .profile-tab.active::after {
       background: var(--accent);
     }
 
     .tab-content {
       display: none;
       padding-top: 25px;
+      animation: profileTabIn 140ms ease;
     }
 
     .tab-content.active {
       display: block;
     }
 
+    @keyframes profileTabIn {
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .profile-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
       gap: 25px;
     }
 
     .profile-panel {
       min-width: 0;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface);
-    }
-
-    .profile-panel.full {
-      grid-column: 1 / -1;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     .panel-label {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      min-height: 32px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.085em;
     }
 
     .panel-label::before {
@@ -1044,115 +1048,107 @@
     }
 
     .panel-text {
-      margin: 16px 0 0;
+      margin: 0;
+      max-width: 650px;
       font-size: 10px;
       line-height: 1.75;
-      color: rgba(255, 255, 255, 0.58);
+      color: rgba(255, 255, 255, 0.49);
     }
 
     .stat-grid {
-      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      gap: 0;
+      border-top: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
     }
 
     .stat-box {
-      min-height: 66px;
-      padding: 13px;
-      border: 1px solid var(--border-soft);
-      border-radius: 6px;
+      min-height: 88px;
+      padding: 18px;
+      border-right: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
       background: rgba(255, 255, 255, 0.012);
-      transition:
-        background 120ms ease,
-        border-color 120ms ease;
+      transition: background 120ms ease;
     }
 
     .stat-box:hover {
-      background: var(--accent-soft);
-      border-color: var(--border);
+      background: rgba(79, 155, 255, 0.025);
     }
 
-    .stat-box strong {
-      display: block;
-      font-size: 17px;
+    .stat-value {
+      font-size: 22px;
+      line-height: 1;
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.045em;
     }
 
-    .stat-box span {
-      display: block;
-      margin-top: 5px;
+    .stat-name {
+      margin-top: 10px;
       font-size: 7px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.05em;
+      font-weight: 700;
+      letter-spacing: 0.065em;
+      color: rgba(255, 255, 255, 0.31);
     }
 
     .profile-list {
-      margin-top: 15px;
       display: flex;
       flex-direction: column;
+      border-top: 1px solid var(--border-soft);
     }
 
     .profile-list-row {
-      min-height: 39px;
+      min-height: 46px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
       border-bottom: 1px solid var(--border-soft);
     }
 
-    .profile-list-row:last-child {
-      border-bottom: 0;
-    }
-
-    .profile-list-row span {
+    .profile-list-name {
       font-size: 8px;
-      color: var(--muted);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.36);
     }
 
-    .profile-list-row strong {
-      min-width: 0;
+    .profile-list-value {
+      max-width: 62%;
       overflow: hidden;
       font-size: 9px;
       font-weight: 600;
+      color: rgba(255, 255, 255, 0.70);
       text-align: right;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .empty-state {
-      padding: 28px 10px;
+      min-height: 92px;
+      padding: 25px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
       text-align: center;
-      border: 1px dashed var(--border);
-      border-radius: 6px;
-      color: var(--muted);
+      color: rgba(255, 255, 255, 0.27);
       font-size: 9px;
-      line-height: 1.6;
-    }
-
-    .empty-state strong {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--text);
-      font-size: 9px;
-      font-weight: 600;
     }
 
     .activity-list {
-      margin-top: 15px;
       display: flex;
       flex-direction: column;
+      border-top: 1px solid var(--border-soft);
     }
 
     .activity-item {
-      min-height: 56px;
-      padding: 10px 0;
+      min-height: 68px;
+      padding: 14px 0;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 13px;
       border-bottom: 1px solid var(--border-soft);
     }
 
@@ -1161,66 +1157,77 @@
     }
 
     .activity-icon {
-      width: 30px;
-      height: 30px;
-      flex: 0 0 30px;
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
       border-radius: 5px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 8px;
-      font-weight: 700;
+      background: rgba(255, 255, 255, 0.025);
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 11px;
     }
 
-    .activity-copy {
+    .activity-text {
       min-width: 0;
       flex: 1;
     }
 
-    .activity-copy strong {
-      display: block;
+    .activity-title {
       font-size: 9px;
-      font-weight: 600;
+      color: rgba(255, 255, 255, 0.62);
     }
 
-    .activity-copy span {
-      display: block;
+    .activity-date {
       margin-top: 4px;
       font-size: 7px;
-      color: var(--muted);
+      color: rgba(255, 255, 255, 0.25);
     }
 
-    .career-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 16px;
+    footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      min-height: 58px;
+      padding: 0 32px;
+      border-top: 1px solid var(--border-soft);
+      background: var(--topbar);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 9px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.30);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
     }
 
-    .career-stat {
-      min-height: 78px;
-      padding: 15px;
-      border: 1px solid var(--border-soft);
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.012);
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
-    .career-stat strong {
-      display: block;
-      font-size: 20px;
+    .footer-brand {
+      color: rgba(255, 255, 255, 0.55);
       font-weight: 700;
-      letter-spacing: -0.04em;
     }
 
-    .career-stat span {
-      display: block;
-      margin-top: 6px;
-      font-size: 7px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
+    .footer-right a {
+      transition: color 100ms ease;
+    }
+
+    .footer-right a:hover {
+      color: rgba(255, 255, 255, 0.75);
     }
 
     body.theme-dark {
@@ -1247,19 +1254,142 @@
       --profile: rgba(245, 245, 245, 0.94);
       --profile-hover: rgba(250, 250, 250, 0.98);
       --dropdown: rgba(245, 245, 245, 0.99);
-
+      color: var(--text);
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
-          rgba(90, 120, 180, 0.16),
+          rgba(255, 255, 255, 0.62),
           transparent 68%
         ),
         radial-gradient(
           ellipse 760px 560px at 8% 55%,
-          rgba(80, 105, 160, 0.10),
+          rgba(170, 185, 205, 0.24),
           transparent 70%
         ),
         #D3D3D3;
+    }
+
+    body.theme-light .profile-username {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-status,
+    body.theme-light .profile-chevron,
+    body.theme-light .profile-dropdown-item {
+      color: rgba(21, 24, 28, 0.62);
+    }
+
+    body.theme-light .profile-card:hover .profile-chevron,
+    body.theme-light .profile-card.open .profile-chevron {
+      color: rgba(21, 24, 28, 0.72);
+    }
+
+    body.theme-light .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.40);
+    }
+
+    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.72);
+    }
+
+    body.theme-light .profile-dropdown-item:hover {
+      background: var(--accent-soft);
+      color: #15181C;
+    }
+
+    body.theme-light .dropdown a {
+      color: rgba(21, 24, 28, 0.62);
+    }
+
+    body.theme-light .dropdown a:hover,
+    body.theme-light .dropdown a:focus-visible {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-bio,
+    body.theme-light .panel-text,
+    body.theme-light .profile-list-name,
+    body.theme-light .activity-title {
+      color: rgba(21, 24, 28, 0.50);
+    }
+
+    body.theme-light .player-handle,
+    body.theme-light .joined-short,
+    body.theme-light .social-stat,
+    body.theme-light .stat-name,
+    body.theme-light .activity-date {
+      color: rgba(21, 24, 28, 0.34);
+    }
+
+    body.theme-light .social-stat strong,
+    body.theme-light .profile-list-value,
+    body.theme-light .stat-value {
+      color: rgba(21, 24, 28, 0.78);
+    }
+
+    body.theme-light .profile-action {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .profile-action:hover,
+    body.theme-light .profile-action.primary {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-tab {
+      color: rgba(21, 24, 28, 0.38);
+    }
+
+    body.theme-light .profile-tab:hover {
+      color: rgba(21, 24, 28, 0.68);
+    }
+
+    body.theme-light .profile-tab.active {
+      color: #15181C;
+    }
+
+    body.theme-light .empty-state {
+      color: rgba(21, 24, 28, 0.28);
+    }
+
+    body.theme-light .activity-icon {
+      color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-light .footer-brand {
+      color: rgba(21, 24, 28, 0.60);
+    }
+
+    body.theme-light footer {
+      color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-light .footer-right a:hover {
+      color: rgba(21, 24, 28, 0.75);
+    }
+
+    body.theme-light .login-overlay {
+      background: rgba(25, 28, 32, 0.28);
+    }
+
+    body.theme-light .login-modal {
+      background: rgba(245, 245, 245, 0.98);
+    }
+
+    body.theme-light .login-modal-subtitle,
+    body.theme-light .login-points li,
+    body.theme-light .login-note {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .login-close {
+      background: rgba(21, 24, 28, 0.025);
+      color: rgba(21, 24, 28, 0.48);
+    }
+
+    body.theme-light .login-close:hover {
+      background: rgba(21, 24, 28, 0.06);
+      color: #15181C;
     }
 
     body.theme-blue {
@@ -1270,7 +1400,6 @@
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
-
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
@@ -1298,21 +1427,20 @@
       --profile: rgba(16, 14, 39, 0.90);
       --profile-hover: rgba(22, 18, 52, 0.96);
       --dropdown: rgba(17, 14, 42, 0.99);
-
       background:
         radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(92, 65, 180, 0.30),
-          transparent 68%
+          ellipse 920px 620px at 78% 0%,
+          rgba(73, 56, 170, 0.34),
+          transparent 67%
         ),
         radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(65, 45, 145, 0.17),
+          ellipse 760px 560px at 8% 52%,
+          rgba(39, 57, 135, 0.25),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(55, 38, 130, 0.12),
+          ellipse 700px 500px at 58% 105%,
+          rgba(112, 48, 145, 0.18),
           transparent 72%
         ),
         #0E0B20;
@@ -1326,101 +1454,44 @@
       --profile: rgba(7, 30, 39, 0.90);
       --profile-hover: rgba(9, 39, 50, 0.96);
       --dropdown: rgba(7, 31, 41, 0.99);
-
       background:
         radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(30, 135, 160, 0.30),
-          transparent 68%
+          ellipse 920px 620px at 78% 0%,
+          rgba(20, 111, 132, 0.36),
+          transparent 67%
         ),
         radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(20, 105, 130, 0.17),
+          ellipse 760px 560px at 7% 52%,
+          rgba(15, 76, 111, 0.28),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(15, 95, 120, 0.12),
+          ellipse 700px 500px at 58% 105%,
+          rgba(31, 139, 143, 0.17),
           transparent 72%
         ),
         #061A22;
     }
 
-    body.theme-light .profile-username {
-      color: #15181C;
-    }
+    @media (max-width: 900px) {
+      .profile-main-row {
+        grid-template-columns: 105px minmax(0, 1fr);
+      }
 
-    body.theme-light .profile-status {
-      color: rgba(21, 24, 28, 0.48);
-    }
+      .main-avatar {
+        width: 105px;
+        height: 105px;
+        flex-basis: 105px;
+      }
 
-    body.theme-light .profile-chevron {
-      color: rgba(21, 24, 28, 0.35);
-    }
+      .profile-actions {
+        grid-column: 2;
+        padding-bottom: 0;
+      }
 
-    body.theme-light .profile-card:hover .profile-chevron {
-      color: rgba(21, 24, 28, 0.65);
-    }
-
-    body.theme-light .profile-card.open .profile-chevron {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .profile-dropdown-item {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .profile-dropdown-item:hover {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.40);
-    }
-
-    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light footer {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-brand {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .footer-right a:hover {
-      color: rgba(21, 24, 28, 0.75);
-    }
-
-    body.theme-light .login-overlay {
-      background: rgba(25, 28, 32, 0.28);
-    }
-
-    body.theme-light .login-modal {
-      background: rgba(245, 245, 245, 0.98);
-    }
-
-    body.theme-light .login-modal-subtitle,
-    body.theme-light .login-points li,
-    body.theme-light .login-note {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .profile-bio,
-    body.theme-light .panel-text {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .joined-short {
-      color: rgba(21, 24, 28, 0.38);
-    }
-
-    body.theme-light .main-avatar {
-      box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.10),
-        0 0 0 7px rgba(245, 245, 245, 0.50);
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 760px) {
@@ -1433,17 +1504,39 @@
       }
 
       .nav-item {
-        font-size: 11px;
+        font-size: 13px;
       }
 
       .login-button {
         right: 20px;
-        width: 116px;
+        width: 128px;
+        height: 36px;
+        padding: 0 14px;
       }
 
       .profile-card {
         right: 20px;
-        width: 160px;
+        width: 128px;
+        height: 38px;
+      }
+
+      .profile-avatar {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+      }
+
+      .profile-username {
+        max-width: 65px;
+      }
+
+      .profile-dropdown {
+        right: -3px;
+      }
+
+      .discord-logo {
+        width: 20px;
+        height: 20px;
       }
 
       main {
@@ -1470,105 +1563,104 @@
       .profile-actions {
         grid-column: 1 / -1;
         width: 100%;
-        padding: 0 0 18px;
       }
 
       .profile-action {
         flex: 1;
       }
 
-      .profile-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
-      .profile-panel.full {
-        grid-column: auto;
-      }
-
-      .career-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
       .profile-tabs {
         padding: 0 17px;
         gap: 21px;
-        overflow-x: auto;
-      }
-
-      .profile-tab {
-        flex: 0 0 auto;
-      }
-
-      footer {
-        min-height: 54px;
-        padding: 15px 20px;
-        align-items: center;
-      }
-
-      .footer-left,
-      .footer-right {
-        gap: 12px;
-      }
-
-      .footer-right {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .login-modal {
-        padding: 24px 21px;
-      }
-
-      .login-modal-title {
-        font-size: 22px;
       }
     }
 
     @media (max-width: 620px) {
       .topbar {
-        padding: 0 14px;
+        height: auto;
+        min-height: 64px;
+        padding: 18px 20px;
+        align-items: flex-start;
       }
 
       .logo {
-        font-size: 11px;
+        margin-top: 4px;
       }
 
       .navigation {
-        gap: 11px;
+        position: static;
+        height: auto;
+        margin-left: auto;
+        margin-right: 132px;
+        transform: none;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px 17px;
       }
 
       .nav-item {
-        font-size: 9px;
+        height: auto;
+        min-height: 18px;
+        font-size: 11px;
       }
 
-      .nav-label {
-        padding: 0 2px;
+      .dropdown {
+        top: calc(100% + 4px);
       }
 
       .login-button {
-        right: 14px;
-        width: 96px;
-        height: 38px;
-        padding: 0 10px;
+        right: 20px;
+        top: 18px;
+        width: 108px;
+        height: 34px;
+        padding: 0 11px;
         gap: 7px;
-        font-size: 8px;
-      }
-
-      .discord-logo {
-        width: 20px;
-        height: 20px;
+        font-size: 9px;
       }
 
       .profile-card {
-        right: 14px;
-        width: 145px;
-        height: 40px;
+        right: 20px;
+        top: 18px;
+        width: 108px;
+        height: 34px;
+        padding: 0 7px 0 5px;
+        gap: 7px;
+      }
+
+      .profile-avatar {
+        width: 24px;
+        height: 24px;
+        flex-basis: 24px;
+      }
+
+      .profile-username {
+        max-width: 43px;
+        font-size: 8px;
+      }
+
+      .profile-status {
+        font-size: 5px;
+      }
+
+      .profile-chevron {
+        width: 11px;
+        height: 11px;
+        flex-basis: 11px;
+      }
+
+      .profile-dropdown {
+        width: 185px;
+        right: -4px;
+      }
+
+      .discord-logo {
+        width: 19px;
+        height: 19px;
       }
 
       main {
         width: calc(100% - 24px);
-        padding-top: 24px;
+        padding-top: 22px;
       }
 
       .profile-cover-inner {
@@ -1598,50 +1690,86 @@
       }
 
       .profile-badge {
+        min-height: 18px;
+        padding: 0 6px;
         font-size: 6px;
       }
 
+      .player-handle {
+        margin-top: 6px;
+        font-size: 8px;
+      }
+
       .profile-bio {
-        font-size: 9px;
+        margin-top: 9px;
+        font-size: 8px;
+      }
+
+      .joined-short {
+        margin-top: 8px;
+        font-size: 7px;
+      }
+
+      .profile-actions {
+        margin-top: 4px;
+      }
+
+      .profile-action {
+        min-height: 34px;
+        min-width: 0;
       }
 
       .social-stats {
+        margin-top: 22px;
         gap: 17px;
+        min-height: 49px;
         flex-wrap: wrap;
       }
 
       .profile-tabs {
-        gap: 17px;
-        padding: 0 13px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .profile-tabs::-webkit-scrollbar {
+        display: none;
       }
 
       .profile-tab {
-        font-size: 7px;
+        flex: 0 0 auto;
+        min-height: 52px;
       }
 
-      .profile-panel {
-        padding: 17px;
+      .tab-content {
+        padding-top: 22px;
       }
 
-      .stat-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .career-grid {
-        gap: 6px;
-      }
-
-      .career-stat {
-        padding: 12px;
-      }
-
-      .career-stat strong {
-        font-size: 17px;
+      .profile-grid {
+        gap: 26px;
       }
 
       footer {
-        padding: 12px 14px;
-        font-size: 8px;
+        min-height: 54px;
+        padding: 15px 20px;
+        align-items: center;
+      }
+
+      .footer-left,
+      .footer-right {
+        gap: 12px;
+      }
+
+      .footer-right {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .login-modal {
+        padding: 24px 21px;
+      }
+
+      .login-modal-title {
+        font-size: 22px;
       }
     }
   </style>
@@ -1650,21 +1778,21 @@
 <body class="theme-blue">
 
   <script>
-    (() => {
-      const validThemes = [
-        "dark",
-        "light",
-        "blue",
-        "royal",
-        "ocean"
-      ];
-
+    (function () {
       try {
         const authenticated =
           localStorage.getItem("rsf-authenticated") === "true";
 
         const cachedTheme =
           localStorage.getItem("rsf-theme");
+
+        const validThemes = [
+          "dark",
+          "light",
+          "blue",
+          "royal",
+          "ocean"
+        ];
 
         if (
           authenticated &&
@@ -1701,85 +1829,104 @@
       </div>
 
       <div class="nav-item">
-        <span class="nav-label">
+
+        <a href="/database" class="nav-label">
           DATABASE
-          <span class="arrow">▼</span>
-        </span>
+          <span class="arrow">▾</span>
+        </a>
 
         <div class="dropdown">
-          <a href="/players">PLAYERBASE</a>
-          <a href="/teams">TEAMS</a>
-          <a href="/seasons">SEASONS</a>
+          <a href="/database">Playerbase</a>
+          <a href="/database">Teams</a>
+          <a href="/database">Seasons</a>
         </div>
+
       </div>
 
       <div class="nav-item">
-        <span class="nav-label">
+
+        <a href="/community" class="nav-label">
           COMMUNITY
-          <span class="arrow">▼</span>
-        </span>
+          <span class="arrow">▾</span>
+        </a>
 
         <div class="dropdown">
-          <a href="/videos">VIDEOS</a>
-          <a href="/community">COMMUNITY LATEST</a>
-          <a href="/development">DEVELOPMENT</a>
-          <a href="/resources">RESOURCES</a>
+          <a href="/community">Videos</a>
+          <a href="/community">Community Latest</a>
+          <a href="/community">Development</a>
+          <a href="/community">Resources</a>
         </div>
+
       </div>
 
       <div class="nav-item">
+
         <a href="/arcade" class="nav-label">
           ARCADE
         </a>
+
       </div>
 
       <div class="nav-item">
+
         <a href="/rsf" class="nav-label">
           RSF
         </a>
+
       </div>
 
     </nav>
 
     <button
+      type="button"
       class="login-button"
       id="login-button"
-      type="button"
+      aria-label="Login with Discord"
     >
       <img
         class="discord-logo"
-        src="https://cdn.simpleicons.org/discord/FFFFFF"
+        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
         alt=""
+        aria-hidden="true"
       >
-      LOGIN
+      <span>LOGIN</span>
     </button>
 
     <div
       class="profile-card"
       id="profile-card"
-      style="display:none;"
+      style="display: none;"
       aria-haspopup="true"
       aria-expanded="false"
     >
-      <div class="profile-avatar">
+
+      <div
+        class="profile-avatar"
+        id="profile-avatar-container"
+      >
         <img
-          id="profile-avatar-image"
+          id="profile-avatar"
           src=""
           alt=""
         >
       </div>
 
       <div class="profile-info">
-        <div
+
+        <span
           class="profile-username"
           id="profile-username"
         >
           —
-        </div>
+        </span>
 
-        <div class="profile-status">
-          ONLINE
-        </div>
+        <span
+          class="profile-status"
+          id="profile-status"
+        >
+          GUEST
+        </span>
+
       </div>
 
       <span
@@ -1790,6 +1937,7 @@
           <path d="M2 3.5L5 6.5L8 3.5"></path>
         </svg>
       </span>
+
     </div>
 
   </header>
@@ -1810,23 +1958,25 @@
       <div class="login-modal-header">
 
         <div>
+
           <h2
             class="login-modal-title"
             id="login-title"
           >
-            Sign in to RSF
+            Login to RSF
           </h2>
 
           <p class="login-modal-subtitle">
-            Connect your Discord account to access your RSF profile and member features.
+            Connect your Discord account to access the full RSF experience.
           </p>
+
         </div>
 
         <button
+          type="button"
           class="login-close"
           id="login-close"
-          type="button"
-          aria-label="Close"
+          aria-label="Close login"
         >
           ×
         </button>
@@ -1834,25 +1984,35 @@
       </div>
 
       <ul class="login-points">
+
         <li>
-          Access your RSF profile and account settings.
+          Logging in is completely optional.
         </li>
 
         <li>
-          Follow players and build your RSF network.
+          Log in to access all features available across the RSF website.
         </li>
 
         <li>
-          Access member-only RSF features.
+          Your Discord account is only used to authenticate your RSF account.
         </li>
+
+        <li>
+          We only use the information required to provide your account and website features.
+        </li>
+
+        <li>
+          You can continue using publicly available parts of the website without logging in.
+        </li>
+
       </ul>
 
       <button
+        type="button"
         class="login-proceed"
         id="login-proceed"
-        type="button"
       >
-        CONTINUE WITH DISCORD
+        PROCEED TO LOGIN
       </button>
 
       <p class="login-note">
@@ -1881,7 +2041,7 @@
                   id="main-avatar-image"
                   src=""
                   alt=""
-                  style="display:none;"
+                  style="display: none;"
                 >
 
                 <div
@@ -1942,7 +2102,7 @@
                   class="profile-action primary"
                   id="edit-profile-button"
                   type="button"
-                  style="display:none;"
+                  style="display: none;"
                 >
                   EDIT
                 </button>
@@ -1981,7 +2141,7 @@
 
               <div class="social-stat">
                 <strong id="profile-views-count">—</strong>
-                <span>PROFILE VIEWS</span>
+                <span>VIEWS</span>
               </div>
 
             </div>
@@ -2046,7 +2206,7 @@
 
         <div class="profile-grid">
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ABOUT
@@ -2059,9 +2219,9 @@
               No profile biography available.
             </p>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2070,20 +2230,40 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-                <strong id="about-followers-count">0</strong>
-                <span>FOLLOWERS</span>
+
+                <div
+                  class="stat-value"
+                  id="about-followers-count"
+                >
+                  0
+                </div>
+
+                <div class="stat-name">
+                  FOLLOWERS
+                </div>
+
               </div>
 
               <div class="stat-box">
-                <strong id="about-following-count">0</strong>
-                <span>FOLLOWING</span>
+
+                <div
+                  class="stat-value"
+                  id="about-following-count"
+                >
+                  0
+                </div>
+
+                <div class="stat-name">
+                  FOLLOWING
+                </div>
+
               </div>
 
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               PROFILE
@@ -2092,36 +2272,65 @@
             <div class="profile-list">
 
               <div class="profile-list-row">
-                <span>STATUS</span>
-                <strong>RSF PLAYER</strong>
+
+                <span class="profile-list-name">
+                  PLAYER
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="overview-player-status"
+                >
+                  REGISTERED
+                </span>
+
               </div>
 
               <div class="profile-list-row">
-                <span>ROBLOX ID</span>
-                <strong id="overview-roblox">—</strong>
+
+                <span class="profile-list-name">
+                  ROBLOX
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="overview-roblox"
+                >
+                  —
+                </span>
+
               </div>
 
               <div class="profile-list-row">
-                <span>DISCORD ID</span>
-                <strong id="overview-discord">—</strong>
+
+                <span class="profile-list-name">
+                  DISCORD
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="overview-discord"
+                >
+                  —
+                </span>
+
               </div>
 
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ACTIVITY
             </div>
 
             <div class="empty-state">
-              <strong>No recent public activity</strong>
-              Public profile activity will appear here.
+              No recent public activity.
             </div>
 
-          </section>
+          </div>
 
         </div>
 
@@ -2134,76 +2343,73 @@
 
         <div class="profile-grid">
 
-          <section class="profile-panel full">
+          <div class="profile-panel">
 
             <div class="panel-label">
               CAREER STATISTICS
             </div>
 
-            <div class="career-grid">
+            <div class="stat-grid">
 
-              <div class="career-stat">
-                <strong>—</strong>
-                <span>APPEARANCES</span>
+              <div class="stat-box">
+                <div class="stat-value">—</div>
+                <div class="stat-name">APPEARANCES</div>
               </div>
 
-              <div class="career-stat">
-                <strong>—</strong>
-                <span>GOALS</span>
+              <div class="stat-box">
+                <div class="stat-value">—</div>
+                <div class="stat-name">GOALS</div>
               </div>
 
-              <div class="career-stat">
-                <strong>—</strong>
-                <span>ASSISTS</span>
+              <div class="stat-box">
+                <div class="stat-value">—</div>
+                <div class="stat-name">ASSISTS</div>
               </div>
 
-              <div class="career-stat">
-                <strong>—</strong>
-                <span>RATING</span>
+              <div class="stat-box">
+                <div class="stat-value">—</div>
+                <div class="stat-name">RATING</div>
               </div>
 
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               SEASONS
             </div>
 
             <div class="empty-state">
-              <strong>No seasons recorded</strong>
-              Career season information will appear here.
+              No recorded season statistics.
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               TEAM HISTORY
             </div>
 
             <div class="empty-state">
-              <strong>No team history</strong>
-              Previous and current teams will appear here.
+              No team history available.
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel full">
+          <div class="profile-panel">
 
             <div class="panel-label">
               MATCH HISTORY
             </div>
 
             <div class="empty-state">
-              <strong>No matches recorded</strong>
-              Competitive match history will appear here.
+              No recorded matches.
             </div>
 
-          </section>
+          </div>
 
         </div>
 
@@ -2214,20 +2420,15 @@
         id="teams-tab"
       >
 
-        <div class="profile-grid">
+        <div class="profile-panel">
 
-          <section class="profile-panel full">
+          <div class="panel-label">
+            TEAMS
+          </div>
 
-            <div class="panel-label">
-              TEAMS
-            </div>
-
-            <div class="empty-state">
-              <strong>No teams available</strong>
-              Team memberships will appear here.
-            </div>
-
-          </section>
+          <div class="empty-state">
+            No current team information available.
+          </div>
 
         </div>
 
@@ -2238,39 +2439,35 @@
         id="activity-tab"
       >
 
-        <div class="profile-grid">
+        <div class="profile-panel">
 
-          <section class="profile-panel full">
+          <div class="panel-label">
+            RECENT ACTIVITY
+          </div>
 
-            <div class="panel-label">
-              RECENT ACTIVITY
-            </div>
+          <div class="activity-list">
 
-            <div class="activity-list">
+            <div class="activity-item">
 
-              <div class="activity-item">
+              <div class="activity-icon">
+                +
+              </div>
 
-                <div class="activity-icon">
-                  RSF
+              <div class="activity-text">
+
+                <div class="activity-title">
+                  Profile activity will appear here.
                 </div>
 
-                <div class="activity-copy">
-
-                  <strong>
-                    Profile activity will appear here.
-                  </strong>
-
-                  <span>
-                    —
-                  </span>
-
+                <div class="activity-date">
+                  —
                 </div>
 
               </div>
 
             </div>
 
-          </section>
+          </div>
 
         </div>
 
@@ -2283,7 +2480,7 @@
 
         <div class="profile-grid">
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ACCOUNT
@@ -2292,30 +2489,70 @@
             <div class="profile-list">
 
               <div class="profile-list-row">
-                <span>ROBLOX USERNAME</span>
-                <strong id="about-roblox">—</strong>
+
+                <span class="profile-list-name">
+                  ROBLOX USERNAME
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="about-roblox"
+                >
+                  —
+                </span>
+
               </div>
 
               <div class="profile-list-row">
-                <span>DISCORD</span>
-                <strong id="about-discord">—</strong>
+
+                <span class="profile-list-name">
+                  DISCORD
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="about-discord"
+                >
+                  —
+                </span>
+
               </div>
 
               <div class="profile-list-row">
-                <span>MEMBER SINCE</span>
-                <strong id="about-joined">—</strong>
+
+                <span class="profile-list-name">
+                  MEMBER SINCE
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="about-joined"
+                >
+                  —
+                </span>
+
               </div>
 
               <div class="profile-list-row">
-                <span>LAST UPDATED</span>
-                <strong id="about-updated">—</strong>
+
+                <span class="profile-list-name">
+                  LAST UPDATED
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="about-updated"
+                >
+                  —
+                </span>
+
               </div>
 
             </div>
 
-          </section>
+          </div>
 
-          <section class="profile-panel">
+          <div class="profile-panel">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2324,18 +2561,38 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-                <strong id="about-followers-count-2">0</strong>
-                <span>FOLLOWERS</span>
+
+                <div
+                  class="stat-value"
+                  id="about-followers-count-2"
+                >
+                  0
+                </div>
+
+                <div class="stat-name">
+                  FOLLOWERS
+                </div>
+
               </div>
 
               <div class="stat-box">
-                <strong id="about-following-count-2">0</strong>
-                <span>FOLLOWING</span>
+
+                <div
+                  class="stat-value"
+                  id="about-following-count-2"
+                >
+                  0
+                </div>
+
+                <div class="stat-name">
+                  FOLLOWING
+                </div>
+
               </div>
 
             </div>
 
-          </section>
+          </div>
 
         </div>
 
@@ -2420,7 +2677,7 @@
 
       try {
 
-        const response =
+        const meResponse =
           await fetch(
             "/api/me",
             {
@@ -2430,7 +2687,7 @@
             }
           );
 
-        if (!response.ok) {
+        if (!meResponse.ok) {
 
           localStorage.removeItem(
             "rsf-authenticated"
@@ -2442,19 +2699,16 @@
           );
 
           return;
+
         }
 
-        const data =
-          await response.json();
+        const meData =
+          await meResponse.json();
 
-        const authenticated =
-          data &&
-          (
-            data.authenticated === true ||
-            data.user
-          );
-
-        if (!authenticated) {
+        if (
+          !meData.authenticated ||
+          !meData.verified
+        ) {
 
           localStorage.removeItem(
             "rsf-authenticated"
@@ -2466,6 +2720,7 @@
           );
 
           return;
+
         }
 
         localStorage.setItem(
@@ -2473,7 +2728,7 @@
           "true"
         );
 
-        const preferencesResponse =
+        const response =
           await fetch(
             "/api/preferences",
             {
@@ -2483,77 +2738,27 @@
             }
           );
 
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
         if (
-          preferencesResponse.ok
+          data &&
+          RSF_VALID_THEMES.includes(
+            data.theme
+          )
         ) {
 
-          const preferences =
-            await preferencesResponse.json();
-
-          const theme =
-            preferences &&
-            RSF_VALID_THEMES.includes(
-              preferences.theme
-            )
-              ? preferences.theme
-              : "blue";
-
           rsfApplyTheme(
-            theme,
-            true
-          );
-
-        } else {
-
-          rsfApplyTheme(
-            "blue",
-            false
+            data.theme
           );
 
         }
 
-      } catch (error) {
-
-        try {
-
-          const cachedTheme =
-            localStorage.getItem(
-              "rsf-theme"
-            );
-
-          if (
-            localStorage.getItem(
-              "rsf-authenticated"
-            ) === "true" &&
-            RSF_VALID_THEMES.includes(
-              cachedTheme
-            )
-          ) {
-
-            rsfApplyTheme(
-              cachedTheme,
-              false
-            );
-
-          } else {
-
-            rsfApplyTheme(
-              "blue",
-              false
-            );
-
-          }
-
-        } catch (fallbackError) {
-
-          rsfApplyTheme(
-            "blue",
-            false
-          );
-
-        }
-
-      }
+      } catch (error) {}
 
     }
 
@@ -2582,6 +2787,7 @@
           }
 
           return;
+
         }
 
         if (
@@ -2601,9 +2807,7 @@
     );
 
     rsfSyncTheme();
-  </script>
 
-  <script>
     const loginButton =
       document.getElementById(
         "login-button"
@@ -2712,54 +2916,58 @@
   </script>
 
   <script>
-    const profileTabs =
-      document.querySelectorAll(
-        ".profile-tab"
-      );
+    (() => {
 
-    const tabContents =
-      document.querySelectorAll(
-        ".tab-content"
-      );
-
-    profileTabs.forEach(
-      tab => {
-
-        tab.addEventListener(
-          "click",
-          () => {
-
-            const target =
-              tab.dataset.tab;
-
-            profileTabs.forEach(
-              item => {
-
-                item.classList.toggle(
-                  "active",
-                  item === tab
-                );
-
-              }
-            );
-
-            tabContents.forEach(
-              content => {
-
-                content.classList.toggle(
-                  "active",
-                  content.id ===
-                    `${target}-tab`
-                );
-
-              }
-            );
-
-          }
+      const profileTabs =
+        document.querySelectorAll(
+          ".profile-tab"
         );
 
-      }
-    );
+      const tabContents =
+        document.querySelectorAll(
+          ".tab-content"
+        );
+
+      profileTabs.forEach(
+        tab => {
+
+          tab.addEventListener(
+            "click",
+            () => {
+
+              const target =
+                tab.dataset.tab;
+
+              profileTabs.forEach(
+                item => {
+
+                  item.classList.toggle(
+                    "active",
+                    item === tab
+                  );
+
+                }
+              );
+
+              tabContents.forEach(
+                content => {
+
+                  content.classList.toggle(
+                    "active",
+                    content.id ===
+                      `${target}-tab`
+                  );
+
+                }
+              );
+
+            }
+          );
+
+        }
+      );
+
+    })();
   </script>
 
   <script>
@@ -2920,9 +3128,7 @@
       let currentPlayer = null;
       let followRequestInProgress = false;
 
-      function formatDate(
-        value
-      ) {
+      function formatDate(value) {
 
         if (!value) {
           return "—";
@@ -2947,22 +3153,6 @@
             year: "numeric"
           }
         );
-
-      }
-
-      function setText(
-        element,
-        value,
-        fallback = "—"
-      ) {
-
-        if (!element) {
-          return;
-        }
-
-        element.textContent =
-          value ||
-          fallback;
 
       }
 
@@ -2992,9 +3182,7 @@
               }
             );
 
-          if (
-            !userResponse.ok
-          ) {
+          if (!userResponse.ok) {
             return;
           }
 
@@ -3002,29 +3190,20 @@
             await userResponse.json();
 
           const user =
-            userData &&
-            Array.isArray(
-              userData.data
-            )
-              ? userData.data[0]
-              : null;
+            userData?.data?.[0];
 
-          if (!user || !user.id) {
+          if (!user?.id) {
             return;
           }
 
           const avatarResponse =
             await fetch(
               "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                encodeURIComponent(
-                  user.id
-                ) +
+                encodeURIComponent(user.id) +
                 "&size=420x420&format=Png&isCircular=false"
             );
 
-          if (
-            !avatarResponse.ok
-          ) {
+          if (!avatarResponse.ok) {
             return;
           }
 
@@ -3032,16 +3211,10 @@
             await avatarResponse.json();
 
           const image =
-            avatarData &&
-            Array.isArray(
-              avatarData.data
-            )
-              ? avatarData.data[0]
-              : null;
+            avatarData?.data?.[0];
 
           if (
-            image &&
-            image.imageUrl
+            image?.imageUrl
           ) {
 
             mainAvatarImage.src =
@@ -3057,8 +3230,8 @@
 
         } catch (error) {
 
-          console.error(
-            "Roblox avatar load failed:",
+          console.warn(
+            "Roblox avatar lookup failed:",
             error
           );
 
@@ -3090,27 +3263,27 @@
 
         if (isSelf) {
 
-          editButton.style.display =
-            "inline-flex";
-
           messageButton.style.display =
             "none";
 
           followButton.style.display =
             "none";
 
-        } else {
-
           editButton.style.display =
-            "none";
-
-          messageButton.style.display =
             "inline-flex";
 
-          followButton.style.display =
-            "inline-flex";
+          return;
 
         }
+
+        messageButton.style.display =
+          "inline-flex";
+
+        followButton.style.display =
+          "inline-flex";
+
+        editButton.style.display =
+          "none";
 
       }
 
@@ -3118,9 +3291,13 @@
         isFollowing
       ) {
 
+        if (!followButton) {
+          return;
+        }
+
         followButton.classList.toggle(
           "following",
-          Boolean(isFollowing)
+          isFollowing
         );
 
         followButton.textContent =
@@ -3148,53 +3325,23 @@
             0
           ) || 0;
 
-        setText(
-          followersCount,
-          String(
-            followers
-          ),
-          "0"
-        );
+        followersCount.textContent =
+          followers.toLocaleString();
 
-        setText(
-          followingCount,
-          String(
-            following
-          ),
-          "0"
-        );
+        followingCount.textContent =
+          following.toLocaleString();
 
-        setText(
-          aboutFollowersCount,
-          String(
-            followers
-          ),
-          "0"
-        );
+        aboutFollowersCount.textContent =
+          followers.toLocaleString();
 
-        setText(
-          aboutFollowingCount,
-          String(
-            following
-          ),
-          "0"
-        );
+        aboutFollowingCount.textContent =
+          following.toLocaleString();
 
-        setText(
-          aboutFollowersCount2,
-          String(
-            followers
-          ),
-          "0"
-        );
+        aboutFollowersCount2.textContent =
+          followers.toLocaleString();
 
-        setText(
-          aboutFollowingCount2,
-          String(
-            following
-          ),
-          "0"
-        );
+        aboutFollowingCount2.textContent =
+          following.toLocaleString();
 
       }
 
@@ -3202,7 +3349,11 @@
         playerId
       ) {
 
-        if (!playerId) {
+        if (
+          playerId === null ||
+          playerId === undefined ||
+          playerId === ""
+        ) {
           return;
         }
 
@@ -3221,7 +3372,11 @@
             );
 
           if (!response.ok) {
-            return;
+
+            throw new Error(
+              "Unable to load follow data."
+            );
+
           }
 
           const data =
@@ -3232,21 +3387,17 @@
           );
 
           updateFollowButton(
-            Boolean(
-              data.isFollowing
-            )
+            data.isFollowing === true
           );
 
           updateProfileActions(
-            Boolean(
-              data.isSelf
-            )
+            data.isSelf === true
           );
 
         } catch (error) {
 
           console.error(
-            "Follow data load failed:",
+            "Follow data failed:",
             error
           );
 
@@ -3263,7 +3414,11 @@
           return;
         }
 
-        if (!currentPlayer.id) {
+        if (
+          currentPlayer.id === null ||
+          currentPlayer.id === undefined ||
+          currentPlayer.id === ""
+        ) {
           return;
         }
 
@@ -3273,18 +3428,13 @@
           !window.isRSFAuthenticated()
         ) {
 
-          const overlay =
-            document.getElementById(
-              "login-overlay"
-            );
+          if (loginOverlay) {
 
-          if (overlay) {
-
-            overlay.classList.add(
+            loginOverlay.classList.add(
               "open"
             );
 
-            overlay.setAttribute(
+            loginOverlay.setAttribute(
               "aria-hidden",
               "false"
             );
@@ -3295,6 +3445,7 @@
           }
 
           return;
+
         }
 
         const currentlyFollowing =
@@ -3302,11 +3453,14 @@
             "following"
           );
 
+        const nextFollowing =
+          !currentlyFollowing;
+
         followRequestInProgress =
           true;
 
         updateFollowButton(
-          !currentlyFollowing
+          nextFollowing
         );
 
         try {
@@ -3316,15 +3470,18 @@
               "/api/follow",
               {
                 method:
-                  currentlyFollowing
-                    ? "DELETE"
-                    : "POST",
-                credentials:
-                  "include",
+                  nextFollowing
+                    ? "POST"
+                    : "DELETE",
+
                 headers: {
                   "Content-Type":
                     "application/json"
                 },
+
+                credentials:
+                  "include",
+
                 body:
                   JSON.stringify({
                     playerId:
@@ -3333,56 +3490,57 @@
               }
             );
 
-          if (
-            response.status === 401 ||
-            response.status === 403
-          ) {
+          let data = {};
+
+          try {
+
+            data =
+              await response.json();
+
+          } catch (error) {}
+
+          if (!response.ok) {
 
             updateFollowButton(
               currentlyFollowing
             );
 
-            const overlay =
-              document.getElementById(
-                "login-overlay"
-              );
+            if (
+              response.status === 401 ||
+              response.status === 403
+            ) {
 
-            if (overlay) {
+              if (loginOverlay) {
 
-              overlay.classList.add(
-                "open"
-              );
+                loginOverlay.classList.add(
+                  "open"
+                );
 
-              overlay.setAttribute(
-                "aria-hidden",
-                "false"
-              );
+                loginOverlay.setAttribute(
+                  "aria-hidden",
+                  "false"
+                );
 
-              document.body.style.overflow =
-                "hidden";
+                document.body.style.overflow =
+                  "hidden";
+
+              }
 
             }
 
-            return;
-          }
-
-          if (!response.ok) {
             throw new Error(
-              "Unable to update follow status."
+              data.error ||
+              "Unable to update follow."
             );
-          }
 
-          const data =
-            await response.json();
+          }
 
           updateFollowCounts(
             data
           );
 
           updateFollowButton(
-            Boolean(
-              data.isFollowing
-            )
+            data.isFollowing === true
           );
 
         } catch (error) {
@@ -3484,78 +3642,52 @@
             currentPlayer.roblox_username ||
             requestedUsername;
 
-          setText(
-            playerName,
-            username,
-            "Profile"
-          );
+          playerName.textContent =
+            username;
 
-          setText(
-            playerHandle,
-            `@${username}`,
-            "@—"
-          );
+          playerHandle.textContent =
+            `@${username}`;
 
           const biography =
             currentPlayer.bio ||
             "RSF player profile.";
 
-          setText(
-            profileBio,
-            biography,
-            "RSF player profile."
-          );
+          profileBio.textContent =
+            biography;
 
-          setText(
-            overviewBio,
-            biography,
-            "RSF player profile."
-          );
+          overviewBio.textContent =
+            biography;
 
-          const joined =
+          joinedShort.textContent =
+            `Joined RSF ${formatDate(
+              currentPlayer.joined_at
+            )}`;
+
+          overviewRoblox.textContent =
+            currentPlayer.roblox_username ||
+            "—";
+
+          overviewDiscord.textContent =
+            currentPlayer.discord_id ||
+            "—";
+
+          aboutRoblox.textContent =
+            currentPlayer.roblox_username ||
+            "—";
+
+          aboutDiscord.textContent =
+            currentPlayer.discord_id ||
+            "—";
+
+          aboutJoined.textContent =
             formatDate(
               currentPlayer.joined_at
             );
 
-          setText(
-            joinedShort,
-            `Joined RSF ${joined}`,
-            "Joined RSF —"
-          );
-
-          setText(
-            overviewRoblox,
-            currentPlayer.roblox_username
-          );
-
-          setText(
-            overviewDiscord,
-            currentPlayer.discord_id
-          );
-
-          setText(
-            aboutRoblox,
-            currentPlayer.roblox_username
-          );
-
-          setText(
-            aboutDiscord,
-            currentPlayer.discord_id
-          );
-
-          setText(
-            aboutJoined,
-            formatDate(
-              currentPlayer.joined_at
-            )
-          );
-
-          setText(
-            aboutUpdated,
+          aboutUpdated.textContent =
             formatDate(
               currentPlayer.updated_at
-            )
-          );
+            );
 
           updateFallback(
             username
