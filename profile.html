@@ -617,6 +617,11 @@
       color: #ff6878;
     }
 
+    .profile-action:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
     .profile-bio {
       max-width: 650px;
       margin: 16px 0 0 131px;
@@ -2016,28 +2021,62 @@
   </footer>
 
   <script>
-    const playerName = document.getElementById("player-name");
-    const playerHandle = document.getElementById("player-handle");
-    const profileBio = document.getElementById("profile-bio");
-    const joinedShort = document.getElementById("joined-short");
+    const playerName =
+      document.getElementById("player-name");
 
-    const mainAvatar = document.getElementById("main-avatar");
-    const mainAvatarFallback = document.getElementById("main-avatar-fallback");
+    const playerHandle =
+      document.getElementById("player-handle");
 
-    const infoUsername = document.getElementById("info-username");
-    const infoJoined = document.getElementById("info-joined");
-    const infoUpdated = document.getElementById("info-updated");
+    const profileBio =
+      document.getElementById("profile-bio");
 
-    const followButton = document.getElementById("follow-button");
+    const joinedShort =
+      document.getElementById("joined-short");
 
-    const followersCount = document.getElementById("followers-count");
-    const followingCount = document.getElementById("following-count");
+    const mainAvatar =
+      document.getElementById("main-avatar");
+
+    const mainAvatarFallback =
+      document.getElementById("main-avatar-fallback");
+
+    const infoUsername =
+      document.getElementById("info-username");
+
+    const infoJoined =
+      document.getElementById("info-joined");
+
+    const infoUpdated =
+      document.getElementById("info-updated");
+
+    const followButton =
+      document.getElementById("follow-button");
+
+    const followersCount =
+      document.getElementById("followers-count");
+
+    const followingCount =
+      document.getElementById("following-count");
 
     const aboutFollowersCount =
       document.getElementById("about-followers-count");
 
     const aboutFollowingCount =
       document.getElementById("about-following-count");
+
+    const loginButton =
+      document.getElementById("login-button");
+
+    const loginOverlay =
+      document.getElementById("login-overlay");
+
+    const loginProceed =
+      document.getElementById("login-proceed");
+
+    const profileCard =
+      document.getElementById("profile-card");
+
+    const profileDropdown =
+      document.getElementById("profile-dropdown");
 
     let currentPlayer = null;
     let followRequestInProgress = false;
@@ -2088,12 +2127,15 @@
 
     async function loadRobloxAvatar(username) {
       try {
-        const userResponse = await fetch(
-          `https://users.roblox.com/v1/usernames/users?usernames=${encodeURIComponent(username)}&excludeBannedUsers=false`
-        );
+        const userResponse =
+          await fetch(
+            `https://users.roblox.com/v1/usernames/users?usernames=${encodeURIComponent(username)}&excludeBannedUsers=false`
+          );
 
         if (!userResponse.ok) {
-          throw new Error("Roblox user lookup failed");
+          throw new Error(
+            "Roblox user lookup failed"
+          );
         }
 
         const userData =
@@ -2104,7 +2146,9 @@
           userData.data[0];
 
         if (!user || !user.id) {
-          throw new Error("Roblox user not found");
+          throw new Error(
+            "Roblox user not found"
+          );
         }
 
         const thumbnailResponse =
@@ -2160,41 +2204,58 @@
       }
 
       if (isFollowing) {
-        followButton.textContent = "FOLLOWING";
+        followButton.textContent =
+          "FOLLOWING";
 
-        followButton.classList.remove("primary");
-        followButton.classList.add("following");
+        followButton.classList.remove(
+          "primary"
+        );
 
+        followButton.classList.add(
+          "following"
+        );
       } else {
-        followButton.textContent = "FOLLOW";
+        followButton.textContent =
+          "FOLLOW";
 
-        followButton.classList.remove("following");
-        followButton.classList.add("primary");
+        followButton.classList.remove(
+          "following"
+        );
+
+        followButton.classList.add(
+          "primary"
+        );
       }
     }
 
     function updateFollowCounts(data) {
       const followers =
-        Number.isFinite(Number(data.followers))
-          ? Number(data.followers)
-          : 0;
+        Number(data.followers);
 
       const following =
-        Number.isFinite(Number(data.following))
-          ? Number(data.following)
+        Number(data.following);
+
+      const safeFollowers =
+        Number.isFinite(followers)
+          ? followers
+          : 0;
+
+      const safeFollowing =
+        Number.isFinite(following)
+          ? following
           : 0;
 
       followersCount.textContent =
-        followers.toLocaleString();
+        safeFollowers.toLocaleString();
 
       followingCount.textContent =
-        following.toLocaleString();
+        safeFollowing.toLocaleString();
 
       aboutFollowersCount.textContent =
-        followers.toLocaleString();
+        safeFollowers.toLocaleString();
 
       aboutFollowingCount.textContent =
-        following.toLocaleString();
+        safeFollowing.toLocaleString();
     }
 
     async function loadFollowData(playerId) {
@@ -2205,17 +2266,23 @@
       try {
         const response =
           await fetch(
-            `/api/follow?playerId=${encodeURIComponent(playerId)}`
+            `/api/follow?playerId=${encodeURIComponent(playerId)}`,
+            {
+              method: "GET",
+              credentials: "same-origin",
+              cache: "no-store"
+            }
           );
-
-        if (!response.ok) {
-          throw new Error(
-            "Follow data request failed"
-          );
-        }
 
         const data =
           await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Follow data request failed"
+          );
+        }
 
         updateFollowCounts(data);
 
@@ -2224,41 +2291,62 @@
         );
 
       } catch (error) {
-        followersCount.textContent = "—";
-        followingCount.textContent = "—";
+        console.error(
+          "Follow data failed:",
+          error
+        );
 
-        aboutFollowersCount.textContent = "—";
-        aboutFollowingCount.textContent = "—";
+        followersCount.textContent =
+          "—";
+
+        followingCount.textContent =
+          "—";
+
+        aboutFollowersCount.textContent =
+          "—";
+
+        aboutFollowingCount.textContent =
+          "—";
 
         updateFollowButton(false);
       }
     }
 
     async function toggleFollow() {
-      if (!currentPlayer || followRequestInProgress) {
+      if (
+        !currentPlayer ||
+        followRequestInProgress ||
+        !followButton
+      ) {
         return;
       }
 
       if (
         currentPlayer.id === null ||
-        currentPlayer.id === undefined
+        currentPlayer.id === undefined ||
+        currentPlayer.id === ""
       ) {
         return;
       }
 
       if (
-        typeof window.isRSFAuthenticated === "function" &&
+        typeof window.isRSFAuthenticated ===
+          "function" &&
         !window.isRSFAuthenticated()
       ) {
         if (loginOverlay) {
-          loginOverlay.classList.add("open");
+          loginOverlay.classList.add(
+            "open"
+          );
         }
 
         return;
       }
 
       const currentlyFollowing =
-        followButton.classList.contains("following");
+        followButton.classList.contains(
+          "following"
+        );
 
       followRequestInProgress = true;
 
@@ -2271,15 +2359,23 @@
             : "POST";
 
         const response =
-          await fetch("/api/follow", {
-            method,
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              playerId: currentPlayer.id
-            })
-          });
+          await fetch(
+            "/api/follow",
+            {
+              method,
+              credentials:
+                "same-origin",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body:
+                JSON.stringify({
+                  playerId:
+                    currentPlayer.id
+                })
+            }
+          );
 
         let data = {};
 
@@ -2294,13 +2390,10 @@
             response.status === 403
           ) {
             if (loginOverlay) {
-              loginOverlay.classList.add("open");
+              loginOverlay.classList.add(
+                "open"
+              );
             }
-
-            throw new Error(
-              data.error ||
-              "You must be logged in."
-            );
           }
 
           throw new Error(
@@ -2322,8 +2415,11 @@
         );
 
       } finally {
-        followRequestInProgress = false;
-        followButton.disabled = false;
+        followRequestInProgress =
+          false;
+
+        followButton.disabled =
+          false;
       }
     }
 
@@ -2332,18 +2428,31 @@
         getUsernameFromPath();
 
       if (!username) {
-        window.location.href = "/404";
+        window.location.href =
+          "/404";
+
         return;
       }
 
       try {
         const response =
           await fetch(
-            `/api/profile?username=${encodeURIComponent(username)}`
+            `/api/profile?username=${encodeURIComponent(username)}`,
+            {
+              method: "GET",
+              credentials:
+                "same-origin",
+              cache: "no-store"
+            }
           );
 
-        if (response.status === 404) {
-          window.location.href = "/404";
+        if (
+          response.status ===
+          404
+        ) {
+          window.location.href =
+            "/404";
+
           return;
         }
 
@@ -2360,21 +2469,28 @@
           data.player;
 
         if (!player) {
-          window.location.href = "/404";
+          window.location.href =
+            "/404";
+
           return;
         }
 
-        currentPlayer = player;
+        currentPlayer =
+          player;
 
         const name =
           player.roblox_username ||
           username;
 
         const joined =
-          formatDate(player.joined_at);
+          formatDate(
+            player.joined_at
+          );
 
         const updated =
-          formatDate(player.updated_at);
+          formatDate(
+            player.updated_at
+          );
 
         playerName.textContent =
           name;
@@ -2402,7 +2518,9 @@
 
         await Promise.all([
           loadRobloxAvatar(name),
-          loadFollowData(player.id)
+          loadFollowData(
+            player.id
+          )
         ]);
 
       } catch (error) {
@@ -2419,52 +2537,63 @@
 
         profileBio.textContent =
           "Something went wrong while loading this profile.";
+
+        updateFollowButton(
+          false
+        );
       }
     }
 
     document
-      .querySelectorAll(".profile-tab")
+      .querySelectorAll(
+        ".profile-tab"
+      )
       .forEach((tab) => {
+        tab.addEventListener(
+          "click",
+          () => {
+            const target =
+              tab.dataset.tab;
 
-        tab.addEventListener("click", () => {
+            document
+              .querySelectorAll(
+                ".profile-tab"
+              )
+              .forEach((item) => {
+                item.classList.remove(
+                  "active"
+                );
+              });
 
-          const target =
-            tab.dataset.tab;
+            document
+              .querySelectorAll(
+                ".tab-content"
+              )
+              .forEach(
+                (content) => {
+                  content.classList.remove(
+                    "active"
+                  );
+                }
+              );
 
-          document
-            .querySelectorAll(".profile-tab")
-            .forEach((item) => {
-              item.classList.remove("active");
-            });
-
-          document
-            .querySelectorAll(".tab-content")
-            .forEach((content) => {
-              content.classList.remove("active");
-            });
-
-          tab.classList.add("active");
-
-          const content =
-            document.getElementById(
-              `${target}-tab`
+            tab.classList.add(
+              "active"
             );
 
-          if (content) {
-            content.classList.add("active");
+            const content =
+              document.getElementById(
+                `${target}-tab`
+              );
+
+            if (content) {
+              content.classList.add(
+                "active"
+              );
+            }
           }
-        });
-
+        );
       });
-
-    const loginButton =
-      document.getElementById("login-button");
-
-    const loginOverlay =
-      document.getElementById("login-overlay");
-
-    const loginProceed =
-      document.getElementById("login-proceed");
 
     if (
       loginButton &&
@@ -2473,7 +2602,9 @@
       loginButton.addEventListener(
         "click",
         () => {
-          loginOverlay.classList.add("open");
+          loginOverlay.classList.add(
+            "open"
+          );
         }
       );
     }
@@ -2483,7 +2614,8 @@
         "click",
         (event) => {
           if (
-            event.target === loginOverlay
+            event.target ===
+            loginOverlay
           ) {
             loginOverlay.classList.remove(
               "open"
@@ -2510,16 +2642,6 @@
       );
     }
 
-    const profileCard =
-      document.getElementById(
-        "profile-card"
-      );
-
-    const profileDropdown =
-      document.getElementById(
-        "profile-dropdown"
-      );
-
     if (
       profileCard &&
       profileDropdown
@@ -2527,6 +2649,14 @@
       profileCard.addEventListener(
         "click",
         (event) => {
+          if (
+            event.target.closest(
+              ".profile-dropdown"
+            )
+          ) {
+            return;
+          }
+
           event.stopPropagation();
 
           profileCard.classList.toggle(
@@ -2536,6 +2666,13 @@
           profileDropdown.classList.toggle(
             "open"
           );
+        }
+      );
+
+      profileDropdown.addEventListener(
+        "click",
+        (event) => {
+          event.stopPropagation();
         }
       );
 
