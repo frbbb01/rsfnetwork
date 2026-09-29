@@ -1940,44 +1940,72 @@ PROCEED TO LOGIN
       }
     }
 
-    async function loadSavedTheme() {
-      loadCachedTheme();
-
-      try {
-        const response =
-          await fetch(
-            "/api/preferences",
-            {
-              method: "GET",
-              credentials: "include",
-              cache: "no-store"
-            }
-          );
-
-        if (!response.ok) {
-          return;
+async function loadSavedTheme() {
+  try {
+    const meResponse =
+      await fetch(
+        "/api/me",
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store"
         }
+      );
 
-        const data =
-          await response.json();
-
-        if (
-          data &&
-          validThemes.includes(
-            data.theme
-          )
-        ) {
-          applyTheme(
-            data.theme
-          );
-        }
-      } catch (error) {
-        console.warn(
-          "RSF theme sync failed:",
-          error
-        );
-      }
+    if (!meResponse.ok) {
+      applyTheme("blue");
+      return;
     }
+
+    const meData =
+      await meResponse.json();
+
+    if (
+      !meData.authenticated ||
+      !meData.verified
+    ) {
+      applyTheme("blue");
+      return;
+    }
+
+    loadCachedTheme();
+
+    const response =
+      await fetch(
+        "/api/preferences",
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store"
+        }
+      );
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data =
+      await response.json();
+
+    if (
+      data &&
+      validThemes.includes(
+        data.theme
+      )
+    ) {
+      applyTheme(
+        data.theme
+      );
+    }
+  } catch (error) {
+    applyTheme("blue");
+
+    console.warn(
+      "RSF theme sync failed:",
+      error
+    );
+  }
+}
 
     window.addEventListener(
       "storage",
