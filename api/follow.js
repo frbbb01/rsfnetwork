@@ -13,7 +13,9 @@ function parseCookies(req) {
 
   const cookies = {};
 
-  for (const part of header.split(";")) {
+  for (
+    const part of header.split(";")
+  ) {
     const index =
       part.indexOf("=");
 
@@ -34,29 +36,65 @@ function parseCookies(req) {
   return cookies;
 }
 
-function verifySession(session) {
+function safeEqual(a, b) {
+  if (!a || !b) {
+    return false;
+  }
+
+  const aa =
+    Buffer.from(a);
+
+  const bb =
+    Buffer.from(b);
+
+  if (
+    aa.length !== bb.length
+  ) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(
+    aa,
+    bb
+  );
+}
+
+function getSessionId(req) {
+  const cookies =
+    parseCookies(req);
+
+  const session =
+    cookies.rsf_session;
+
   if (!session) {
     return null;
   }
 
-  if (!process.env.SESSION_SECRET) {
-    throw new Error(
-      "SESSION_SECRET is missing."
-    );
-  }
+  const separator =
+    session.lastIndexOf(".");
 
-  const parts =
-    session.split(".");
-
-  if (parts.length !== 2) {
+  if (separator === -1) {
     return null;
   }
 
   const encoded =
-    parts[0];
+    session.slice(
+      0,
+      separator
+    );
 
   const signature =
-    parts[1];
+    session.slice(
+      separator + 1
+    );
+
+  if (
+    !process.env.SESSION_SECRET
+  ) {
+    throw new Error(
+      "SESSION_SECRET is missing."
+    );
+  }
 
   const expectedSignature =
     crypto
@@ -67,45 +105,56 @@ function verifySession(session) {
       .update(encoded)
       .digest("base64url");
 
-  const aa =
-    Buffer.from(signature);
-
-  const bb =
-    Buffer.from(expectedSignature);
-
   if (
-    aa.length !== bb.length ||
-    !crypto.timingSafeEqual(
-      aa,
-      bb
+    !safeEqual(
+      signature,
+      expectedSignature
     )
   ) {
     return null;
   }
 
   try {
+
     const payload =
       JSON.parse(
-        Buffer.from(
-          encoded,
-          "base64url"
-        ).toString("utf8")
+        Buffer
+          .from(
+            encoded,
+            "base64url"
+          )
+          .toString("utf8")
       );
 
-    if (!payload.id) {
+    if (
+      !payload ||
+      !payload.id
+    ) {
       return null;
     }
 
-    return payload;
+    return String(
+      payload.id
+    );
+
   } catch {
     return null;
   }
+}
+
+function encodeQueryValue(
+  value
+) {
+  return encodeURIComponent(
+    String(value)
+  );
 }
 
 async function supabaseRequest(
   path,
   options = {}
 ) {
+
   if (!SUPABASE_URL) {
     throw new Error(
       "SUPABASE_URL is missing."
@@ -122,16 +171,29 @@ async function supabaseRequest(
     await fetch(
       `${SUPABASE_URL}/rest/v1/${path}`,
       {
-        ...options,
+        method:
+          options.method ||
+          "GET",
+
         headers: {
           apikey:
             SUPABASE_SECRET_KEY,
+
           Authorization:
             `Bearer ${SUPABASE_SECRET_KEY}`,
+
           "Content-Type":
             "application/json",
+
           ...(options.headers || {})
-        }
+        },
+
+        body:
+          options.body
+            ? JSON.stringify(
+                options.body
+              )
+            : undefined
       }
     );
 
@@ -142,13 +204,15 @@ async function supabaseRequest(
 
   try {
     data =
-      JSON.parse(text);
+      text
+        ? JSON.parse(text)
+        : null;
   } catch {
-    data =
-      text;
+    data = text;
   }
 
   if (!response.ok) {
+
     throw new Error(
       `Supabase ${response.status}: ${
         typeof data === "string"
@@ -156,33 +220,26 @@ async function supabaseRequest(
           : JSON.stringify(data)
       }`
     );
+
   }
 
   return data;
 }
 
-async function getAuthenticatedUser(
+async function getViewer(
   req
 ) {
-  const cookies =
-    parseCookies(req);
 
-  const session =
-    cookies.rsf_session;
+  const discordId =
+    getSessionId(req);
 
-  const payload =
-    verifySession(session);
-
-  if (!payload) {
+  if (!discordId) {
     return null;
   }
 
-  const discordId =
-    payload.id;
-
   const users =
     await supabaseRequest(
-      `users?select=id,discord_id,discord_username&discord_id=eq.${encodeURIComponent(
+      `users?select=id,discord_id,discord_username&id=eq.${encodeQueryValue(
         discordId
       )}&limit=1`
     );
@@ -199,7 +256,7 @@ async function getAuthenticatedUser(
 
   const players =
     await supabaseRequest(
-      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(
+      `players?select=id,roblox_username,discord_id&id=eq.${encodeQueryValue(
         user.id
       )}&limit=1`
     );
@@ -208,26 +265,25 @@ async function getAuthenticatedUser(
     !Array.isArray(players) ||
     players.length === 0
   ) {
-    return null;
+    return {
+      user,
+      player: null
+    };
   }
 
   return {
     user,
-    player:
-      players[0]
+    player: players[0]
   };
 }
 
-async function getTargetUser(
+async function getTarget(
   playerId
 ) {
-  if (!playerId) {
-    return null;
-  }
 
   const players =
     await supabaseRequest(
-      `players?select=id,roblox_username,discord_id&id=eq.${encodeURIComponent(
+      `players?select=id,roblox_username,discord_id&id=eq.${encodeQueryValue(
         playerId
       )}&limit=1`
     );
@@ -244,7 +300,7 @@ async function getTargetUser(
 
   const users =
     await supabaseRequest(
-      `users?select=id,discord_id,discord_username&id=eq.${encodeURIComponent(
+      `users?select=id,discord_id,discord_username&id=eq.${encodeQueryValue(
         player.id
       )}&limit=1`
     );
@@ -257,60 +313,66 @@ async function getTargetUser(
   }
 
   return {
-    user:
-      users[0],
-    player
+    player,
+    user: users[0]
   };
 }
 
 async function getFollowData(
-  viewerId,
-  targetId
+  targetId,
+  viewerId
 ) {
-  const followers =
-    await supabaseRequest(
-      `follows?select=follower_id&following_id=eq.${encodeURIComponent(
+
+  const [
+    followers,
+    following,
+    existing
+  ] = await Promise.all([
+
+    supabaseRequest(
+      `follows?select=follower_id&following_id=eq.${encodeQueryValue(
         targetId
       )}`
-    );
+    ),
 
-  const following =
-    await supabaseRequest(
-      `follows?select=following_id&follower_id=eq.${encodeURIComponent(
+    supabaseRequest(
+      `follows?select=following_id&follower_id=eq.${encodeQueryValue(
         targetId
       )}`
-    );
+    ),
 
-  let isFollowing =
-    false;
+    viewerId
+      ? supabaseRequest(
+          `follows?select=follower_id&follower_id=eq.${encodeQueryValue(
+            viewerId
+          )}&following_id=eq.${encodeQueryValue(
+            targetId
+          )}&limit=1`
+        )
+      : Promise.resolve([])
 
-  if (viewerId) {
-    const existing =
-      await supabaseRequest(
-        `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
-          viewerId
-        )}&following_id=eq.${encodeURIComponent(
-          targetId
-        )}&limit=1`
-      );
-
-    isFollowing =
-      Array.isArray(existing) &&
-      existing.length > 0;
-  }
+  ]);
 
   return {
-    followers:
+    followersCount:
       Array.isArray(followers)
         ? followers.length
         : 0,
 
-    following:
+    followingCount:
       Array.isArray(following)
         ? following.length
         : 0,
 
-    isFollowing
+    isFollowing:
+      Array.isArray(existing) &&
+      existing.length > 0,
+
+    isSelf:
+      Boolean(
+        viewerId &&
+        viewerId === targetId
+      )
   };
 }
 
@@ -318,152 +380,213 @@ export default async function handler(
   req,
   res
 ) {
+
   if (
-    req.method !== "GET" &&
-    req.method !== "POST" &&
-    req.method !== "DELETE"
+    ![
+      "GET",
+      "POST",
+      "DELETE"
+    ].includes(req.method)
   ) {
+
     return res.status(405).json({
       error:
         "Method Not Allowed"
     });
+
   }
 
   try {
-    const playerId =
-      req.method === "GET"
-        ? req.query.playerId
-        : req.body?.playerId;
-
-    if (!playerId) {
-      return res.status(400).json({
-        error:
-          "Missing playerId"
-      });
-    }
-
-    const target =
-      await getTargetUser(
-        playerId
-      );
-
-    if (!target) {
-      return res.status(404).json({
-        error:
-          "Target player not found."
-      });
-    }
 
     if (req.method === "GET") {
-      const authUser =
-        await getAuthenticatedUser(
-          req
+
+      const playerId =
+        typeof req.query.playerId ===
+        "string"
+          ? req.query.playerId.trim()
+          : "";
+
+      if (!playerId) {
+
+        return res.status(400).json({
+          error:
+            "Missing playerId"
+        });
+
+      }
+
+      const target =
+        await getTarget(
+          playerId
         );
 
+      if (!target) {
+
+        return res.status(404).json({
+          error:
+            "Player account not found"
+        });
+
+      }
+
+      const viewer =
+        await getViewer(req);
+
       const viewerId =
-        authUser
-          ? authUser.user.id
+        viewer &&
+        viewer.player
+          ? viewer.player.id
           : null;
 
       const data =
         await getFollowData(
-          viewerId,
-          target.user.id
+          target.player.id,
+          viewerId
         );
 
       return res.status(200).json(
         data
       );
+
     }
 
-    const authUser =
-      await getAuthenticatedUser(
-        req
-      );
-
-    if (!authUser) {
-      return res.status(401).json({
-        error:
-          "You must be logged in as an RSF player to follow people."
-      });
-    }
-
-    const followerId =
-      authUser.user.id;
-
-    const followingId =
-      target.user.id;
+    let body =
+      req.body;
 
     if (
-      followerId ===
-      followingId
+      typeof body === "string"
     ) {
+
+      try {
+        body =
+          JSON.parse(body);
+      } catch {
+        body = {};
+      }
+
+    }
+
+    const playerId =
+      body &&
+      typeof body.playerId ===
+        "string"
+        ? body.playerId.trim()
+        : "";
+
+    if (!playerId) {
+
+      return res.status(400).json({
+        error:
+          "Missing playerId"
+      });
+
+    }
+
+    const viewer =
+      await getViewer(req);
+
+    if (!viewer) {
+
+      return res.status(401).json({
+        error:
+          "You must be logged in."
+      });
+
+    }
+
+    if (!viewer.player) {
+
+      return res.status(403).json({
+        error:
+          "You must have a registered RSF player profile to follow players."
+      });
+
+    }
+
+    const target =
+      await getTarget(
+        playerId
+      );
+
+    if (!target) {
+
+      return res.status(404).json({
+        error:
+          "Player account not found"
+      });
+
+    }
+
+    const viewerId =
+      viewer.player.id;
+
+    const targetId =
+      target.player.id;
+
+    if (
+      viewerId === targetId
+    ) {
+
       return res.status(400).json({
         error:
           "You cannot follow yourself."
       });
+
     }
 
     if (
       req.method === "POST"
     ) {
-      const existing =
-        await supabaseRequest(
-          `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
-            followerId
-          )}&following_id=eq.${encodeURIComponent(
-            followingId
-          )}&limit=1`
-        );
 
-      if (
-        !Array.isArray(existing) ||
-        existing.length === 0
-      ) {
-        await supabaseRequest(
-          "follows",
-          {
-            method:
-              "POST",
+      await supabaseRequest(
+        "follows",
+        {
+          method: "POST",
 
-            headers: {
-              Prefer:
-                "return=minimal"
-            },
+          headers: {
+            Prefer:
+              "resolution=ignore-duplicates,return=minimal"
+          },
 
-            body:
-              JSON.stringify({
-                follower_id:
-                  followerId,
+          body: {
+            follower_id:
+              viewerId,
 
-                following_id:
-                  followingId
-              })
+            following_id:
+              targetId
           }
-        );
-      }
+        }
+      );
+
     }
 
     if (
       req.method === "DELETE"
     ) {
+
       await supabaseRequest(
-        `follows?follower_id=eq.${encodeURIComponent(
-          followerId
-        )}&following_id=eq.${encodeURIComponent(
-          followingId
+        `follows?follower_id=eq.${encodeQueryValue(
+          viewerId
+        )}&following_id=eq.${encodeQueryValue(
+          targetId
         )}`,
         {
           method:
-            "DELETE"
+            "DELETE",
+
+          headers: {
+            Prefer:
+              "return=minimal"
+          }
         }
       );
+
     }
 
     const data =
       await getFollowData(
-        followerId,
-        followingId
+        targetId,
+        viewerId
       );
 
     return res.status(200).json(
@@ -471,6 +594,7 @@ export default async function handler(
     );
 
   } catch (error) {
+
     console.error(
       "FOLLOW API ERROR:",
       error
@@ -481,5 +605,7 @@ export default async function handler(
         error.message ||
         "Internal server error"
     });
+
   }
+
 }
