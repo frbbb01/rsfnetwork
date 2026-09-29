@@ -84,7 +84,7 @@ export default async function handler(
   try {
     const players =
       await supabaseRequest(
-        `players?select=*&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
+        `players?select=id,roblox_username,discord_id&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
       );
 
     if (
@@ -100,15 +100,37 @@ export default async function handler(
     const player =
       players[0];
 
+    const users =
+      await supabaseRequest(
+        `users?select=id,discord_id,discord_username,created_at,updated_at&id=eq.${encodeURIComponent(player.id)}&limit=1`
+      );
+
+    if (
+      !Array.isArray(users) ||
+      users.length === 0
+    ) {
+      return res.status(404).json({
+        error:
+          "User account not found"
+      });
+    }
+
+    const user =
+      users[0];
+
     return res.status(200).json({
       player: {
-        ...player,
+        id: player.id,
+        roblox_username:
+          player.roblox_username,
+        discord_id:
+          player.discord_id,
+        discord_username:
+          user.discord_username,
         joined_at:
-          player.joined_at ||
-          null,
+          user.created_at,
         updated_at:
-          player.updated_at ||
-          null
+          user.updated_at
       }
     });
   } catch (error) {
