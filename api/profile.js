@@ -1,64 +1,68 @@
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SECRET_KEY =
+  process.env.SUPABASE_SECRET_KEY ||
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+async function supabaseRequest(path) {
+  if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
+    throw new Error("Supabase environment variables are missing.");
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/${path}`,
+    {
+      headers: {
+        apikey: SUPABASE_SECRET_KEY,
+        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+        "Content-Type": "application/json"
+      }
+    }
+  );
+
+  const text = await response.text();
+
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    data = text;
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      `Supabase ${response.status}: ${
+        typeof data === "string"
+          ? data
+          : JSON.stringify(data)
+      }`
+    );
+  }
+
+  return data;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+      error: "Method Not Allowed"
+    });
   }
 
-  const { username } = req.query;
+  const username = req.query.username;
 
-  if (!username || typeof username !== "string") {
-    return res.status(400).json({ error: "Username is required" });
-  }
-
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SECRET_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    return res.status(500).json({
-      error: "Supabase environment variables are missing",
-      hasUrl: !!supabaseUrl,
-      hasKey: !!supabaseKey
+  if (!username) {
+    return res.status(400).json({
+      error: "Missing username"
     });
   }
 
   try {
-    const url = new URL(`${supabaseUrl}/rest/v1/players`);
-
-    url.searchParams.set(
-      "select",
-      "id,roblox_username,joined_at,updated_at"
+    const players = await supabaseRequest(
+      `players?select=id,roblox_username,joined_at,updated_at&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
     );
 
-    url.searchParams.set(
-      "roblox_username",
-      `eq.${username}`
-    );
-
-    url.searchParams.set("limit", "1");
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        apikey: supabaseKey,
-        Authorization: `Bearer ${supabaseKey}`
-      }
-    });
-
-    const body = await response.text();
-
-    if (!response.ok) {
-      console.error("Supabase status:", response.status);
-      console.error("Supabase response:", body);
-
-      return res.status(500).json({
-        error: "Failed to query players",
-        supabaseStatus: response.status,
-        supabaseResponse: body
-      });
-    }
-
-    const players = JSON.parse(body);
-
-    if (!players.length) {
+    if (!players || players.length === 0) {
       return res.status(404).json({
         error: "Player not found"
       });
@@ -71,8 +75,7 @@ export default async function handler(req, res) {
     console.error("Profile API error:", error);
 
     return res.status(500).json({
-      error: "Internal server error",
-      message: error.message
+      error: "Internal server error"
     });
   }
 }
