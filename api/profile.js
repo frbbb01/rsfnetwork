@@ -1,25 +1,38 @@
 const SUPABASE_URL = process.env.SUPABASE_URL;
+
 const SUPABASE_SECRET_KEY =
   process.env.SUPABASE_SECRET_KEY ||
   process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 async function supabaseRequest(path) {
-  if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
-    throw new Error("Supabase environment variables are missing.");
+  if (!SUPABASE_URL) {
+    throw new Error(
+      "SUPABASE_URL is missing."
+    );
+  }
+
+  if (!SUPABASE_SECRET_KEY) {
+    throw new Error(
+      "SUPABASE_SECRET_KEY is missing."
+    );
   }
 
   const response = await fetch(
     `${SUPABASE_URL}/rest/v1/${path}`,
     {
+      method: "GET",
       headers: {
         apikey: SUPABASE_SECRET_KEY,
-        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
-        "Content-Type": "application/json"
+        Authorization:
+          `Bearer ${SUPABASE_SECRET_KEY}`,
+        "Content-Type":
+          "application/json"
       }
     }
   );
 
-  const text = await response.text();
+  const text =
+    await response.text();
 
   let data;
 
@@ -49,7 +62,10 @@ export default async function handler(req, res) {
     });
   }
 
-  const username = req.query.username;
+  const username =
+    typeof req.query.username === "string"
+      ? req.query.username.trim()
+      : "";
 
   if (!username) {
     return res.status(400).json({
@@ -58,43 +74,67 @@ export default async function handler(req, res) {
   }
 
   try {
-    const players = await supabaseRequest(
-      `players?select=id,roblox_username&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
-    );
+    const players =
+      await supabaseRequest(
+        `players?select=id,roblox_username&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
+      );
 
-    if (!players || players.length === 0) {
+    if (
+      !Array.isArray(players) ||
+      players.length === 0
+    ) {
       return res.status(404).json({
         error: "Player not found"
       });
     }
 
-    const player = players[0];
+    const player =
+      players[0];
 
-    const users = await supabaseRequest(
-      `users?select=id,discord_id,joined_at,updated_at&id=eq.${encodeURIComponent(player.id)}&limit=1`
-    );
+    if (!player.id) {
+      throw new Error(
+        "Player does not have an ID."
+      );
+    }
 
-    if (!users || users.length === 0) {
+    const users =
+      await supabaseRequest(
+        `users?select=id,joined_at,updated_at&id=eq.${encodeURIComponent(player.id)}&limit=1`
+      );
+
+    if (
+      !Array.isArray(users) ||
+      users.length === 0
+    ) {
       return res.status(404).json({
         error: "User account not found"
       });
     }
 
-    const user = users[0];
+    const user =
+      users[0];
 
     return res.status(200).json({
       player: {
         id: player.id,
-        roblox_username: player.roblox_username,
-        joined_at: user.joined_at,
-        updated_at: user.updated_at
+        roblox_username:
+          player.roblox_username,
+        joined_at:
+          user.joined_at || null,
+        updated_at:
+          user.updated_at || null
       }
     });
+
   } catch (error) {
-    console.error("Profile API error:", error);
+    console.error(
+      "Profile API error:",
+      error
+    );
 
     return res.status(500).json({
-      error: "Internal server error"
+      error:
+        "Internal server error"
     });
   }
 }
