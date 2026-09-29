@@ -32,10 +32,16 @@
     }
 
     :root {
-      --bg: #0B1220;
+      --bg: #090D16;
+      --surface: rgba(13, 22, 36, 0.98);
+      --surface-soft: rgba(255, 255, 255, 0.018);
       --border: rgba(120, 164, 215, 0.16);
       --border-soft: rgba(120, 164, 215, 0.11);
-      --white: #FFFFFF;
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
+      --subtle: rgba(255, 255, 255, 0.30);
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
     }
 
     * {
@@ -44,13 +50,13 @@
 
     html {
       min-height: 100%;
-      background: #0B1220;
+      background: var(--bg);
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--white);
+      color: var(--text);
       font-family: "Montserrat", sans-serif;
       background:
         radial-gradient(
@@ -68,10 +74,13 @@
           rgba(20, 65, 125, 0.13),
           transparent 72%
         ),
-        #0B1220;
+        var(--bg);
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      transition:
+        background 180ms ease,
+        color 180ms ease;
     }
 
     a {
@@ -85,7 +94,7 @@
       z-index: 100;
       height: 68px;
       padding: 0 32px;
-      border-bottom: 1px solid rgba(120, 164, 215, 0.13);
+      border-bottom: 1px solid var(--border-soft);
       background: rgba(8, 15, 27, 0.84);
       display: flex;
       align-items: center;
@@ -155,8 +164,8 @@
       width: 170px;
       padding: 6px;
       transform: translateX(-50%) translateY(4px);
-      background: rgba(13, 22, 36, 0.98);
-      border: 1px solid rgba(120, 164, 215, 0.18);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 7px;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
       opacity: 0;
@@ -192,7 +201,7 @@
 
     .dropdown a:hover,
     .dropdown a:focus-visible {
-      background: rgba(96, 145, 205, 0.10);
+      background: var(--accent-soft);
       opacity: 1;
       outline: none;
     }
@@ -260,7 +269,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      border: 1px solid rgba(120, 164, 215, 0.16);
+      border: 1px solid var(--border);
       border-radius: 6px;
       background: rgba(9, 16, 27, 0.88);
       backdrop-filter: blur(14px);
@@ -342,7 +351,7 @@
       height: 4px;
       flex: 0 0 auto;
       border-radius: 50%;
-      background: #4F9BFF;
+      background: var(--accent);
       opacity: 0.8;
     }
 
@@ -376,6 +385,11 @@
       width: 10px;
       height: 10px;
       display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .profile-dropdown {
@@ -384,9 +398,9 @@
       right: 0;
       width: 195px;
       padding: 5px;
-      border: 1px solid rgba(120, 164, 215, 0.16);
+      border: 1px solid var(--border);
       border-radius: 7px;
-      background: rgba(13, 22, 36, 0.98);
+      background: var(--surface);
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -430,7 +444,7 @@
     }
 
     .profile-dropdown-item:hover {
-      background: rgba(96, 145, 205, 0.10);
+      background: var(--accent-soft);
       color: #FFFFFF;
     }
 
@@ -504,7 +518,7 @@
     .login-modal {
       width: min(440px, 100%);
       padding: 28px;
-      border: 1px solid rgba(120, 164, 215, 0.17);
+      border: 1px solid var(--border);
       border-radius: 9px;
       background: rgba(9, 16, 27, 0.94);
       box-shadow:
@@ -545,7 +559,7 @@
       height: 27px;
       flex: 0 0 auto;
       padding: 0;
-      border: 1px solid rgba(120, 164, 215, 0.14);
+      border: 1px solid var(--border);
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.025);
       color: rgba(255, 255, 255, 0.48);
@@ -668,13 +682,14 @@
       max-width: 540px;
       font-size: 10px;
       line-height: 1.7;
-      color: rgba(255, 255, 255, 0.43);
+      color: var(--muted);
     }
 
     .settings-content {
       min-height: 280px;
       margin-top: 14px;
-      border: 1px solid rgba(120, 164, 215, 0.16);
+      padding: 28px;
+      border: 1px solid var(--border);
       border-radius: 10px;
       background:
         linear-gradient(
@@ -685,6 +700,129 @@
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
     }
 
+    .settings-section {
+      padding-bottom: 24px;
+    }
+
+    .settings-section + .settings-section {
+      padding-top: 24px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .settings-section-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .settings-section-description {
+      margin: 7px 0 0;
+      font-size: 9px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .theme-group {
+      margin-top: 20px;
+    }
+
+    .theme-group-title {
+      margin: 0 0 10px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .theme-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .theme-options.alternatives {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .theme-option {
+      position: relative;
+      min-height: 76px;
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.018);
+      color: var(--text);
+      font-family: "Montserrat", sans-serif;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        background 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
+    }
+
+    .theme-option:hover {
+      background: rgba(255, 255, 255, 0.035);
+      border-color: rgba(120, 164, 215, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .theme-option.selected {
+      border-color: var(--accent);
+      box-shadow:
+        inset 0 0 0 1px rgba(79, 155, 255, 0.18),
+        0 5px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .theme-option-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .theme-name {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .theme-check {
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      color: transparent;
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .theme-option.selected .theme-check {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .theme-preview {
+      width: 100%;
+      height: 20px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .theme-code {
+      font-size: 7px;
+      color: rgba(255, 255, 255, 0.32);
+      letter-spacing: 0.04em;
+    }
+
     footer {
       position: fixed;
       left: 0;
@@ -693,7 +831,7 @@
       z-index: 100;
       min-height: 58px;
       padding: 0 32px;
-      border-top: 1px solid rgba(120, 164, 215, 0.13);
+      border-top: 1px solid var(--border-soft);
       background: rgba(8, 15, 27, 0.84);
       display: flex;
       align-items: center;
@@ -723,6 +861,167 @@
 
     .footer-right a:hover {
       color: rgba(255, 255, 255, 0.75);
+    }
+
+    body.theme-dark {
+      --bg: #090D16;
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #090D16;
+    }
+
+    body.theme-light {
+      --bg: #D3D3D3;
+      --surface: rgba(245, 245, 245, 0.98);
+      --surface-soft: rgba(0, 0, 0, 0.025);
+      --border: rgba(30, 40, 50, 0.15);
+      --border-soft: rgba(30, 40, 50, 0.10);
+      --text: #15181C;
+      --muted: rgba(21, 24, 28, 0.58);
+      --subtle: rgba(21, 24, 28, 0.38);
+      --accent: #5365D8;
+      --accent-soft: rgba(83, 101, 216, 0.09);
+
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(255, 255, 255, 0.62),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(170, 185, 205, 0.24),
+          transparent 70%
+        ),
+        #D3D3D3;
+    }
+
+    body.theme-blue {
+      --bg: #07111F;
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        #07111F;
+    }
+
+    body.theme-royal {
+      --bg: #5D157C;
+      --accent: #B96BD0;
+      --accent-soft: rgba(185, 107, 208, 0.12);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(113, 21, 124, 0.72),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(72, 12, 100, 0.42),
+          transparent 70%
+        ),
+        #5D157C;
+    }
+
+    body.theme-ocean {
+      --bg: #176D78;
+      --accent: #67D3DE;
+      --accent-soft: rgba(103, 211, 222, 0.12);
+
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(25, 121, 135, 0.72),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(10, 76, 87, 0.42),
+          transparent 70%
+        ),
+        #176D78;
+    }
+
+    body.theme-light .topbar,
+    body.theme-light footer {
+      background: rgba(230, 230, 230, 0.88);
+    }
+
+    body.theme-light .profile-card {
+      background: rgba(245, 245, 245, 0.92);
+    }
+
+    body.theme-light .profile-card:hover,
+    body.theme-light .profile-card.open {
+      background: rgba(250, 250, 250, 0.96);
+    }
+
+    body.theme-light .profile-dropdown {
+      background: rgba(245, 245, 245, 0.98);
+    }
+
+    body.theme-light .profile-username {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-status,
+    body.theme-light .profile-chevron,
+    body.theme-light .profile-dropdown-item {
+      color: rgba(21, 24, 28, 0.62);
+    }
+
+    body.theme-light .theme-group-title,
+    body.theme-light .theme-code {
+      color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-light .theme-option {
+      background: rgba(0, 0, 0, 0.025);
+    }
+
+    body.theme-light .theme-option:hover {
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    body.theme-light .theme-check {
+      border-color: rgba(21, 24, 28, 0.18);
+    }
+
+    body.theme-light .footer-brand {
+      color: rgba(21, 24, 28, 0.60);
+    }
+
+    body.theme-light footer {
+      color: rgba(21, 24, 28, 0.42);
     }
 
     @media (max-width: 760px) {
@@ -774,6 +1073,10 @@
         width: min(100% - 28px, 600px);
         padding-top: 30px;
         padding-bottom: 100px;
+      }
+
+      .settings-content {
+        padding: 20px;
       }
     }
 
@@ -858,6 +1161,11 @@
       .discord-logo {
         width: 19px;
         height: 19px;
+      }
+
+      .theme-options,
+      .theme-options.alternatives {
+        grid-template-columns: 1fr;
       }
 
       footer {
@@ -1076,6 +1384,143 @@
   class="settings-content"
   aria-label="Settings"
 >
+
+  <div class="settings-section">
+
+    <h2 class="settings-section-title">
+      Appearance
+    </h2>
+
+    <p class="settings-section-description">
+      Choose how the RSF website looks for you.
+    </p>
+
+    <div class="theme-group">
+
+      <p class="theme-group-title">
+        Main Themes
+      </p>
+
+      <div class="theme-options">
+
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="dark"
+        >
+          <div class="theme-option-top">
+            <span class="theme-name">Dark</span>
+            <span class="theme-check">✓</span>
+          </div>
+
+          <span
+            class="theme-preview"
+            style="background: #090D16;"
+          ></span>
+
+          <span class="theme-code">
+            #090D16
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="light"
+        >
+          <div class="theme-option-top">
+            <span class="theme-name">Light</span>
+            <span class="theme-check">✓</span>
+          </div>
+
+          <span
+            class="theme-preview"
+            style="background: #D3D3D3;"
+          ></span>
+
+          <span class="theme-code">
+            #D3D3D3
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="theme-group">
+
+      <p class="theme-group-title">
+        Alternative Themes
+      </p>
+
+      <div class="theme-options alternatives">
+
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="blue"
+        >
+          <div class="theme-option-top">
+            <span class="theme-name">Blue</span>
+            <span class="theme-check">✓</span>
+          </div>
+
+          <span
+            class="theme-preview"
+            style="background: #07111F;"
+          ></span>
+
+          <span class="theme-code">
+            #07111F
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="royal"
+        >
+          <div class="theme-option-top">
+            <span class="theme-name">Royal</span>
+            <span class="theme-check">✓</span>
+          </div>
+
+          <span
+            class="theme-preview"
+            style="background: #71157C;"
+          ></span>
+
+          <span class="theme-code">
+            #71157C
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="theme-option"
+          data-theme="ocean"
+        >
+          <div class="theme-option-top">
+            <span class="theme-name">Ocean</span>
+            <span class="theme-check">✓</span>
+          </div>
+
+          <span
+            class="theme-preview"
+            style="background: #176D78;"
+          ></span>
+
+          <span class="theme-code">
+            #176D78
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
 
@@ -1116,15 +1561,109 @@
     const loginProceed =
       document.getElementById("login-proceed");
 
+    const themeOptions =
+      document.querySelectorAll(".theme-option");
+
+    const themeStorageKey =
+      "rsf_theme";
+
+    const validThemes = [
+      "dark",
+      "light",
+      "blue",
+      "royal",
+      "ocean"
+    ];
+
+    function applyTheme(theme) {
+      if (!validThemes.includes(theme)) {
+        theme = "dark";
+      }
+
+      document.body.classList.remove(
+        "theme-dark",
+        "theme-light",
+        "theme-blue",
+        "theme-royal",
+        "theme-ocean"
+      );
+
+      document.body.classList.add(
+        `theme-${theme}`
+      );
+
+      themeOptions.forEach(
+        option => {
+          option.classList.toggle(
+            "selected",
+            option.dataset.theme === theme
+          );
+        }
+      );
+    }
+
+    function loadTheme() {
+      let theme = "dark";
+
+      try {
+        const savedTheme =
+          localStorage.getItem(
+            themeStorageKey
+          );
+
+        if (
+          savedTheme &&
+          validThemes.includes(savedTheme)
+        ) {
+          theme = savedTheme;
+        }
+      } catch {
+        theme = "dark";
+      }
+
+      applyTheme(theme);
+    }
+
+    function saveTheme(theme) {
+      try {
+        localStorage.setItem(
+          themeStorageKey,
+          theme
+        );
+      } catch {
+      }
+
+      applyTheme(theme);
+    }
+
+    themeOptions.forEach(
+      option => {
+        option.addEventListener(
+          "click",
+          () => {
+            saveTheme(
+              option.dataset.theme
+            );
+          }
+        );
+      }
+    );
+
     function openLoginModal() {
       loginOverlay.classList.add("open");
-      loginOverlay.setAttribute("aria-hidden", "false");
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
       document.body.style.overflow = "hidden";
     }
 
     function closeLoginModal() {
       loginOverlay.classList.remove("open");
-      loginOverlay.setAttribute("aria-hidden", "true");
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
       document.body.style.overflow = "";
     }
 
@@ -1141,7 +1680,9 @@
     loginOverlay.addEventListener(
       "click",
       event => {
-        if (event.target === loginOverlay) {
+        if (
+          event.target === loginOverlay
+        ) {
           closeLoginModal();
         }
       }
@@ -1150,7 +1691,8 @@
     loginProceed.addEventListener(
       "click",
       () => {
-        window.location.href = "/api/login";
+        window.location.href =
+          "/api/login";
       }
     );
 
@@ -1165,6 +1707,8 @@
         }
       }
     );
+
+    loadTheme();
   </script>
 
   <script src="/auth.js"></script>
