@@ -118,6 +118,151 @@ async function discordFetch(url, options = {}) {
   return data;
 }
 
+async function getOrCreateUser(discordId, discordUsername) {
+  const supabaseUrl =
+    process.env.SUPABASE_URL;
+
+  const supabaseKey =
+    process.env.SUPABASE_SECRET_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error(
+      "Supabase environment variables are missing."
+    );
+  }
+
+  const headers = {
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`
+  };
+
+  const lookupUrl = new URL(
+    `${supabaseUrl}/rest/v1/users`
+  );
+
+  lookupUrl.searchParams.set(
+    "select",
+    "id,discord_id,discord_username"
+  );
+
+  lookupUrl.searchParams.set(
+    "discord_id",
+    `eq.${discordId}`
+  );
+
+  lookupUrl.searchParams.set(
+    "limit",
+    "1"
+  );
+
+  const lookupResponse =
+    await fetch(
+      lookupUrl.toString(),
+      {
+        method: "GET",
+        headers
+      }
+    );
+
+  if (!lookupResponse.ok) {
+    const errorText =
+      await lookupResponse.text();
+
+    throw new Error(
+      `Supabase user lookup failed: ${lookupResponse.status} ${errorText}`
+    );
+  }
+
+  const existingUsers =
+    await lookupResponse.json();
+
+  if (existingUsers.length > 0) {
+    const existingUser =
+      existingUsers[0];
+
+    if (
+      existingUser.discord_username !==
+      discordUsername
+    ) {
+      const updateUrl = new URL(
+        `${supabaseUrl}/rest/v1/users`
+      );
+
+      updateUrl.searchParams.set(
+        "id",
+        `eq.${existingUser.id}`
+      );
+
+      await fetch(
+        updateUrl.toString(),
+        {
+          method: "PATCH",
+          headers: {
+            ...headers,
+            "Content-Type":
+              "application/json",
+            Prefer: "return=minimal"
+          },
+          body: JSON.stringify({
+            discord_username:
+              discordUsername,
+            updated_at:
+              new Date().toISOString()
+          })
+        }
+      );
+    }
+
+    return existingUser.id;
+  }
+
+  const userId =
+    crypto.randomUUID();
+
+  const createResponse =
+    await fetch(
+      `${supabaseUrl}/rest/v1/users`,
+      {
+        method: "POST",
+        headers: {
+          ...headers,
+          "Content-Type":
+            "application/json",
+          Prefer: "return=representation"
+        },
+        body: JSON.stringify({
+          id: userId,
+          discord_id: discordId,
+          discord_username:
+            discordUsername
+        })
+      }
+    );
+
+  if (!createResponse.ok) {
+    const errorText =
+      await createResponse.text();
+
+    throw new Error(
+      `Supabase user creation failed: ${createResponse.status} ${errorText}`
+    );
+  }
+
+  const createdUsers =
+    await createResponse.json();
+
+  if (
+    !createdUsers ||
+    !createdUsers.length
+  ) {
+    throw new Error(
+      "Supabase created the user but returned no user data."
+    );
+  }
+
+  return createdUsers[0].id;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res
@@ -190,7 +335,9 @@ export default async function handler(req, res) {
   if (
     !process.env.DISCORD_CLIENT_ID ||
     !process.env.DISCORD_CLIENT_SECRET ||
-    !process.env.SESSION_SECRET
+    !process.env.SESSION_SECRET ||
+    !process.env.SUPABASE_URL ||
+    !process.env.SUPABASE_SECRET_KEY
   ) {
     console.error(
       "Required environment variables are missing."
@@ -290,6 +437,17 @@ export default async function handler(req, res) {
       );
     }
 
+    const discordName =
+      user.global_name ||
+      user.username ||
+      "Unknown";
+
+    const websiteUserId =
+      await getOrCreateUser(
+        user.id,
+        discordName
+      );
+
     const session =
       createSession(user.id);
 
@@ -301,15 +459,11 @@ export default async function handler(req, res) {
       ]
     );
 
-    const discordName =
-      user.global_name ||
-      user.username ||
-      "Unknown";
-
     await sendDebugWebhook(
       `🔐 **User logged in**\n` +
       `Discord: **${discordName}**\n` +
-      `ID: \`${user.id}\``
+      `ID: \`${user.id}\`\n` +
+      `Website User ID: \`${websiteUserId}\``
     );
 
     res.statusCode = 302;
