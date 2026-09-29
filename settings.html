@@ -58,23 +58,7 @@
       min-height: 100vh;
       color: var(--text);
       font-family: "Montserrat", sans-serif;
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(42, 103, 175, 0.34),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(25, 75, 145, 0.18),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(20, 65, 125, 0.13),
-          transparent 72%
-        ),
-        #07111F;
+      background: #07111F;
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -728,7 +712,7 @@
     }
 
     .theme-group-title {
-      margin: 0 0 10px;
+      margin: 0 0 11px;
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.10em;
@@ -737,90 +721,119 @@
     }
 
     .theme-options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .theme-options.alternatives {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
+      align-items: flex-start;
+      gap: 25px;
+      padding: 2px 3px;
     }
 
     .theme-option {
       position: relative;
-      min-height: 76px;
-      padding: 13px;
+      width: 64px;
+      min-width: 64px;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.018);
+      align-items: center;
+      border: 0;
+      background: transparent;
       color: var(--text);
       font-family: "Montserrat", sans-serif;
-      text-align: left;
       cursor: pointer;
-      transition:
-        background 120ms ease,
-        border-color 120ms ease,
-        transform 120ms ease;
     }
 
-    .theme-option:hover {
-      background: rgba(255, 255, 255, 0.035);
-      border-color: rgba(120, 164, 215, 0.28);
-      transform: translateY(-1px);
-    }
-
-    .theme-option.selected {
-      border-color: var(--accent);
-      box-shadow:
-        inset 0 0 0 1px rgba(79, 155, 255, 0.18),
-        0 5px 18px rgba(0, 0, 0, 0.12);
-    }
-
-    .theme-option-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .theme-name {
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .theme-check {
-      width: 15px;
-      height: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 50%;
-      color: transparent;
-      font-size: 8px;
-      font-weight: 700;
-    }
-
-    .theme-option.selected .theme-check {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #FFFFFF;
+    .theme-option:hover .theme-preview {
+      transform: scale(1.055);
+      border-color: rgba(255, 255, 255, 0.34);
     }
 
     .theme-preview {
-      width: 100%;
-      height: 20px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      width: 56px;
+      height: 56px;
+      display: block;
+      border: 2px solid rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+      box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.18),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+      transition:
+        transform 140ms ease,
+        border-color 140ms ease,
+        box-shadow 140ms ease;
     }
 
-    .theme-code {
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.32);
-      letter-spacing: 0.04em;
+    .theme-option.selected .theme-preview {
+      border-color: var(--accent);
+      box-shadow:
+        0 0 0 3px rgba(79, 155, 255, 0.12),
+        0 5px 18px rgba(0, 0, 0, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .theme-check {
+      position: absolute;
+      top: 2px;
+      right: 1px;
+      width: 17px;
+      height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--surface);
+      border-radius: 50%;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 8px;
+      font-weight: 700;
+      opacity: 0;
+      transform: scale(0.7);
+      transition:
+        opacity 120ms ease,
+        transform 120ms ease;
+    }
+
+    .theme-option.selected .theme-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .theme-name {
+      margin-top: 9px;
+      font-size: 9px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.46);
+      transition:
+        color 120ms ease,
+        transform 120ms ease;
+    }
+
+    .theme-option:hover .theme-name {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .theme-option.selected .theme-name {
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    .theme-description {
+      max-width: 320px;
+      min-height: 16px;
+      margin: 14px 0 0 3px;
+      font-size: 8px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.34);
+      transition: opacity 120ms ease;
+    }
+
+    .theme-description strong {
+      color: rgba(255, 255, 255, 0.68);
+      font-weight: 600;
+    }
+
+    .theme-group.alternatives-group {
+      margin-top: 22px;
     }
 
     footer {
@@ -864,32 +877,15 @@
     }
 
     body.theme-dark {
-      --bg: #090D16;
+      --bg: #181818;
       --accent: #4F9BFF;
       --accent-soft: rgba(79, 155, 255, 0.10);
-
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(42, 103, 175, 0.34),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(25, 75, 145, 0.18),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(20, 65, 125, 0.13),
-          transparent 72%
-        ),
-        #090D16;
+      background: #181818;
     }
 
     body.theme-dark .topbar,
     body.theme-dark footer {
-      background: rgba(8, 15, 27, 0.84);
+      background: rgba(20, 20, 20, 0.92);
     }
 
     body.theme-light {
@@ -948,21 +944,28 @@
       color: rgba(21, 24, 28, 0.62);
     }
 
-    body.theme-light .theme-group-title,
-    body.theme-light .theme-code {
+    body.theme-light .theme-group-title {
       color: rgba(21, 24, 28, 0.42);
     }
 
-    body.theme-light .theme-option {
-      background: rgba(0, 0, 0, 0.025);
+    body.theme-light .theme-name {
+      color: rgba(21, 24, 28, 0.48);
     }
 
-    body.theme-light .theme-option:hover {
-      background: rgba(0, 0, 0, 0.045);
+    body.theme-light .theme-option:hover .theme-name {
+      color: rgba(21, 24, 28, 0.75);
     }
 
-    body.theme-light .theme-check {
-      border-color: rgba(21, 24, 28, 0.18);
+    body.theme-light .theme-option.selected .theme-name {
+      color: #15181C;
+    }
+
+    body.theme-light .theme-description {
+      color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-light .theme-description strong {
+      color: rgba(21, 24, 28, 0.68);
     }
 
     body.theme-light .footer-brand {
@@ -1003,97 +1006,87 @@
     }
 
     body.theme-royal {
-      --bg: #10152B;
-      --accent: #9B7CFF;
-      --accent-soft: rgba(155, 124, 255, 0.11);
+      --bg: #0E0B20;
+      --accent: #8D79FF;
+      --accent-soft: rgba(141, 121, 255, 0.11);
 
       background:
         radial-gradient(
-          ellipse 920px 620px at 82% 0%,
-          rgba(67, 75, 184, 0.44),
+          ellipse 920px 620px at 78% 0%,
+          rgba(73, 56, 170, 0.34),
           transparent 67%
         ),
         radial-gradient(
-          ellipse 820px 600px at 8% 48%,
-          rgba(55, 49, 155, 0.32),
+          ellipse 760px 560px at 8% 52%,
+          rgba(39, 57, 135, 0.25),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 720px 520px at 60% 105%,
-          rgba(113, 21, 124, 0.30),
+          ellipse 700px 500px at 58% 105%,
+          rgba(112, 48, 145, 0.18),
           transparent 72%
         ),
-        linear-gradient(
-          135deg,
-          #07111F 0%,
-          #10152B 44%,
-          #28163F 100%
-        );
+        #0E0B20;
     }
 
     body.theme-royal .topbar,
     body.theme-royal footer {
-      background: rgba(8, 15, 32, 0.86);
+      background: rgba(10, 10, 29, 0.86);
     }
 
     body.theme-royal .profile-card {
-      background: rgba(15, 20, 44, 0.88);
+      background: rgba(16, 14, 39, 0.90);
     }
 
     body.theme-royal .profile-card:hover,
     body.theme-royal .profile-card.open {
-      background: rgba(27, 23, 59, 0.94);
+      background: rgba(22, 18, 52, 0.95);
     }
 
     body.theme-royal .profile-dropdown {
-      background: rgba(20, 20, 51, 0.98);
+      background: rgba(17, 14, 42, 0.98);
     }
 
     body.theme-ocean {
-      --bg: #071923;
-      --accent: #55D5D8;
-      --accent-soft: rgba(85, 213, 216, 0.11);
+      --bg: #061A22;
+      --accent: #52C7D8;
+      --accent-soft: rgba(82, 199, 216, 0.11);
 
       background:
         radial-gradient(
-          ellipse 920px 620px at 80% 0%,
-          rgba(22, 108, 126, 0.48),
+          ellipse 920px 620px at 78% 0%,
+          rgba(20, 111, 132, 0.36),
           transparent 67%
         ),
         radial-gradient(
-          ellipse 820px 600px at 8% 48%,
-          rgba(16, 91, 125, 0.34),
+          ellipse 760px 560px at 7% 52%,
+          rgba(15, 76, 111, 0.28),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 720px 520px at 62% 105%,
-          rgba(21, 157, 159, 0.24),
+          ellipse 700px 500px at 58% 105%,
+          rgba(31, 139, 143, 0.17),
           transparent 72%
         ),
-        linear-gradient(
-          135deg,
-          #07111F 0%,
-          #071923 43%,
-          #0A3B45 100%
-        );
+        #061A22;
     }
 
     body.theme-ocean .topbar,
     body.theme-ocean footer {
-      background: rgba(6, 21, 31, 0.86);
+      background: rgba(5, 24, 32, 0.86);
     }
 
     body.theme-ocean .profile-card {
-      background: rgba(7, 31, 41, 0.88);
+      background: rgba(7, 30, 39, 0.90);
     }
 
     body.theme-ocean .profile-card:hover,
     body.theme-ocean .profile-card.open {
-      background: rgba(8, 47, 57, 0.94);
+      background: rgba(9, 39, 50, 0.95);
     }
 
     body.theme-ocean .profile-dropdown {
-      background: rgba(7, 38, 48, 0.98);
+      background: rgba(7, 31, 41, 0.98);
     }
 
     @media (max-width: 760px) {
@@ -1235,9 +1228,27 @@
         height: 19px;
       }
 
-      .theme-options,
-      .theme-options.alternatives {
-        grid-template-columns: 1fr;
+      .theme-options {
+        gap: 17px;
+        justify-content: space-between;
+      }
+
+      .theme-option {
+        width: 54px;
+        min-width: 54px;
+      }
+
+      .theme-preview {
+        width: 48px;
+        height: 48px;
+      }
+
+      .theme-check {
+        top: 1px;
+        right: -1px;
+        width: 15px;
+        height: 15px;
+        font-size: 7px;
       }
 
       footer {
@@ -1260,11 +1271,11 @@
 
 </head>
 
-<body>
+<body class="theme-blue">
 
   <header class="topbar">
 
-
+```
 <a href="/" class="logo">
   RSF
 </a>
@@ -1370,7 +1381,7 @@
     </svg>
   </span>
 </div>
-
+```
 
   </header>
 
@@ -1380,7 +1391,7 @@
     aria-hidden="true"
   >
 
-
+```
 <div
   class="login-modal"
   role="dialog"
@@ -1435,13 +1446,13 @@
   </p>
 
 </div>
-
+```
 
   </div>
 
   <main>
 
-
+```
 <section class="settings-header">
   <h1 class="settings-title">
     SETTINGS
@@ -1470,28 +1481,30 @@
     <div class="theme-group">
 
       <p class="theme-group-title">
-        Main Themes
+        Background
       </p>
 
-      <div class="theme-options">
+      <div
+        class="theme-options"
+        role="radiogroup"
+        aria-label="Background theme"
+      >
 
         <button
           type="button"
           class="theme-option"
           data-theme="dark"
+          aria-label="Dark"
         >
-          <div class="theme-option-top">
-            <span class="theme-name">Dark</span>
-            <span class="theme-check">✓</span>
-          </div>
-
           <span
             class="theme-preview"
-            style="background: #090D16;"
+            style="background: #181818;"
           ></span>
 
-          <span class="theme-code">
-            #090D16
+          <span class="theme-check">✓</span>
+
+          <span class="theme-name">
+            Dark
           </span>
         </button>
 
@@ -1499,51 +1512,35 @@
           type="button"
           class="theme-option"
           data-theme="light"
+          aria-label="Light"
         >
-          <div class="theme-option-top">
-            <span class="theme-name">Light</span>
-            <span class="theme-check">✓</span>
-          </div>
-
           <span
             class="theme-preview"
-            style="background: #D3D3D3;"
+            style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
           ></span>
 
-          <span class="theme-code">
-            #D3D3D3
+          <span class="theme-check">✓</span>
+
+          <span class="theme-name">
+            Light
           </span>
         </button>
-
-      </div>
-
-    </div>
-
-    <div class="theme-group">
-
-      <p class="theme-group-title">
-        Alternative Themes
-      </p>
-
-      <div class="theme-options alternatives">
 
         <button
           type="button"
           class="theme-option"
           data-theme="blue"
+          aria-label="Blue"
         >
-          <div class="theme-option-top">
-            <span class="theme-name">Blue</span>
-            <span class="theme-check">✓</span>
-          </div>
-
           <span
             class="theme-preview"
-            style="background: linear-gradient(135deg, #07111F, #194C86);"
+            style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
           ></span>
 
-          <span class="theme-code">
-            #07111F
+          <span class="theme-check">✓</span>
+
+          <span class="theme-name">
+            Blue
           </span>
         </button>
 
@@ -1551,19 +1548,17 @@
           type="button"
           class="theme-option"
           data-theme="royal"
+          aria-label="Royal"
         >
-          <div class="theme-option-top">
-            <span class="theme-name">Royal</span>
-            <span class="theme-check">✓</span>
-          </div>
-
           <span
             class="theme-preview"
-            style="background: linear-gradient(135deg, #07111F, #454AB4, #71157C);"
+            style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
           ></span>
 
-          <span class="theme-code">
-            #71157C
+          <span class="theme-check">✓</span>
+
+          <span class="theme-name">
+            Royal
           </span>
         </button>
 
@@ -1571,36 +1566,42 @@
           type="button"
           class="theme-option"
           data-theme="ocean"
+          aria-label="Ocean"
         >
-          <div class="theme-option-top">
-            <span class="theme-name">Ocean</span>
-            <span class="theme-check">✓</span>
-          </div>
-
           <span
             class="theme-preview"
-            style="background: linear-gradient(135deg, #07111F, #155B7A, #176D78);"
+            style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
           ></span>
 
-          <span class="theme-code">
-            #176D78
+          <span class="theme-check">✓</span>
+
+          <span class="theme-name">
+            Ocean
           </span>
         </button>
 
       </div>
+
+      <p
+        class="theme-description"
+        id="theme-description"
+        aria-live="polite"
+      >
+        <strong>Blue</strong> — Deep navy with subtle blue gradients.
+      </p>
 
     </div>
 
   </div>
 
 </section>
-
+```
 
   </main>
 
   <footer>
 
-
+```
 <div class="footer-left">
   <span class="footer-brand">
     RSF
@@ -1616,7 +1617,7 @@
     Terms of Use
   </a>
 </div>
-
+```
 
   </footer>
 
@@ -1636,6 +1637,9 @@
     const themeOptions =
       document.querySelectorAll(".theme-option");
 
+    const themeDescription =
+      document.getElementById("theme-description");
+
     const themeStorageKey =
       "rsf_theme";
 
@@ -1646,6 +1650,14 @@
       "royal",
       "ocean"
     ];
+
+    const themeDescriptions = {
+      dark: "Solid mid-black with a clean, minimal appearance.",
+      light: "A bright, neutral background with a soft finish.",
+      blue: "Deep navy with subtle blue gradients.",
+      royal: "Deep blue and violet tones with a darker royal finish.",
+      ocean: "Deep blue and teal tones with a cool, aquatic finish."
+    };
 
     function applyTheme(theme) {
       if (!validThemes.includes(theme)) {
@@ -1666,12 +1678,23 @@
 
       themeOptions.forEach(
         option => {
+          const selected =
+            option.dataset.theme === theme;
+
           option.classList.toggle(
             "selected",
-            option.dataset.theme === theme
+            selected
+          );
+
+          option.setAttribute(
+            "aria-checked",
+            selected ? "true" : "false"
           );
         }
       );
+
+      themeDescription.innerHTML =
+        `<strong>${theme.charAt(0).toUpperCase() + theme.slice(1)}</strong> — ${themeDescriptions[theme]}`;
     }
 
     function getSavedTheme() {
