@@ -1461,31 +1461,6 @@
 
 <body data-theme="blue">
 
-  <script>
-    (function() {
-      try {
-        const cachedTheme =
-          localStorage.getItem(
-            "rsf-theme"
-          );
-
-        if (
-          [
-            "dark",
-            "light",
-            "blue",
-            "royal",
-            "ocean"
-          ].includes(cachedTheme)
-        ) {
-          document.body.dataset.theme =
-            cachedTheme;
-        }
-      } catch (error) {
-      }
-    })();
-  </script>
-
   <header class="topbar">
 
 <a href="/" class="logo">
@@ -1506,13 +1481,11 @@
       <span class="arrow">▾</span>
     </a>
 
-
 <div class="dropdown">
   <a href="/database">Playerbase</a>
   <a href="/database">Teams</a>
   <a href="/database">Seasons</a>
 </div>
-
 
   </div>
 
@@ -1522,14 +1495,12 @@
       <span class="arrow">▾</span>
     </a>
 
-
 <div class="dropdown">
   <a href="/community">Videos</a>
   <a href="/community">Community Latest</a>
   <a href="/community">Development</a>
   <a href="/community">Resources</a>
 </div>
-
 
   </div>
 
@@ -1588,14 +1559,13 @@ aria-hidden="true"
       —
     </span>
 
-
 <span
-  class="profile-status"
-  id="profile-status"
->
-  GUEST
-</span>
+class="profile-status"
+id="profile-status"
 
+>
+
+GUEST </span>
 
   </div>
 
@@ -1623,7 +1593,6 @@ aria-hidden="true"
 
   <div class="login-modal-header">
 
-
 <div>
   <h2
     class="login-modal-title"
@@ -1638,14 +1607,14 @@ aria-hidden="true"
 </div>
 
 <button
-  type="button"
-  class="login-close"
-  id="login-close"
-  aria-label="Close login"
->
-  ×
-</button>
+type="button"
+class="login-close"
+id="login-close"
+aria-label="Close login"
 
+>
+
+× </button>
 
   </div>
 
@@ -1664,9 +1633,7 @@ id="login-proceed"
 
 >
 
-
 PROCEED TO LOGIN
-
 
   </button>
 
@@ -1686,7 +1653,6 @@ PROCEED TO LOGIN
 >
 
   <div class="news-content">
-
 
 <div class="section-label">
   <span class="news-dot-live"></span>
@@ -1709,7 +1675,6 @@ PROCEED TO LOGIN
     RSF / NEWS
   </span>
 </div>
-
 
   </div>
 
@@ -1737,7 +1702,6 @@ PROCEED TO LOGIN
       aria-label="Previous news"
     ></button>
 
-
 <div
   id="news-dots"
   class="news-dots"
@@ -1745,12 +1709,12 @@ PROCEED TO LOGIN
 ></div>
 
 <button
-  type="button"
-  class="news-arrow right"
-  id="news-next"
-  aria-label="Next news"
-></button>
+type="button"
+class="news-arrow right"
+id="news-next"
+aria-label="Next news"
 
+> </button>
 
   </div>
 
@@ -1762,7 +1726,6 @@ PROCEED TO LOGIN
 >
 
   <article class="module rsf-module">
-
 
 <h2 class="module-title">
   RSF
@@ -1782,11 +1745,9 @@ PROCEED TO LOGIN
   </a>
 </div>
 
-
   </article>
 
   <article class="module database">
-
 
 <h2 class="module-title">
   DATABASE
@@ -1806,11 +1767,9 @@ PROCEED TO LOGIN
   </a>
 </div>
 
-
   </article>
 
   <article class="module arcade-module">
-
 
 <h2 class="module-title">
   ARCADE
@@ -1830,11 +1789,9 @@ PROCEED TO LOGIN
   </a>
 </div>
 
-
   </article>
 
   <article class="module community">
-
 
 <div>
   <h2 class="module-title">
@@ -1855,7 +1812,6 @@ PROCEED TO LOGIN
     <span class="module-arrow">→</span>
   </a>
 </div>
-
 
   </article>
 
@@ -1892,7 +1848,9 @@ PROCEED TO LOGIN
       "ocean"
     ];
 
-    function applyTheme(theme) {
+    let authenticatedUser = false;
+
+    function applyTheme(theme, save = true) {
       if (!validThemes.includes(theme)) {
         theme = "blue";
       }
@@ -1900,12 +1858,14 @@ PROCEED TO LOGIN
       document.body.dataset.theme =
         theme;
 
-      try {
-        localStorage.setItem(
-          "rsf-theme",
-          theme
-        );
-      } catch (error) {
+      if (save) {
+        try {
+          localStorage.setItem(
+            "rsf-theme",
+            theme
+          );
+        } catch (error) {
+        }
       }
     }
 
@@ -1925,87 +1885,85 @@ PROCEED TO LOGIN
           document.body.dataset.theme =
             cachedTheme;
 
-          return;
+          return true;
         }
       } catch (error) {
       }
 
-      if (
-        !validThemes.includes(
-          document.body.dataset.theme
-        )
-      ) {
-        document.body.dataset.theme =
-          "blue";
+      return false;
+    }
+
+    async function loadSavedTheme() {
+      try {
+        const meResponse =
+          await fetch(
+            "/api/me",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!meResponse.ok) {
+          authenticatedUser = false;
+          applyTheme("blue", false);
+          return;
+        }
+
+        const meData =
+          await meResponse.json();
+
+        if (
+          !meData.authenticated ||
+          !meData.verified
+        ) {
+          authenticatedUser = false;
+          applyTheme("blue", false);
+          return;
+        }
+
+        authenticatedUser = true;
+
+        loadCachedTheme();
+
+        const response =
+          await fetch(
+            "/api/preferences",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          data &&
+          validThemes.includes(
+            data.theme
+          )
+        ) {
+          applyTheme(
+            data.theme
+          );
+        }
+      } catch (error) {
+        authenticatedUser = false;
+        applyTheme("blue", false);
+
+        console.warn(
+          "RSF theme sync failed:",
+          error
+        );
       }
     }
-
-async function loadSavedTheme() {
-  try {
-    const meResponse =
-      await fetch(
-        "/api/me",
-        {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store"
-        }
-      );
-
-    if (!meResponse.ok) {
-      applyTheme("blue");
-      return;
-    }
-
-    const meData =
-      await meResponse.json();
-
-    if (
-      !meData.authenticated ||
-      !meData.verified
-    ) {
-      applyTheme("blue");
-      return;
-    }
-
-    loadCachedTheme();
-
-    const response =
-      await fetch(
-        "/api/preferences",
-        {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store"
-        }
-      );
-
-    if (!response.ok) {
-      return;
-    }
-
-    const data =
-      await response.json();
-
-    if (
-      data &&
-      validThemes.includes(
-        data.theme
-      )
-    ) {
-      applyTheme(
-        data.theme
-      );
-    }
-  } catch (error) {
-    applyTheme("blue");
-
-    console.warn(
-      "RSF theme sync failed:",
-      error
-    );
-  }
-}
 
     window.addEventListener(
       "storage",
@@ -2014,6 +1972,13 @@ async function loadSavedTheme() {
           event.key !==
           "rsf-theme"
         ) {
+          return;
+        }
+
+        if (
+          !authenticatedUser
+        ) {
+          applyTheme("blue", false);
           return;
         }
 
@@ -2750,7 +2715,6 @@ async function loadSavedTheme() {
       }
     );
 
-    loadCachedTheme();
     loadSavedTheme();
     startNewsSync();
   </script>
