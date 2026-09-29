@@ -4,35 +4,35 @@
   "rewrites": [
     {
       "source": "/database",
-      "destination": "/database.html"
+      "destination": "/database"
     },
     {
       "source": "/community",
-      "destination": "/community.html"
+      "destination": "/community"
     },
     {
       "source": "/arcade",
-      "destination": "/arcade.html"
+      "destination": "/arcade"
     },
     {
       "source": "/rsf",
-      "destination": "/rsf.html"
+      "destination": "/rsf"
     },
     {
       "source": "/privacy",
-      "destination": "/privacy.html"
+      "destination": "/privacy"
     },
     {
       "source": "/terms",
-      "destination": "/terms.html"
+      "destination": "/terms"
     },
     {
       "source": "/callback",
       "destination": "/api/callback"
     },
-{
-  "source": "/profile/(.*)",
-  "destination": "/profile.html"
-}
+    {
+      "source": "/profile/:username",
+      "destination": "/profile"
+    }
   ]
 }
