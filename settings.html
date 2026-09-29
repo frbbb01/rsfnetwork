@@ -1275,8 +1275,36 @@
 
 <body class="theme-blue">
 
-  <header class="topbar">
+  <script>
+    (() => {
+      const validThemes = [
+        "dark",
+        "light",
+        "blue",
+        "royal",
+        "ocean"
+      ];
 
+      const cachedTheme =
+        localStorage.getItem("rsf-theme");
+
+      if (validThemes.includes(cachedTheme)) {
+        document.body.classList.remove(
+          "theme-dark",
+          "theme-light",
+          "theme-blue",
+          "theme-royal",
+          "theme-ocean"
+        );
+
+        document.body.classList.add(
+          `theme-${cachedTheme}`
+        );
+      }
+    })();
+  </script>
+
+  <header class="topbar">
 
 <a href="/" class="logo">
   RSF
@@ -1296,11 +1324,14 @@
       <span class="arrow">▾</span>
     </a>
 
-    <div class="dropdown">
-      <a href="/database">Playerbase</a>
-      <a href="/database">Teams</a>
-      <a href="/database">Seasons</a>
-    </div>
+
+<div class="dropdown">
+  <a href="/database">Playerbase</a>
+  <a href="/database">Teams</a>
+  <a href="/database">Seasons</a>
+</div>
+
+
   </div>
 
   <div class="nav-item">
@@ -1309,12 +1340,15 @@
       <span class="arrow">▾</span>
     </a>
 
-    <div class="dropdown">
-      <a href="/community">Videos</a>
-      <a href="/community">Community Latest</a>
-      <a href="/community">Development</a>
-      <a href="/community">Resources</a>
-    </div>
+
+<div class="dropdown">
+  <a href="/community">Videos</a>
+  <a href="/community">Community Latest</a>
+  <a href="/community">Development</a>
+  <a href="/community">Resources</a>
+</div>
+
+
   </div>
 
   <div class="nav-item">
@@ -1332,19 +1366,22 @@
 </nav>
 
 <button
-  type="button"
-  class="login-button"
-  id="login-button"
-  aria-label="Login with Discord"
+type="button"
+class="login-button"
+id="login-button"
+aria-label="Login with Discord"
+
 >
-  <img
-    class="discord-logo"
-    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-    alt=""
-    aria-hidden="true"
-  >
-  <span>LOGIN</span>
-</button>
+
+<img
+class="discord-logo"
+src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+alt=""
+aria-hidden="true"
+
+>
+
+<span>LOGIN</span> </button>
 
 <div
   class="profile-card"
@@ -1369,12 +1406,15 @@
       —
     </span>
 
-    <span
-      class="profile-status"
-      id="profile-status"
-    >
-      GUEST
-    </span>
+
+<span
+  class="profile-status"
+  id="profile-status"
+>
+  GUEST
+</span>
+
+
   </div>
 
   <span class="profile-chevron" aria-hidden="true">
@@ -1384,7 +1424,6 @@
   </span>
 </div>
 
-
   </header>
 
   <div
@@ -1392,7 +1431,6 @@
     id="login-overlay"
     aria-hidden="true"
   >
-
 
 <div
   class="login-modal"
@@ -1403,27 +1441,29 @@
 
   <div class="login-modal-header">
 
-    <div>
-      <h2
-        class="login-modal-title"
-        id="login-title"
-      >
-        Login to RSF
-      </h2>
 
-      <p class="login-modal-subtitle">
-        Connect your Discord account to access the full RSF experience.
-      </p>
-    </div>
+<div>
+  <h2
+    class="login-modal-title"
+    id="login-title"
+  >
+    Login to RSF
+  </h2>
 
-    <button
-      type="button"
-      class="login-close"
-      id="login-close"
-      aria-label="Close login"
-    >
-      ×
-    </button>
+  <p class="login-modal-subtitle">
+    Connect your Discord account to access the full RSF experience.
+  </p>
+</div>
+
+<button
+  type="button"
+  class="login-close"
+  id="login-close"
+  aria-label="Close login"
+>
+  ×
+</button>
+
 
   </div>
 
@@ -1435,12 +1475,17 @@
     <li>You can continue using publicly available parts of the website without logging in.</li>
   </ul>
 
-  <button
-    type="button"
-    class="login-proceed"
-    id="login-proceed"
-  >
-    PROCEED TO LOGIN
+<button
+type="button"
+class="login-proceed"
+id="login-proceed"
+
+>
+
+
+PROCEED TO LOGIN
+
+
   </button>
 
   <p class="login-note">
@@ -1449,11 +1494,9 @@
 
 </div>
 
-
   </div>
 
   <main>
-
 
 <section class="settings-header">
   <h1 class="settings-title">
@@ -1472,142 +1515,142 @@
 
   <div class="settings-section">
 
-    <h2 class="settings-section-title">
-      Appearance
-    </h2>
 
-    <p class="settings-section-description">
-      Choose how the RSF website looks for you.
-    </p>
+<h2 class="settings-section-title">
+  Appearance
+</h2>
 
-    <div class="theme-group">
+<p class="settings-section-description">
+  Choose how the RSF website looks for you.
+</p>
 
-      <p class="theme-group-title">
-        Background
-      </p>
+<div class="theme-group">
 
-      <div
-        class="theme-options"
-        role="radiogroup"
-        aria-label="Background theme"
-      >
+  <p class="theme-group-title">
+    Background
+  </p>
 
-        <button
-          type="button"
-          class="theme-option"
-          data-theme="dark"
-          aria-label="Dark"
-          aria-checked="false"
-        >
-          <span
-            class="theme-preview"
-            style="background: #181818;"
-          ></span>
+  <div
+    class="theme-options"
+    role="radiogroup"
+    aria-label="Background theme"
+  >
 
-          <span class="theme-check">✓</span>
+    <button
+      type="button"
+      class="theme-option"
+      data-theme="dark"
+      aria-label="Dark"
+      aria-checked="false"
+    >
+      <span
+        class="theme-preview"
+        style="background: #181818;"
+      ></span>
 
-          <span class="theme-name">
-            Dark
-          </span>
-        </button>
+      <span class="theme-check">✓</span>
 
-        <button
-          type="button"
-          class="theme-option"
-          data-theme="light"
-          aria-label="Light"
-          aria-checked="false"
-        >
-          <span
-            class="theme-preview"
-            style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
-          ></span>
+      <span class="theme-name">
+        Dark
+      </span>
+    </button>
 
-          <span class="theme-check">✓</span>
+    <button
+      type="button"
+      class="theme-option"
+      data-theme="light"
+      aria-label="Light"
+      aria-checked="false"
+    >
+      <span
+        class="theme-preview"
+        style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
+      ></span>
 
-          <span class="theme-name">
-            Light
-          </span>
-        </button>
+      <span class="theme-check">✓</span>
 
-        <button
-          type="button"
-          class="theme-option"
-          data-theme="blue"
-          aria-label="Blue"
-          aria-checked="false"
-        >
-          <span
-            class="theme-preview"
-            style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
-          ></span>
+      <span class="theme-name">
+        Light
+      </span>
+    </button>
 
-          <span class="theme-check">✓</span>
+    <button
+      type="button"
+      class="theme-option"
+      data-theme="blue"
+      aria-label="Blue"
+      aria-checked="false"
+    >
+      <span
+        class="theme-preview"
+        style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
+      ></span>
 
-          <span class="theme-name">
-            Blue
-          </span>
-        </button>
+      <span class="theme-check">✓</span>
 
-        <button
-          type="button"
-          class="theme-option"
-          data-theme="royal"
-          aria-label="Royal"
-          aria-checked="false"
-        >
-          <span
-            class="theme-preview"
-            style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
-          ></span>
+      <span class="theme-name">
+        Blue
+      </span>
+    </button>
 
-          <span class="theme-check">✓</span>
+    <button
+      type="button"
+      class="theme-option"
+      data-theme="royal"
+      aria-label="Royal"
+      aria-checked="false"
+    >
+      <span
+        class="theme-preview"
+        style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
+      ></span>
 
-          <span class="theme-name">
-            Royal
-          </span>
-        </button>
+      <span class="theme-check">✓</span>
 
-        <button
-          type="button"
-          class="theme-option"
-          data-theme="ocean"
-          aria-label="Ocean"
-          aria-checked="false"
-        >
-          <span
-            class="theme-preview"
-            style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
-          ></span>
+      <span class="theme-name">
+        Royal
+      </span>
+    </button>
 
-          <span class="theme-check">✓</span>
+    <button
+      type="button"
+      class="theme-option"
+      data-theme="ocean"
+      aria-label="Ocean"
+      aria-checked="false"
+    >
+      <span
+        class="theme-preview"
+        style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
+      ></span>
 
-          <span class="theme-name">
-            Ocean
-          </span>
-        </button>
+      <span class="theme-check">✓</span>
 
-      </div>
+      <span class="theme-name">
+        Ocean
+      </span>
+    </button>
 
-      <p
-        class="theme-description"
-        id="theme-description"
-        aria-live="polite"
-      >
-        <strong>Blue</strong> — Deep navy with subtle blue gradients.
-      </p>
+  </div>
 
-    </div>
+  <p
+    class="theme-description"
+    id="theme-description"
+    aria-live="polite"
+  >
+    <strong>Blue</strong> — Deep navy with subtle blue gradients.
+  </p>
+
+</div>
+
 
   </div>
 
 </section>
 
-
   </main>
 
   <footer>
-
 
 <div class="footer-left">
   <span class="footer-brand">
@@ -1624,7 +1667,6 @@
     Terms of Use
   </a>
 </div>
-
 
   </footer>
 
@@ -1663,6 +1705,19 @@
       ocean: "Deep blue and teal tones with a cool, aquatic finish."
     };
 
+    function getCachedTheme() {
+      const cachedTheme =
+        localStorage.getItem("rsf-theme");
+
+      if (
+        validThemes.includes(cachedTheme)
+      ) {
+        return cachedTheme;
+      }
+
+      return "blue";
+    }
+
     function applyTheme(theme) {
       if (!validThemes.includes(theme)) {
         theme = "blue";
@@ -1678,6 +1733,11 @@
 
       document.body.classList.add(
         `theme-${theme}`
+      );
+
+      localStorage.setItem(
+        "rsf-theme",
+        theme
       );
 
       themeOptions.forEach(
@@ -1701,7 +1761,15 @@
         `<strong>${theme.charAt(0).toUpperCase() + theme.slice(1)}</strong> — ${themeDescriptions[theme]}`;
     }
 
+    function loadCachedTheme() {
+      applyTheme(
+        getCachedTheme()
+      );
+    }
+
     async function loadSavedTheme() {
+      loadCachedTheme();
+
       try {
         const response =
           await fetch(
@@ -1714,9 +1782,7 @@
           );
 
         if (!response.ok) {
-          throw new Error(
-            `Preference request failed: ${response.status}`
-          );
+          return;
         }
 
         const data =
@@ -1727,16 +1793,12 @@
           validThemes.includes(data.theme)
         ) {
           applyTheme(data.theme);
-        } else {
-          applyTheme("blue");
         }
       } catch (error) {
         console.error(
           "Unable to load saved theme:",
           error
         );
-
-        applyTheme("blue");
       }
     }
 
@@ -1801,8 +1863,6 @@
     }
 
     async function checkSettingsAccess() {
-      applyTheme("blue");
-
       try {
         const response =
           await fetch(
@@ -1846,6 +1906,18 @@
             );
           }
         );
+      }
+    );
+
+    window.addEventListener(
+      "storage",
+      event => {
+        if (
+          event.key === "rsf-theme" &&
+          validThemes.includes(event.newValue)
+        ) {
+          applyTheme(event.newValue);
+        }
       }
     );
 
@@ -1908,6 +1980,7 @@
       }
     );
 
+    loadCachedTheme();
     checkSettingsAccess();
   </script>
 
