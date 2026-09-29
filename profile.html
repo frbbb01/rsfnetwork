@@ -33,22 +33,25 @@
 
     :root {
       --bg: #07111F;
-      --surface: rgba(13, 22, 36, 0.97);
-      --surface-strong: rgba(15, 25, 41, 0.98);
-      --surface-soft: rgba(255, 255, 255, 0.025);
+      --surface: rgba(13, 22, 36, 0.98);
       --border: rgba(120, 164, 215, 0.16);
-      --border-soft: rgba(120, 164, 215, 0.09);
-      --border-strong: rgba(120, 164, 215, 0.24);
+      --border-soft: rgba(120, 164, 215, 0.11);
       --text: #FFFFFF;
       --muted: rgba(255, 255, 255, 0.43);
-      --muted-strong: rgba(255, 255, 255, 0.62);
       --accent: #4F9BFF;
       --accent-soft: rgba(79, 155, 255, 0.10);
-      --accent-medium: rgba(79, 155, 255, 0.16);
       --topbar: rgba(6, 15, 29, 0.84);
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
+
+      --page-panel: rgba(255, 255, 255, 0.018);
+      --page-panel-hover: rgba(255, 255, 255, 0.028);
+      --profile-cover: rgba(63, 121, 194, 0.075);
+      --profile-cover-hover: rgba(63, 121, 194, 0.095);
+      --profile-text: rgba(255, 255, 255, 0.50);
+      --profile-faint: rgba(255, 255, 255, 0.34);
+      --profile-strong: rgba(255, 255, 255, 0.82);
     }
 
     * {
@@ -57,7 +60,7 @@
 
     html {
       min-height: 100%;
-      background: var(--bg);
+      background: #07111F;
     }
 
     body {
@@ -85,6 +88,9 @@
       background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      transition:
+        background 180ms ease,
+        color 180ms ease;
     }
 
     a {
@@ -92,8 +98,11 @@
       text-decoration: none;
     }
 
-    button {
-      font-family: "Montserrat", sans-serif;
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
     }
 
     .topbar {
@@ -108,6 +117,9 @@
       align-items: center;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
+      transition:
+        background 180ms ease,
+        border-color 180ms ease;
     }
 
     .logo {
@@ -182,7 +194,9 @@
       transition:
         opacity 100ms ease,
         visibility 100ms ease,
-        transform 100ms ease;
+        transform 100ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
       z-index: 200;
     }
 
@@ -233,6 +247,7 @@
           #5360E8
         );
       color: #FFFFFF;
+      font-family: "Montserrat", sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.055em;
@@ -253,6 +268,10 @@
         );
       border-color: rgba(255, 255, 255, 0.18);
       box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
+    }
+
+    .login-button:active {
+      box-shadow: 0 3px 12px rgba(45, 55, 160, 0.16);
     }
 
     .discord-logo {
@@ -286,11 +305,15 @@
         box-shadow 140ms ease;
     }
 
-    .profile-card:hover,
-    .profile-card.open {
+    .profile-card:hover {
       background: var(--profile-hover);
-      border-color: rgba(120, 164, 215, 0.27);
+      border-color: rgba(120, 164, 215, 0.25);
       box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    .profile-card.open {
+      border-color: rgba(120, 164, 215, 0.27);
+      background: var(--profile-hover);
     }
 
     .profile-avatar {
@@ -307,6 +330,10 @@
       height: 100%;
       display: block;
       object-fit: cover;
+    }
+
+    .profile-avatar.guest {
+      display: none;
     }
 
     .profile-info {
@@ -326,6 +353,7 @@
       line-height: 1;
       white-space: nowrap;
       text-overflow: ellipsis;
+      color: #FFFFFF;
     }
 
     .profile-status {
@@ -343,8 +371,14 @@
       content: "";
       width: 4px;
       height: 4px;
+      flex: 0 0 auto;
       border-radius: 50%;
       background: var(--accent);
+      opacity: 0.8;
+    }
+
+    .profile-card.profile-guest .profile-status::before {
+      background: rgba(255, 255, 255, 0.34);
     }
 
     .profile-chevron {
@@ -358,6 +392,10 @@
       transition:
         color 140ms ease,
         transform 140ms ease;
+    }
+
+    .profile-card:hover .profile-chevron {
+      color: rgba(255, 255, 255, 0.60);
     }
 
     .profile-card.open .profile-chevron {
@@ -374,74 +412,6 @@
       stroke-width: 1.5;
       stroke-linecap: round;
       stroke-linejoin: round;
-    }
-
-    .profile-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      width: 195px;
-      padding: 5px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: var(--dropdown);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(4px);
-      transition:
-        opacity 100ms ease,
-        visibility 100ms ease,
-        transform 100ms ease;
-      z-index: 9999;
-    }
-
-    .profile-dropdown.open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .profile-dropdown-item {
-      width: 100%;
-      min-height: 38px;
-      padding: 0 11px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 4px;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.64);
-      font-size: 11px;
-      font-weight: 500;
-      text-align: left;
-      cursor: pointer;
-      transition:
-        background 100ms ease,
-        color 100ms ease;
-    }
-
-    .profile-dropdown-item:hover {
-      background: var(--accent-soft);
-      color: #FFFFFF;
-    }
-
-    .profile-dropdown-divider {
-      height: 1px;
-      margin: 5px 4px;
-      background: var(--border-soft);
-    }
-
-    .profile-logout {
-      color: rgba(255, 107, 120, 0.68);
-    }
-
-    .profile-logout:hover {
-      background: rgba(255, 65, 85, 0.07);
-      color: #FF7D88;
     }
 
     .login-overlay {
@@ -475,7 +445,9 @@
       border: 1px solid var(--border);
       border-radius: 9px;
       background: var(--dropdown);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
+      box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
       transform: translateY(8px) scale(0.985);
       transition: transform 150ms ease;
     }
@@ -515,9 +487,20 @@
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.025);
       color: rgba(255, 255, 255, 0.48);
+      font-family: "Montserrat", sans-serif;
       font-size: 15px;
       line-height: 1;
       cursor: pointer;
+      transition:
+        background 120ms ease,
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .login-close:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(120, 164, 215, 0.25);
+      color: #FFFFFF;
     }
 
     .login-points {
@@ -546,6 +529,7 @@
       height: 5px;
       border-radius: 50%;
       background: #5865F2;
+      box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.08);
     }
 
     .login-proceed {
@@ -561,10 +545,33 @@
           rgba(66, 82, 210, 0.88)
         );
       color: #FFFFFF;
+      font-family: "Montserrat", sans-serif;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.035em;
       cursor: pointer;
+      box-shadow: 0 7px 22px rgba(58, 78, 210, 0.18);
+      transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease,
+        box-shadow 140ms ease;
+    }
+
+    .login-proceed:hover {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(101, 114, 255, 0.94),
+          rgba(73, 88, 225, 0.94)
+        );
+      border-color: rgba(140, 160, 255, 0.42);
+      box-shadow: 0 9px 26px rgba(58, 78, 210, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .login-proceed:active {
+      transform: translateY(0);
     }
 
     .login-note {
@@ -575,6 +582,8 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
+    /* PROFILE */
+
     main {
       width: min(1100px, calc(100% - 56px));
       margin: 0 auto;
@@ -584,19 +593,18 @@
     .profile-page {
       display: flex;
       flex-direction: column;
+      gap: 0;
     }
 
     .profile-cover {
       position: relative;
       overflow: hidden;
       border: 1px solid var(--border);
-      border-radius: 11px 11px 0 0;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(63, 121, 194, 0.09),
-          rgba(255, 255, 255, 0.012)
-        );
+      border-radius: 10px 10px 0 0;
+      background: var(--profile-cover);
+      transition:
+        background 180ms ease,
+        border-color 180ms ease;
     }
 
     .profile-cover::before {
@@ -606,56 +614,41 @@
       background:
         linear-gradient(
           90deg,
-          rgba(7, 17, 31, 0.12),
-          transparent 50%,
-          rgba(79, 155, 255, 0.05)
-        ),
-        radial-gradient(
-          ellipse 620px 280px at 90% 0%,
-          rgba(79, 155, 255, 0.15),
-          transparent 72%
+          color-mix(in srgb, var(--bg) 10%, transparent),
+          transparent 52%,
+          color-mix(in srgb, var(--accent) 5%, transparent)
         );
-      pointer-events: none;
-    }
-
-    .profile-cover::after {
-      content: "";
-      position: absolute;
-      right: -120px;
-      top: -190px;
-      width: 440px;
-      height: 440px;
-      border: 1px solid rgba(120, 164, 215, 0.07);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 38px rgba(120, 164, 215, 0.018),
-        0 0 0 76px rgba(120, 164, 215, 0.012);
       pointer-events: none;
     }
 
     .profile-cover-inner {
       position: relative;
       z-index: 2;
-      padding: 40px 40px 0;
+      padding: 38px 38px 0;
+    }
+
+    .social-profile {
+      width: 100%;
     }
 
     .profile-main-row {
       display: grid;
-      grid-template-columns: 126px minmax(0, 1fr) auto;
+      grid-template-columns: 118px minmax(0, 1fr) auto;
       align-items: end;
-      gap: 25px;
+      gap: 24px;
     }
 
     .main-avatar {
-      width: 126px;
-      height: 126px;
+      width: 118px;
+      height: 118px;
+      flex: 0 0 118px;
       overflow: hidden;
-      border: 1px solid rgba(120, 164, 215, 0.22);
-      border-radius: 9px;
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.035);
       box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.28),
-        0 0 0 7px rgba(7, 17, 31, 0.48);
+        0 16px 35px rgba(0, 0, 0, 0.25),
+        0 0 0 7px color-mix(in srgb, var(--bg) 50%, transparent);
     }
 
     .main-avatar img {
@@ -674,17 +667,17 @@
       background:
         linear-gradient(
           135deg,
-          rgba(79, 155, 255, 0.18),
+          color-mix(in srgb, var(--accent) 16%, transparent),
           rgba(255, 255, 255, 0.025)
         );
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 38px;
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 36px;
       font-weight: 700;
     }
 
     .profile-main-info {
       min-width: 0;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
 
     .profile-name-row {
@@ -696,18 +689,18 @@
 
     .player-name {
       margin: 0;
-      font-size: clamp(29px, 4vw, 44px);
+      font-size: clamp(28px, 4vw, 43px);
       line-height: 0.98;
       font-weight: 700;
       letter-spacing: -0.065em;
     }
 
     .profile-badge {
-      min-height: 22px;
+      min-height: 21px;
       padding: 0 8px;
       display: inline-flex;
       align-items: center;
-      border: 1px solid rgba(79, 155, 255, 0.25);
+      border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
       border-radius: 4px;
       background: var(--accent-soft);
       color: var(--accent);
@@ -719,38 +712,38 @@
     .player-handle {
       margin-top: 9px;
       font-size: 9px;
-      color: rgba(255, 255, 255, 0.34);
+      color: var(--profile-faint);
     }
 
     .profile-bio {
-      margin: 14px 0 0;
-      max-width: 610px;
+      margin: 13px 0 0;
+      max-width: 590px;
       font-size: 10px;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.52);
+      line-height: 1.65;
+      color: var(--profile-text);
     }
 
     .joined-short {
       margin-top: 10px;
       font-size: 8px;
-      color: rgba(255, 255, 255, 0.27);
+      color: var(--profile-faint);
     }
 
     .profile-actions {
       display: flex;
       align-items: center;
       gap: 7px;
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
 
     .profile-action {
-      min-width: 94px;
-      min-height: 37px;
-      padding: 0 15px;
+      min-width: 91px;
+      min-height: 35px;
+      padding: 0 14px;
       border: 1px solid var(--border);
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.028);
-      color: rgba(255, 255, 255, 0.60);
+      color: rgba(255, 255, 255, 0.58);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.065em;
@@ -765,73 +758,83 @@
     .profile-action:hover {
       color: #FFFFFF;
       background: var(--accent-soft);
-      border-color: rgba(120, 164, 215, 0.34);
+      border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
       transform: translateY(-1px);
+    }
+
+    .profile-action:active {
+      transform: translateY(0);
     }
 
     .profile-action.primary {
       color: #FFFFFF;
-      border-color: rgba(79, 155, 255, 0.28);
-      background: rgba(79, 155, 255, 0.11);
+      border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+      background: var(--accent-soft);
     }
 
     .profile-action.primary:hover {
-      background: rgba(79, 155, 255, 0.18);
-      border-color: rgba(120, 164, 215, 0.40);
+      background: color-mix(in srgb, var(--accent) 17%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
     }
 
     .profile-action.following {
       border-color: var(--border);
       background: rgba(255, 255, 255, 0.055);
-      color: rgba(255, 255, 255, 0.74);
+      color: rgba(255, 255, 255, 0.72);
     }
 
     .profile-action.following:hover {
       background: var(--profile-hover);
     }
 
+    .profile-action:disabled {
+      cursor: default;
+      opacity: 0.62;
+      transform: none;
+    }
+
     .social-stats {
-      margin-top: 31px;
-      min-height: 57px;
+      margin-top: 30px;
+      min-height: 55px;
       display: flex;
       align-items: center;
-      gap: 31px;
+      gap: 29px;
       border-top: 1px solid var(--border-soft);
     }
 
     .social-stat {
       display: flex;
       align-items: baseline;
-      gap: 7px;
+      gap: 6px;
       font-size: 8px;
-      color: rgba(255, 255, 255, 0.34);
+      color: var(--profile-faint);
     }
 
     .social-stat strong {
-      color: rgba(255, 255, 255, 0.86);
-      font-size: 12px;
+      color: var(--profile-strong);
+      font-size: 11px;
       font-weight: 700;
     }
 
     .profile-tabs {
-      min-height: 57px;
-      padding: 0 24px;
+      min-height: 55px;
+      padding: 0 22px;
       display: flex;
       align-items: stretch;
-      gap: 27px;
+      gap: 25px;
       border: 1px solid var(--border);
       border-top: 0;
-      border-radius: 0 0 11px 11px;
-      background: rgba(9, 16, 27, 0.72);
+      border-radius: 0 0 10px 10px;
+      background: color-mix(in srgb, var(--profile) 68%, transparent);
     }
 
     .profile-tab {
       position: relative;
-      min-height: 57px;
+      min-height: 55px;
       padding: 0 2px;
       border: 0;
       background: transparent;
-      color: rgba(255, 255, 255, 0.34);
+      color: var(--profile-faint);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.065em;
@@ -865,8 +868,8 @@
 
     .tab-content {
       display: none;
-      padding-top: 27px;
-      animation: profileTabIn 150ms ease;
+      padding-top: 25px;
+      animation: profileTabIn 140ms ease;
     }
 
     .tab-content.active {
@@ -876,7 +879,7 @@
     @keyframes profileTabIn {
       from {
         opacity: 0;
-        transform: translateY(4px);
+        transform: translateY(3px);
       }
 
       to {
@@ -888,53 +891,29 @@
     .profile-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
-      gap: 20px;
+      gap: 25px;
     }
 
     .profile-panel {
       min-width: 0;
-      padding: 23px 24px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(16, 27, 44, 0.88),
-          rgba(9, 17, 29, 0.82)
-        );
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.10),
-        inset 0 1px 0 rgba(255, 255, 255, 0.018);
-      transition:
-        border-color 140ms ease,
-        background 140ms ease,
-        transform 140ms ease,
-        box-shadow 140ms ease;
-    }
-
-    .profile-panel:hover {
-      border-color: rgba(120, 164, 215, 0.23);
-      background:
-        linear-gradient(
-          145deg,
-          rgba(17, 29, 47, 0.94),
-          rgba(10, 19, 32, 0.88)
-        );
-      box-shadow:
-        0 13px 34px rgba(0, 0, 0, 0.13),
-        inset 0 1px 0 rgba(255, 255, 255, 0.022);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
 
     .panel-label {
       display: flex;
       align-items: center;
       gap: 9px;
-      min-height: 22px;
-      margin-bottom: 18px;
+      min-height: 32px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.085em;
-      color: rgba(255, 255, 255, 0.78);
     }
 
     .panel-label::before {
@@ -951,48 +930,33 @@
       margin: 0;
       max-width: 650px;
       font-size: 10px;
-      line-height: 1.8;
-      color: rgba(255, 255, 255, 0.49);
-    }
-
-    .overview-about {
-      min-height: 184px;
-    }
-
-    .overview-profile {
-      min-height: 184px;
-    }
-
-    .overview-activity {
-      min-height: 184px;
+      line-height: 1.75;
+      color: var(--profile-text);
     }
 
     .stat-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      gap: 0;
+      border-top: 1px solid var(--border-soft);
+      border-left: 1px solid var(--border-soft);
     }
 
     .stat-box {
-      min-height: 94px;
-      padding: 17px;
-      border: 1px solid var(--border-soft);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.018);
-      transition:
-        background 120ms ease,
-        border-color 120ms ease,
-        transform 120ms ease;
+      min-height: 88px;
+      padding: 18px;
+      border-right: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--page-panel);
+      transition: background 120ms ease;
     }
 
     .stat-box:hover {
-      background: rgba(79, 155, 255, 0.035);
-      border-color: rgba(79, 155, 255, 0.15);
-      transform: translateY(-1px);
+      background: var(--page-panel-hover);
     }
 
     .stat-value {
-      font-size: 23px;
+      font-size: 22px;
       line-height: 1;
       font-weight: 700;
       letter-spacing: -0.045em;
@@ -1003,7 +967,7 @@
       font-size: 7px;
       font-weight: 700;
       letter-spacing: 0.065em;
-      color: rgba(255, 255, 255, 0.31);
+      color: var(--profile-faint);
     }
 
     .profile-list {
@@ -1013,8 +977,8 @@
     }
 
     .profile-list-row {
-      min-height: 48px;
-      padding: 0 2px;
+      min-height: 46px;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1025,7 +989,7 @@
     .profile-list-name {
       font-size: 8px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.36);
+      color: var(--profile-faint);
     }
 
     .profile-list-value {
@@ -1033,35 +997,34 @@
       overflow: hidden;
       font-size: 9px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.70);
       text-align: right;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .empty-state {
-      min-height: 112px;
-      padding: 25px;
+      min-height: 92px;
+      padding: 25px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px dashed var(--border-soft);
-      border-radius: 7px;
-      background: rgba(255, 255, 255, 0.012);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
       text-align: center;
       color: rgba(255, 255, 255, 0.27);
       font-size: 9px;
-      line-height: 1.6;
     }
 
     .activity-list {
       display: flex;
       flex-direction: column;
+      border-top: 1px solid var(--border-soft);
     }
 
     .activity-item {
       min-height: 68px;
-      padding: 13px 0;
+      padding: 14px 0;
       display: flex;
       align-items: center;
       gap: 13px;
@@ -1073,18 +1036,17 @@
     }
 
     .activity-icon {
-      width: 32px;
-      height: 32px;
-      flex: 0 0 32px;
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--accent-soft);
-      color: rgba(255, 255, 255, 0.60);
-      font-size: 12px;
-      font-weight: 500;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.025);
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 11px;
     }
 
     .activity-text {
@@ -1094,7 +1056,6 @@
 
     .activity-title {
       font-size: 9px;
-      line-height: 1.5;
       color: rgba(255, 255, 255, 0.62);
     }
 
@@ -1102,38 +1063,6 @@
       margin-top: 4px;
       font-size: 7px;
       color: rgba(255, 255, 255, 0.25);
-    }
-
-    .career-statistics {
-      grid-column: 1 / -1;
-    }
-
-    .career-statistics .stat-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .career-statistics .stat-box {
-      min-height: 108px;
-    }
-
-    .career-card-wide {
-      min-height: 185px;
-    }
-
-    .teams-panel {
-      min-height: 270px;
-    }
-
-    .activity-panel {
-      min-height: 270px;
-    }
-
-    .about-account {
-      min-height: 250px;
-    }
-
-    .about-connections {
-      min-height: 250px;
     }
 
     footer {
@@ -1154,6 +1083,10 @@
       color: rgba(255, 255, 255, 0.30);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
+      transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
     }
 
     .footer-left,
@@ -1176,6 +1109,8 @@
       color: rgba(255, 255, 255, 0.75);
     }
 
+    /* THEMES */
+
     body.theme-dark {
       --bg: #181818;
       --accent: #5A9EFF;
@@ -1184,6 +1119,12 @@
       --profile: rgba(25, 25, 25, 0.94);
       --profile-hover: rgba(32, 32, 32, 0.98);
       --dropdown: rgba(27, 27, 27, 0.99);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --page-panel: rgba(255, 255, 255, 0.018);
+      --page-panel-hover: rgba(255, 255, 255, 0.032);
+      --profile-cover: rgba(255, 255, 255, 0.025);
+      --profile-cover-hover: rgba(255, 255, 255, 0.035);
       background: #181818;
     }
 
@@ -1192,17 +1133,23 @@
       --surface: rgba(245, 245, 245, 0.98);
       --border: rgba(30, 40, 50, 0.15);
       --border-soft: rgba(30, 40, 50, 0.10);
-      --border-strong: rgba(30, 40, 50, 0.20);
       --text: #15181C;
       --muted: rgba(21, 24, 28, 0.58);
-      --muted-strong: rgba(21, 24, 28, 0.68);
       --accent: #5365D8;
       --accent-soft: rgba(83, 101, 216, 0.09);
-      --accent-medium: rgba(83, 101, 216, 0.14);
       --topbar: rgba(230, 230, 230, 0.90);
       --profile: rgba(245, 245, 245, 0.94);
       --profile-hover: rgba(250, 250, 250, 0.98);
       --dropdown: rgba(245, 245, 245, 0.99);
+
+      --page-panel: rgba(21, 24, 28, 0.018);
+      --page-panel-hover: rgba(21, 24, 28, 0.035);
+      --profile-cover: rgba(21, 24, 28, 0.025);
+      --profile-cover-hover: rgba(21, 24, 28, 0.035);
+      --profile-text: rgba(21, 24, 28, 0.50);
+      --profile-faint: rgba(21, 24, 28, 0.34);
+      --profile-strong: rgba(21, 24, 28, 0.78);
+
       color: var(--text);
       background:
         radial-gradient(
@@ -1223,30 +1170,26 @@
     }
 
     body.theme-light .profile-status,
-    body.theme-light .profile-chevron,
-    body.theme-light .profile-dropdown-item {
+    body.theme-light .profile-chevron {
       color: rgba(21, 24, 28, 0.62);
     }
 
-    body.theme-light .profile-bio,
-    body.theme-light .panel-text,
-    body.theme-light .profile-list-name,
-    body.theme-light .activity-title {
-      color: rgba(21, 24, 28, 0.50);
+    body.theme-light .profile-card:hover .profile-chevron,
+    body.theme-light .profile-card.open .profile-chevron {
+      color: rgba(21, 24, 28, 0.72);
     }
 
-    body.theme-light .player-handle,
-    body.theme-light .joined-short,
-    body.theme-light .social-stat,
-    body.theme-light .stat-name,
-    body.theme-light .activity-date {
-      color: rgba(21, 24, 28, 0.34);
+    body.theme-light .dropdown a {
+      color: rgba(21, 24, 28, 0.62);
     }
 
-    body.theme-light .social-stat strong,
-    body.theme-light .profile-list-value,
-    body.theme-light .stat-value {
-      color: rgba(21, 24, 28, 0.78);
+    body.theme-light .dropdown a:hover,
+    body.theme-light .dropdown a:focus-visible {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-badge {
+      color: var(--accent);
     }
 
     body.theme-light .profile-action {
@@ -1270,26 +1213,10 @@
       color: #15181C;
     }
 
-    body.theme-light .profile-panel {
-      background:
-        linear-gradient(
-          145deg,
-          rgba(247, 247, 247, 0.90),
-          rgba(239, 239, 239, 0.82)
-        );
-    }
-
-    body.theme-light .profile-panel:hover {
-      background:
-        linear-gradient(
-          145deg,
-          rgba(250, 250, 250, 0.96),
-          rgba(242, 242, 242, 0.90)
-        );
-    }
-
-    body.theme-light .empty-state {
-      color: rgba(21, 24, 28, 0.28);
+    body.theme-light .profile-list-value,
+    body.theme-light .stat-value,
+    body.theme-light .social-stat strong {
+      color: rgba(21, 24, 28, 0.78);
     }
 
     body.theme-light .activity-icon {
@@ -1322,46 +1249,120 @@
       color: rgba(21, 24, 28, 0.58);
     }
 
-    body.theme-light .login-modal-title {
+    body.theme-light .login-close {
+      background: rgba(21, 24, 28, 0.025);
+      color: rgba(21, 24, 28, 0.48);
+    }
+
+    body.theme-light .login-close:hover {
+      background: rgba(21, 24, 28, 0.06);
       color: #15181C;
     }
 
-    @media (max-width: 1050px) {
-      .profile-main-row {
-        grid-template-columns: 112px minmax(0, 1fr);
-      }
-
-      .main-avatar {
-        width: 112px;
-        height: 112px;
-      }
-
-      .profile-actions {
-        grid-column: 2;
-      }
-
-      .career-statistics .stat-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    body.theme-blue {
+      --bg: #07111F;
+      --accent: #4F9BFF;
+      --accent-soft: rgba(79, 155, 255, 0.10);
+      --topbar: rgba(6, 15, 29, 0.84);
+      --profile: rgba(9, 16, 27, 0.88);
+      --profile-hover: rgba(12, 22, 37, 0.94);
+      --dropdown: rgba(13, 22, 36, 0.98);
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(42, 103, 175, 0.34),
+          transparent 68%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 55%,
+          rgba(25, 75, 145, 0.18),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 650px 480px at 55% 105%,
+          rgba(20, 65, 125, 0.13),
+          transparent 72%
+        ),
+        #07111F;
     }
 
-    @media (max-width: 900px) {
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
+    body.theme-royal {
+      --bg: #0E0B20;
+      --accent: #8D79FF;
+      --accent-soft: rgba(141, 121, 255, 0.11);
+      --topbar: rgba(10, 10, 29, 0.88);
+      --profile: rgba(16, 14, 39, 0.90);
+      --profile-hover: rgba(22, 18, 52, 0.96);
+      --dropdown: rgba(17, 14, 42, 0.99);
+      background:
+        radial-gradient(
+          ellipse 920px 620px at 78% 0%,
+          rgba(73, 56, 170, 0.34),
+          transparent 67%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 8% 52%,
+          rgba(39, 57, 135, 0.25),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 700px 500px at 58% 105%,
+          rgba(112, 48, 145, 0.18),
+          transparent 72%
+        ),
+        #0E0B20;
+    }
 
+    body.theme-ocean {
+      --bg: #061A22;
+      --accent: #52C7D8;
+      --accent-soft: rgba(82, 199, 216, 0.11);
+      --topbar: rgba(5, 24, 32, 0.88);
+      --profile: rgba(7, 30, 39, 0.90);
+      --profile-hover: rgba(9, 39, 50, 0.96);
+      --dropdown: rgba(7, 31, 41, 0.99);
+      background:
+        radial-gradient(
+          ellipse 920px 620px at 78% 0%,
+          rgba(20, 111, 132, 0.36),
+          transparent 67%
+        ),
+        radial-gradient(
+          ellipse 760px 560px at 7% 52%,
+          rgba(15, 76, 111, 0.28),
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 700px 500px at 58% 105%,
+          rgba(31, 139, 143, 0.17),
+          transparent 72%
+        ),
+        #061A22;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
       .profile-main-row {
-        grid-template-columns: 105px minmax(0, 1fr);
+        grid-template-columns: 104px minmax(0, 1fr);
+        align-items: start;
       }
 
       .main-avatar {
-        width: 105px;
-        height: 105px;
+        width: 104px;
+        height: 104px;
+        flex-basis: 104px;
       }
 
       .profile-actions {
         grid-column: 2;
+        justify-content: flex-start;
         padding-bottom: 0;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
     }
 
@@ -1382,6 +1383,7 @@
         right: 20px;
         width: 128px;
         height: 36px;
+        padding: 0 14px;
       }
 
       .profile-card {
@@ -1400,8 +1402,13 @@
         max-width: 65px;
       }
 
+      .discord-logo {
+        width: 20px;
+        height: 20px;
+      }
+
       main {
-        width: min(100% - 28px, 680px);
+        width: min(100% - 28px, 600px);
         padding-top: 30px;
         padding-bottom: 100px;
       }
@@ -1418,6 +1425,7 @@
       .main-avatar {
         width: 92px;
         height: 92px;
+        flex-basis: 92px;
       }
 
       .profile-actions {
@@ -1432,10 +1440,12 @@
       .profile-tabs {
         padding: 0 17px;
         gap: 21px;
+        overflow-x: auto;
+        scrollbar-width: none;
       }
 
-      .profile-panel {
-        padding: 21px;
+      .profile-tabs::-webkit-scrollbar {
+        display: none;
       }
     }
 
@@ -1512,11 +1522,6 @@
         flex-basis: 11px;
       }
 
-      .profile-dropdown {
-        width: 185px;
-        right: -4px;
-      }
-
       .discord-logo {
         width: 19px;
         height: 19px;
@@ -1539,9 +1544,10 @@
       .main-avatar {
         width: 78px;
         height: 78px;
+        flex-basis: 78px;
         box-shadow:
           0 12px 25px rgba(0, 0, 0, 0.20),
-          0 0 0 5px rgba(7, 17, 31, 0.45);
+          0 0 0 5px color-mix(in srgb, var(--bg) 45%, transparent);
       }
 
       .main-avatar-fallback {
@@ -1552,81 +1558,46 @@
         font-size: 27px;
       }
 
-      .profile-badge {
-        min-height: 18px;
-        padding: 0 6px;
-        font-size: 6px;
-      }
-
-      .player-handle {
-        margin-top: 6px;
-        font-size: 8px;
-      }
-
       .profile-bio {
-        margin-top: 9px;
-        font-size: 8px;
-      }
-
-      .joined-short {
-        margin-top: 8px;
-        font-size: 7px;
+        font-size: 9px;
       }
 
       .profile-actions {
-        margin-top: 4px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
       }
 
       .profile-action {
-        min-height: 34px;
-        min-width: 0;
+        width: 100%;
       }
 
       .social-stats {
-        margin-top: 22px;
-        gap: 17px;
-        min-height: 49px;
-        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .social-stat {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
       }
 
       .profile-tabs {
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .profile-tabs::-webkit-scrollbar {
-        display: none;
+        gap: 18px;
+        padding: 0 14px;
       }
 
       .profile-tab {
-        flex: 0 0 auto;
-        min-height: 52px;
-      }
-
-      .tab-content {
-        padding-top: 22px;
+        white-space: nowrap;
       }
 
       .profile-grid {
-        gap: 15px;
-      }
-
-      .profile-panel {
-        width: 100%;
-        padding: 19px;
-      }
-
-      .career-statistics .stat-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 27px;
       }
 
       .stat-box {
-        min-height: 76px;
+        min-height: 78px;
         padding: 15px;
-      }
-
-      .stat-value {
-        font-size: 20px;
       }
 
       footer {
@@ -1648,56 +1619,60 @@
       .login-modal {
         padding: 24px 21px;
       }
-    }
 
-    @media (max-width: 420px) {
-      .profile-main-row {
-        grid-template-columns: 68px minmax(0, 1fr);
-      }
-
-      .main-avatar {
-        width: 68px;
-        height: 68px;
-      }
-
-      .player-name {
-        font-size: 23px;
-      }
-
-      .profile-name-row {
-        gap: 7px;
-      }
-
-      .profile-bio {
-        font-size: 7.5px;
-      }
-
-      .profile-action {
-        font-size: 7px;
-      }
-
-      .profile-panel {
-        padding: 17px;
-      }
-
-      .panel-text {
-        font-size: 9px;
-      }
-
-      .profile-list-value {
-        max-width: 55%;
+      .login-modal-title {
+        font-size: 22px;
       }
     }
   </style>
 </head>
 
-<body>
+<body class="theme-blue">
+
+  <script>
+    (function () {
+      try {
+        const authenticated =
+          localStorage.getItem("rsf-authenticated") === "true";
+
+        const cachedTheme =
+          localStorage.getItem("rsf-theme");
+
+        const validThemes = [
+          "dark",
+          "light",
+          "blue",
+          "royal",
+          "ocean"
+        ];
+
+        if (
+          authenticated &&
+          validThemes.includes(cachedTheme)
+        ) {
+          document.body.classList.remove(
+            "theme-dark",
+            "theme-light",
+            "theme-blue",
+            "theme-royal",
+            "theme-ocean"
+          );
+
+          document.body.classList.add(
+            `theme-${cachedTheme}`
+          );
+        }
+      } catch (error) {}
+    })();
+  </script>
 
   <header class="topbar">
 
-    <a href="/" class="logo">RSF</a>
+    <a href="/" class="logo">
+      RSF
+    </a>
 
-    <nav class="navigation">
+    <nav class="navigation" aria-label="Main navigation">
 
       <div class="nav-item">
         <a href="/" class="nav-label">
@@ -1705,7 +1680,7 @@
         </a>
       </div>
 
-      <div class="nav-item active">
+      <div class="nav-item">
         <a href="/database" class="nav-label">
           DATABASE
           <span class="arrow">▾</span>
@@ -1713,8 +1688,8 @@
 
         <div class="dropdown">
           <a href="/database">Playerbase</a>
-          <a href="/teams">Teams</a>
-          <a href="/seasons">Seasons</a>
+          <a href="/database">Teams</a>
+          <a href="/database">Seasons</a>
         </div>
       </div>
 
@@ -1781,6 +1756,7 @@
       </div>
 
       <div class="profile-info">
+
         <span
           class="profile-username"
           id="profile-username"
@@ -1794,6 +1770,7 @@
         >
           GUEST
         </span>
+
       </div>
 
       <span
@@ -1804,39 +1781,6 @@
           <path d="M2 3.5L5 6.5L8 3.5"></path>
         </svg>
       </span>
-
-      <div
-        class="profile-dropdown"
-        id="profile-dropdown"
-      >
-
-        <button
-          type="button"
-          class="profile-dropdown-item"
-          id="profile-dropdown-profile"
-        >
-          PROFILE
-        </button>
-
-        <button
-          type="button"
-          class="profile-dropdown-item"
-          id="profile-dropdown-settings"
-        >
-          SETTINGS
-        </button>
-
-        <div class="profile-dropdown-divider"></div>
-
-        <button
-          type="button"
-          class="profile-dropdown-item profile-logout"
-          id="profile-dropdown-logout"
-        >
-          LOG OUT
-        </button>
-
-      </div>
 
     </div>
 
@@ -2106,7 +2050,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel overview-about">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ABOUT
@@ -2163,7 +2107,7 @@
 
           </div>
 
-          <div class="profile-panel overview-profile">
+          <div class="profile-panel">
 
             <div class="panel-label">
               PROFILE
@@ -2220,34 +2164,14 @@
 
           </div>
 
-          <div class="profile-panel overview-activity">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ACTIVITY
             </div>
 
-            <div class="activity-list">
-
-              <div class="activity-item">
-
-                <div class="activity-icon">
-                  +
-                </div>
-
-                <div class="activity-text">
-
-                  <div class="activity-title">
-                    Profile activity will appear here.
-                  </div>
-
-                  <div class="activity-date">
-                    —
-                  </div>
-
-                </div>
-
-              </div>
-
+            <div class="empty-state">
+              No recent public activity.
             </div>
 
           </div>
@@ -2263,7 +2187,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel career-statistics">
+          <div class="profile-panel">
 
             <div class="panel-label">
               CAREER STATISTICS
@@ -2272,58 +2196,30 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-
-                <div class="stat-value">
-                  —
-                </div>
-
-                <div class="stat-name">
-                  APPEARANCES
-                </div>
-
+                <div class="stat-value">—</div>
+                <div class="stat-name">APPEARANCES</div>
               </div>
 
               <div class="stat-box">
-
-                <div class="stat-value">
-                  —
-                </div>
-
-                <div class="stat-name">
-                  GOALS
-                </div>
-
+                <div class="stat-value">—</div>
+                <div class="stat-name">GOALS</div>
               </div>
 
               <div class="stat-box">
-
-                <div class="stat-value">
-                  —
-                </div>
-
-                <div class="stat-name">
-                  ASSISTS
-                </div>
-
+                <div class="stat-value">—</div>
+                <div class="stat-name">ASSISTS</div>
               </div>
 
               <div class="stat-box">
-
-                <div class="stat-value">
-                  —
-                </div>
-
-                <div class="stat-name">
-                  RATING
-                </div>
-
+                <div class="stat-value">—</div>
+                <div class="stat-name">RATING</div>
               </div>
 
             </div>
 
           </div>
 
-          <div class="profile-panel career-card-wide">
+          <div class="profile-panel">
 
             <div class="panel-label">
               SEASONS
@@ -2335,7 +2231,7 @@
 
           </div>
 
-          <div class="profile-panel career-card-wide">
+          <div class="profile-panel">
 
             <div class="panel-label">
               TEAM HISTORY
@@ -2347,7 +2243,7 @@
 
           </div>
 
-          <div class="profile-panel career-card-wide">
+          <div class="profile-panel">
 
             <div class="panel-label">
               MATCH HISTORY
@@ -2368,7 +2264,7 @@
         id="teams-tab"
       >
 
-        <div class="profile-panel teams-panel">
+        <div class="profile-panel">
 
           <div class="panel-label">
             TEAMS
@@ -2387,7 +2283,7 @@
         id="activity-tab"
       >
 
-        <div class="profile-panel activity-panel">
+        <div class="profile-panel">
 
           <div class="panel-label">
             RECENT ACTIVITY
@@ -2428,7 +2324,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel about-account">
+          <div class="profile-panel">
 
             <div class="panel-label">
               ACCOUNT
@@ -2500,7 +2396,7 @@
 
           </div>
 
-          <div class="profile-panel about-connections">
+          <div class="profile-panel">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2553,379 +2449,318 @@
   <footer>
 
     <div class="footer-left">
-      <span class="footer-brand">RSF</span>
+      <span class="footer-brand">
+        RSF
+      </span>
     </div>
 
     <div class="footer-right">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Use</a>
+
+      <a href="/privacy">
+        Privacy Policy
+      </a>
+
+      <a href="/terms">
+        Terms of Use
+      </a>
+
     </div>
 
   </footer>
 
   <script>
-    (() => {
+    const RSF_VALID_THEMES = [
+      "dark",
+      "light",
+      "blue",
+      "royal",
+      "ocean"
+    ];
 
-      const RSF_VALID_THEMES = [
-        "dark",
-        "light",
-        "blue",
-        "royal",
-        "ocean"
-      ];
+    function rsfApplyTheme(
+      theme,
+      save = true
+    ) {
 
-      function rsfApplyTheme(
-        theme,
-        save = true
+      if (
+        !RSF_VALID_THEMES.includes(theme)
       ) {
-
-        if (
-          !RSF_VALID_THEMES.includes(theme)
-        ) {
-          theme = "blue";
-        }
-
-        document.body.classList.remove(
-          "theme-dark",
-          "theme-light",
-          "theme-blue",
-          "theme-royal",
-          "theme-ocean"
-        );
-
-        document.body.classList.add(
-          `theme-${theme}`
-        );
-
-        if (save) {
-
-          try {
-
-            localStorage.setItem(
-              "rsf-theme",
-              theme
-            );
-
-          } catch (error) {}
-
-        }
-
+        theme = "blue";
       }
 
-      async function rsfSyncTheme() {
+      document.body.classList.remove(
+        "theme-dark",
+        "theme-light",
+        "theme-blue",
+        "theme-royal",
+        "theme-ocean"
+      );
+
+      document.body.classList.add(
+        `theme-${theme}`
+      );
+
+      if (save) {
 
         try {
 
-          const meResponse =
-            await fetch(
-              "/api/me",
-              {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-              }
-            );
-
-          if (!meResponse.ok) {
-
-            localStorage.removeItem(
-              "rsf-authenticated"
-            );
-
-            rsfApplyTheme(
-              "blue",
-              false
-            );
-
-            return;
-
-          }
-
-          const meData =
-            await meResponse.json();
-
-          if (
-            !meData.authenticated ||
-            !meData.verified
-          ) {
-
-            localStorage.removeItem(
-              "rsf-authenticated"
-            );
-
-            rsfApplyTheme(
-              "blue",
-              false
-            );
-
-            return;
-
-          }
-
           localStorage.setItem(
-            "rsf-authenticated",
-            "true"
+            "rsf-theme",
+            theme
           );
-
-          const response =
-            await fetch(
-              "/api/preferences",
-              {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-              }
-            );
-
-          if (!response.ok) {
-            return;
-          }
-
-          const data =
-            await response.json();
-
-          if (
-            data &&
-            RSF_VALID_THEMES.includes(
-              data.theme
-            )
-          ) {
-
-            rsfApplyTheme(
-              data.theme
-            );
-
-          }
 
         } catch (error) {}
 
       }
 
-      window.addEventListener(
-        "storage",
-        event => {
+    }
 
-          if (
-            event.key ===
-            "rsf-theme"
-          ) {
+    async function rsfSyncTheme() {
 
-            if (
-              localStorage.getItem(
-                "rsf-authenticated"
-              ) === "true" &&
-              RSF_VALID_THEMES.includes(
-                event.newValue
-              )
-            ) {
+      try {
 
-              rsfApplyTheme(
-                event.newValue,
-                false
-              );
-
+        const meResponse =
+          await fetch(
+            "/api/me",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
             }
+          );
 
-            return;
+        if (!meResponse.ok) {
 
-          }
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          rsfApplyTheme(
+            "blue",
+            false
+          );
+
+          return;
+
+        }
+
+        const meData =
+          await meResponse.json();
+
+        if (
+          !meData.authenticated ||
+          !meData.verified
+        ) {
+
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          rsfApplyTheme(
+            "blue",
+            false
+          );
+
+          return;
+
+        }
+
+        localStorage.setItem(
+          "rsf-authenticated",
+          "true"
+        );
+
+        const response =
+          await fetch(
+            "/api/preferences",
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          data &&
+          RSF_VALID_THEMES.includes(
+            data.theme
+          )
+        ) {
+
+          rsfApplyTheme(
+            data.theme
+          );
+
+        }
+
+      } catch (error) {}
+
+    }
+
+    window.addEventListener(
+      "storage",
+      event => {
+
+        if (
+          event.key === "rsf-theme"
+        ) {
 
           if (
-            event.key ===
-            "rsf-authenticated" &&
-            event.newValue !== "true"
+            localStorage.getItem(
+              "rsf-authenticated"
+            ) === "true" &&
+            RSF_VALID_THEMES.includes(
+              event.newValue
+            )
           ) {
 
             rsfApplyTheme(
-              "blue",
+              event.newValue,
               false
             );
 
           }
 
+          return;
+
         }
-      );
 
-      rsfSyncTheme();
+        if (
+          event.key ===
+            "rsf-authenticated" &&
+          event.newValue !== "true"
+        ) {
 
-      const loginButton =
-        document.getElementById(
-          "login-button"
-        );
+          rsfApplyTheme(
+            "blue",
+            false
+          );
 
-      const loginOverlay =
-        document.getElementById(
-          "login-overlay"
-        );
-
-      const loginClose =
-        document.getElementById(
-          "login-close"
-        );
-
-      const loginProceed =
-        document.getElementById(
-          "login-proceed"
-        );
-
-      function openLoginModal() {
-
-        loginOverlay.classList.add(
-          "open"
-        );
-
-        loginOverlay.setAttribute(
-          "aria-hidden",
-          "false"
-        );
-
-        document.body.style.overflow =
-          "hidden";
+        }
 
       }
+    );
 
-      function closeLoginModal() {
+    rsfSyncTheme();
+  </script>
 
-        loginOverlay.classList.remove(
-          "open"
-        );
+  <script>
+    const loginButton =
+      document.getElementById(
+        "login-button"
+      );
 
-        loginOverlay.setAttribute(
-          "aria-hidden",
-          "true"
-        );
+    const loginOverlay =
+      document.getElementById(
+        "login-overlay"
+      );
 
-        document.body.style.overflow =
-          "";
+    const loginClose =
+      document.getElementById(
+        "login-close"
+      );
+
+    const loginProceed =
+      document.getElementById(
+        "login-proceed"
+      );
+
+    function openLoginModal() {
+
+      loginOverlay.classList.add(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+    function closeLoginModal() {
+
+      loginOverlay.classList.remove(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+    loginButton.addEventListener(
+      "click",
+      openLoginModal
+    );
+
+    loginClose.addEventListener(
+      "click",
+      closeLoginModal
+    );
+
+    loginOverlay.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          loginOverlay
+        ) {
+
+          closeLoginModal();
+
+        }
 
       }
+    );
 
-      loginButton.addEventListener(
-        "click",
-        openLoginModal
-      );
+    loginProceed.addEventListener(
+      "click",
+      () => {
 
-      loginClose.addEventListener(
-        "click",
-        closeLoginModal
-      );
-
-      loginOverlay.addEventListener(
-        "click",
-        event => {
-
-          if (
-            event.target ===
-            loginOverlay
-          ) {
-
-            closeLoginModal();
-
-          }
-
-        }
-      );
-
-      loginProceed.addEventListener(
-        "click",
-        () => {
-
-          window.location.href =
-            "/api/login";
-
-        }
-      );
-
-      document.addEventListener(
-        "keydown",
-        event => {
-
-          if (
-            event.key === "Escape" &&
-            loginOverlay.classList.contains(
-              "open"
-            )
-          ) {
-
-            closeLoginModal();
-
-          }
-
-        }
-      );
-
-      const profileCard =
-        document.getElementById(
-          "profile-card"
-        );
-
-      const profileDropdown =
-        document.getElementById(
-          "profile-dropdown"
-        );
-
-      if (profileCard) {
-
-        profileCard.addEventListener(
-          "click",
-          event => {
-
-            if (
-              event.target.closest(
-                ".profile-dropdown"
-              )
-            ) {
-              return;
-            }
-
-            const open =
-              profileDropdown.classList.toggle(
-                "open"
-              );
-
-            profileCard.classList.toggle(
-              "open",
-              open
-            );
-
-            profileCard.setAttribute(
-              "aria-expanded",
-              open ? "true" : "false"
-            );
-
-          }
-        );
+        window.location.href =
+          "/api/login";
 
       }
+    );
 
-      document.addEventListener(
-        "click",
-        event => {
+    document.addEventListener(
+      "keydown",
+      event => {
 
-          if (
-            profileCard &&
-            !profileCard.contains(
-              event.target
-            )
-          ) {
+        if (
+          event.key === "Escape" &&
+          loginOverlay.classList.contains(
+            "open"
+          )
+        ) {
 
-            profileDropdown.classList.remove(
-              "open"
-            );
-
-            profileCard.classList.remove(
-              "open"
-            );
-
-            profileCard.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
+          closeLoginModal();
 
         }
-      );
+
+      }
+    );
+  </script>
+
+  <script>
+    (() => {
 
       const profileTabs =
         document.querySelectorAll(
@@ -2964,7 +2799,7 @@
                   content.classList.toggle(
                     "active",
                     content.id ===
-                    `${target}-tab`
+                      `${target}-tab`
                   );
 
                 }
@@ -3097,6 +2932,11 @@
           "edit-profile-button"
         );
 
+      const loginOverlay =
+        document.getElementById(
+          "login-overlay"
+        );
+
       let currentPlayer =
         null;
 
@@ -3165,14 +3005,13 @@
               "Content-Type":
                 "application/json"
             },
-            body:
-              JSON.stringify({
-                usernames: [
-                  username
-                ],
-                excludeBannedUsers:
-                  false
-              })
+            body: JSON.stringify({
+              usernames: [
+                username
+              ],
+              excludeBannedUsers:
+                false
+            })
           }
         )
           .then(
@@ -3285,7 +3124,9 @@
 
         mainAvatarFallback.textContent =
           value
-            ? value.charAt(0).toUpperCase()
+            ? value
+                .charAt(0)
+                .toUpperCase()
             : "?";
 
       }
@@ -3686,12 +3527,14 @@
 
           setText(
             profileBio,
+            currentPlayer.bio ||
             "RSF player profile.",
             "RSF player profile."
           );
 
           setText(
             overviewBio,
+            currentPlayer.bio ||
             "RSF player profile.",
             "RSF player profile."
           );
