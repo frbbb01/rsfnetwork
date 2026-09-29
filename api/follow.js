@@ -303,11 +303,25 @@ export default async function handler(
   }
 
   try {
-    const playerId =
+    let playerId = "";
+
+    if (
       typeof req.query.playerId ===
       "string"
-        ? req.query.playerId.trim()
-        : "";
+    ) {
+      playerId =
+        req.query.playerId.trim();
+    }
+
+    if (
+      !playerId &&
+      req.body &&
+      typeof req.body.playerId ===
+        "string"
+    ) {
+      playerId =
+        req.body.playerId.trim();
+    }
 
     if (!playerId) {
       return res.status(400).json({
@@ -330,7 +344,7 @@ export default async function handler(
 
     const targetUser =
       await getUserById(
-        playerId
+        targetPlayer.id
       );
 
     if (!targetUser) {
@@ -416,10 +430,12 @@ export default async function handler(
         {
           method:
             "POST",
+
           headers: {
             Prefer:
               "resolution=ignore-duplicates,return=minimal"
           },
+
           body:
             JSON.stringify({
               follower_id:
@@ -434,10 +450,15 @@ export default async function handler(
 
     if (req.method === "DELETE") {
       await supabaseRequest(
-        `follows?follower_id=eq.${encodeURIComponent(viewerUser.id)}&following_id=eq.${encodeURIComponent(targetUser.id)}`,
+        `follows?follower_id=eq.${encodeURIComponent(
+          viewerUser.id
+        )}&following_id=eq.${encodeURIComponent(
+          targetUser.id
+        )}`,
         {
           method:
             "DELETE",
+
           headers: {
             Prefer:
               "return=minimal"
