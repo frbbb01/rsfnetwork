@@ -1275,35 +1275,6 @@
 
 <body class="theme-blue">
 
-  <script>
-    (() => {
-      const validThemes = [
-        "dark",
-        "light",
-        "blue",
-        "royal",
-        "ocean"
-      ];
-
-      const cachedTheme =
-        localStorage.getItem("rsf-theme");
-
-      if (validThemes.includes(cachedTheme)) {
-        document.body.classList.remove(
-          "theme-dark",
-          "theme-light",
-          "theme-blue",
-          "theme-royal",
-          "theme-ocean"
-        );
-
-        document.body.classList.add(
-          `theme-${cachedTheme}`
-        );
-      }
-    })();
-  </script>
-
   <header class="topbar">
 
 <a href="/" class="logo">
@@ -1324,13 +1295,11 @@
       <span class="arrow">▾</span>
     </a>
 
-
 <div class="dropdown">
   <a href="/database">Playerbase</a>
   <a href="/database">Teams</a>
   <a href="/database">Seasons</a>
 </div>
-
 
   </div>
 
@@ -1340,14 +1309,12 @@
       <span class="arrow">▾</span>
     </a>
 
-
 <div class="dropdown">
   <a href="/community">Videos</a>
   <a href="/community">Community Latest</a>
   <a href="/community">Development</a>
   <a href="/community">Resources</a>
 </div>
-
 
   </div>
 
@@ -1406,14 +1373,13 @@ aria-hidden="true"
       —
     </span>
 
-
 <span
-  class="profile-status"
-  id="profile-status"
->
-  GUEST
-</span>
+class="profile-status"
+id="profile-status"
 
+>
+
+GUEST </span>
 
   </div>
 
@@ -1441,7 +1407,6 @@ aria-hidden="true"
 
   <div class="login-modal-header">
 
-
 <div>
   <h2
     class="login-modal-title"
@@ -1456,14 +1421,14 @@ aria-hidden="true"
 </div>
 
 <button
-  type="button"
-  class="login-close"
-  id="login-close"
-  aria-label="Close login"
->
-  ×
-</button>
+type="button"
+class="login-close"
+id="login-close"
+aria-label="Close login"
 
+>
+
+× </button>
 
   </div>
 
@@ -1482,9 +1447,7 @@ id="login-proceed"
 
 >
 
-
 PROCEED TO LOGIN
-
 
   </button>
 
@@ -1515,7 +1478,6 @@ PROCEED TO LOGIN
 
   <div class="settings-section">
 
-
 <h2 class="settings-section-title">
   Appearance
 </h2>
@@ -1536,100 +1498,102 @@ PROCEED TO LOGIN
     aria-label="Background theme"
   >
 
-    <button
-      type="button"
-      class="theme-option"
-      data-theme="dark"
-      aria-label="Dark"
-      aria-checked="false"
-    >
-      <span
-        class="theme-preview"
-        style="background: #181818;"
-      ></span>
+```
+<button
+  type="button"
+  class="theme-option"
+  data-theme="dark"
+  aria-label="Dark"
+  aria-checked="false"
+>
+  <span
+    class="theme-preview"
+    style="background: #181818;"
+  ></span>
 
-      <span class="theme-check">✓</span>
+  <span class="theme-check">✓</span>
 
-      <span class="theme-name">
-        Dark
-      </span>
-    </button>
+  <span class="theme-name">
+    Dark
+  </span>
+</button>
 
-    <button
-      type="button"
-      class="theme-option"
-      data-theme="light"
-      aria-label="Light"
-      aria-checked="false"
-    >
-      <span
-        class="theme-preview"
-        style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
-      ></span>
+<button
+  type="button"
+  class="theme-option"
+  data-theme="light"
+  aria-label="Light"
+  aria-checked="false"
+>
+  <span
+    class="theme-preview"
+    style="background: linear-gradient(135deg, #D3D3D3, #F5F5F5);"
+  ></span>
 
-      <span class="theme-check">✓</span>
+  <span class="theme-check">✓</span>
 
-      <span class="theme-name">
-        Light
-      </span>
-    </button>
+  <span class="theme-name">
+    Light
+  </span>
+</button>
 
-    <button
-      type="button"
-      class="theme-option"
-      data-theme="blue"
-      aria-label="Blue"
-      aria-checked="false"
-    >
-      <span
-        class="theme-preview"
-        style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
-      ></span>
+<button
+  type="button"
+  class="theme-option"
+  data-theme="blue"
+  aria-label="Blue"
+  aria-checked="false"
+>
+  <span
+    class="theme-preview"
+    style="background: linear-gradient(135deg, #07111F, #194C86, #0B1E39);"
+  ></span>
 
-      <span class="theme-check">✓</span>
+  <span class="theme-check">✓</span>
 
-      <span class="theme-name">
-        Blue
-      </span>
-    </button>
+  <span class="theme-name">
+    Blue
+  </span>
+</button>
 
-    <button
-      type="button"
-      class="theme-option"
-      data-theme="royal"
-      aria-label="Royal"
-      aria-checked="false"
-    >
-      <span
-        class="theme-preview"
-        style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
-      ></span>
+<button
+  type="button"
+  class="theme-option"
+  data-theme="royal"
+  aria-label="Royal"
+  aria-checked="false"
+>
+  <span
+    class="theme-preview"
+    style="background: linear-gradient(135deg, #0E0B20, #273887, #59308D);"
+  ></span>
 
-      <span class="theme-check">✓</span>
+  <span class="theme-check">✓</span>
 
-      <span class="theme-name">
-        Royal
-      </span>
-    </button>
+  <span class="theme-name">
+    Royal
+  </span>
+</button>
 
-    <button
-      type="button"
-      class="theme-option"
-      data-theme="ocean"
-      aria-label="Ocean"
-      aria-checked="false"
-    >
-      <span
-        class="theme-preview"
-        style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
-      ></span>
+<button
+  type="button"
+  class="theme-option"
+  data-theme="ocean"
+  aria-label="Ocean"
+  aria-checked="false"
+>
+  <span
+    class="theme-preview"
+    style="background: linear-gradient(135deg, #061A22, #0F4C6F, #1F8B8F);"
+  ></span>
 
-      <span class="theme-check">✓</span>
+  <span class="theme-check">✓</span>
 
-      <span class="theme-name">
-        Ocean
-      </span>
-    </button>
+  <span class="theme-name">
+    Ocean
+  </span>
+</button>
+```
 
   </div>
 
@@ -1642,7 +1606,6 @@ PROCEED TO LOGIN
   </p>
 
 </div>
-
 
   </div>
 
@@ -1706,13 +1669,16 @@ PROCEED TO LOGIN
     };
 
     function getCachedTheme() {
-      const cachedTheme =
-        localStorage.getItem("rsf-theme");
+      try {
+        const cachedTheme =
+          localStorage.getItem("rsf-theme");
 
-      if (
-        validThemes.includes(cachedTheme)
-      ) {
-        return cachedTheme;
+        if (
+          validThemes.includes(cachedTheme)
+        ) {
+          return cachedTheme;
+        }
+      } catch (error) {
       }
 
       return "blue";
@@ -1735,10 +1701,13 @@ PROCEED TO LOGIN
         `theme-${theme}`
       );
 
-      localStorage.setItem(
-        "rsf-theme",
-        theme
-      );
+      try {
+        localStorage.setItem(
+          "rsf-theme",
+          theme
+        );
+      } catch (error) {
+      }
 
       themeOptions.forEach(
         option => {
@@ -1782,6 +1751,7 @@ PROCEED TO LOGIN
           );
 
         if (!response.ok) {
+          applyTheme("blue");
           return;
         }
 
@@ -1789,12 +1759,15 @@ PROCEED TO LOGIN
           await response.json();
 
         if (
+          data &&
           data.theme &&
           validThemes.includes(data.theme)
         ) {
           applyTheme(data.theme);
         }
       } catch (error) {
+        applyTheme("blue");
+
         console.error(
           "Unable to load saved theme:",
           error
@@ -1875,6 +1848,7 @@ PROCEED TO LOGIN
           );
 
         if (!response.ok) {
+          applyTheme("blue");
           window.location.replace("/");
           return;
         }
@@ -1886,12 +1860,14 @@ PROCEED TO LOGIN
           !data.authenticated ||
           !data.verified
         ) {
+          applyTheme("blue");
           window.location.replace("/");
           return;
         }
 
         await loadSavedTheme();
       } catch {
+        applyTheme("blue");
         window.location.replace("/");
       }
     }
@@ -1980,7 +1956,7 @@ PROCEED TO LOGIN
       }
     );
 
-    loadCachedTheme();
+    applyTheme("blue");
     checkSettingsAccess();
   </script>
 
