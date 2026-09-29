@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>RSF Profile</title>
 
   <style>
@@ -182,10 +183,7 @@
       transition:
         opacity 100ms ease,
         visibility 100ms ease,
-        transform 100ms ease,
-        background 180ms ease,
-        border-color 180ms ease;
-      z-index: 200;
+        transform 100ms ease;
     }
 
     .nav-item:hover .dropdown,
@@ -197,110 +195,94 @@
     }
 
     .dropdown a {
-      min-height: 34px;
-      padding: 0 11px;
       display: flex;
       align-items: center;
-      font-size: 10px;
-      border-radius: 4px;
-      opacity: 0.56;
+      min-height: 35px;
+      padding: 0 11px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.62);
       transition:
         background 100ms ease,
-        opacity 100ms ease;
+        color 100ms ease;
     }
 
-    .dropdown a:hover,
-    .dropdown a:focus-visible {
+    .dropdown a:hover {
       background: var(--accent-soft);
-      opacity: 1;
-      outline: none;
+      color: var(--text);
     }
 
     .login-button {
       position: absolute;
       right: 32px;
-      width: 148px;
-      height: 40px;
-      padding: 0 17px;
-      display: inline-flex;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 132px;
+      height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--profile);
+      color: var(--text);
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 6px;
-      background: linear-gradient(135deg, #5865F2, #5360E8);
-      color: #FFFFFF;
-      font-family: "Montserrat", sans-serif;
+      gap: 8px;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.055em;
+      letter-spacing: 0.08em;
       cursor: pointer;
-      box-shadow: 0 5px 18px rgba(45, 55, 160, 0.16);
       transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        box-shadow 140ms ease;
+        background 120ms ease,
+        border-color 120ms ease;
     }
 
     .login-button:hover {
-      background: linear-gradient(135deg, #6370F5, #5966EB);
-      border-color: rgba(255, 255, 255, 0.18);
-      box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
-    }
-
-    .login-button:active {
-      box-shadow: 0 3px 12px rgba(45, 55, 160, 0.16);
+      background: var(--profile-hover);
+      border-color: rgba(120, 164, 215, 0.28);
     }
 
     .discord-logo {
-      width: 22px;
-      height: 22px;
-      flex: 0 0 auto;
-      display: block;
+      width: 21px;
+      height: 21px;
       object-fit: contain;
     }
 
     .profile-card {
       position: absolute;
       right: 32px;
-      width: 178px;
-      height: 42px;
-      padding: 0 10px 0 7px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 132px;
+      height: 38px;
+      padding: 0 8px 0 6px;
       border: 1px solid var(--border);
       border-radius: 6px;
       background: var(--profile);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
-      user-select: none;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
       transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        box-shadow 140ms ease;
+        background 120ms ease,
+        border-color 120ms ease;
     }
 
-    .profile-card:hover {
-      background: var(--profile-hover);
-      border-color: rgba(120, 164, 215, 0.25);
-      box-shadow: 0 7px 22px rgba(0, 0, 0, 0.18);
-    }
-
+    .profile-card:hover,
     .profile-card.open {
-      border-color: rgba(120, 164, 215, 0.27);
       background: var(--profile-hover);
+      border-color: rgba(120, 164, 215, 0.27);
     }
 
     .profile-avatar {
-      width: 29px;
-      height: 29px;
-      flex: 0 0 29px;
-      overflow: hidden;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
       border-radius: 5px;
-      background: rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
     }
 
     .profile-avatar img {
@@ -310,109 +292,76 @@
       object-fit: cover;
     }
 
-    .profile-avatar.guest {
-      display: none;
-    }
-
     .profile-info {
       min-width: 0;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 4px;
+      gap: 2px;
     }
 
     .profile-username {
-      max-width: 116px;
+      max-width: 72px;
       overflow: hidden;
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1;
-      white-space: nowrap;
       text-overflow: ellipsis;
-      color: #FFFFFF;
+      white-space: nowrap;
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1;
     }
 
     .profile-status {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 7px;
-      font-weight: 700;
+      font-size: 6px;
       line-height: 1;
-      letter-spacing: 0.09em;
-      color: rgba(255, 255, 255, 0.42);
-    }
-
-    .profile-status::before {
-      content: "";
-      width: 4px;
-      height: 4px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.8;
-    }
-
-    .profile-card.profile-guest .profile-status::before {
-      background: rgba(255, 255, 255, 0.34);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--muted);
     }
 
     .profile-chevron {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 14px;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.30);
-      transition:
-        color 140ms ease,
-        transform 140ms ease;
-    }
-
-    .profile-card:hover .profile-chevron {
-      color: rgba(255, 255, 255, 0.60);
+      transition: transform 120ms ease;
     }
 
     .profile-card.open .profile-chevron {
-      color: rgba(255, 255, 255, 0.68);
       transform: rotate(180deg);
     }
 
     .profile-chevron svg {
-      width: 10px;
-      height: 10px;
-      display: block;
+      width: 100%;
+      height: 100%;
       fill: none;
-      stroke: currentColor;
-      stroke-width: 1.5;
+      stroke: rgba(255, 255, 255, 0.52);
+      stroke-width: 1.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     .profile-dropdown {
       position: absolute;
-      top: calc(100% + 8px);
+      top: calc(100% + 7px);
       right: 0;
-      width: 195px;
-      padding: 5px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
+      width: 215px;
+      padding: 6px;
       background: var(--dropdown);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: translateY(4px);
+      transform: translateY(-4px);
       transition:
         opacity 100ms ease,
         visibility 100ms ease,
         transform 100ms ease;
-      z-index: 9999;
+      z-index: 120;
     }
 
     .profile-dropdown.open {
@@ -422,97 +371,17 @@
       transform: translateY(0);
     }
 
-    .profile-dropdown-item {
-      width: 100%;
-      min-height: 38px;
-      padding: 0 11px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 4px;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.64);
-      font-family: "Montserrat", sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      text-align: left;
-      cursor: pointer;
-      transition:
-        background 100ms ease,
-        color 100ms ease;
-    }
-
-    .profile-dropdown-item:hover {
-      background: var(--accent-soft);
-      color: #FFFFFF;
-    }
-
-    .profile-dropdown-icon {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.40);
-    }
-
-    .profile-dropdown-icon svg {
-      width: 14px;
-      height: 14px;
-      display: block;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .profile-dropdown-divider {
-      height: 1px;
-      margin: 5px 4px;
-      background: var(--border-soft);
-    }
-
-    .profile-logout {
-      color: rgba(255, 107, 120, 0.68);
-    }
-
-    .profile-logout .profile-dropdown-icon {
-      color: rgba(255, 107, 120, 0.62);
-    }
-
-    .profile-logout:hover {
-      background: rgba(255, 65, 85, 0.07);
-      color: #FF7D88;
-    }
-
-    .profile-logout:hover .profile-dropdown-icon {
-      color: #FF7D88;
-    }
-
-    .profile-dropdown-item:disabled {
-      opacity: 0.45;
-      cursor: default;
-    }
-
-    .login-overlay,
-    .connections-overlay {
+    .login-overlay {
       position: fixed;
       inset: 0;
       z-index: 500;
+      padding: 24px;
+      background: rgba(2, 7, 14, 0.66);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      background: rgba(3, 7, 14, 0.66);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -521,137 +390,105 @@
         visibility 150ms ease;
     }
 
-    .login-overlay.open,
-    .connections-overlay.open {
+    .login-overlay.open {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
     }
 
-    .login-modal,
-    .connections-modal {
-      width: min(440px, 100%);
-      padding: 28px;
+    .login-modal {
+      width: min(500px, 100%);
+      padding: 30px;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 9px;
-      background: var(--dropdown);
-      box-shadow:
-        0 24px 70px rgba(0, 0, 0, 0.48),
-        inset 0 1px 0 rgba(255, 255, 255, 0.025);
-      transform: translateY(8px) scale(0.985);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.38);
+      transform: translateY(7px);
       transition: transform 150ms ease;
     }
 
-    .login-overlay.open .login-modal,
-    .connections-overlay.open .connections-modal {
-      transform: translateY(0) scale(1);
+    .login-overlay.open .login-modal {
+      transform: translateY(0);
     }
 
-    .login-modal-header,
-    .connections-header {
+    .login-modal-header {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 20px;
     }
 
-    .login-modal-title,
-    .connections-title {
+    .login-modal-title {
       margin: 0;
-      font-size: 24px;
-      line-height: 1.05;
+      font-size: 25px;
+      line-height: 1.1;
       font-weight: 700;
-      letter-spacing: -0.045em;
+      letter-spacing: -0.04em;
     }
 
-    .login-modal-subtitle,
-    .connections-subtitle {
+    .login-modal-subtitle {
       margin: 8px 0 0;
-      font-size: 10px;
-      line-height: 1.6;
       color: var(--muted);
+      font-size: 11px;
+      line-height: 1.55;
     }
 
     .login-close {
-      width: 27px;
-      height: 27px;
-      flex: 0 0 auto;
-      padding: 0;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
       border: 1px solid var(--border);
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.48);
-      font-family: "Montserrat", sans-serif;
-      font-size: 15px;
+      border-radius: 5px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 20px;
       line-height: 1;
       cursor: pointer;
-      transition:
-        background 120ms ease,
-        color 120ms ease,
-        border-color 120ms ease;
     }
 
     .login-close:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(120, 164, 215, 0.25);
-      color: #FFFFFF;
+      background: var(--accent-soft);
+      color: var(--text);
     }
 
     .login-points {
-      margin: 25px 0 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 13px;
-    }
-
-    .login-points li {
-      position: relative;
-      padding-left: 17px;
-      font-size: 10px;
-      line-height: 1.6;
+      margin: 25px 0;
+      padding-left: 18px;
       color: rgba(255, 255, 255, 0.62);
-    }
-
-    .login-points li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 7px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #5865F2;
-      box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.08);
+      font-size: 11px;
+      line-height: 1.8;
     }
 
     .login-proceed {
       width: 100%;
-      min-height: 40px;
-      margin-top: 26px;
-      border: 1px solid rgba(114, 169, 235, 0.28);
-      border-radius: 6px;
-      background: linear-gradient(
-        135deg,
-        rgba(88, 101, 242, 0.88),
-        rgba(66, 82, 210, 0.88)
-      );
-      color: #FFFFFF;
-      font-family: "Montserrat", sans-serif;
+      height: 42px;
+      border: 1px solid rgba(79, 155, 255, 0.5);
+      border-radius: 5px;
+      background: var(--accent);
+      color: #fff;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.035em;
+      letter-spacing: 0.08em;
       cursor: pointer;
-      box-shadow: 0 7px 22px rgba(58, 78, 210, 0.18);
+      transition:
+        opacity 100ms ease,
+        transform 100ms ease;
+    }
+
+    .login-proceed:hover {
+      opacity: 0.9;
+    }
+
+    .login-proceed:active {
+      transform: translateY(1px);
     }
 
     .login-note {
-      margin: 14px 0 0;
-      font-size: 8px;
-      line-height: 1.6;
+      margin: 12px 0 0;
       text-align: center;
-      color: rgba(255, 255, 255, 0.27);
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.5;
     }
 
     main {
@@ -663,6 +500,7 @@
     .profile-page {
       display: flex;
       flex-direction: column;
+      gap: 0;
     }
 
     .profile-cover {
@@ -673,26 +511,25 @@
       background:
         linear-gradient(
           135deg,
-          rgba(63, 121, 194, 0.075),
-          rgba(255, 255, 255, 0.014)
-        );
+          rgba(79, 155, 255, 0.07),
+          transparent 45%
+        ),
+        rgba(8, 15, 26, 0.76);
     }
 
     .profile-cover::before {
       content: "";
       position: absolute;
-      inset: 0;
+      width: 520px;
+      height: 520px;
+      right: -190px;
+      top: -280px;
+      border-radius: 50%;
       background:
-        linear-gradient(
-          90deg,
-          rgba(7, 17, 31, 0.10),
-          transparent 52%,
-          rgba(79, 155, 255, 0.045)
-        ),
         radial-gradient(
-          ellipse 600px 260px at 90% 0%,
-          rgba(79, 155, 255, 0.14),
-          transparent 72%
+          circle,
+          var(--accent-soft),
+          transparent 68%
         );
       pointer-events: none;
     }
@@ -700,22 +537,24 @@
     .profile-cover::after {
       content: "";
       position: absolute;
-      right: -90px;
-      top: -145px;
-      width: 390px;
-      height: 390px;
-      border: 1px solid rgba(120, 164, 215, 0.07);
+      width: 310px;
+      height: 310px;
+      right: -155px;
+      bottom: -210px;
+      border: 1px solid var(--border-soft);
       border-radius: 50%;
-      box-shadow:
-        0 0 0 35px rgba(120, 164, 215, 0.018),
-        0 0 0 70px rgba(120, 164, 215, 0.012);
       pointer-events: none;
     }
 
     .profile-cover-inner {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       padding: 38px 38px 0;
+    }
+
+    .social-profile {
+      display: flex;
+      flex-direction: column;
     }
 
     .profile-main-row {
@@ -728,13 +567,12 @@
     .main-avatar {
       width: 118px;
       height: 118px;
-      overflow: hidden;
-      border: 1px solid rgba(120, 164, 215, 0.20);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+      background: rgba(5, 11, 20, 0.92);
       box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.25),
-        0 0 0 7px rgba(7, 17, 31, 0.50);
+        0 14px 35px rgba(0, 0, 0, 0.24);
     }
 
     .main-avatar img {
@@ -753,10 +591,10 @@
       background:
         linear-gradient(
           135deg,
-          rgba(79, 155, 255, 0.16),
-          rgba(255, 255, 255, 0.025)
+          var(--accent),
+          rgba(79, 155, 255, 0.18)
         );
-      color: rgba(255, 255, 255, 0.70);
+      color: #fff;
       font-size: 36px;
       font-weight: 700;
     }
@@ -769,35 +607,40 @@
     .profile-name-row {
       display: flex;
       align-items: center;
+      gap: 10px;
     }
 
     .player-name {
       margin: 0;
       font-size: clamp(28px, 4vw, 43px);
-      line-height: 0.98;
+      line-height: 0.96;
       font-weight: 700;
       letter-spacing: -0.065em;
+      word-break: break-word;
     }
 
     .player-handle {
-      margin-top: 9px;
-      font-size: 9px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.38);
     }
 
     .profile-bio {
-      margin: 13px 0 0;
       max-width: 650px;
-      font-size: 10px;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.49);
+      margin: 13px 0 0;
+      color: rgba(255, 255, 255, 0.63);
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     .joined-short {
-      margin-top: 11px;
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.31);
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .profile-actions {
@@ -808,134 +651,134 @@
     }
 
     .profile-action {
-      min-width: 78px;
-      min-height: 34px;
-      padding: 0 13px;
+      height: 36px;
+      min-width: 94px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.72);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.50);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.065em;
-      line-height: 1;
       text-align: center;
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.07em;
       cursor: pointer;
       transition:
-        color 120ms ease,
-        background 120ms ease,
-        border-color 120ms ease,
-        transform 120ms ease;
+        background 100ms ease,
+        border-color 100ms ease,
+        color 100ms ease;
     }
 
     .profile-action:hover {
-      color: #FFFFFF;
       background: var(--accent-soft);
-      border-color: rgba(120, 164, 215, 0.34);
-      transform: translateY(-1px);
+      border-color: rgba(79, 155, 255, 0.3);
+      color: var(--text);
     }
 
     .profile-action.primary {
-      color: #FFFFFF;
-      border-color: rgba(79, 155, 255, 0.28);
-      background: rgba(79, 155, 255, 0.11);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
 
     .profile-action.primary:hover {
-      background: rgba(79, 155, 255, 0.17);
-      border-color: rgba(120, 164, 215, 0.40);
+      opacity: 0.9;
+      background: var(--accent);
+      border-color: var(--accent);
     }
 
     .profile-action.following {
+      background: transparent;
       border-color: var(--border);
-      background: rgba(255, 255, 255, 0.055);
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .profile-action:disabled {
-      cursor: default;
-      opacity: 0.62;
-      transform: none;
+      color: rgba(255, 255, 255, 0.68);
     }
 
     .social-stats {
-      margin-top: 26px;
-      min-height: 58px;
+      margin-top: 30px;
+      min-height: 57px;
       display: flex;
-      align-items: center;
-      gap: 25px;
+      align-items: stretch;
       border-top: 1px solid var(--border-soft);
     }
 
-    .social-stat-button {
-      padding: 0;
-      border: 0;
-      background: transparent;
-      font-family: "Montserrat", sans-serif;
-      cursor: pointer;
-      text-align: left;
-      color: inherit;
+    .social-stat {
+      min-width: 120px;
+      padding: 12px 24px 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-right: 1px solid var(--border-soft);
     }
 
-    .social-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+    .social-stat + .social-stat {
+      padding-left: 24px;
+    }
+
+    .social-stat:last-child {
+      border-right: 0;
     }
 
     .social-stat strong {
-      font-size: 17px;
-      line-height: 1;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: -0.04em;
-      transition: color 120ms ease;
     }
 
     .social-stat span {
+      color: var(--muted);
       font-size: 7px;
       font-weight: 700;
-      letter-spacing: 0.065em;
-      color: rgba(255, 255, 255, 0.31);
+      letter-spacing: 0.08em;
     }
 
-    .social-stat-button:hover strong {
-      color: var(--accent);
+    .social-stat.clickable {
+      cursor: pointer;
+      user-select: none;
+      transition:
+        background 100ms ease,
+        color 100ms ease;
+    }
+
+    .social-stat.clickable:hover {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+
+    .social-stat.clickable:hover span {
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .profile-tabs {
-      display: flex;
-      align-items: stretch;
-      gap: 28px;
       min-height: 58px;
-      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 26px;
       border: 1px solid var(--border);
       border-top: 0;
-      background: rgba(255, 255, 255, 0.012);
+      background: rgba(7, 14, 25, 0.78);
     }
 
     .profile-tab {
       position: relative;
-      min-height: 58px;
+      height: 58px;
       padding: 0;
       border: 0;
       background: transparent;
       color: rgba(255, 255, 255, 0.38);
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.075em;
+      letter-spacing: 0.08em;
       cursor: pointer;
-      transition: color 120ms ease;
+      transition: color 100ms ease;
     }
 
-    .profile-tab:hover {
-      color: rgba(255, 255, 255, 0.68);
-    }
-
+    .profile-tab:hover,
     .profile-tab.active {
-      color: #FFFFFF;
+      color: var(--text);
     }
 
     .profile-tab.active::after {
@@ -950,7 +793,7 @@
 
     .tab-content {
       display: none;
-      padding-top: 32px;
+      padding-top: 25px;
     }
 
     .tab-content.active {
@@ -960,46 +803,46 @@
     .profile-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 42px 52px;
+      gap: 25px;
     }
 
     .profile-panel {
       min-width: 0;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      box-shadow: none;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .profile-grid .profile-panel:nth-child(1),
+    .profile-grid .profile-panel:nth-child(2) {
+      border-top-color: var(--border);
     }
 
     .panel-label {
       display: flex;
       align-items: center;
-      gap: 9px;
-      min-height: 32px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-soft);
+      gap: 8px;
+      margin-bottom: 17px;
+      color: rgba(255, 255, 255, 0.56);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.085em;
+      letter-spacing: 0.12em;
     }
 
     .panel-label::before {
       content: "";
-      width: 4px;
-      height: 4px;
-      flex: 0 0 auto;
+      width: 5px;
+      height: 5px;
+      flex: 0 0 5px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
+      box-shadow: 0 0 10px var(--accent-soft);
     }
 
     .panel-text {
       margin: 0;
-      max-width: 650px;
-      font-size: 10px;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 11px;
       line-height: 1.75;
-      color: rgba(255, 255, 255, 0.49);
     }
 
     .stat-grid {
@@ -1010,58 +853,32 @@
     }
 
     .stat-box {
-      min-height: 88px;
-      padding: 18px;
+      min-height: 76px;
+      padding: 16px;
       border-right: 1px solid var(--border-soft);
       border-bottom: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.012);
-      transition: background 120ms ease;
-    }
-
-    .stat-box:hover {
-      background: rgba(79, 155, 255, 0.025);
     }
 
     .stat-value {
-      font-size: 22px;
-      line-height: 1;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.045em;
+      letter-spacing: -0.04em;
     }
 
     .stat-name {
-      margin-top: 10px;
+      margin-top: 5px;
+      color: var(--muted);
       font-size: 7px;
       font-weight: 700;
-      letter-spacing: 0.065em;
-      color: rgba(255, 255, 255, 0.31);
-    }
-
-    .clickable-stat {
-      width: 100%;
-      padding: 18px;
-      border: 0;
-      border-right: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.012);
-      color: inherit;
-      text-align: left;
-      cursor: pointer;
-      font-family: "Montserrat", sans-serif;
-    }
-
-    .clickable-stat:hover {
-      background: rgba(79, 155, 255, 0.025);
+      letter-spacing: 0.08em;
     }
 
     .profile-list {
-      display: flex;
-      flex-direction: column;
       border-top: 1px solid var(--border-soft);
     }
 
     .profile-list-row {
-      min-height: 46px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1070,358 +887,135 @@
     }
 
     .profile-list-name {
-      font-size: 8px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.36);
+      color: var(--muted);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
     }
 
     .profile-list-value {
-      max-width: 62%;
-      overflow: hidden;
+      color: rgba(255, 255, 255, 0.74);
       font-size: 9px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.70);
+      font-weight: 500;
       text-align: right;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      word-break: break-word;
     }
 
     .empty-state {
-      min-height: 92px;
-      padding: 25px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-top: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      text-align: center;
-      color: rgba(255, 255, 255, 0.27);
-      font-size: 9px;
+      padding: 20px 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
     }
 
     .activity-list {
-      display: flex;
-      flex-direction: column;
       border-top: 1px solid var(--border-soft);
     }
 
     .activity-item {
-      min-height: 68px;
-      padding: 14px 0;
+      min-height: 72px;
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 14px;
       border-bottom: 1px solid var(--border-soft);
     }
 
     .activity-icon {
-      width: 29px;
-      height: 29px;
-      flex: 0 0 29px;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.42);
-      font-size: 11px;
-    }
-
-    .activity-text {
-      min-width: 0;
-      flex: 1;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .activity-title {
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.62);
+      font-size: 10px;
+      font-weight: 500;
     }
 
     .activity-date {
       margin-top: 4px;
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.25);
-    }
-
-    .connections-modal {
-      width: min(480px, 100%);
-      max-height: min(620px, calc(100vh - 48px));
-      display: flex;
-      flex-direction: column;
-    }
-
-    .connections-list {
-      min-height: 0;
-      margin-top: 24px;
-      overflow-y: auto;
-      border-top: 1px solid var(--border-soft);
-      scrollbar-width: thin;
-    }
-
-    .connections-list::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    .connections-list::-webkit-scrollbar-thumb {
-      background: rgba(120, 164, 215, 0.20);
-      border-radius: 999px;
-    }
-
-    .connection-item {
-      min-height: 68px;
-      padding: 10px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .connection-link {
-      min-width: 0;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .connection-avatar {
-      width: 40px;
-      height: 40px;
-      flex: 0 0 40px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.035);
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .connection-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .connection-info {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .connection-name {
-      overflow: hidden;
-      font-size: 10px;
-      font-weight: 700;
-      line-height: 1.2;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .connection-handle {
-      overflow: hidden;
+      color: var(--muted);
       font-size: 8px;
-      color: var(--muted);
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .connection-action {
-      min-width: 78px;
-      height: 32px;
-      padding: 0 11px;
-      flex: 0 0 auto;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.58);
-      font-family: "Montserrat", sans-serif;
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .connection-action:hover {
-      color: #FFFFFF;
-      background: var(--accent-soft);
-      border-color: rgba(120, 164, 215, 0.34);
-    }
-
-    .connection-action.remove:hover {
-      background: rgba(255, 65, 85, 0.07);
-      border-color: rgba(255, 107, 120, 0.28);
-      color: #FF7D88;
-    }
-
-    .connections-empty,
-    .connections-loading,
-    .connections-error {
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--muted);
-      font-size: 9px;
     }
 
     footer {
       position: fixed;
+      z-index: 90;
       left: 0;
       right: 0;
       bottom: 0;
-      z-index: 100;
       min-height: 58px;
       padding: 0 32px;
       border-top: 1px solid var(--border-soft);
       background: var(--topbar);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.30);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      gap: 20px;
     }
 
     .footer-left,
     .footer-right {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
     }
 
     .footer-brand {
-      color: rgba(255, 255, 255, 0.55);
+      font-size: 10px;
       font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
-    body.theme-dark {
-      --bg: #181818;
-      --accent: #5A9EFF;
-      --accent-soft: rgba(90, 158, 255, 0.10);
-      --topbar: rgba(20, 20, 20, 0.94);
-      --profile: rgba(25, 25, 25, 0.94);
-      --profile-hover: rgba(32, 32, 32, 0.98);
-      --dropdown: rgba(27, 27, 27, 0.99);
-      background: #181818;
+    .footer-right a {
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 500;
+      transition: color 100ms ease;
     }
 
-    body.theme-light {
-      --bg: #D3D3D3;
-      --surface: rgba(245, 245, 245, 0.98);
-      --border: rgba(30, 40, 50, 0.15);
-      --border-soft: rgba(30, 40, 50, 0.10);
-      --text: #15181C;
-      --muted: rgba(21, 24, 28, 0.58);
-      --accent: #5365D8;
-      --accent-soft: rgba(83, 101, 216, 0.09);
-      --topbar: rgba(230, 230, 230, 0.90);
-      --profile: rgba(245, 245, 245, 0.94);
-      --profile-hover: rgba(250, 250, 250, 0.98);
-      --dropdown: rgba(245, 245, 245, 0.99);
+    .footer-right a:hover {
       color: var(--text);
-      background: #D3D3D3;
     }
 
-    body.theme-light .profile-username {
-      color: #15181C;
+    .theme-light {
+      --bg: #F3F6FA;
+      --surface: rgba(255, 255, 255, 0.98);
+      --border: rgba(20, 45, 75, 0.13);
+      --border-soft: rgba(20, 45, 75, 0.08);
+      --text: #101722;
+      --muted: rgba(16, 23, 34, 0.48);
+      --accent: #357FE0;
+      --accent-soft: rgba(53, 127, 224, 0.10);
+      --topbar: rgba(247, 249, 252, 0.88);
+      --profile: rgba(255, 255, 255, 0.94);
+      --profile-hover: rgba(245, 248, 252, 0.98);
+      --dropdown: rgba(255, 255, 255, 0.98);
+      background:
+        radial-gradient(
+          ellipse 900px 620px at 78% 2%,
+          rgba(65, 128, 205, 0.14),
+          transparent 68%
+        ),
+        #F3F6FA;
     }
 
-    body.theme-light .profile-status,
-    body.theme-light .profile-chevron,
-    body.theme-light .profile-dropdown-item {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .profile-bio,
-    body.theme-light .panel-text,
-    body.theme-light .profile-list-name,
-    body.theme-light .activity-title {
-      color: rgba(21, 24, 28, 0.50);
-    }
-
-    body.theme-light .player-handle,
-    body.theme-light .joined-short,
-    body.theme-light .social-stat span,
-    body.theme-light .stat-name,
-    body.theme-light .activity-date {
-      color: rgba(21, 24, 28, 0.34);
-    }
-
-    body.theme-light .social-stat strong,
-    body.theme-light .profile-list-value,
-    body.theme-light .stat-value {
-      color: rgba(21, 24, 28, 0.78);
-    }
-
-    body.theme-light .profile-action {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .profile-action:hover,
-    body.theme-light .profile-action.primary {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-tab {
-      color: rgba(21, 24, 28, 0.38);
-    }
-
-    body.theme-light .profile-tab:hover {
-      color: rgba(21, 24, 28, 0.68);
-    }
-
-    body.theme-light .profile-tab.active {
-      color: #15181C;
-    }
-
-    body.theme-light .empty-state,
-    body.theme-light .connection-handle {
-      color: rgba(21, 24, 28, 0.28);
-    }
-
-    body.theme-light footer {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-brand {
-      color: rgba(21, 24, 28, 0.60);
-    }
-
-    body.theme-light .login-modal,
-    body.theme-light .connections-modal {
-      background: rgba(245, 245, 245, 0.98);
-    }
-
-    body.theme-light .login-modal-subtitle,
-    body.theme-light .login-points li,
-    body.theme-light .login-note,
-    body.theme-light .connections-subtitle {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .login-close {
-      background: rgba(21, 24, 28, 0.025);
-      color: rgba(21, 24, 28, 0.48);
-    }
-
-    body.theme-light .connection-name {
-      color: #15181C;
-    }
-
-    body.theme-blue {
+    .theme-blue {
       --bg: #07111F;
+      --surface: rgba(13, 22, 36, 0.98);
+      --border: rgba(120, 164, 215, 0.16);
+      --border-soft: rgba(120, 164, 215, 0.11);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
       --accent: #4F9BFF;
       --accent-soft: rgba(79, 155, 255, 0.10);
       --topbar: rgba(6, 15, 29, 0.84);
@@ -1430,77 +1024,269 @@
       --dropdown: rgba(13, 22, 36, 0.98);
     }
 
-    body.theme-royal {
-      --bg: #0E0B20;
-      --accent: #8B7CFF;
-      --accent-soft: rgba(139, 124, 255, 0.11);
-      --topbar: rgba(14, 11, 32, 0.88);
-      --profile: rgba(20, 16, 42, 0.90);
-      --profile-hover: rgba(28, 22, 54, 0.96);
-      --dropdown: rgba(21, 17, 43, 0.99);
+    .theme-royal {
+      --bg: #0D0B1F;
+      --surface: rgba(24, 19, 47, 0.98);
+      --border: rgba(145, 125, 230, 0.17);
+      --border-soft: rgba(145, 125, 230, 0.11);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #8A72FF;
+      --accent-soft: rgba(138, 114, 255, 0.10);
+      --topbar: rgba(15, 11, 34, 0.86);
+      --profile: rgba(22, 17, 43, 0.9);
+      --profile-hover: rgba(30, 23, 56, 0.96);
+      --dropdown: rgba(24, 19, 47, 0.98);
       background:
         radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(73, 60, 157, 0.32),
-          transparent 67%
+          ellipse 900px 620px at 78% 2%,
+          rgba(94, 73, 190, 0.28),
+          transparent 68%
         ),
-        radial-gradient(
-          ellipse 760px 560px at 7% 52%,
-          rgba(39, 57, 135, 0.25),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(112, 48, 145, 0.18),
-          transparent 72%
-        ),
-        #0E0B20;
+        #0D0B1F;
     }
 
-    body.theme-ocean {
-      --bg: #061A22;
-      --accent: #52C7D8;
-      --accent-soft: rgba(82, 199, 216, 0.11);
-      --topbar: rgba(5, 24, 32, 0.88);
-      --profile: rgba(7, 30, 39, 0.90);
-      --profile-hover: rgba(9, 39, 50, 0.96);
-      --dropdown: rgba(7, 31, 41, 0.99);
+    .theme-ocean {
+      --bg: #061717;
+      --surface: rgba(10, 30, 30, 0.98);
+      --border: rgba(88, 196, 186, 0.16);
+      --border-soft: rgba(88, 196, 186, 0.10);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #48C8B8;
+      --accent-soft: rgba(72, 200, 184, 0.10);
+      --topbar: rgba(5, 20, 21, 0.86);
+      --profile: rgba(8, 27, 28, 0.9);
+      --profile-hover: rgba(11, 36, 36, 0.96);
+      --dropdown: rgba(10, 30, 30, 0.98);
       background:
         radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(20, 111, 132, 0.36),
-          transparent 67%
+          ellipse 900px 620px at 78% 2%,
+          rgba(36, 135, 130, 0.27),
+          transparent 68%
         ),
-        radial-gradient(
-          ellipse 760px 560px at 7% 52%,
-          rgba(15, 76, 111, 0.28),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(31, 139, 143, 0.17),
-          transparent 72%
-        ),
-        #061A22;
+        #061717;
+    }
+
+    .theme-dark {
+      --bg: #090909;
+      --surface: rgba(20, 20, 20, 0.98);
+      --border: rgba(255, 255, 255, 0.13);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.43);
+      --accent: #FFFFFF;
+      --accent-soft: rgba(255, 255, 255, 0.08);
+      --topbar: rgba(12, 12, 12, 0.88);
+      --profile: rgba(17, 17, 17, 0.92);
+      --profile-hover: rgba(25, 25, 25, 0.97);
+      --dropdown: rgba(20, 20, 20, 0.98);
+      background: #090909;
+    }
+
+    .theme-light .profile-cover,
+    .theme-light .profile-tabs {
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .theme-light .profile-bio,
+    .theme-light .panel-text,
+    .theme-light .profile-list-value {
+      color: rgba(16, 23, 34, 0.65);
+    }
+
+    .theme-light .profile-tab {
+      color: rgba(16, 23, 34, 0.42);
+    }
+
+    .theme-light .profile-tab:hover,
+    .theme-light .profile-tab.active {
+      color: var(--text);
+    }
+
+    .theme-light .profile-action {
+      color: rgba(16, 23, 34, 0.65);
+    }
+
+    .theme-light .social-stat span,
+    .theme-light .panel-label,
+    .theme-light .profile-list-name {
+      color: rgba(16, 23, 34, 0.48);
+    }
+
+    .theme-light .empty-state,
+    .theme-light .activity-date {
+      color: rgba(16, 23, 34, 0.45);
+    }
+
+    .theme-light .login-points {
+      color: rgba(16, 23, 34, 0.62);
+    }
+
+    .followers-modal {
+      width: min(520px, 100%);
+    }
+
+    .followers-modal-body {
+      margin-top: 20px;
+    }
+
+    .followers-list {
+      max-height: min(430px, 55vh);
+      overflow-y: auto;
+      padding-right: 4px;
+      border-top: 1px solid var(--border-soft);
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) transparent;
+    }
+
+    .followers-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .followers-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .followers-list::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+    }
+
+    .follow-person {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .follow-person-avatar {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--accent-soft);
+    }
+
+    .follow-person-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .follow-person-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .follow-person-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .follow-person-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .follow-person-handle {
+      margin-top: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .follow-person-action {
+      min-width: 78px;
+      height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.65);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+
+    .follow-person-action:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      border-color: rgba(79, 155, 255, 0.3);
+    }
+
+    .follow-person-link {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .follow-empty {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .follow-loading {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .follow-error {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff7777;
+      font-size: 9px;
+      text-align: center;
     }
 
     @media (max-width: 900px) {
       .profile-main-row {
-        grid-template-columns: 105px minmax(0, 1fr);
+        grid-template-columns: 96px minmax(0, 1fr);
       }
 
       .main-avatar {
-        width: 105px;
-        height: 105px;
+        width: 96px;
+        height: 96px;
       }
 
       .profile-actions {
         grid-column: 2;
         padding-bottom: 0;
-      }
-
-      .profile-grid {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -1521,7 +1307,6 @@
         right: 20px;
         width: 128px;
         height: 36px;
-        padding: 0 14px;
       }
 
       .profile-card {
@@ -1530,57 +1315,44 @@
         height: 38px;
       }
 
-      .profile-avatar {
-        width: 27px;
-        height: 27px;
-        flex-basis: 27px;
-      }
-
-      .profile-username {
-        max-width: 65px;
-      }
-
-      .profile-dropdown {
-        right: -3px;
-      }
-
-      .discord-logo {
-        width: 20px;
-        height: 20px;
-      }
-
       main {
-        width: min(100% - 28px, 600px);
-        padding-top: 30px;
-        padding-bottom: 100px;
+        width: min(100% - 36px, 1100px);
+        padding-top: 28px;
       }
 
       .profile-cover-inner {
-        padding: 28px 22px 0;
+        padding: 28px 24px 0;
       }
 
       .profile-main-row {
-        grid-template-columns: 92px minmax(0, 1fr);
-        gap: 17px;
+        grid-template-columns: 88px minmax(0, 1fr);
+        gap: 18px;
       }
 
       .main-avatar {
-        width: 92px;
-        height: 92px;
+        width: 88px;
+        height: 88px;
       }
 
       .profile-actions {
         grid-column: 1 / -1;
-        width: 100%;
+        flex-wrap: wrap;
       }
 
       .profile-action {
         flex: 1;
+        min-width: 100px;
       }
 
       .profile-tabs {
-        padding: 0 17px;
-        gap: 21px;
+        overflow-x: auto;
+        gap: 24px;
+        padding: 0 18px;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
       }
     }
 
@@ -1668,8 +1440,9 @@
       }
 
       main {
-        width: calc(100% - 24px);
-        padding-top: 22px;
+        width: calc(100% - 28px);
+        padding-top: 20px;
+        padding-bottom: 90px;
       }
 
       .profile-cover-inner {
@@ -1677,79 +1450,107 @@
       }
 
       .profile-main-row {
-        grid-template-columns: 78px minmax(0, 1fr);
+        grid-template-columns: 70px minmax(0, 1fr);
         gap: 14px;
       }
 
       .main-avatar {
-        width: 78px;
-        height: 78px;
-      }
-
-      .main-avatar-fallback {
-        font-size: 25px;
+        width: 70px;
+        height: 70px;
       }
 
       .player-name {
-        font-size: 27px;
+        font-size: 28px;
       }
 
       .player-handle {
-        margin-top: 6px;
-        font-size: 8px;
+        margin-top: 5px;
+        font-size: 9px;
       }
 
       .profile-bio {
         margin-top: 9px;
-        font-size: 8px;
+        font-size: 9px;
       }
 
       .joined-short {
-        margin-top: 8px;
         font-size: 7px;
       }
 
       .profile-actions {
-        margin-top: 4px;
+        gap: 6px;
       }
 
       .profile-action {
-        min-height: 34px;
+        height: 34px;
         min-width: 0;
+        padding: 0 10px;
+        font-size: 8px;
       }
 
       .social-stats {
         margin-top: 22px;
-        gap: 17px;
-        min-height: 49px;
-        flex-wrap: wrap;
-      }
-
-      .profile-tabs {
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .profile-tabs::-webkit-scrollbar {
-        display: none;
-      }
-
-      .profile-tab {
-        flex: 0 0 auto;
         min-height: 52px;
       }
 
-      .tab-content {
-        padding-top: 22px;
+      .social-stat {
+        min-width: 0;
+        flex: 1;
+        padding-right: 10px;
+        gap: 5px;
       }
 
-      .profile-grid {
-        gap: 26px;
+      .social-stat + .social-stat {
+        padding-left: 10px;
+      }
+
+      .social-stat strong {
+        font-size: 11px;
+      }
+
+      .social-stat span {
+        font-size: 6px;
+      }
+
+      .profile-tabs {
+        min-height: 52px;
+        gap: 20px;
+      }
+
+      .profile-tab {
+        height: 52px;
+        font-size: 8px;
+        white-space: nowrap;
+      }
+
+      .tab-content {
+        padding-top: 15px;
+      }
+
+      .profile-panel {
+        padding: 20px 0;
+      }
+
+      .login-modal {
+        padding: 24px 21px;
+      }
+
+      .login-modal-title {
+        font-size: 22px;
+      }
+
+      .followers-modal {
+        width: 100%;
+      }
+
+      .followers-list {
+        max-height: 55vh;
       }
 
       footer {
         min-height: 54px;
         padding: 15px 20px;
+        align-items: center;
       }
 
       .footer-left,
@@ -1761,35 +1562,6 @@
         flex-wrap: wrap;
         justify-content: flex-end;
       }
-
-      .login-modal,
-      .connections-modal {
-        padding: 24px 21px;
-      }
-
-      .login-modal-title,
-      .connections-title {
-        font-size: 22px;
-      }
-
-      .connections-modal {
-        max-height: calc(100vh - 36px);
-      }
-
-      .connection-item {
-        min-height: 62px;
-      }
-
-      .connection-avatar {
-        width: 36px;
-        height: 36px;
-        flex-basis: 36px;
-      }
-
-      .connection-action {
-        min-width: 70px;
-        height: 30px;
-      }
     }
   </style>
 </head>
@@ -1797,7 +1569,7 @@
 <body class="theme-blue">
 
   <script>
-    (() => {
+    (function () {
       try {
         const authenticated =
           localStorage.getItem("rsf-authenticated") === "true";
@@ -1988,27 +1760,11 @@
       </div>
 
       <ul class="login-points">
-
-        <li>
-          Logging in is completely optional.
-        </li>
-
-        <li>
-          Log in to access all features available across the RSF website.
-        </li>
-
-        <li>
-          Your Discord account is only used to authenticate your RSF account.
-        </li>
-
-        <li>
-          We only use the information required to provide your account and website features.
-        </li>
-
-        <li>
-          You can continue using publicly available parts of the website without logging in.
-        </li>
-
+        <li>Logging in is completely optional.</li>
+        <li>Log in to access all features available across the RSF website.</li>
+        <li>Your Discord account is only used to authenticate your RSF account.</li>
+        <li>We only use the information required to provide your account and website features.</li>
+        <li>You can continue using publicly available parts of the website without logging in.</li>
       </ul>
 
       <button
@@ -2027,39 +1783,39 @@
   </div>
 
   <div
-    class="connections-overlay"
-    id="connections-overlay"
+    class="login-overlay"
+    id="follow-overlay"
     aria-hidden="true"
   >
     <div
-      class="connections-modal"
+      class="login-modal followers-modal"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="connections-title"
+      aria-labelledby="follow-modal-title"
     >
 
-      <div class="connections-header">
+      <div class="login-modal-header">
 
         <div>
           <h2
-            class="connections-title"
-            id="connections-title"
+            class="login-modal-title"
+            id="follow-modal-title"
           >
             Followers
           </h2>
 
           <p
-            class="connections-subtitle"
-            id="connections-subtitle"
+            class="login-modal-subtitle"
+            id="follow-modal-subtitle"
           >
-            People following this player.
+            People connected to this profile.
           </p>
         </div>
 
         <button
           type="button"
           class="login-close"
-          id="connections-close"
+          id="follow-close"
           aria-label="Close"
         >
           ×
@@ -2067,13 +1823,11 @@
 
       </div>
 
-      <div
-        class="connections-list"
-        id="connections-list"
-      >
-        <div class="connections-loading">
-          Loading...
-        </div>
+      <div class="followers-modal-body">
+        <div
+          class="followers-list"
+          id="followers-list"
+        ></div>
       </div>
 
     </div>
@@ -2092,7 +1846,6 @@
             <div class="profile-main-row">
 
               <div class="main-avatar">
-
                 <img
                   id="main-avatar-image"
                   src=""
@@ -2106,7 +1859,6 @@
                 >
                   ?
                 </div>
-
               </div>
 
               <div class="profile-main-info">
@@ -2178,23 +1930,25 @@
 
             <div class="social-stats">
 
-              <button
-                class="social-stat social-stat-button"
+              <div
+                class="social-stat clickable"
                 id="followers-stat"
-                type="button"
+                role="button"
+                tabindex="0"
               >
                 <strong id="followers-count">0</strong>
                 <span>FOLLOWERS</span>
-              </button>
+              </div>
 
-              <button
-                class="social-stat social-stat-button"
+              <div
+                class="social-stat clickable"
                 id="following-stat"
-                type="button"
+                role="button"
+                tabindex="0"
               >
                 <strong id="following-count">0</strong>
                 <span>FOLLOWING</span>
-              </button>
+              </div>
 
               <div class="social-stat">
                 <strong id="profile-views-count">—</strong>
@@ -2216,40 +1970,40 @@
 
         <button
           class="profile-tab active"
-          type="button"
           data-tab="overview"
+          type="button"
         >
           OVERVIEW
         </button>
 
         <button
           class="profile-tab"
-          type="button"
           data-tab="career"
+          type="button"
         >
           CAREER
         </button>
 
         <button
           class="profile-tab"
-          type="button"
           data-tab="teams"
+          type="button"
         >
           TEAMS
         </button>
 
         <button
           class="profile-tab"
-          type="button"
           data-tab="activity"
+          type="button"
         >
           ACTIVITY
         </button>
 
         <button
           class="profile-tab"
-          type="button"
           data-tab="about"
+          type="button"
         >
           ABOUT
         </button>
@@ -2264,7 +2018,6 @@
         <div class="profile-grid">
 
           <div class="profile-panel">
-
             <div class="panel-label">
               ABOUT
             </div>
@@ -2275,21 +2028,19 @@
             >
               No bio yet
             </p>
-
           </div>
 
           <div class="profile-panel">
-
             <div class="panel-label">
               CONNECTIONS
             </div>
 
             <div class="stat-grid">
 
-              <button
-                class="clickable-stat"
-                id="about-followers-stat"
-                type="button"
+              <div
+                class="stat-box clickable-stat"
+                id="overview-followers-stat"
+                style="cursor:pointer;"
               >
                 <div
                   class="stat-value"
@@ -2301,12 +2052,12 @@
                 <div class="stat-name">
                   FOLLOWERS
                 </div>
-              </button>
+              </div>
 
-              <button
-                class="clickable-stat"
-                id="about-following-stat"
-                type="button"
+              <div
+                class="stat-box clickable-stat"
+                id="overview-following-stat"
+                style="cursor:pointer;"
               >
                 <div
                   class="stat-value"
@@ -2318,10 +2069,9 @@
                 <div class="stat-name">
                   FOLLOWING
                 </div>
-              </button>
+              </div>
 
             </div>
-
           </div>
 
           <div class="profile-panel">
@@ -2510,6 +2260,21 @@
               <div class="profile-list-row">
 
                 <span class="profile-list-name">
+                  DISCORD
+                </span>
+
+                <span
+                  class="profile-list-value"
+                  id="about-discord"
+                >
+                  —
+                </span>
+
+              </div>
+
+              <div class="profile-list-row">
+
+                <span class="profile-list-name">
                   MEMBER SINCE
                 </span>
 
@@ -2549,10 +2314,10 @@
 
             <div class="stat-grid">
 
-              <button
-                class="clickable-stat"
-                id="about-followers-stat-2"
-                type="button"
+              <div
+                class="stat-box clickable-stat"
+                id="about-followers-stat"
+                style="cursor:pointer;"
               >
 
                 <div
@@ -2566,12 +2331,12 @@
                   FOLLOWERS
                 </div>
 
-              </button>
+              </div>
 
-              <button
-                class="clickable-stat"
-                id="about-following-stat-2"
-                type="button"
+              <div
+                class="stat-box clickable-stat"
+                id="about-following-stat"
+                style="cursor:pointer;"
               >
 
                 <div
@@ -2585,7 +2350,7 @@
                   FOLLOWING
                 </div>
 
-              </button>
+              </div>
 
             </div>
 
@@ -2620,1346 +2385,6 @@
   </footer>
 
   <script>
-    const loginButton =
-      document.getElementById("login-button");
-
-    const loginOverlay =
-      document.getElementById("login-overlay");
-
-    const loginClose =
-      document.getElementById("login-close");
-
-    const loginProceed =
-      document.getElementById("login-proceed");
-
-    function openLoginModal() {
-      loginOverlay.classList.add("open");
-      loginOverlay.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeLoginModal() {
-      loginOverlay.classList.remove("open");
-      loginOverlay.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-      document.body.style.overflow = "";
-    }
-
-    loginButton.addEventListener(
-      "click",
-      openLoginModal
-    );
-
-    loginClose.addEventListener(
-      "click",
-      closeLoginModal
-    );
-
-    loginOverlay.addEventListener(
-      "click",
-      event => {
-        if (event.target === loginOverlay) {
-          closeLoginModal();
-        }
-      }
-    );
-
-    loginProceed.addEventListener(
-      "click",
-      () => {
-        window.location.href = "/api/login";
-      }
-    );
-
-    document.addEventListener(
-      "keydown",
-      event => {
-        if (
-          event.key === "Escape" &&
-          loginOverlay.classList.contains("open")
-        ) {
-          closeLoginModal();
-        }
-      }
-    );
-  </script>
-
-  <script>
-    (() => {
-      const profileTabs =
-        document.querySelectorAll(".profile-tab");
-
-      const tabContents =
-        document.querySelectorAll(".tab-content");
-
-      profileTabs.forEach(tab => {
-        tab.addEventListener(
-          "click",
-          () => {
-            const target =
-              tab.dataset.tab;
-
-            profileTabs.forEach(item => {
-              item.classList.toggle(
-                "active",
-                item === tab
-              );
-            });
-
-            tabContents.forEach(content => {
-              content.classList.toggle(
-                "active",
-                content.id === `${target}-tab`
-              );
-            });
-          }
-        );
-      });
-    })();
-  </script>
-
-  <script>
-    (() => {
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
-
-      let requestedUsername = (
-        params.get("username") ||
-        params.get("player") ||
-        params.get("roblox_username") ||
-        ""
-      ).trim();
-
-      if (!requestedUsername) {
-        const pathParts =
-          window.location.pathname
-            .split("/")
-            .filter(Boolean);
-
-        const profileIndex =
-          pathParts.findIndex(
-            part =>
-              part.toLowerCase() ===
-              "profile"
-          );
-
-        if (
-          profileIndex !== -1 &&
-          pathParts[profileIndex + 1]
-        ) {
-          requestedUsername =
-            decodeURIComponent(
-              pathParts[
-                profileIndex + 1
-              ]
-            ).trim();
-        }
-      }
-
-      const playerName =
-        document.getElementById(
-          "player-name"
-        );
-
-      const playerHandle =
-        document.getElementById(
-          "player-handle"
-        );
-
-      const profileBio =
-        document.getElementById(
-          "profile-bio"
-        );
-
-      const overviewBio =
-        document.getElementById(
-          "overview-bio"
-        );
-
-      const joinedShort =
-        document.getElementById(
-          "joined-short"
-        );
-
-      const mainAvatarImage =
-        document.getElementById(
-          "main-avatar-image"
-        );
-
-      const mainAvatarFallback =
-        document.getElementById(
-          "main-avatar-fallback"
-        );
-
-      const followersCount =
-        document.getElementById(
-          "followers-count"
-        );
-
-      const followingCount =
-        document.getElementById(
-          "following-count"
-        );
-
-      const aboutFollowersCount =
-        document.getElementById(
-          "about-followers-count"
-        );
-
-      const aboutFollowingCount =
-        document.getElementById(
-          "about-following-count"
-        );
-
-      const aboutFollowersCount2 =
-        document.getElementById(
-          "about-followers-count-2"
-        );
-
-      const aboutFollowingCount2 =
-        document.getElementById(
-          "about-following-count-2"
-        );
-
-      const followButton =
-        document.getElementById(
-          "follow-button"
-        );
-
-      const messageButton =
-        document.getElementById(
-          "message-button"
-        );
-
-      const editButton =
-        document.getElementById(
-          "edit-profile-button"
-        );
-
-      const aboutRoblox =
-        document.getElementById(
-          "about-roblox"
-        );
-
-      const aboutJoined =
-        document.getElementById(
-          "about-joined"
-        );
-
-      const aboutUpdated =
-        document.getElementById(
-          "about-updated"
-        );
-
-      const followersStat =
-        document.getElementById(
-          "followers-stat"
-        );
-
-      const followingStat =
-        document.getElementById(
-          "following-stat"
-        );
-
-      const aboutFollowersStat =
-        document.getElementById(
-          "about-followers-stat"
-        );
-
-      const aboutFollowingStat =
-        document.getElementById(
-          "about-following-stat"
-        );
-
-      const aboutFollowersStat2 =
-        document.getElementById(
-          "about-followers-stat-2"
-        );
-
-      const aboutFollowingStat2 =
-        document.getElementById(
-          "about-following-stat-2"
-        );
-
-      const connectionsOverlay =
-        document.getElementById(
-          "connections-overlay"
-        );
-
-      const connectionsClose =
-        document.getElementById(
-          "connections-close"
-        );
-
-      const connectionsTitle =
-        document.getElementById(
-          "connections-title"
-        );
-
-      const connectionsSubtitle =
-        document.getElementById(
-          "connections-subtitle"
-        );
-
-      const connectionsList =
-        document.getElementById(
-          "connections-list"
-        );
-
-      let currentPlayer = null;
-      let followRequestInProgress = false;
-      let connectionsLoading = false;
-      let connectionsType = "followers";
-
-      function formatDate(value) {
-        if (!value) {
-          return "—";
-        }
-
-        const date =
-          new Date(value);
-
-        if (
-          Number.isNaN(
-            date.getTime()
-          )
-        ) {
-          return "—";
-        }
-
-        return date.toLocaleDateString(
-          "en-GB",
-          {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-          }
-        );
-      }
-
-      function setText(
-        element,
-        value,
-        fallback = "—"
-      ) {
-        if (!element) {
-          return;
-        }
-
-        element.textContent =
-          value ||
-          fallback;
-      }
-
-      async function loadRobloxAvatar(
-        username
-      ) {
-        if (!username) {
-          return;
-        }
-
-        try {
-          const userResponse =
-            await fetch(
-              "https://users.roblox.com/v1/usernames/users",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-                body:
-                  JSON.stringify({
-                    usernames: [username],
-                    excludeBannedUsers: false
-                  })
-              }
-            );
-
-          if (!userResponse.ok) {
-            return;
-          }
-
-          const userData =
-            await userResponse.json();
-
-          const user =
-            userData?.data?.[0];
-
-          if (!user?.id) {
-            return;
-          }
-
-          const avatarResponse =
-            await fetch(
-              `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
-                user.id
-              )}&size=420x420&format=Png&isCircular=false`
-            );
-
-          if (!avatarResponse.ok) {
-            return;
-          }
-
-          const avatarData =
-            await avatarResponse.json();
-
-          const imageUrl =
-            avatarData?.data?.[0]?.imageUrl;
-
-          if (!imageUrl) {
-            return;
-          }
-
-          mainAvatarImage.src =
-            imageUrl;
-
-          mainAvatarImage.style.display =
-            "block";
-
-          mainAvatarFallback.style.display =
-            "none";
-        } catch (error) {
-          console.error(
-            "Roblox avatar failed:",
-            error
-          );
-        }
-      }
-
-      function updateFallback(
-        username
-      ) {
-        const value =
-          String(
-            username || "?"
-          ).trim();
-
-        mainAvatarFallback.textContent =
-          value.charAt(0).toUpperCase() ||
-          "?";
-      }
-
-      function updateProfileActions(
-        isSelf
-      ) {
-        if (isSelf) {
-          messageButton.style.display =
-            "none";
-
-          followButton.style.display =
-            "none";
-
-          editButton.style.display =
-            "inline-flex";
-
-          return;
-        }
-
-        messageButton.style.display =
-          "inline-flex";
-
-        followButton.style.display =
-          "inline-flex";
-
-        editButton.style.display =
-          "none";
-      }
-
-      function updateFollowButton(
-        isFollowing
-      ) {
-        followButton.classList.toggle(
-          "following",
-          isFollowing
-        );
-
-        followButton.textContent =
-          isFollowing
-            ? "FOLLOWING"
-            : "FOLLOW";
-      }
-
-      function updateFollowCounts(
-        data
-      ) {
-        const followers =
-          Number(
-            data.followersCount ??
-            data.followers ??
-            0
-          ) || 0;
-
-        const following =
-          Number(
-            data.followingCount ??
-            data.following ??
-            0
-          ) || 0;
-
-        followersCount.textContent =
-          followers.toLocaleString();
-
-        followingCount.textContent =
-          following.toLocaleString();
-
-        aboutFollowersCount.textContent =
-          followers.toLocaleString();
-
-        aboutFollowingCount.textContent =
-          following.toLocaleString();
-
-        aboutFollowersCount2.textContent =
-          followers.toLocaleString();
-
-        aboutFollowingCount2.textContent =
-          following.toLocaleString();
-      }
-
-      async function loadFollowData(
-        playerId
-      ) {
-        try {
-          const response =
-            await fetch(
-              `/api/follow?playerId=${encodeURIComponent(
-                playerId
-              )}`,
-              {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-              }
-            );
-
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Unable to load follow data."
-            );
-          }
-
-          updateFollowCounts(data);
-          updateFollowButton(
-            data.isFollowing === true
-          );
-
-          updateProfileActions(
-            data.isSelf === true
-          );
-        } catch (error) {
-          console.error(
-            "Follow data failed:",
-            error
-          );
-        }
-      }
-
-      function showLogin() {
-        loginOverlay.classList.add(
-          "open"
-        );
-
-        loginOverlay.setAttribute(
-          "aria-hidden",
-          "false"
-        );
-
-        document.body.style.overflow =
-          "hidden";
-      }
-
-      async function toggleFollow() {
-        if (
-          !currentPlayer ||
-          !currentPlayer.id ||
-          followRequestInProgress
-        ) {
-          return;
-        }
-
-        if (
-          typeof window.isRSFAuthenticated ===
-            "function" &&
-          !window.isRSFAuthenticated()
-        ) {
-          showLogin();
-          return;
-        }
-
-        const currentlyFollowing =
-          followButton.classList.contains(
-            "following"
-          );
-
-        const nextFollowing =
-          !currentlyFollowing;
-
-        followRequestInProgress =
-          true;
-
-        followButton.disabled =
-          true;
-
-        updateFollowButton(
-          nextFollowing
-        );
-
-        try {
-          const response =
-            await fetch(
-              "/api/follow",
-              {
-                method:
-                  nextFollowing
-                    ? "POST"
-                    : "DELETE",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                credentials:
-                  "include",
-
-                body:
-                  JSON.stringify({
-                    playerId:
-                      currentPlayer.id
-                  })
-              }
-            );
-
-          let data = {};
-
-          try {
-            data =
-              await response.json();
-          } catch (error) {}
-
-          if (!response.ok) {
-            updateFollowButton(
-              currentlyFollowing
-            );
-
-            if (
-              response.status === 401 ||
-              response.status === 403
-            ) {
-              showLogin();
-            }
-
-            throw new Error(
-              data.error ||
-              "Unable to update follow."
-            );
-          }
-
-          updateFollowCounts(
-            data
-          );
-
-        } catch (error) {
-          console.error(
-            "Follow failed:",
-            error
-          );
-        } finally {
-          followRequestInProgress =
-            false;
-
-          followButton.disabled =
-            false;
-        }
-      }
-
-      function escapeHtml(
-        value
-      ) {
-        return String(
-          value || ""
-        )
-          .replaceAll(
-            "&",
-            "&amp;"
-          )
-          .replaceAll(
-            "<",
-            "&lt;"
-          )
-          .replaceAll(
-            ">",
-            "&gt;"
-          )
-          .replaceAll(
-            '"',
-            "&quot;"
-          )
-          .replaceAll(
-            "'",
-            "&#039;"
-          );
-      }
-
-      function openConnections(
-        type
-      ) {
-        if (
-          !currentPlayer ||
-          !currentPlayer.id
-        ) {
-          return;
-        }
-
-        connectionsType =
-          type;
-
-        connectionsTitle.textContent =
-          type === "followers"
-            ? "Followers"
-            : "Following";
-
-        connectionsSubtitle.textContent =
-          type === "followers"
-            ? "People following this player."
-            : "People this player follows.";
-
-        connectionsOverlay.classList.add(
-          "open"
-        );
-
-        connectionsOverlay.setAttribute(
-          "aria-hidden",
-          "false"
-        );
-
-        document.body.style.overflow =
-          "hidden";
-
-        loadConnections();
-      }
-
-      function closeConnections() {
-        connectionsOverlay.classList.remove(
-          "open"
-        );
-
-        connectionsOverlay.setAttribute(
-          "aria-hidden",
-          "true"
-        );
-
-        document.body.style.overflow =
-          "";
-      }
-
-      async function loadConnections() {
-        if (
-          !currentPlayer ||
-          !currentPlayer.id ||
-          connectionsLoading
-        ) {
-          return;
-        }
-
-        connectionsLoading =
-          true;
-
-        connectionsList.innerHTML = `
-          <div class="connections-loading">
-            Loading...
-          </div>
-        `;
-
-        try {
-          const response =
-            await fetch(
-              `/api/follow-list?playerId=${encodeURIComponent(
-                currentPlayer.id
-              )}&type=${encodeURIComponent(
-                connectionsType
-              )}`,
-              {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-              }
-            );
-
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Unable to load connections."
-            );
-          }
-
-          renderConnections(
-            data.users || [],
-            data.isSelf === true
-          );
-
-        } catch (error) {
-          console.error(
-            "Connections failed:",
-            error
-          );
-
-          connectionsList.innerHTML = `
-            <div class="connections-error">
-              Unable to load this list.
-            </div>
-          `;
-        } finally {
-          connectionsLoading =
-            false;
-        }
-      }
-
-      function renderConnections(
-        users,
-        isSelf
-      ) {
-        if (!users.length) {
-          connectionsList.innerHTML = `
-            <div class="connections-empty">
-              ${
-                connectionsType === "followers"
-                  ? "No followers yet."
-                  : "Not following anyone yet."
-              }
-            </div>
-          `;
-
-          return;
-        }
-
-        connectionsList.innerHTML =
-          users.map(user => {
-
-            const username =
-              user.roblox_username ||
-              user.discord_username ||
-              "Unknown player";
-
-            const initial =
-              username
-                .charAt(0)
-                .toUpperCase();
-
-            const profileUrl =
-              `/profile?username=${encodeURIComponent(
-                username
-              )}`;
-
-            let action = "";
-
-            if (isSelf) {
-              action = `
-                <button
-                  class="connection-action ${
-                    connectionsType === "followers"
-                      ? "remove"
-                      : ""
-                  }"
-                  type="button"
-                  data-action="${
-                    connectionsType === "followers"
-                      ? "remove"
-                      : "unfollow"
-                  }"
-                  data-player-id="${escapeHtml(
-                    user.player_id
-                  )}"
-                >
-                  ${
-                    connectionsType === "followers"
-                      ? "REMOVE"
-                      : "UNFOLLOW"
-                  }
-                </button>
-              `;
-            }
-
-            return `
-              <div
-                class="connection-item"
-                data-player-id="${escapeHtml(
-                  user.player_id
-                )}"
-              >
-
-                <a
-                  class="connection-link"
-                  href="${profileUrl}"
-                >
-
-                  <div class="connection-avatar">
-                    <span>${escapeHtml(initial)}</span>
-                  </div>
-
-                  <div class="connection-info">
-
-                    <span class="connection-name">
-                      ${escapeHtml(username)}
-                    </span>
-
-                    <span class="connection-handle">
-                      @${escapeHtml(username)}
-                    </span>
-
-                  </div>
-
-                </a>
-
-                ${action}
-
-              </div>
-            `;
-          }).join("");
-
-        loadConnectionAvatars(
-          users
-        );
-      }
-
-      async function loadConnectionAvatars(
-        users
-      ) {
-        for (
-          const user of users
-        ) {
-          if (
-            !user.roblox_username
-          ) {
-            continue;
-          }
-
-          const item =
-            connectionsList.querySelector(
-              `[data-player-id="${CSS.escape(
-                String(
-                  user.player_id
-                )
-              )}"]`
-            );
-
-          if (!item) {
-            continue;
-          }
-
-          try {
-            const userResponse =
-              await fetch(
-                "https://users.roblox.com/v1/usernames/users",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type":
-                      "application/json"
-                  },
-                  body:
-                    JSON.stringify({
-                      usernames: [
-                        user.roblox_username
-                      ],
-                      excludeBannedUsers:
-                        false
-                    })
-                }
-              );
-
-            if (!userResponse.ok) {
-              continue;
-            }
-
-            const userData =
-              await userResponse.json();
-
-            const robloxUser =
-              userData?.data?.[0];
-
-            if (!robloxUser?.id) {
-              continue;
-            }
-
-            const avatarResponse =
-              await fetch(
-                `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
-                  robloxUser.id
-                )}&size=150x150&format=Png&isCircular=false`
-              );
-
-            if (!avatarResponse.ok) {
-              continue;
-            }
-
-            const avatarData =
-              await avatarResponse.json();
-
-            const imageUrl =
-              avatarData?.data?.[0]?.imageUrl;
-
-            if (!imageUrl) {
-              continue;
-            }
-
-            const avatar =
-              item.querySelector(
-                ".connection-avatar"
-              );
-
-            if (avatar) {
-              avatar.innerHTML = `
-                <img
-                  src="${imageUrl}"
-                  alt=""
-                >
-              `;
-            }
-
-          } catch (error) {}
-        }
-      }
-
-      async function manageConnection(
-        playerId,
-        action,
-        button
-      ) {
-        if (
-          !currentPlayer ||
-          !currentPlayer.id ||
-          !playerId ||
-          button.disabled
-        ) {
-          return;
-        }
-
-        button.disabled =
-          true;
-
-        button.textContent =
-          action === "remove"
-            ? "REMOVING"
-            : "UNFOLLOWING";
-
-        try {
-          const response =
-            await fetch(
-              "/api/follow-list",
-              {
-                method: "DELETE",
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-                credentials: "include",
-                body:
-                  JSON.stringify({
-                    playerId:
-                      currentPlayer.id,
-                    otherPlayerId:
-                      playerId,
-                    action
-                  })
-              }
-            );
-
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Unable to update connection."
-            );
-          }
-
-          updateFollowCounts(
-            data
-          );
-
-          await loadConnections();
-
-        } catch (error) {
-          console.error(
-            "Connection update failed:",
-            error
-          );
-
-          button.disabled =
-            false;
-
-          button.textContent =
-            action === "remove"
-              ? "REMOVE"
-              : "UNFOLLOW";
-        }
-      }
-
-      followButton.addEventListener(
-        "click",
-        toggleFollow
-      );
-
-      messageButton.addEventListener(
-        "click",
-        () => {
-          if (
-            currentPlayer &&
-            currentPlayer.discord_id
-          ) {
-            return;
-          }
-        }
-      );
-
-      editButton.addEventListener(
-        "click",
-        () => {
-          window.location.href =
-            "/settings";
-        }
-      );
-
-      followersStat.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "followers"
-          );
-        }
-      );
-
-      followingStat.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "following"
-          );
-        }
-      );
-
-      aboutFollowersStat.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "followers"
-          );
-        }
-      );
-
-      aboutFollowingStat.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "following"
-          );
-        }
-      );
-
-      aboutFollowersStat2.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "followers"
-          );
-        }
-      );
-
-      aboutFollowingStat2.addEventListener(
-        "click",
-        () => {
-          openConnections(
-            "following"
-          );
-        }
-      );
-
-      connectionsClose.addEventListener(
-        "click",
-        closeConnections
-      );
-
-      connectionsOverlay.addEventListener(
-        "click",
-        event => {
-          if (
-            event.target ===
-            connectionsOverlay
-          ) {
-            closeConnections();
-          }
-        }
-      );
-
-      connectionsList.addEventListener(
-        "click",
-        event => {
-          const button =
-            event.target.closest(
-              "[data-action]"
-            );
-
-          if (!button) {
-            return;
-          }
-
-          event.preventDefault();
-          event.stopPropagation();
-
-          manageConnection(
-            button.dataset.playerId,
-            button.dataset.action,
-            button
-          );
-        }
-      );
-
-      document.addEventListener(
-        "keydown",
-        event => {
-          if (
-            event.key === "Escape" &&
-            connectionsOverlay.classList.contains(
-              "open"
-            )
-          ) {
-            closeConnections();
-          }
-        }
-      );
-
-      async function loadProfile() {
-        if (!requestedUsername) {
-          playerName.textContent =
-            "Profile";
-
-          profileBio.textContent =
-            "No player was specified.";
-
-          overviewBio.textContent =
-            "No player was specified.";
-
-          return;
-        }
-
-        try {
-          const response =
-            await fetch(
-              `/api/profile?username=${encodeURIComponent(
-                requestedUsername
-              )}`,
-              {
-                method: "GET",
-                credentials: "include",
-                cache: "no-store"
-              }
-            );
-
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Unable to load this profile."
-            );
-          }
-
-          currentPlayer =
-            data.player;
-
-          const username =
-            currentPlayer.roblox_username ||
-            requestedUsername;
-
-          playerName.textContent =
-            username;
-
-          playerHandle.textContent =
-            `@${username}`;
-
-          const biography =
-            currentPlayer.bio ||
-            "No bio yet";
-
-          profileBio.textContent =
-            biography;
-
-          overviewBio.textContent =
-            biography;
-
-          joinedShort.textContent =
-            `Joined RSF ${formatDate(
-              currentPlayer.joined_at
-            )}`;
-
-          aboutRoblox.textContent =
-            currentPlayer.roblox_username ||
-            "—";
-
-          aboutJoined.textContent =
-            formatDate(
-              currentPlayer.joined_at
-            );
-
-          aboutUpdated.textContent =
-            formatDate(
-              currentPlayer.updated_at
-            );
-
-          updateFallback(
-            username
-          );
-
-          await loadRobloxAvatar(
-            username
-          );
-
-          await loadFollowData(
-            currentPlayer.id
-          );
-
-        } catch (error) {
-          console.error(
-            "Profile load failed:",
-            error
-          );
-
-          playerName.textContent =
-            "Profile unavailable";
-
-          profileBio.textContent =
-            error.message ||
-            "Unable to load this profile.";
-
-          overviewBio.textContent =
-            error.message ||
-            "Unable to load this profile.";
-        }
-      }
-
-      loadProfile();
-
-    })();
-  </script>
-
-  <script>
     const RSF_VALID_THEMES = [
       "dark",
       "light",
@@ -3972,10 +2397,11 @@
       theme,
       save = true
     ) {
-      const validTheme =
-        RSF_VALID_THEMES.includes(theme)
-          ? theme
-          : "blue";
+      if (
+        !RSF_VALID_THEMES.includes(theme)
+      ) {
+        theme = "blue";
+      }
 
       document.body.classList.remove(
         "theme-dark",
@@ -3986,14 +2412,14 @@
       );
 
       document.body.classList.add(
-        `theme-${validTheme}`
+        `theme-${theme}`
       );
 
       if (save) {
         try {
           localStorage.setItem(
             "rsf-theme",
-            validTheme
+            theme
           );
         } catch (error) {}
       }
@@ -4001,18 +2427,17 @@
 
     async function rsfSyncTheme() {
       try {
-        const response =
+        const meResponse =
           await fetch(
             "/api/me",
             {
+              method: "GET",
               credentials: "include",
               cache: "no-store"
             }
           );
 
-        if (
-          !response.ok
-        ) {
+        if (!meResponse.ok) {
           localStorage.removeItem(
             "rsf-authenticated"
           );
@@ -4025,10 +2450,13 @@
           return;
         }
 
-        const me =
-          await response.json();
+        const meData =
+          await meResponse.json();
 
-        if (!me?.authenticated) {
+        if (
+          !meData.authenticated ||
+          !meData.verified
+        ) {
           localStorage.removeItem(
             "rsf-authenticated"
           );
@@ -4046,38 +2474,33 @@
           "true"
         );
 
-        const preferenceResponse =
+        const response =
           await fetch(
             "/api/preferences",
             {
+              method: "GET",
               credentials: "include",
               cache: "no-store"
             }
           );
 
-        if (
-          !preferenceResponse.ok
-        ) {
+        if (!response.ok) {
           return;
         }
 
-        const preferences =
-          await preferenceResponse.json();
-
-        const theme =
-          preferences?.theme;
+        const data =
+          await response.json();
 
         if (
+          data &&
           RSF_VALID_THEMES.includes(
-            theme
+            data.theme
           )
         ) {
           rsfApplyTheme(
-            theme,
-            true
+            data.theme
           );
         }
-
       } catch (error) {}
     }
 
@@ -4089,6 +2512,9 @@
           "rsf-theme"
         ) {
           if (
+            localStorage.getItem(
+              "rsf-authenticated"
+            ) === "true" &&
             RSF_VALID_THEMES.includes(
               event.newValue
             )
@@ -4098,18 +2524,1720 @@
               false
             );
           }
+
+          return;
         }
 
         if (
           event.key ===
-          "rsf-authenticated"
+            "rsf-authenticated" &&
+          event.newValue !== "true"
         ) {
-          rsfSyncTheme();
+          rsfApplyTheme(
+            "blue",
+            false
+          );
         }
       }
     );
 
     rsfSyncTheme();
+  </script>
+
+  <script>
+    const loginButton =
+      document.getElementById(
+        "login-button"
+      );
+
+    const loginOverlay =
+      document.getElementById(
+        "login-overlay"
+      );
+
+    const loginClose =
+      document.getElementById(
+        "login-close"
+      );
+
+    const loginProceed =
+      document.getElementById(
+        "login-proceed"
+      );
+
+    function openLoginModal() {
+      loginOverlay.classList.add(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+    }
+
+    function closeLoginModal() {
+      loginOverlay.classList.remove(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
+    }
+
+    loginButton.addEventListener(
+      "click",
+      openLoginModal
+    );
+
+    loginClose.addEventListener(
+      "click",
+      closeLoginModal
+    );
+
+    loginOverlay.addEventListener(
+      "click",
+      event => {
+        if (
+          event.target ===
+          loginOverlay
+        ) {
+          closeLoginModal();
+        }
+      }
+    );
+
+    loginProceed.addEventListener(
+      "click",
+      () => {
+        window.location.href =
+          "/api/login";
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Escape" &&
+          loginOverlay.classList.contains(
+            "open"
+          )
+        ) {
+          closeLoginModal();
+        }
+      }
+    );
+  </script>
+
+  <script>
+    const profileTabs =
+      document.querySelectorAll(
+        ".profile-tab"
+      );
+
+    const tabContents =
+      document.querySelectorAll(
+        ".tab-content"
+      );
+
+    profileTabs.forEach(
+      tab => {
+        tab.addEventListener(
+          "click",
+          () => {
+            const target =
+              tab.dataset.tab;
+
+            profileTabs.forEach(
+              item => {
+                item.classList.toggle(
+                  "active",
+                  item === tab
+                );
+              }
+            );
+
+            tabContents.forEach(
+              content => {
+                content.classList.toggle(
+                  "active",
+                  content.id ===
+                    `${target}-tab`
+                );
+              }
+            );
+          }
+        );
+      }
+    );
+  </script>
+
+  <script>
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    let requestedUsername = (
+      params.get("username") ||
+      params.get("player") ||
+      params.get("roblox_username") ||
+      ""
+    ).trim();
+
+    if (!requestedUsername) {
+      const pathParts =
+        window.location.pathname
+          .split("/")
+          .filter(Boolean);
+
+      const profileIndex =
+        pathParts.findIndex(
+          part =>
+            part.toLowerCase() ===
+            "profile"
+        );
+
+      if (
+        profileIndex !== -1 &&
+        pathParts[profileIndex + 1]
+      ) {
+        requestedUsername =
+          decodeURIComponent(
+            pathParts[
+              profileIndex + 1
+            ]
+          ).trim();
+      }
+    }
+
+    const playerName =
+      document.getElementById(
+        "player-name"
+      );
+
+    const playerHandle =
+      document.getElementById(
+        "player-handle"
+      );
+
+    const profileBio =
+      document.getElementById(
+        "profile-bio"
+      );
+
+    const overviewBio =
+      document.getElementById(
+        "overview-bio"
+      );
+
+    const joinedShort =
+      document.getElementById(
+        "joined-short"
+      );
+
+    const mainAvatarImage =
+      document.getElementById(
+        "main-avatar-image"
+      );
+
+    const mainAvatarFallback =
+      document.getElementById(
+        "main-avatar-fallback"
+      );
+
+    const followersCount =
+      document.getElementById(
+        "followers-count"
+      );
+
+    const followingCount =
+      document.getElementById(
+        "following-count"
+      );
+
+    const aboutFollowersCount =
+      document.getElementById(
+        "about-followers-count"
+      );
+
+    const aboutFollowingCount =
+      document.getElementById(
+        "about-following-count"
+      );
+
+    const aboutFollowersCount2 =
+      document.getElementById(
+        "about-followers-count-2"
+      );
+
+    const aboutFollowingCount2 =
+      document.getElementById(
+        "about-following-count-2"
+      );
+
+    const followButton =
+      document.getElementById(
+        "follow-button"
+      );
+
+    const messageButton =
+      document.getElementById(
+        "message-button"
+      );
+
+    const editButton =
+      document.getElementById(
+        "edit-profile-button"
+      );
+
+    const followersStat =
+      document.getElementById(
+        "followers-stat"
+      );
+
+    const followingStat =
+      document.getElementById(
+        "following-stat"
+      );
+
+    const overviewFollowersStat =
+      document.getElementById(
+        "overview-followers-stat"
+      );
+
+    const overviewFollowingStat =
+      document.getElementById(
+        "overview-following-stat"
+      );
+
+    const aboutFollowersStat =
+      document.getElementById(
+        "about-followers-stat"
+      );
+
+    const aboutFollowingStat =
+      document.getElementById(
+        "about-following-stat"
+      );
+
+    const followOverlay =
+      document.getElementById(
+        "follow-overlay"
+      );
+
+    const followClose =
+      document.getElementById(
+        "follow-close"
+      );
+
+    const followTitle =
+      document.getElementById(
+        "follow-modal-title"
+      );
+
+    const followSubtitle =
+      document.getElementById(
+        "follow-modal-subtitle"
+      );
+
+    const followersList =
+      document.getElementById(
+        "followers-list"
+      );
+
+    let currentPlayer = null;
+    let currentFollowData = null;
+    let currentFollowListType = null;
+
+    function formatDate(value) {
+      if (!value) {
+        return "—";
+      }
+
+      const date =
+        new Date(value);
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return "—";
+      }
+
+      return date.toLocaleDateString(
+        "en-GB",
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+    function setText(
+      element,
+      value,
+      fallback = "—"
+    ) {
+      if (!element) {
+        return;
+      }
+
+      const text =
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+          ? fallback
+          : String(value);
+
+      element.textContent =
+        text;
+    }
+
+    function updateFallback(
+      username
+    ) {
+      const value =
+        String(
+          username || "?"
+        ).trim();
+
+      mainAvatarFallback.textContent =
+        value
+          ? value.charAt(0).toUpperCase()
+          : "?";
+    }
+
+    async function loadRobloxAvatar(
+      username
+    ) {
+      if (!username) {
+        return;
+      }
+
+      try {
+        const response =
+          await fetch(
+            "https://users.roblox.com/v1/usernames/users",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body:
+                JSON.stringify({
+                  usernames: [
+                    username
+                  ],
+                  excludeBannedUsers:
+                    false
+                })
+            }
+          );
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          !data.data ||
+          !data.data.length ||
+          !data.data[0].id
+        ) {
+          return;
+        }
+
+        const robloxId =
+          data.data[0].id;
+
+        const thumbnailResponse =
+          await fetch(
+            `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${robloxId}&size=420x420&format=Png&isCircular=false`
+          );
+
+        if (
+          !thumbnailResponse.ok
+        ) {
+          return;
+        }
+
+        const thumbnailData =
+          await thumbnailResponse.json();
+
+        const imageUrl =
+          thumbnailData?.data?.[0]
+            ?.imageUrl;
+
+        if (!imageUrl) {
+          return;
+        }
+
+        mainAvatarImage.src =
+          imageUrl;
+
+        mainAvatarImage.style.display =
+          "block";
+
+        mainAvatarFallback.style.display =
+          "none";
+      } catch (error) {}
+    }
+
+    async function loadRobloxHeadshots(
+      people
+    ) {
+      const usernames =
+        people
+          .map(person =>
+            person.robloxUsername
+          )
+          .filter(Boolean);
+
+      if (!usernames.length) {
+        return new Map();
+      }
+
+      const uniqueUsernames =
+        [...new Set(usernames)];
+
+      const result =
+        new Map();
+
+      for (
+        let index = 0;
+        index < uniqueUsernames.length;
+        index += 50
+      ) {
+        const batch =
+          uniqueUsernames.slice(
+            index,
+            index + 50
+          );
+
+        try {
+          const userResponse =
+            await fetch(
+              "https://users.roblox.com/v1/usernames/users",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+                body:
+                  JSON.stringify({
+                    usernames:
+                      batch,
+                    excludeBannedUsers:
+                      false
+                  })
+              }
+            );
+
+          if (
+            !userResponse.ok
+          ) {
+            continue;
+          }
+
+          const userData =
+            await userResponse.json();
+
+          const users =
+            Array.isArray(
+              userData.data
+            )
+              ? userData.data
+              : [];
+
+          if (!users.length) {
+            continue;
+          }
+
+          const ids =
+            users
+              .map(user =>
+                user.id
+              )
+              .filter(Boolean);
+
+          if (!ids.length) {
+            continue;
+          }
+
+          const thumbnailResponse =
+            await fetch(
+              `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${ids.join(",")}&size=150x150&format=Png&isCircular=false`
+            );
+
+          if (
+            !thumbnailResponse.ok
+          ) {
+            continue;
+          }
+
+          const thumbnailData =
+            await thumbnailResponse.json();
+
+          const thumbnails =
+            Array.isArray(
+              thumbnailData.data
+            )
+              ? thumbnailData.data
+              : [];
+
+          const thumbnailMap =
+            new Map(
+              thumbnails
+                .filter(
+                  item =>
+                    item &&
+                    item.targetId &&
+                    item.imageUrl
+                )
+                .map(item => [
+                  String(
+                    item.targetId
+                  ),
+                  item.imageUrl
+                ])
+            );
+
+          users.forEach(
+            user => {
+              const imageUrl =
+                thumbnailMap.get(
+                  String(user.id)
+                );
+
+              if (imageUrl) {
+                result.set(
+                  String(
+                    user.name
+                  ).toLowerCase(),
+                  imageUrl
+                );
+              }
+            }
+          );
+        } catch (error) {}
+      }
+
+      return result;
+    }
+
+    function updateProfileActions(
+      isSelf
+    ) {
+      if (isSelf) {
+        editButton.style.display =
+          "inline-flex";
+
+        messageButton.style.display =
+          "none";
+
+        followButton.style.display =
+          "none";
+
+        return;
+      }
+
+      editButton.style.display =
+        "none";
+
+      messageButton.style.display =
+        "inline-flex";
+
+      followButton.style.display =
+        "inline-flex";
+    }
+
+    function updateFollowButton(
+      isFollowing
+    ) {
+      followButton.classList.toggle(
+        "following",
+        !!isFollowing
+      );
+
+      followButton.textContent =
+        isFollowing
+          ? "FOLLOWING"
+          : "FOLLOW";
+    }
+
+    function updateFollowCounts(
+      data
+    ) {
+      const followers =
+        Number(
+          data?.followers || 0
+        );
+
+      const following =
+        Number(
+          data?.following || 0
+        );
+
+      followersCount.textContent =
+        followers;
+
+      followingCount.textContent =
+        following;
+
+      aboutFollowersCount.textContent =
+        followers;
+
+      aboutFollowingCount.textContent =
+        following;
+
+      aboutFollowersCount2.textContent =
+        followers;
+
+      aboutFollowingCount2.textContent =
+        following;
+    }
+
+    async function loadFollowData(
+      playerId
+    ) {
+      const response =
+        await fetch(
+          `/api/follow?playerId=${encodeURIComponent(
+            playerId
+          )}`,
+          {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store"
+          }
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          "Unable to load follow information."
+        );
+      }
+
+      const data =
+        await response.json();
+
+      currentFollowData =
+        data;
+
+      updateFollowCounts(
+        data
+      );
+
+      updateFollowButton(
+        data.isFollowing
+      );
+
+      updateProfileActions(
+        data.isSelf
+      );
+
+      return data;
+    }
+
+    async function toggleFollow() {
+      if (!currentPlayer?.id) {
+        return;
+      }
+
+      if (
+        typeof window.isRSFAuthenticated ===
+          "function" &&
+        !window.isRSFAuthenticated()
+      ) {
+        openLoginModal();
+        return;
+      }
+
+      const currentlyFollowing =
+        !!currentFollowData?.isFollowing;
+
+      followButton.disabled =
+        true;
+
+      followButton.textContent =
+        currentlyFollowing
+          ? "..."
+          : "...";
+
+      try {
+        const response =
+          await fetch(
+            "/api/follow",
+            {
+              method:
+                currentlyFollowing
+                  ? "DELETE"
+                  : "POST",
+
+              credentials:
+                "include",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  playerId:
+                    currentPlayer.id
+                })
+            }
+          );
+
+        if (
+          response.status === 401 ||
+          response.status === 403
+        ) {
+          openLoginModal();
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+              "Unable to update follow."
+          );
+        }
+
+        currentFollowData =
+          data;
+
+        updateFollowCounts(
+          data
+        );
+
+        updateFollowButton(
+          data.isFollowing
+        );
+
+        if (
+          followOverlay.classList.contains(
+            "open"
+          ) &&
+          currentFollowListType
+        ) {
+          await loadFollowList(
+            currentFollowListType,
+            false
+          );
+        }
+      } catch (error) {
+        updateFollowButton(
+          currentlyFollowing
+        );
+
+        alert(
+          error.message ||
+          "Unable to update follow."
+        );
+      } finally {
+        followButton.disabled =
+          false;
+      }
+    }
+
+    function openFollowModal(
+      type
+    ) {
+      currentFollowListType =
+        type;
+
+      followTitle.textContent =
+        type === "followers"
+          ? "Followers"
+          : "Following";
+
+      followSubtitle.textContent =
+        type === "followers"
+          ? "People who follow this profile."
+          : "People this profile follows.";
+
+      followOverlay.classList.add(
+        "open"
+      );
+
+      followOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+      loadFollowList(
+        type,
+        true
+      );
+    }
+
+    function closeFollowModal() {
+      followOverlay.classList.remove(
+        "open"
+      );
+
+      followOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      currentFollowListType =
+        null;
+
+      document.body.style.overflow =
+        "";
+    }
+
+    function getPersonDisplayName(
+      person
+    ) {
+      return (
+        person.robloxUsername ||
+        person.discordUsername ||
+        "Unknown player"
+      );
+    }
+
+    function getPersonProfileUrl(
+      person
+    ) {
+      if (
+        person.robloxUsername
+      ) {
+        return `/profile?username=${encodeURIComponent(
+          person.robloxUsername
+        )}`;
+      }
+
+      return "#";
+    }
+
+    async function loadFollowList(
+      type,
+      showLoading = true
+    ) {
+      if (!currentPlayer?.id) {
+        return;
+      }
+
+      if (showLoading) {
+        followersList.innerHTML =
+          `
+            <div class="follow-loading">
+              Loading...
+            </div>
+          `;
+      }
+
+      try {
+        const response =
+          await fetch(
+            `/api/follow?playerId=${encodeURIComponent(
+              currentPlayer.id
+            )}&list=${encodeURIComponent(
+              type
+            )}`,
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Unable to load this list."
+          );
+        }
+
+        const data =
+          await response.json();
+
+        currentFollowData =
+          data;
+
+        updateFollowCounts(
+          data
+        );
+
+        const people =
+          Array.isArray(
+            data.people
+          )
+            ? data.people
+            : [];
+
+        if (!people.length) {
+          followersList.innerHTML =
+            `
+              <div class="follow-empty">
+                ${
+                  type === "followers"
+                    ? "No followers yet."
+                    : "Not following anyone yet."
+                }
+              </div>
+            `;
+
+          return;
+        }
+
+        const headshots =
+          await loadRobloxHeadshots(
+            people
+          );
+
+        followersList.innerHTML =
+          "";
+
+        people.forEach(
+          person => {
+            const row =
+              document.createElement(
+                "div"
+              );
+
+            row.className =
+              "follow-person";
+
+            const link =
+              document.createElement(
+                "a"
+              );
+
+            link.className =
+              "follow-person-link";
+
+            const profileUrl =
+              getPersonProfileUrl(
+                person
+              );
+
+            if (
+              profileUrl !== "#"
+            ) {
+              link.href =
+                profileUrl;
+            }
+
+            const avatar =
+              document.createElement(
+                "div"
+              );
+
+            avatar.className =
+              "follow-person-avatar";
+
+            const image =
+              document.createElement(
+                "img"
+              );
+
+            const fallback =
+              document.createElement(
+                "div"
+              );
+
+            fallback.className =
+              "follow-person-fallback";
+
+            fallback.textContent =
+              getPersonDisplayName(
+                person
+              )
+                .charAt(0)
+                .toUpperCase();
+
+            const headshot =
+              person.robloxUsername
+                ? headshots.get(
+                    person.robloxUsername
+                      .toLowerCase()
+                  )
+                : null;
+
+            if (headshot) {
+              image.src =
+                headshot;
+
+              image.alt =
+                getPersonDisplayName(
+                  person
+                );
+
+              image.addEventListener(
+                "error",
+                () => {
+                  image.style.display =
+                    "none";
+
+                  fallback.style.display =
+                    "flex";
+                }
+              );
+
+              fallback.style.display =
+                "none";
+
+              avatar.appendChild(
+                image
+              );
+
+              avatar.appendChild(
+                fallback
+              );
+            } else {
+              fallback.style.display =
+                "flex";
+
+              avatar.appendChild(
+                fallback
+              );
+            }
+
+            const info =
+              document.createElement(
+                "div"
+              );
+
+            info.className =
+              "follow-person-info";
+
+            const name =
+              document.createElement(
+                "div"
+              );
+
+            name.className =
+              "follow-person-name";
+
+            name.textContent =
+              getPersonDisplayName(
+                person
+              );
+
+            const handle =
+              document.createElement(
+                "div"
+              );
+
+            handle.className =
+              "follow-person-handle";
+
+            handle.textContent =
+              person.discordUsername
+                ? `@${person.discordUsername}`
+                : "RSF player";
+
+            info.appendChild(
+              name
+            );
+
+            info.appendChild(
+              handle
+            );
+
+            link.appendChild(
+              avatar
+            );
+
+            link.appendChild(
+              info
+            );
+
+            row.appendChild(
+              link
+            );
+
+            if (data.isSelf) {
+              const action =
+                document.createElement(
+                  "button"
+                );
+
+              action.type =
+                "button";
+
+              action.className =
+                "follow-person-action";
+
+              action.textContent =
+                type === "following"
+                  ? "UNFOLLOW"
+                  : "REMOVE";
+
+              action.addEventListener(
+                "click",
+                async event => {
+                  event.preventDefault();
+                  event.stopPropagation();
+
+                  action.disabled =
+                    true;
+
+                  action.textContent =
+                    "...";
+
+                  try {
+                    if (
+                      type ===
+                      "following"
+                    ) {
+                      await manageFollowingPerson(
+                        person
+                      );
+                    } else {
+                      await removeFollower(
+                        person
+                      );
+                    }
+
+                    row.remove();
+
+                    const remaining =
+                      followersList.querySelector(
+                        ".follow-person"
+                      );
+
+                    if (!remaining) {
+                      followersList.innerHTML =
+                        `
+                          <div class="follow-empty">
+                            ${
+                              type === "followers"
+                                ? "No followers yet."
+                                : "Not following anyone yet."
+                            }
+                          </div>
+                        `;
+                    }
+                  } catch (error) {
+                    action.disabled =
+                      false;
+
+                    action.textContent =
+                      type ===
+                      "following"
+                        ? "UNFOLLOW"
+                        : "REMOVE";
+
+                    alert(
+                      error.message ||
+                      "Unable to update this connection."
+                    );
+                  }
+                }
+              );
+
+              row.appendChild(
+                action
+              );
+            }
+
+            followersList.appendChild(
+              row
+            );
+          }
+        );
+      } catch (error) {
+        followersList.innerHTML =
+          `
+            <div class="follow-error">
+              ${escapeHtml(
+                error.message ||
+                "Unable to load this list."
+              )}
+            </div>
+          `;
+      }
+    }
+
+    async function manageFollowingPerson(
+      person
+    ) {
+      if (!person.playerId) {
+        throw new Error(
+          "This player cannot be unfollowed."
+        );
+      }
+
+      const response =
+        await fetch(
+          "/api/follow",
+          {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body:
+              JSON.stringify({
+                playerId:
+                  person.playerId
+              })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to unfollow this player."
+        );
+      }
+
+      currentFollowData =
+        data;
+
+      updateFollowCounts(
+        data
+      );
+    }
+
+    async function removeFollower(
+      person
+    ) {
+      if (!person.playerId) {
+        throw new Error(
+          "This follower cannot be removed."
+        );
+      }
+
+      const response =
+        await fetch(
+          "/api/follow",
+          {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body:
+              JSON.stringify({
+                playerId:
+                  currentPlayer.id,
+
+                action:
+                  "remove-follower",
+
+                followerPlayerId:
+                  person.playerId
+              })
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Unable to remove this follower."
+        );
+      }
+
+      currentFollowData =
+        data;
+
+      updateFollowCounts(
+        data
+      );
+    }
+
+    function escapeHtml(
+      value
+    ) {
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+    function openLoginModal() {
+      loginOverlay.classList.add(
+        "open"
+      );
+
+      loginOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+    }
+
+    followersStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "followers"
+        );
+      }
+    );
+
+    followingStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "following"
+        );
+      }
+    );
+
+    overviewFollowersStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "followers"
+        );
+      }
+    );
+
+    overviewFollowingStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "following"
+        );
+      }
+    );
+
+    aboutFollowersStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "followers"
+        );
+      }
+    );
+
+    aboutFollowingStat.addEventListener(
+      "click",
+      () => {
+        openFollowModal(
+          "following"
+        );
+      }
+    );
+
+    followersStat.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+
+          openFollowModal(
+            "followers"
+          );
+        }
+      }
+    );
+
+    followingStat.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+
+          openFollowModal(
+            "following"
+          );
+        }
+      }
+    );
+
+    followClose.addEventListener(
+      "click",
+      closeFollowModal
+    );
+
+    followOverlay.addEventListener(
+      "click",
+      event => {
+        if (
+          event.target ===
+          followOverlay
+        ) {
+          closeFollowModal();
+        }
+      }
+    );
+
+    followButton.addEventListener(
+      "click",
+      toggleFollow
+    );
+
+    editButton.addEventListener(
+      "click",
+      () => {
+        window.location.href =
+          "/settings";
+      }
+    );
+
+    messageButton.addEventListener(
+      "click",
+      () => {
+        if (
+          currentPlayer &&
+          currentPlayer.discord_id
+        ) {
+          return;
+        }
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+        if (
+          event.key === "Escape" &&
+          followOverlay.classList.contains(
+            "open"
+          )
+        ) {
+          closeFollowModal();
+        }
+      }
+    );
+
+    async function loadProfile() {
+      if (!requestedUsername) {
+        setText(
+          playerName,
+          "Profile"
+        );
+
+        setText(
+          playerHandle,
+          "@—"
+        );
+
+        setText(
+          profileBio,
+          "No bio yet"
+        );
+
+        setText(
+          overviewBio,
+          "No bio yet"
+        );
+
+        setText(
+          joinedShort,
+          "No player specified"
+        );
+
+        return;
+      }
+
+      try {
+        const response =
+          await fetch(
+            `/api/profile?username=${encodeURIComponent(
+              requestedUsername
+            )}`,
+            {
+              method: "GET",
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "Profile unavailable."
+          );
+        }
+
+        const data =
+          await response.json();
+
+        currentPlayer =
+          data.player;
+
+        if (!currentPlayer) {
+          throw new Error(
+            "Player not found."
+          );
+        }
+
+        const username =
+          currentPlayer.roblox_username ||
+          requestedUsername;
+
+        const displayName =
+          currentPlayer.roblox_username ||
+          currentPlayer.discord_username ||
+          requestedUsername;
+
+        setText(
+          playerName,
+          displayName,
+          "Profile"
+        );
+
+        setText(
+          playerHandle,
+          `@${username}`,
+          "@—"
+        );
+
+        const bio =
+          currentPlayer.bio &&
+          String(
+            currentPlayer.bio
+          ).trim()
+            ? currentPlayer.bio
+            : "No bio yet";
+
+        setText(
+          profileBio,
+          bio,
+          "No bio yet"
+        );
+
+        setText(
+          overviewBio,
+          bio,
+          "No bio yet"
+        );
+
+        setText(
+          joinedShort,
+          `Joined RSF ${
+            formatDate(
+              currentPlayer.created_at
+            )
+          }`,
+          "Joined RSF —"
+        );
+
+        setText(
+          document.getElementById(
+            "about-roblox"
+          ),
+          currentPlayer.roblox_username
+        );
+
+        setText(
+          document.getElementById(
+            "about-discord"
+          ),
+          currentPlayer.discord_username
+        );
+
+        setText(
+          document.getElementById(
+            "about-joined"
+          ),
+          formatDate(
+            currentPlayer.created_at
+          )
+        );
+
+        setText(
+          document.getElementById(
+            "about-updated"
+          ),
+          formatDate(
+            currentPlayer.updated_at
+          )
+        );
+
+        updateFallback(
+          username
+        );
+
+        await loadRobloxAvatar(
+          username
+        );
+
+        await loadFollowData(
+          currentPlayer.id
+        );
+      } catch (error) {
+        setText(
+          playerName,
+          "Profile unavailable"
+        );
+
+        setText(
+          playerHandle,
+          "@—"
+        );
+
+        setText(
+          profileBio,
+          "No bio yet"
+        );
+
+        setText(
+          overviewBio,
+          "Unable to load this profile."
+        );
+
+        setText(
+          joinedShort,
+          "RSF player profile"
+        );
+      }
+    }
+
+    loadProfile();
   </script>
 
   <script src="/auth.js"></script>
