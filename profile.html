@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>RSF Profile</title>
 
   <style>
@@ -229,12 +228,7 @@
       gap: 10px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 6px;
-      background:
-        linear-gradient(
-          135deg,
-          #5865F2,
-          #5360E8
-        );
+      background: linear-gradient(135deg, #5865F2, #5360E8);
       color: #FFFFFF;
       font-family: "Montserrat", sans-serif;
       font-size: 10px;
@@ -249,12 +243,7 @@
     }
 
     .login-button:hover {
-      background:
-        linear-gradient(
-          135deg,
-          #6370F5,
-          #5966EB
-        );
+      background: linear-gradient(135deg, #6370F5, #5966EB);
       border-color: rgba(255, 255, 255, 0.18);
       box-shadow: 0 6px 20px rgba(45, 55, 160, 0.22);
     }
@@ -512,7 +501,8 @@
       cursor: default;
     }
 
-    .login-overlay {
+    .login-overlay,
+    .connections-overlay {
       position: fixed;
       inset: 0;
       z-index: 500;
@@ -531,13 +521,15 @@
         visibility 150ms ease;
     }
 
-    .login-overlay.open {
+    .login-overlay.open,
+    .connections-overlay.open {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
     }
 
-    .login-modal {
+    .login-modal,
+    .connections-modal {
       width: min(440px, 100%);
       padding: 28px;
       border: 1px solid var(--border);
@@ -550,18 +542,21 @@
       transition: transform 150ms ease;
     }
 
-    .login-overlay.open .login-modal {
+    .login-overlay.open .login-modal,
+    .connections-overlay.open .connections-modal {
       transform: translateY(0) scale(1);
     }
 
-    .login-modal-header {
+    .login-modal-header,
+    .connections-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 20px;
     }
 
-    .login-modal-title {
+    .login-modal-title,
+    .connections-title {
       margin: 0;
       font-size: 24px;
       line-height: 1.05;
@@ -569,7 +564,8 @@
       letter-spacing: -0.045em;
     }
 
-    .login-modal-subtitle {
+    .login-modal-subtitle,
+    .connections-subtitle {
       margin: 8px 0 0;
       font-size: 10px;
       line-height: 1.6;
@@ -636,12 +632,11 @@
       margin-top: 26px;
       border: 1px solid rgba(114, 169, 235, 0.28);
       border-radius: 6px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(88, 101, 242, 0.88),
-          rgba(66, 82, 210, 0.88)
-        );
+      background: linear-gradient(
+        135deg,
+        rgba(88, 101, 242, 0.88),
+        rgba(66, 82, 210, 0.88)
+      );
       color: #FFFFFF;
       font-family: "Montserrat", sans-serif;
       font-size: 10px;
@@ -649,27 +644,6 @@
       letter-spacing: 0.035em;
       cursor: pointer;
       box-shadow: 0 7px 22px rgba(58, 78, 210, 0.18);
-      transition:
-        background 140ms ease,
-        border-color 140ms ease,
-        transform 140ms ease,
-        box-shadow 140ms ease;
-    }
-
-    .login-proceed:hover {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(101, 114, 255, 0.94),
-          rgba(73, 88, 225, 0.94)
-        );
-      border-color: rgba(140, 160, 255, 0.42);
-      box-shadow: 0 9px 26px rgba(58, 78, 210, 0.24);
-      transform: translateY(-1px);
-    }
-
-    .login-proceed:active {
-      transform: translateY(0);
     }
 
     .login-note {
@@ -680,8 +654,6 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
-    /* PROFILE CONTENT */
-
     main {
       width: min(1100px, calc(100% - 56px));
       margin: 0 auto;
@@ -691,7 +663,6 @@
     .profile-page {
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .profile-cover {
@@ -747,10 +718,6 @@
       padding: 38px 38px 0;
     }
 
-    .social-profile {
-      width: 100%;
-    }
-
     .profile-main-row {
       display: grid;
       grid-template-columns: 118px minmax(0, 1fr) auto;
@@ -761,7 +728,6 @@
     .main-avatar {
       width: 118px;
       height: 118px;
-      flex: 0 0 118px;
       overflow: hidden;
       border: 1px solid rgba(120, 164, 215, 0.20);
       border-radius: 8px;
@@ -803,8 +769,6 @@
     .profile-name-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
     }
 
     .player-name {
@@ -813,20 +777,6 @@
       line-height: 0.98;
       font-weight: 700;
       letter-spacing: -0.065em;
-    }
-
-    .profile-badge {
-      min-height: 22px;
-      padding: 0 8px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(79, 155, 255, 0.20);
-      border-radius: 4px;
-      background: rgba(79, 155, 255, 0.08);
-      color: #FFFFFF;
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.075em;
     }
 
     .player-handle {
@@ -861,6 +811,9 @@
       min-width: 78px;
       min-height: 34px;
       padding: 0 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 1px solid var(--border);
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.025);
@@ -868,6 +821,8 @@
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.065em;
+      line-height: 1;
+      text-align: center;
       cursor: pointer;
       transition:
         color 120ms ease,
@@ -881,10 +836,6 @@
       background: var(--accent-soft);
       border-color: rgba(120, 164, 215, 0.34);
       transform: translateY(-1px);
-    }
-
-    .profile-action:active {
-      transform: translateY(0);
     }
 
     .profile-action.primary {
@@ -904,10 +855,6 @@
       color: rgba(255, 255, 255, 0.72);
     }
 
-    .profile-action.following:hover {
-      background: var(--profile-hover);
-    }
-
     .profile-action:disabled {
       cursor: default;
       opacity: 0.62;
@@ -915,68 +862,76 @@
     }
 
     .social-stats {
-      margin-top: 30px;
-      min-height: 55px;
+      margin-top: 26px;
+      min-height: 58px;
       display: flex;
       align-items: center;
-      gap: 29px;
+      gap: 25px;
       border-top: 1px solid var(--border-soft);
+    }
+
+    .social-stat-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-family: "Montserrat", sans-serif;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
     }
 
     .social-stat {
       display: flex;
-      align-items: baseline;
-      gap: 6px;
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.34);
+      flex-direction: column;
+      gap: 5px;
     }
 
     .social-stat strong {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 11px;
+      font-size: 17px;
+      line-height: 1;
       font-weight: 700;
+      letter-spacing: -0.04em;
+      transition: color 120ms ease;
+    }
+
+    .social-stat span {
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.065em;
+      color: rgba(255, 255, 255, 0.31);
+    }
+
+    .social-stat-button:hover strong {
+      color: var(--accent);
     }
 
     .profile-tabs {
-      min-height: 55px;
-      padding: 0 22px;
       display: flex;
       align-items: stretch;
-      gap: 25px;
+      gap: 28px;
+      min-height: 58px;
+      padding: 0 24px;
       border: 1px solid var(--border);
       border-top: 0;
-      border-radius: 0 0 10px 10px;
-      background: rgba(9, 16, 27, 0.68);
+      background: rgba(255, 255, 255, 0.012);
     }
 
     .profile-tab {
       position: relative;
-      min-height: 55px;
-      padding: 0 2px;
+      min-height: 58px;
+      padding: 0;
       border: 0;
       background: transparent;
-      color: rgba(255, 255, 255, 0.34);
+      color: rgba(255, 255, 255, 0.38);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.065em;
+      letter-spacing: 0.075em;
       cursor: pointer;
       transition: color 120ms ease;
     }
 
-    .profile-tab::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -1px;
-      height: 2px;
-      border-radius: 2px 2px 0 0;
-      background: transparent;
-      transition: background 120ms ease;
-    }
-
     .profile-tab:hover {
-      color: rgba(255, 255, 255, 0.70);
+      color: rgba(255, 255, 255, 0.68);
     }
 
     .profile-tab.active {
@@ -984,42 +939,34 @@
     }
 
     .profile-tab.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
       background: var(--accent);
     }
 
     .tab-content {
       display: none;
-      padding-top: 25px;
-      animation: profileTabIn 140ms ease;
+      padding-top: 32px;
     }
 
     .tab-content.active {
       display: block;
     }
 
-    @keyframes profileTabIn {
-      from {
-        opacity: 0;
-        transform: translateY(3px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .profile-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
-      gap: 25px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 42px 52px;
     }
 
     .profile-panel {
       min-width: 0;
       padding: 0;
       border: 0;
-      border-radius: 0;
       background: transparent;
       box-shadow: none;
     }
@@ -1058,7 +1005,6 @@
     .stat-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
       border-top: 1px solid var(--border-soft);
       border-left: 1px solid var(--border-soft);
     }
@@ -1091,6 +1037,23 @@
       color: rgba(255, 255, 255, 0.31);
     }
 
+    .clickable-stat {
+      width: 100%;
+      padding: 18px;
+      border: 0;
+      border-right: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.012);
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .clickable-stat:hover {
+      background: rgba(79, 155, 255, 0.025);
+    }
+
     .profile-list {
       display: flex;
       flex-direction: column;
@@ -1099,7 +1062,6 @@
 
     .profile-list-row {
       min-height: 46px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1152,10 +1114,6 @@
       border-bottom: 1px solid var(--border-soft);
     }
 
-    .activity-item:last-child {
-      border-bottom: 0;
-    }
-
     .activity-icon {
       width: 29px;
       height: 29px;
@@ -1186,6 +1144,137 @@
       color: rgba(255, 255, 255, 0.25);
     }
 
+    .connections-modal {
+      width: min(480px, 100%);
+      max-height: min(620px, calc(100vh - 48px));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .connections-list {
+      min-height: 0;
+      margin-top: 24px;
+      overflow-y: auto;
+      border-top: 1px solid var(--border-soft);
+      scrollbar-width: thin;
+    }
+
+    .connections-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .connections-list::-webkit-scrollbar-thumb {
+      background: rgba(120, 164, 215, 0.20);
+      border-radius: 999px;
+    }
+
+    .connection-item {
+      min-height: 68px;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .connection-link {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .connection-avatar {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.035);
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .connection-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .connection-info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .connection-name {
+      overflow: hidden;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .connection-handle {
+      overflow: hidden;
+      font-size: 8px;
+      color: var(--muted);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .connection-action {
+      min-width: 78px;
+      height: 32px;
+      padding: 0 11px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.025);
+      color: rgba(255, 255, 255, 0.58);
+      font-family: "Montserrat", sans-serif;
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .connection-action:hover {
+      color: #FFFFFF;
+      background: var(--accent-soft);
+      border-color: rgba(120, 164, 215, 0.34);
+    }
+
+    .connection-action.remove:hover {
+      background: rgba(255, 65, 85, 0.07);
+      border-color: rgba(255, 107, 120, 0.28);
+      color: #FF7D88;
+    }
+
+    .connections-empty,
+    .connections-loading,
+    .connections-error {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
     footer {
       position: fixed;
       left: 0;
@@ -1200,14 +1289,9 @@
       align-items: center;
       justify-content: space-between;
       font-size: 9px;
-      line-height: 1;
       color: rgba(255, 255, 255, 0.30);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease;
     }
 
     .footer-left,
@@ -1220,14 +1304,6 @@
     .footer-brand {
       color: rgba(255, 255, 255, 0.55);
       font-weight: 700;
-    }
-
-    .footer-right a {
-      transition: color 100ms ease;
-    }
-
-    .footer-right a:hover {
-      color: rgba(255, 255, 255, 0.75);
     }
 
     body.theme-dark {
@@ -1255,18 +1331,7 @@
       --profile-hover: rgba(250, 250, 250, 0.98);
       --dropdown: rgba(245, 245, 245, 0.99);
       color: var(--text);
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(255, 255, 255, 0.62),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(170, 185, 205, 0.24),
-          transparent 70%
-        ),
-        #D3D3D3;
+      background: #D3D3D3;
     }
 
     body.theme-light .profile-username {
@@ -1279,33 +1344,6 @@
       color: rgba(21, 24, 28, 0.62);
     }
 
-    body.theme-light .profile-card:hover .profile-chevron,
-    body.theme-light .profile-card.open .profile-chevron {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.40);
-    }
-
-    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .profile-dropdown-item:hover {
-      background: var(--accent-soft);
-      color: #15181C;
-    }
-
-    body.theme-light .dropdown a {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .dropdown a:hover,
-    body.theme-light .dropdown a:focus-visible {
-      color: #15181C;
-    }
-
     body.theme-light .profile-bio,
     body.theme-light .panel-text,
     body.theme-light .profile-list-name,
@@ -1315,7 +1353,7 @@
 
     body.theme-light .player-handle,
     body.theme-light .joined-short,
-    body.theme-light .social-stat,
+    body.theme-light .social-stat span,
     body.theme-light .stat-name,
     body.theme-light .activity-date {
       color: rgba(21, 24, 28, 0.34);
@@ -1348,11 +1386,12 @@
       color: #15181C;
     }
 
-    body.theme-light .empty-state {
+    body.theme-light .empty-state,
+    body.theme-light .connection-handle {
       color: rgba(21, 24, 28, 0.28);
     }
 
-    body.theme-light .activity-icon {
+    body.theme-light footer {
       color: rgba(21, 24, 28, 0.42);
     }
 
@@ -1360,25 +1399,15 @@
       color: rgba(21, 24, 28, 0.60);
     }
 
-    body.theme-light footer {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-right a:hover {
-      color: rgba(21, 24, 28, 0.75);
-    }
-
-    body.theme-light .login-overlay {
-      background: rgba(25, 28, 32, 0.28);
-    }
-
-    body.theme-light .login-modal {
+    body.theme-light .login-modal,
+    body.theme-light .connections-modal {
       background: rgba(245, 245, 245, 0.98);
     }
 
     body.theme-light .login-modal-subtitle,
     body.theme-light .login-points li,
-    body.theme-light .login-note {
+    body.theme-light .login-note,
+    body.theme-light .connections-subtitle {
       color: rgba(21, 24, 28, 0.58);
     }
 
@@ -1387,8 +1416,7 @@
       color: rgba(21, 24, 28, 0.48);
     }
 
-    body.theme-light .login-close:hover {
-      background: rgba(21, 24, 28, 0.06);
+    body.theme-light .connection-name {
       color: #15181C;
     }
 
@@ -1400,41 +1428,24 @@
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
-      background:
-        radial-gradient(
-          ellipse 900px 620px at 78% 2%,
-          rgba(42, 103, 175, 0.34),
-          transparent 68%
-        ),
-        radial-gradient(
-          ellipse 760px 560px at 8% 55%,
-          rgba(25, 75, 145, 0.18),
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 650px 480px at 55% 105%,
-          rgba(20, 65, 125, 0.13),
-          transparent 72%
-        ),
-        #07111F;
     }
 
     body.theme-royal {
       --bg: #0E0B20;
-      --accent: #8D79FF;
-      --accent-soft: rgba(141, 121, 255, 0.11);
-      --topbar: rgba(10, 10, 29, 0.88);
-      --profile: rgba(16, 14, 39, 0.90);
-      --profile-hover: rgba(22, 18, 52, 0.96);
-      --dropdown: rgba(17, 14, 42, 0.99);
+      --accent: #8B7CFF;
+      --accent-soft: rgba(139, 124, 255, 0.11);
+      --topbar: rgba(14, 11, 32, 0.88);
+      --profile: rgba(20, 16, 42, 0.90);
+      --profile-hover: rgba(28, 22, 54, 0.96);
+      --dropdown: rgba(21, 17, 43, 0.99);
       background:
         radial-gradient(
           ellipse 920px 620px at 78% 0%,
-          rgba(73, 56, 170, 0.34),
+          rgba(73, 60, 157, 0.32),
           transparent 67%
         ),
         radial-gradient(
-          ellipse 760px 560px at 8% 52%,
+          ellipse 760px 560px at 7% 52%,
           rgba(39, 57, 135, 0.25),
           transparent 70%
         ),
@@ -1481,7 +1492,6 @@
       .main-avatar {
         width: 105px;
         height: 105px;
-        flex-basis: 105px;
       }
 
       .profile-actions {
@@ -1557,7 +1567,6 @@
       .main-avatar {
         width: 92px;
         height: 92px;
-        flex-basis: 92px;
       }
 
       .profile-actions {
@@ -1675,10 +1684,6 @@
       .main-avatar {
         width: 78px;
         height: 78px;
-        flex-basis: 78px;
-        box-shadow:
-          0 12px 25px rgba(0, 0, 0, 0.20),
-          0 0 0 5px rgba(7, 17, 31, 0.45);
       }
 
       .main-avatar-fallback {
@@ -1687,12 +1692,6 @@
 
       .player-name {
         font-size: 27px;
-      }
-
-      .profile-badge {
-        min-height: 18px;
-        padding: 0 6px;
-        font-size: 6px;
       }
 
       .player-handle {
@@ -1751,7 +1750,6 @@
       footer {
         min-height: 54px;
         padding: 15px 20px;
-        align-items: center;
       }
 
       .footer-left,
@@ -1764,12 +1762,33 @@
         justify-content: flex-end;
       }
 
-      .login-modal {
+      .login-modal,
+      .connections-modal {
         padding: 24px 21px;
       }
 
-      .login-modal-title {
+      .login-modal-title,
+      .connections-title {
         font-size: 22px;
+      }
+
+      .connections-modal {
+        max-height: calc(100vh - 36px);
+      }
+
+      .connection-item {
+        min-height: 62px;
+      }
+
+      .connection-avatar {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+      }
+
+      .connection-action {
+        min-width: 70px;
+        height: 30px;
       }
     }
   </style>
@@ -1778,7 +1797,7 @@
 <body class="theme-blue">
 
   <script>
-    (function () {
+    (() => {
       try {
         const authenticated =
           localStorage.getItem("rsf-authenticated") === "true";
@@ -1829,7 +1848,6 @@
       </div>
 
       <div class="nav-item">
-
         <a href="/database" class="nav-label">
           DATABASE
           <span class="arrow">▾</span>
@@ -1840,11 +1858,9 @@
           <a href="/database">Teams</a>
           <a href="/database">Seasons</a>
         </div>
-
       </div>
 
       <div class="nav-item">
-
         <a href="/community" class="nav-label">
           COMMUNITY
           <span class="arrow">▾</span>
@@ -1856,23 +1872,18 @@
           <a href="/community">Development</a>
           <a href="/community">Resources</a>
         </div>
-
       </div>
 
       <div class="nav-item">
-
         <a href="/arcade" class="nav-label">
           ARCADE
         </a>
-
       </div>
 
       <div class="nav-item">
-
         <a href="/rsf" class="nav-label">
           RSF
         </a>
-
       </div>
 
     </nav>
@@ -1895,11 +1906,10 @@
     <div
       class="profile-card"
       id="profile-card"
-      style="display: none;"
+      style="display:none;"
       aria-haspopup="true"
       aria-expanded="false"
     >
-
       <div
         class="profile-avatar"
         id="profile-avatar-container"
@@ -1912,7 +1922,6 @@
       </div>
 
       <div class="profile-info">
-
         <span
           class="profile-username"
           id="profile-username"
@@ -1926,7 +1935,6 @@
         >
           GUEST
         </span>
-
       </div>
 
       <span
@@ -1937,7 +1945,6 @@
           <path d="M2 3.5L5 6.5L8 3.5"></path>
         </svg>
       </span>
-
     </div>
 
   </header>
@@ -1947,7 +1954,6 @@
     id="login-overlay"
     aria-hidden="true"
   >
-
     <div
       class="login-modal"
       role="dialog"
@@ -1958,7 +1964,6 @@
       <div class="login-modal-header">
 
         <div>
-
           <h2
             class="login-modal-title"
             id="login-title"
@@ -1969,7 +1974,6 @@
           <p class="login-modal-subtitle">
             Connect your Discord account to access the full RSF experience.
           </p>
-
         </div>
 
         <button
@@ -2020,7 +2024,59 @@
       </p>
 
     </div>
+  </div>
 
+  <div
+    class="connections-overlay"
+    id="connections-overlay"
+    aria-hidden="true"
+  >
+    <div
+      class="connections-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="connections-title"
+    >
+
+      <div class="connections-header">
+
+        <div>
+          <h2
+            class="connections-title"
+            id="connections-title"
+          >
+            Followers
+          </h2>
+
+          <p
+            class="connections-subtitle"
+            id="connections-subtitle"
+          >
+            People following this player.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="login-close"
+          id="connections-close"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div
+        class="connections-list"
+        id="connections-list"
+      >
+        <div class="connections-loading">
+          Loading...
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <main>
@@ -2041,7 +2097,7 @@
                   id="main-avatar-image"
                   src=""
                   alt=""
-                  style="display: none;"
+                  style="display:none;"
                 >
 
                 <div
@@ -2064,13 +2120,6 @@
                     Loading...
                   </h1>
 
-                  <span
-                    class="profile-badge"
-                    id="profile-badge"
-                  >
-                    RSF PLAYER
-                  </span>
-
                 </div>
 
                 <div
@@ -2084,7 +2133,7 @@
                   class="profile-bio"
                   id="profile-bio"
                 >
-                  No profile biography available.
+                  No bio yet
                 </p>
 
                 <div
@@ -2102,7 +2151,7 @@
                   class="profile-action primary"
                   id="edit-profile-button"
                   type="button"
-                  style="display: none;"
+                  style="display:none;"
                 >
                   EDIT
                 </button>
@@ -2129,15 +2178,23 @@
 
             <div class="social-stats">
 
-              <div class="social-stat">
+              <button
+                class="social-stat social-stat-button"
+                id="followers-stat"
+                type="button"
+              >
                 <strong id="followers-count">0</strong>
                 <span>FOLLOWERS</span>
-              </div>
+              </button>
 
-              <div class="social-stat">
+              <button
+                class="social-stat social-stat-button"
+                id="following-stat"
+                type="button"
+              >
                 <strong id="following-count">0</strong>
                 <span>FOLLOWING</span>
-              </div>
+              </button>
 
               <div class="social-stat">
                 <strong id="profile-views-count">—</strong>
@@ -2216,7 +2273,7 @@
               class="panel-text"
               id="overview-bio"
             >
-              No profile biography available.
+              No bio yet
             </p>
 
           </div>
@@ -2229,8 +2286,11 @@
 
             <div class="stat-grid">
 
-              <div class="stat-box">
-
+              <button
+                class="clickable-stat"
+                id="about-followers-stat"
+                type="button"
+              >
                 <div
                   class="stat-value"
                   id="about-followers-count"
@@ -2241,11 +2301,13 @@
                 <div class="stat-name">
                   FOLLOWERS
                 </div>
+              </button>
 
-              </div>
-
-              <div class="stat-box">
-
+              <button
+                class="clickable-stat"
+                id="about-following-stat"
+                type="button"
+              >
                 <div
                   class="stat-value"
                   id="about-following-count"
@@ -2256,65 +2318,7 @@
                 <div class="stat-name">
                   FOLLOWING
                 </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="profile-panel">
-
-            <div class="panel-label">
-              PROFILE
-            </div>
-
-            <div class="profile-list">
-
-              <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  PLAYER
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-player-status"
-                >
-                  REGISTERED
-                </span>
-
-              </div>
-
-              <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  ROBLOX
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-roblox"
-                >
-                  —
-                </span>
-
-              </div>
-
-              <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  DISCORD
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-discord"
-                >
-                  —
-                </span>
-
-              </div>
+              </button>
 
             </div>
 
@@ -2506,21 +2510,6 @@
               <div class="profile-list-row">
 
                 <span class="profile-list-name">
-                  DISCORD
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="about-discord"
-                >
-                  —
-                </span>
-
-              </div>
-
-              <div class="profile-list-row">
-
-                <span class="profile-list-name">
                   MEMBER SINCE
                 </span>
 
@@ -2560,7 +2549,11 @@
 
             <div class="stat-grid">
 
-              <div class="stat-box">
+              <button
+                class="clickable-stat"
+                id="about-followers-stat-2"
+                type="button"
+              >
 
                 <div
                   class="stat-value"
@@ -2573,9 +2566,13 @@
                   FOLLOWERS
                 </div>
 
-              </div>
+              </button>
 
-              <div class="stat-box">
+              <button
+                class="clickable-stat"
+                id="about-following-stat-2"
+                type="button"
+              >
 
                 <div
                   class="stat-value"
@@ -2588,7 +2585,7 @@
                   FOLLOWING
                 </div>
 
-              </div>
+              </button>
 
             </div>
 
@@ -2605,15 +2602,12 @@
   <footer>
 
     <div class="footer-left">
-
       <span class="footer-brand">
         RSF
       </span>
-
     </div>
 
     <div class="footer-right">
-
       <a href="/privacy">
         Privacy Policy
       </a>
@@ -2621,243 +2615,39 @@
       <a href="/terms">
         Terms of Use
       </a>
-
     </div>
 
   </footer>
 
   <script>
-    const RSF_VALID_THEMES = [
-      "dark",
-      "light",
-      "blue",
-      "royal",
-      "ocean"
-    ];
-
-    function rsfApplyTheme(
-      theme,
-      save = true
-    ) {
-
-      if (
-        !RSF_VALID_THEMES.includes(theme)
-      ) {
-        theme = "blue";
-      }
-
-      document.body.classList.remove(
-        "theme-dark",
-        "theme-light",
-        "theme-blue",
-        "theme-royal",
-        "theme-ocean"
-      );
-
-      document.body.classList.add(
-        `theme-${theme}`
-      );
-
-      if (save) {
-
-        try {
-
-          localStorage.setItem(
-            "rsf-theme",
-            theme
-          );
-
-        } catch (error) {}
-
-      }
-
-    }
-
-    async function rsfSyncTheme() {
-
-      try {
-
-        const meResponse =
-          await fetch(
-            "/api/me",
-            {
-              method: "GET",
-              credentials: "include",
-              cache: "no-store"
-            }
-          );
-
-        if (!meResponse.ok) {
-
-          localStorage.removeItem(
-            "rsf-authenticated"
-          );
-
-          rsfApplyTheme(
-            "blue",
-            false
-          );
-
-          return;
-
-        }
-
-        const meData =
-          await meResponse.json();
-
-        if (
-          !meData.authenticated ||
-          !meData.verified
-        ) {
-
-          localStorage.removeItem(
-            "rsf-authenticated"
-          );
-
-          rsfApplyTheme(
-            "blue",
-            false
-          );
-
-          return;
-
-        }
-
-        localStorage.setItem(
-          "rsf-authenticated",
-          "true"
-        );
-
-        const response =
-          await fetch(
-            "/api/preferences",
-            {
-              method: "GET",
-              credentials: "include",
-              cache: "no-store"
-            }
-          );
-
-        if (!response.ok) {
-          return;
-        }
-
-        const data =
-          await response.json();
-
-        if (
-          data &&
-          RSF_VALID_THEMES.includes(
-            data.theme
-          )
-        ) {
-
-          rsfApplyTheme(
-            data.theme
-          );
-
-        }
-
-      } catch (error) {}
-
-    }
-
-    window.addEventListener(
-      "storage",
-      event => {
-
-        if (
-          event.key === "rsf-theme"
-        ) {
-
-          if (
-            localStorage.getItem(
-              "rsf-authenticated"
-            ) === "true" &&
-            RSF_VALID_THEMES.includes(
-              event.newValue
-            )
-          ) {
-
-            rsfApplyTheme(
-              event.newValue,
-              false
-            );
-
-          }
-
-          return;
-
-        }
-
-        if (
-          event.key ===
-            "rsf-authenticated" &&
-          event.newValue !== "true"
-        ) {
-
-          rsfApplyTheme(
-            "blue",
-            false
-          );
-
-        }
-
-      }
-    );
-
-    rsfSyncTheme();
-
     const loginButton =
-      document.getElementById(
-        "login-button"
-      );
+      document.getElementById("login-button");
 
     const loginOverlay =
-      document.getElementById(
-        "login-overlay"
-      );
+      document.getElementById("login-overlay");
 
     const loginClose =
-      document.getElementById(
-        "login-close"
-      );
+      document.getElementById("login-close");
 
     const loginProceed =
-      document.getElementById(
-        "login-proceed"
-      );
+      document.getElementById("login-proceed");
 
     function openLoginModal() {
-
-      loginOverlay.classList.add(
-        "open"
-      );
-
+      loginOverlay.classList.add("open");
       loginOverlay.setAttribute(
         "aria-hidden",
         "false"
       );
-
-      document.body.style.overflow =
-        "hidden";
-
+      document.body.style.overflow = "hidden";
     }
 
     function closeLoginModal() {
-
-      loginOverlay.classList.remove(
-        "open"
-      );
-
+      loginOverlay.classList.remove("open");
       loginOverlay.setAttribute(
         "aria-hidden",
         "true"
       );
-
-      document.body.style.overflow =
-        "";
-
+      document.body.style.overflow = "";
     }
 
     loginButton.addEventListener(
@@ -2873,106 +2663,68 @@
     loginOverlay.addEventListener(
       "click",
       event => {
-
-        if (
-          event.target ===
-          loginOverlay
-        ) {
-
+        if (event.target === loginOverlay) {
           closeLoginModal();
-
         }
-
       }
     );
 
     loginProceed.addEventListener(
       "click",
       () => {
-
-        window.location.href =
-          "/api/login";
-
+        window.location.href = "/api/login";
       }
     );
 
     document.addEventListener(
       "keydown",
       event => {
-
         if (
           event.key === "Escape" &&
-          loginOverlay.classList.contains(
-            "open"
-          )
+          loginOverlay.classList.contains("open")
         ) {
-
           closeLoginModal();
-
         }
-
       }
     );
   </script>
 
   <script>
     (() => {
-
       const profileTabs =
-        document.querySelectorAll(
-          ".profile-tab"
-        );
+        document.querySelectorAll(".profile-tab");
 
       const tabContents =
-        document.querySelectorAll(
-          ".tab-content"
+        document.querySelectorAll(".tab-content");
+
+      profileTabs.forEach(tab => {
+        tab.addEventListener(
+          "click",
+          () => {
+            const target =
+              tab.dataset.tab;
+
+            profileTabs.forEach(item => {
+              item.classList.toggle(
+                "active",
+                item === tab
+              );
+            });
+
+            tabContents.forEach(content => {
+              content.classList.toggle(
+                "active",
+                content.id === `${target}-tab`
+              );
+            });
+          }
         );
-
-      profileTabs.forEach(
-        tab => {
-
-          tab.addEventListener(
-            "click",
-            () => {
-
-              const target =
-                tab.dataset.tab;
-
-              profileTabs.forEach(
-                item => {
-
-                  item.classList.toggle(
-                    "active",
-                    item === tab
-                  );
-
-                }
-              );
-
-              tabContents.forEach(
-                content => {
-
-                  content.classList.toggle(
-                    "active",
-                    content.id ===
-                      `${target}-tab`
-                  );
-
-                }
-              );
-
-            }
-          );
-
-        }
-      );
-
+      });
     })();
   </script>
 
   <script>
     (() => {
-
       const params =
         new URLSearchParams(
           window.location.search
@@ -2986,7 +2738,6 @@
       ).trim();
 
       if (!requestedUsername) {
-
         const pathParts =
           window.location.pathname
             .split("/")
@@ -3003,16 +2754,13 @@
           profileIndex !== -1 &&
           pathParts[profileIndex + 1]
         ) {
-
           requestedUsername =
             decodeURIComponent(
               pathParts[
                 profileIndex + 1
               ]
             ).trim();
-
         }
-
       }
 
       const playerName =
@@ -3095,24 +2843,9 @@
           "edit-profile-button"
         );
 
-      const overviewRoblox =
-        document.getElementById(
-          "overview-roblox"
-        );
-
-      const overviewDiscord =
-        document.getElementById(
-          "overview-discord"
-        );
-
       const aboutRoblox =
         document.getElementById(
           "about-roblox"
-        );
-
-      const aboutDiscord =
-        document.getElementById(
-          "about-discord"
         );
 
       const aboutJoined =
@@ -3125,11 +2858,67 @@
           "about-updated"
         );
 
+      const followersStat =
+        document.getElementById(
+          "followers-stat"
+        );
+
+      const followingStat =
+        document.getElementById(
+          "following-stat"
+        );
+
+      const aboutFollowersStat =
+        document.getElementById(
+          "about-followers-stat"
+        );
+
+      const aboutFollowingStat =
+        document.getElementById(
+          "about-following-stat"
+        );
+
+      const aboutFollowersStat2 =
+        document.getElementById(
+          "about-followers-stat-2"
+        );
+
+      const aboutFollowingStat2 =
+        document.getElementById(
+          "about-following-stat-2"
+        );
+
+      const connectionsOverlay =
+        document.getElementById(
+          "connections-overlay"
+        );
+
+      const connectionsClose =
+        document.getElementById(
+          "connections-close"
+        );
+
+      const connectionsTitle =
+        document.getElementById(
+          "connections-title"
+        );
+
+      const connectionsSubtitle =
+        document.getElementById(
+          "connections-subtitle"
+        );
+
+      const connectionsList =
+        document.getElementById(
+          "connections-list"
+        );
+
       let currentPlayer = null;
       let followRequestInProgress = false;
+      let connectionsLoading = false;
+      let connectionsType = "followers";
 
       function formatDate(value) {
-
         if (!value) {
           return "—";
         }
@@ -3153,19 +2942,30 @@
             year: "numeric"
           }
         );
+      }
 
+      function setText(
+        element,
+        value,
+        fallback = "—"
+      ) {
+        if (!element) {
+          return;
+        }
+
+        element.textContent =
+          value ||
+          fallback;
       }
 
       async function loadRobloxAvatar(
         username
       ) {
-
         if (!username) {
           return;
         }
 
         try {
-
           const userResponse =
             await fetch(
               "https://users.roblox.com/v1/usernames/users",
@@ -3175,10 +2975,11 @@
                   "Content-Type":
                     "application/json"
                 },
-                body: JSON.stringify({
-                  usernames: [username],
-                  excludeBannedUsers: false
-                })
+                body:
+                  JSON.stringify({
+                    usernames: [username],
+                    excludeBannedUsers: false
+                  })
               }
             );
 
@@ -3198,9 +2999,9 @@
 
           const avatarResponse =
             await fetch(
-              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
-                encodeURIComponent(user.id) +
-                "&size=420x420&format=Png&isCircular=false"
+              `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
+                user.id
+              )}&size=420x420&format=Png&isCircular=false`
             );
 
           if (!avatarResponse.ok) {
@@ -3210,59 +3011,46 @@
           const avatarData =
             await avatarResponse.json();
 
-          const image =
-            avatarData?.data?.[0];
+          const imageUrl =
+            avatarData?.data?.[0]?.imageUrl;
 
-          if (
-            image?.imageUrl
-          ) {
-
-            mainAvatarImage.src =
-              image.imageUrl;
-
-            mainAvatarImage.style.display =
-              "block";
-
-            mainAvatarFallback.style.display =
-              "none";
-
+          if (!imageUrl) {
+            return;
           }
 
-        } catch (error) {
+          mainAvatarImage.src =
+            imageUrl;
 
-          console.warn(
-            "Roblox avatar lookup failed:",
+          mainAvatarImage.style.display =
+            "block";
+
+          mainAvatarFallback.style.display =
+            "none";
+        } catch (error) {
+          console.error(
+            "Roblox avatar failed:",
             error
           );
-
         }
-
       }
 
       function updateFallback(
         username
       ) {
-
         const value =
           String(
             username || "?"
           ).trim();
 
         mainAvatarFallback.textContent =
-          value
-            ? value
-                .charAt(0)
-                .toUpperCase()
-            : "?";
-
+          value.charAt(0).toUpperCase() ||
+          "?";
       }
 
       function updateProfileActions(
         isSelf
       ) {
-
         if (isSelf) {
-
           messageButton.style.display =
             "none";
 
@@ -3273,7 +3061,6 @@
             "inline-flex";
 
           return;
-
         }
 
         messageButton.style.display =
@@ -3284,17 +3071,11 @@
 
         editButton.style.display =
           "none";
-
       }
 
       function updateFollowButton(
         isFollowing
       ) {
-
-        if (!followButton) {
-          return;
-        }
-
         followButton.classList.toggle(
           "following",
           isFollowing
@@ -3304,13 +3085,11 @@
           isFollowing
             ? "FOLLOWING"
             : "FOLLOW";
-
       }
 
       function updateFollowCounts(
         data
       ) {
-
         const followers =
           Number(
             data.followersCount ??
@@ -3342,23 +3121,12 @@
 
         aboutFollowingCount2.textContent =
           following.toLocaleString();
-
       }
 
       async function loadFollowData(
         playerId
       ) {
-
-        if (
-          playerId === null ||
-          playerId === undefined ||
-          playerId === ""
-        ) {
-          return;
-        }
-
         try {
-
           const response =
             await fetch(
               `/api/follow?playerId=${encodeURIComponent(
@@ -3371,21 +3139,17 @@
               }
             );
 
-          if (!response.ok) {
-
-            throw new Error(
-              "Unable to load follow data."
-            );
-
-          }
-
           const data =
             await response.json();
 
-          updateFollowCounts(
-            data
-          );
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Unable to load follow data."
+            );
+          }
 
+          updateFollowCounts(data);
           updateFollowButton(
             data.isFollowing === true
           );
@@ -3393,31 +3157,33 @@
           updateProfileActions(
             data.isSelf === true
           );
-
         } catch (error) {
-
           console.error(
             "Follow data failed:",
             error
           );
-
         }
+      }
 
+      function showLogin() {
+        loginOverlay.classList.add(
+          "open"
+        );
+
+        loginOverlay.setAttribute(
+          "aria-hidden",
+          "false"
+        );
+
+        document.body.style.overflow =
+          "hidden";
       }
 
       async function toggleFollow() {
-
         if (
           !currentPlayer ||
+          !currentPlayer.id ||
           followRequestInProgress
-        ) {
-          return;
-        }
-
-        if (
-          currentPlayer.id === null ||
-          currentPlayer.id === undefined ||
-          currentPlayer.id === ""
         ) {
           return;
         }
@@ -3427,25 +3193,8 @@
             "function" &&
           !window.isRSFAuthenticated()
         ) {
-
-          if (loginOverlay) {
-
-            loginOverlay.classList.add(
-              "open"
-            );
-
-            loginOverlay.setAttribute(
-              "aria-hidden",
-              "false"
-            );
-
-            document.body.style.overflow =
-              "hidden";
-
-          }
-
+          showLogin();
           return;
-
         }
 
         const currentlyFollowing =
@@ -3459,12 +3208,14 @@
         followRequestInProgress =
           true;
 
+        followButton.disabled =
+          true;
+
         updateFollowButton(
           nextFollowing
         );
 
         try {
-
           const response =
             await fetch(
               "/api/follow",
@@ -3493,14 +3244,11 @@
           let data = {};
 
           try {
-
             data =
               await response.json();
-
           } catch (error) {}
 
           if (!response.ok) {
-
             updateFollowButton(
               currentlyFollowing
             );
@@ -3509,58 +3257,458 @@
               response.status === 401 ||
               response.status === 403
             ) {
-
-              if (loginOverlay) {
-
-                loginOverlay.classList.add(
-                  "open"
-                );
-
-                loginOverlay.setAttribute(
-                  "aria-hidden",
-                  "false"
-                );
-
-                document.body.style.overflow =
-                  "hidden";
-
-              }
-
+              showLogin();
             }
 
             throw new Error(
               data.error ||
               "Unable to update follow."
             );
-
           }
 
           updateFollowCounts(
             data
           );
 
-          updateFollowButton(
-            data.isFollowing === true
-          );
-
         } catch (error) {
-
           console.error(
-            "Follow request failed:",
+            "Follow failed:",
             error
           );
-
-          updateFollowButton(
-            currentlyFollowing
-          );
-
         } finally {
-
           followRequestInProgress =
             false;
 
+          followButton.disabled =
+            false;
+        }
+      }
+
+      function escapeHtml(
+        value
+      ) {
+        return String(
+          value || ""
+        )
+          .replaceAll(
+            "&",
+            "&amp;"
+          )
+          .replaceAll(
+            "<",
+            "&lt;"
+          )
+          .replaceAll(
+            ">",
+            "&gt;"
+          )
+          .replaceAll(
+            '"',
+            "&quot;"
+          )
+          .replaceAll(
+            "'",
+            "&#039;"
+          );
+      }
+
+      function openConnections(
+        type
+      ) {
+        if (
+          !currentPlayer ||
+          !currentPlayer.id
+        ) {
+          return;
         }
 
+        connectionsType =
+          type;
+
+        connectionsTitle.textContent =
+          type === "followers"
+            ? "Followers"
+            : "Following";
+
+        connectionsSubtitle.textContent =
+          type === "followers"
+            ? "People following this player."
+            : "People this player follows.";
+
+        connectionsOverlay.classList.add(
+          "open"
+        );
+
+        connectionsOverlay.setAttribute(
+          "aria-hidden",
+          "false"
+        );
+
+        document.body.style.overflow =
+          "hidden";
+
+        loadConnections();
+      }
+
+      function closeConnections() {
+        connectionsOverlay.classList.remove(
+          "open"
+        );
+
+        connectionsOverlay.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+        document.body.style.overflow =
+          "";
+      }
+
+      async function loadConnections() {
+        if (
+          !currentPlayer ||
+          !currentPlayer.id ||
+          connectionsLoading
+        ) {
+          return;
+        }
+
+        connectionsLoading =
+          true;
+
+        connectionsList.innerHTML = `
+          <div class="connections-loading">
+            Loading...
+          </div>
+        `;
+
+        try {
+          const response =
+            await fetch(
+              `/api/follow-list?playerId=${encodeURIComponent(
+                currentPlayer.id
+              )}&type=${encodeURIComponent(
+                connectionsType
+              )}`,
+              {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store"
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Unable to load connections."
+            );
+          }
+
+          renderConnections(
+            data.users || [],
+            data.isSelf === true
+          );
+
+        } catch (error) {
+          console.error(
+            "Connections failed:",
+            error
+          );
+
+          connectionsList.innerHTML = `
+            <div class="connections-error">
+              Unable to load this list.
+            </div>
+          `;
+        } finally {
+          connectionsLoading =
+            false;
+        }
+      }
+
+      function renderConnections(
+        users,
+        isSelf
+      ) {
+        if (!users.length) {
+          connectionsList.innerHTML = `
+            <div class="connections-empty">
+              ${
+                connectionsType === "followers"
+                  ? "No followers yet."
+                  : "Not following anyone yet."
+              }
+            </div>
+          `;
+
+          return;
+        }
+
+        connectionsList.innerHTML =
+          users.map(user => {
+
+            const username =
+              user.roblox_username ||
+              user.discord_username ||
+              "Unknown player";
+
+            const initial =
+              username
+                .charAt(0)
+                .toUpperCase();
+
+            const profileUrl =
+              `/profile?username=${encodeURIComponent(
+                username
+              )}`;
+
+            let action = "";
+
+            if (isSelf) {
+              action = `
+                <button
+                  class="connection-action ${
+                    connectionsType === "followers"
+                      ? "remove"
+                      : ""
+                  }"
+                  type="button"
+                  data-action="${
+                    connectionsType === "followers"
+                      ? "remove"
+                      : "unfollow"
+                  }"
+                  data-player-id="${escapeHtml(
+                    user.player_id
+                  )}"
+                >
+                  ${
+                    connectionsType === "followers"
+                      ? "REMOVE"
+                      : "UNFOLLOW"
+                  }
+                </button>
+              `;
+            }
+
+            return `
+              <div
+                class="connection-item"
+                data-player-id="${escapeHtml(
+                  user.player_id
+                )}"
+              >
+
+                <a
+                  class="connection-link"
+                  href="${profileUrl}"
+                >
+
+                  <div class="connection-avatar">
+                    <span>${escapeHtml(initial)}</span>
+                  </div>
+
+                  <div class="connection-info">
+
+                    <span class="connection-name">
+                      ${escapeHtml(username)}
+                    </span>
+
+                    <span class="connection-handle">
+                      @${escapeHtml(username)}
+                    </span>
+
+                  </div>
+
+                </a>
+
+                ${action}
+
+              </div>
+            `;
+          }).join("");
+
+        loadConnectionAvatars(
+          users
+        );
+      }
+
+      async function loadConnectionAvatars(
+        users
+      ) {
+        for (
+          const user of users
+        ) {
+          if (
+            !user.roblox_username
+          ) {
+            continue;
+          }
+
+          const item =
+            connectionsList.querySelector(
+              `[data-player-id="${CSS.escape(
+                String(
+                  user.player_id
+                )
+              )}"]`
+            );
+
+          if (!item) {
+            continue;
+          }
+
+          try {
+            const userResponse =
+              await fetch(
+                "https://users.roblox.com/v1/usernames/users",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+                  body:
+                    JSON.stringify({
+                      usernames: [
+                        user.roblox_username
+                      ],
+                      excludeBannedUsers:
+                        false
+                    })
+                }
+              );
+
+            if (!userResponse.ok) {
+              continue;
+            }
+
+            const userData =
+              await userResponse.json();
+
+            const robloxUser =
+              userData?.data?.[0];
+
+            if (!robloxUser?.id) {
+              continue;
+            }
+
+            const avatarResponse =
+              await fetch(
+                `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
+                  robloxUser.id
+                )}&size=150x150&format=Png&isCircular=false`
+              );
+
+            if (!avatarResponse.ok) {
+              continue;
+            }
+
+            const avatarData =
+              await avatarResponse.json();
+
+            const imageUrl =
+              avatarData?.data?.[0]?.imageUrl;
+
+            if (!imageUrl) {
+              continue;
+            }
+
+            const avatar =
+              item.querySelector(
+                ".connection-avatar"
+              );
+
+            if (avatar) {
+              avatar.innerHTML = `
+                <img
+                  src="${imageUrl}"
+                  alt=""
+                >
+              `;
+            }
+
+          } catch (error) {}
+        }
+      }
+
+      async function manageConnection(
+        playerId,
+        action,
+        button
+      ) {
+        if (
+          !currentPlayer ||
+          !currentPlayer.id ||
+          !playerId ||
+          button.disabled
+        ) {
+          return;
+        }
+
+        button.disabled =
+          true;
+
+        button.textContent =
+          action === "remove"
+            ? "REMOVING"
+            : "UNFOLLOWING";
+
+        try {
+          const response =
+            await fetch(
+              "/api/follow-list",
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+                credentials: "include",
+                body:
+                  JSON.stringify({
+                    playerId:
+                      currentPlayer.id,
+                    otherPlayerId:
+                      playerId,
+                    action
+                  })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Unable to update connection."
+            );
+          }
+
+          updateFollowCounts(
+            data
+          );
+
+          await loadConnections();
+
+        } catch (error) {
+          console.error(
+            "Connection update failed:",
+            error
+          );
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            action === "remove"
+              ? "REMOVE"
+              : "UNFOLLOW";
+        }
       }
 
       followButton.addEventListener(
@@ -3571,31 +3719,133 @@
       messageButton.addEventListener(
         "click",
         () => {
-
           if (
             currentPlayer &&
             currentPlayer.discord_id
           ) {
             return;
           }
-
         }
       );
 
       editButton.addEventListener(
         "click",
         () => {
-
           window.location.href =
             "/settings";
+        }
+      );
 
+      followersStat.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "followers"
+          );
+        }
+      );
+
+      followingStat.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "following"
+          );
+        }
+      );
+
+      aboutFollowersStat.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "followers"
+          );
+        }
+      );
+
+      aboutFollowingStat.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "following"
+          );
+        }
+      );
+
+      aboutFollowersStat2.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "followers"
+          );
+        }
+      );
+
+      aboutFollowingStat2.addEventListener(
+        "click",
+        () => {
+          openConnections(
+            "following"
+          );
+        }
+      );
+
+      connectionsClose.addEventListener(
+        "click",
+        closeConnections
+      );
+
+      connectionsOverlay.addEventListener(
+        "click",
+        event => {
+          if (
+            event.target ===
+            connectionsOverlay
+          ) {
+            closeConnections();
+          }
+        }
+      );
+
+      connectionsList.addEventListener(
+        "click",
+        event => {
+          const button =
+            event.target.closest(
+              "[data-action]"
+            );
+
+          if (!button) {
+            return;
+          }
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          manageConnection(
+            button.dataset.playerId,
+            button.dataset.action,
+            button
+          );
+        }
+      );
+
+      document.addEventListener(
+        "keydown",
+        event => {
+          if (
+            event.key === "Escape" &&
+            connectionsOverlay.classList.contains(
+              "open"
+            )
+          ) {
+            closeConnections();
+          }
         }
       );
 
       async function loadProfile() {
-
         if (!requestedUsername) {
-
           playerName.textContent =
             "Profile";
 
@@ -3606,11 +3856,9 @@
             "No player was specified.";
 
           return;
-
         }
 
         try {
-
           const response =
             await fetch(
               `/api/profile?username=${encodeURIComponent(
@@ -3627,12 +3875,10 @@
             await response.json();
 
           if (!response.ok) {
-
             throw new Error(
               data.error ||
               "Unable to load this profile."
             );
-
           }
 
           currentPlayer =
@@ -3650,7 +3896,7 @@
 
           const biography =
             currentPlayer.bio ||
-            "RSF player profile.";
+            "No bio yet";
 
           profileBio.textContent =
             biography;
@@ -3663,20 +3909,8 @@
               currentPlayer.joined_at
             )}`;
 
-          overviewRoblox.textContent =
-            currentPlayer.roblox_username ||
-            "—";
-
-          overviewDiscord.textContent =
-            currentPlayer.discord_id ||
-            "—";
-
           aboutRoblox.textContent =
             currentPlayer.roblox_username ||
-            "—";
-
-          aboutDiscord.textContent =
-            currentPlayer.discord_id ||
             "—";
 
           aboutJoined.textContent =
@@ -3702,7 +3936,6 @@
           );
 
         } catch (error) {
-
           console.error(
             "Profile load failed:",
             error
@@ -3718,14 +3951,165 @@
           overviewBio.textContent =
             error.message ||
             "Unable to load this profile.";
-
         }
-
       }
 
       loadProfile();
 
     })();
+  </script>
+
+  <script>
+    const RSF_VALID_THEMES = [
+      "dark",
+      "light",
+      "blue",
+      "royal",
+      "ocean"
+    ];
+
+    function rsfApplyTheme(
+      theme,
+      save = true
+    ) {
+      const validTheme =
+        RSF_VALID_THEMES.includes(theme)
+          ? theme
+          : "blue";
+
+      document.body.classList.remove(
+        "theme-dark",
+        "theme-light",
+        "theme-blue",
+        "theme-royal",
+        "theme-ocean"
+      );
+
+      document.body.classList.add(
+        `theme-${validTheme}`
+      );
+
+      if (save) {
+        try {
+          localStorage.setItem(
+            "rsf-theme",
+            validTheme
+          );
+        } catch (error) {}
+      }
+    }
+
+    async function rsfSyncTheme() {
+      try {
+        const response =
+          await fetch(
+            "/api/me",
+            {
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (
+          !response.ok
+        ) {
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          rsfApplyTheme(
+            "blue",
+            false
+          );
+
+          return;
+        }
+
+        const me =
+          await response.json();
+
+        if (!me?.authenticated) {
+          localStorage.removeItem(
+            "rsf-authenticated"
+          );
+
+          rsfApplyTheme(
+            "blue",
+            false
+          );
+
+          return;
+        }
+
+        localStorage.setItem(
+          "rsf-authenticated",
+          "true"
+        );
+
+        const preferenceResponse =
+          await fetch(
+            "/api/preferences",
+            {
+              credentials: "include",
+              cache: "no-store"
+            }
+          );
+
+        if (
+          !preferenceResponse.ok
+        ) {
+          return;
+        }
+
+        const preferences =
+          await preferenceResponse.json();
+
+        const theme =
+          preferences?.theme;
+
+        if (
+          RSF_VALID_THEMES.includes(
+            theme
+          )
+        ) {
+          rsfApplyTheme(
+            theme,
+            true
+          );
+        }
+
+      } catch (error) {}
+    }
+
+    window.addEventListener(
+      "storage",
+      event => {
+        if (
+          event.key ===
+          "rsf-theme"
+        ) {
+          if (
+            RSF_VALID_THEMES.includes(
+              event.newValue
+            )
+          ) {
+            rsfApplyTheme(
+              event.newValue,
+              false
+            );
+          }
+        }
+
+        if (
+          event.key ===
+          "rsf-authenticated"
+        ) {
+          rsfSyncTheme();
+        }
+      }
+    );
+
+    rsfSyncTheme();
   </script>
 
   <script src="/auth.js"></script>
