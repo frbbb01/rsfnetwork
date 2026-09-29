@@ -62,7 +62,7 @@ function safeEqual(a, b) {
   );
 }
 
-function getSessionUserId(req) {
+function getSessionDiscordId(req) {
   const cookies =
     parseCookies(req);
 
@@ -136,7 +136,9 @@ function getSessionUserId(req) {
       return null;
     }
 
-    return payload.id;
+    return String(
+      payload.id
+    );
   } catch {
     return null;
   }
@@ -316,7 +318,7 @@ function getRequestedPlayerId(req) {
 
   if (
     typeof req.query.playerId ===
-    "string" &&
+      "string" &&
     req.query.playerId.trim()
   ) {
     return req.query.playerId.trim();
@@ -335,12 +337,12 @@ function getRequestedPlayerId(req) {
 }
 
 async function getFollowState(
-  viewerUserId,
-  targetUserId
+  followerId,
+  followingId
 ) {
   if (
-    !viewerUserId ||
-    !targetUserId
+    !followerId ||
+    !followingId
   ) {
     return false;
   }
@@ -348,9 +350,9 @@ async function getFollowState(
   const follows =
     await supabaseRequest(
       `follows?select=follower_id&follower_id=eq.${encodeURIComponent(
-        viewerUserId
+        followerId
       )}&following_id=eq.${encodeURIComponent(
-        targetUserId
+        followingId
       )}&limit=1`
     );
 
@@ -444,13 +446,13 @@ export default async function handler(
       });
     }
 
-    const sessionUserId =
-      getSessionUserId(req);
+    const sessionDiscordId =
+      getSessionDiscordId(req);
 
     const viewerUser =
-      sessionUserId
-        ? await getUserById(
-            sessionUserId
+      sessionDiscordId
+        ? await getUserByDiscordId(
+            sessionDiscordId
           )
         : null;
 
