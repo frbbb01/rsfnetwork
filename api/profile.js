@@ -59,7 +59,7 @@ export default async function handler(req, res) {
 
   try {
     const players = await supabaseRequest(
-      `players?select=id,roblox_username,joined_at,updated_at&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
+      `players?select=id,roblox_username&roblox_username=eq.${encodeURIComponent(username)}&limit=1`
     );
 
     if (!players || players.length === 0) {
@@ -68,8 +68,27 @@ export default async function handler(req, res) {
       });
     }
 
+    const player = players[0];
+
+    const users = await supabaseRequest(
+      `users?select=id,discord_id,joined_at,updated_at&id=eq.${encodeURIComponent(player.id)}&limit=1`
+    );
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({
+        error: "User account not found"
+      });
+    }
+
+    const user = users[0];
+
     return res.status(200).json({
-      player: players[0]
+      player: {
+        id: player.id,
+        roblox_username: player.roblox_username,
+        joined_at: user.joined_at,
+        updated_at: user.updated_at
+      }
     });
   } catch (error) {
     console.error("Profile API error:", error);
