@@ -1461,8 +1461,32 @@
 
 <body data-theme="blue">
 
-  <header class="topbar">
+  <script>
+    (function() {
+      try {
+        const cachedTheme =
+          localStorage.getItem(
+            "rsf-theme"
+          );
 
+        if (
+          [
+            "dark",
+            "light",
+            "blue",
+            "royal",
+            "ocean"
+          ].includes(cachedTheme)
+        ) {
+          document.body.dataset.theme =
+            cachedTheme;
+        }
+      } catch (error) {
+      }
+    })();
+  </script>
+
+  <header class="topbar">
 
 <a href="/" class="logo">
   RSF
@@ -1482,11 +1506,14 @@
       <span class="arrow">▾</span>
     </a>
 
-    <div class="dropdown">
-      <a href="/database">Playerbase</a>
-      <a href="/database">Teams</a>
-      <a href="/database">Seasons</a>
-    </div>
+
+<div class="dropdown">
+  <a href="/database">Playerbase</a>
+  <a href="/database">Teams</a>
+  <a href="/database">Seasons</a>
+</div>
+
+
   </div>
 
   <div class="nav-item">
@@ -1495,12 +1522,15 @@
       <span class="arrow">▾</span>
     </a>
 
-    <div class="dropdown">
-      <a href="/community">Videos</a>
-      <a href="/community">Community Latest</a>
-      <a href="/community">Development</a>
-      <a href="/community">Resources</a>
-    </div>
+
+<div class="dropdown">
+  <a href="/community">Videos</a>
+  <a href="/community">Community Latest</a>
+  <a href="/community">Development</a>
+  <a href="/community">Resources</a>
+</div>
+
+
   </div>
 
   <div class="nav-item">
@@ -1518,19 +1548,22 @@
 </nav>
 
 <button
-  type="button"
-  class="login-button"
-  id="login-button"
-  aria-label="Login with Discord"
+type="button"
+class="login-button"
+id="login-button"
+aria-label="Login with Discord"
+
 >
-  <img
-    class="discord-logo"
-    src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
-    alt=""
-    aria-hidden="true"
-  >
-  <span>LOGIN</span>
-</button>
+
+<img
+class="discord-logo"
+src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+alt=""
+aria-hidden="true"
+
+>
+
+<span>LOGIN</span> </button>
 
 <div
   class="profile-card"
@@ -1555,12 +1588,15 @@
       —
     </span>
 
-    <span
-      class="profile-status"
-      id="profile-status"
-    >
-      GUEST
-    </span>
+
+<span
+  class="profile-status"
+  id="profile-status"
+>
+  GUEST
+</span>
+
+
   </div>
 
   <span class="profile-chevron" aria-hidden="true">
@@ -1570,7 +1606,6 @@
   </span>
 </div>
 
-
   </header>
 
   <div
@@ -1578,7 +1613,6 @@
     id="login-overlay"
     aria-hidden="true"
   >
-
 
 <div
   class="login-modal"
@@ -1589,27 +1623,29 @@
 
   <div class="login-modal-header">
 
-    <div>
-      <h2
-        class="login-modal-title"
-        id="login-title"
-      >
-        Login to RSF
-      </h2>
 
-      <p class="login-modal-subtitle">
-        Connect your Discord account to access the full RSF experience.
-      </p>
-    </div>
+<div>
+  <h2
+    class="login-modal-title"
+    id="login-title"
+  >
+    Login to RSF
+  </h2>
 
-    <button
-      type="button"
-      class="login-close"
-      id="login-close"
-      aria-label="Close login"
-    >
-      ×
-    </button>
+  <p class="login-modal-subtitle">
+    Connect your Discord account to access the full RSF experience.
+  </p>
+</div>
+
+<button
+  type="button"
+  class="login-close"
+  id="login-close"
+  aria-label="Close login"
+>
+  ×
+</button>
+
 
   </div>
 
@@ -1621,12 +1657,17 @@
     <li>You can continue using publicly available parts of the website without logging in.</li>
   </ul>
 
-  <button
-    type="button"
-    class="login-proceed"
-    id="login-proceed"
-  >
-    PROCEED TO LOGIN
+<button
+type="button"
+class="login-proceed"
+id="login-proceed"
+
+>
+
+
+PROCEED TO LOGIN
+
+
   </button>
 
   <p class="login-note">
@@ -1635,11 +1676,9 @@
 
 </div>
 
-
   </div>
 
   <main>
-
 
 <section
   class="news"
@@ -1648,27 +1687,29 @@
 
   <div class="news-content">
 
-    <div class="section-label">
-      <span class="news-dot-live"></span>
-      LATEST NEWS
-    </div>
 
-    <div
-      id="news-description"
-      class="news-description empty"
-    >
-      Loading latest news...
-    </div>
+<div class="section-label">
+  <span class="news-dot-live"></span>
+  LATEST NEWS
+</div>
 
-    <div class="news-footer">
-      <span id="news-updated">
-        Last updated: —
-      </span>
+<div
+  id="news-description"
+  class="news-description empty"
+>
+  Loading latest news...
+</div>
 
-      <span>
-        RSF / NEWS
-      </span>
-    </div>
+<div class="news-footer">
+  <span id="news-updated">
+    Last updated: —
+  </span>
+
+  <span>
+    RSF / NEWS
+  </span>
+</div>
+
 
   </div>
 
@@ -1696,18 +1737,21 @@
       aria-label="Previous news"
     ></button>
 
-    <div
-      id="news-dots"
-      class="news-dots"
-      aria-label="News slides"
-    ></div>
 
-    <button
-      type="button"
-      class="news-arrow right"
-      id="news-next"
-      aria-label="Next news"
-    ></button>
+<div
+  id="news-dots"
+  class="news-dots"
+  aria-label="News slides"
+></div>
+
+<button
+  type="button"
+  class="news-arrow right"
+  id="news-next"
+  aria-label="Next news"
+></button>
+
+
   </div>
 
 </section>
@@ -1719,101 +1763,107 @@
 
   <article class="module rsf-module">
 
-    <h2 class="module-title">
-      RSF
-    </h2>
 
-    <p class="module-description">
-      The home of RSF, its history, people and everything surrounding the community.
-    </p>
+<h2 class="module-title">
+  RSF
+</h2>
 
-    <div class="module-bottom">
-      <a
-        href="/rsf"
-        class="module-link"
-      >
-        EXPLORE RSF
-        <span class="module-arrow">→</span>
-      </a>
-    </div>
+<p class="module-description">
+  The home of RSF, its history, people and everything surrounding the community.
+</p>
+
+<div class="module-bottom">
+  <a
+    href="/rsf"
+    class="module-link"
+  >
+    EXPLORE RSF
+    <span class="module-arrow">→</span>
+  </a>
+</div>
+
 
   </article>
 
   <article class="module database">
 
-    <h2 class="module-title">
-      DATABASE
-    </h2>
 
-    <p class="module-description">
-      Explore the RSF playerbase, teams, seasons and the records that make up its history.
-    </p>
+<h2 class="module-title">
+  DATABASE
+</h2>
 
-    <div class="module-bottom">
-      <a
-        href="/database"
-        class="module-link"
-      >
-        OPEN DATABASE
-        <span class="module-arrow">→</span>
-      </a>
-    </div>
+<p class="module-description">
+  Explore the RSF playerbase, teams, seasons and the records that make up its history.
+</p>
+
+<div class="module-bottom">
+  <a
+    href="/database"
+    class="module-link"
+  >
+    OPEN DATABASE
+    <span class="module-arrow">→</span>
+  </a>
+</div>
+
 
   </article>
 
   <article class="module arcade-module">
 
-    <h2 class="module-title">
-      ARCADE
-    </h2>
 
-    <p class="module-description">
-      Games, experiments and smaller interactive projects built around RSF.
-    </p>
+<h2 class="module-title">
+  ARCADE
+</h2>
 
-    <div class="module-bottom">
-      <a
-        href="/arcade"
-        class="module-link"
-      >
-        ENTER ARCADE
-        <span class="module-arrow">→</span>
-      </a>
-    </div>
+<p class="module-description">
+  Games, experiments and smaller interactive projects built around RSF.
+</p>
+
+<div class="module-bottom">
+  <a
+    href="/arcade"
+    class="module-link"
+  >
+    ENTER ARCADE
+    <span class="module-arrow">→</span>
+  </a>
+</div>
+
 
   </article>
 
   <article class="module community">
 
-    <div>
-      <h2 class="module-title">
-        COMMUNITY
-      </h2>
 
-      <p class="module-description">
-        Videos, development, resources and the latest things happening around RSF.
-      </p>
-    </div>
+<div>
+  <h2 class="module-title">
+    COMMUNITY
+  </h2>
 
-    <div class="module-bottom">
-      <a
-        href="/community"
-        class="module-link"
-      >
-        VIEW COMMUNITY
-        <span class="module-arrow">→</span>
-      </a>
-    </div>
+  <p class="module-description">
+    Videos, development, resources and the latest things happening around RSF.
+  </p>
+</div>
+
+<div class="module-bottom">
+  <a
+    href="/community"
+    class="module-link"
+  >
+    VIEW COMMUNITY
+    <span class="module-arrow">→</span>
+  </a>
+</div>
+
 
   </article>
 
 </section>
 
-
   </main>
 
   <footer>
-
 
 <div class="footer-left">
   <span class="footer-brand">
@@ -1830,7 +1880,6 @@
     Terms of Use
   </a>
 </div>
-
 
   </footer>
 
@@ -1850,10 +1899,49 @@
 
       document.body.dataset.theme =
         theme;
+
+      try {
+        localStorage.setItem(
+          "rsf-theme",
+          theme
+        );
+      } catch (error) {
+      }
+    }
+
+    function loadCachedTheme() {
+      try {
+        const cachedTheme =
+          localStorage.getItem(
+            "rsf-theme"
+          );
+
+        if (
+          cachedTheme &&
+          validThemes.includes(
+            cachedTheme
+          )
+        ) {
+          document.body.dataset.theme =
+            cachedTheme;
+
+          return;
+        }
+      } catch (error) {
+      }
+
+      if (
+        !validThemes.includes(
+          document.body.dataset.theme
+        )
+      ) {
+        document.body.dataset.theme =
+          "blue";
+      }
     }
 
     async function loadSavedTheme() {
-      applyTheme("blue");
+      loadCachedTheme();
 
       try {
         const response =
@@ -1890,6 +1978,28 @@
         );
       }
     }
+
+    window.addEventListener(
+      "storage",
+      event => {
+        if (
+          event.key !==
+          "rsf-theme"
+        ) {
+          return;
+        }
+
+        if (
+          event.newValue &&
+          validThemes.includes(
+            event.newValue
+          )
+        ) {
+          document.body.dataset.theme =
+            event.newValue;
+        }
+      }
+    );
 
     const loginButton =
       document.getElementById(
@@ -2612,6 +2722,7 @@
       }
     );
 
+    loadCachedTheme();
     loadSavedTheme();
     startNewsSync();
   </script>
