@@ -44,14 +44,6 @@
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
-
-      --page-panel: rgba(255, 255, 255, 0.018);
-      --page-panel-hover: rgba(255, 255, 255, 0.028);
-      --profile-cover: rgba(63, 121, 194, 0.075);
-      --profile-cover-hover: rgba(63, 121, 194, 0.095);
-      --profile-text: rgba(255, 255, 255, 0.50);
-      --profile-faint: rgba(255, 255, 255, 0.34);
-      --profile-strong: rgba(255, 255, 255, 0.82);
     }
 
     * {
@@ -102,7 +94,7 @@
     input,
     textarea,
     select {
-      font: inherit;
+      font-family: inherit;
     }
 
     .topbar {
@@ -414,6 +406,121 @@
       stroke-linejoin: round;
     }
 
+    /*
+      IMPORTANT:
+      auth.js creates and controls .profile-dropdown.
+      There is intentionally NO profile-dropdown HTML in this file.
+    */
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 195px;
+      padding: 5px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--dropdown);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition:
+        opacity 100ms ease,
+        visibility 100ms ease,
+        transform 100ms ease;
+      z-index: 9999;
+    }
+
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .profile-dropdown-item {
+      width: 100%;
+      min-height: 38px;
+      padding: 0 11px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.64);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        background 100ms ease,
+        color 100ms ease;
+    }
+
+    .profile-dropdown-item:hover {
+      background: var(--accent-soft);
+      color: #FFFFFF;
+    }
+
+    .profile-dropdown-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.40);
+    }
+
+    .profile-dropdown-icon svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .profile-dropdown-divider {
+      height: 1px;
+      margin: 5px 4px;
+      background: var(--border-soft);
+    }
+
+    .profile-logout {
+      color: rgba(255, 107, 120, 0.68);
+    }
+
+    .profile-logout .profile-dropdown-icon {
+      color: rgba(255, 107, 120, 0.62);
+    }
+
+    .profile-logout:hover {
+      background: rgba(255, 65, 85, 0.07);
+      color: #FF7D88;
+    }
+
+    .profile-logout:hover .profile-dropdown-icon {
+      color: #FF7D88;
+    }
+
+    .profile-dropdown-item:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
     .login-overlay {
       position: fixed;
       inset: 0;
@@ -582,489 +689,6 @@
       color: rgba(255, 255, 255, 0.27);
     }
 
-    /* PROFILE */
-
-    main {
-      width: min(1100px, calc(100% - 56px));
-      margin: 0 auto;
-      padding: 42px 0 105px;
-    }
-
-    .profile-page {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .profile-cover {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 10px 10px 0 0;
-      background: var(--profile-cover);
-      transition:
-        background 180ms ease,
-        border-color 180ms ease;
-    }
-
-    .profile-cover::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          90deg,
-          color-mix(in srgb, var(--bg) 10%, transparent),
-          transparent 52%,
-          color-mix(in srgb, var(--accent) 5%, transparent)
-        );
-      pointer-events: none;
-    }
-
-    .profile-cover-inner {
-      position: relative;
-      z-index: 2;
-      padding: 38px 38px 0;
-    }
-
-    .social-profile {
-      width: 100%;
-    }
-
-    .profile-main-row {
-      display: grid;
-      grid-template-columns: 118px minmax(0, 1fr) auto;
-      align-items: end;
-      gap: 24px;
-    }
-
-    .main-avatar {
-      width: 118px;
-      height: 118px;
-      flex: 0 0 118px;
-      overflow: hidden;
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.035);
-      box-shadow:
-        0 16px 35px rgba(0, 0, 0, 0.25),
-        0 0 0 7px color-mix(in srgb, var(--bg) 50%, transparent);
-    }
-
-    .main-avatar img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .main-avatar-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        linear-gradient(
-          135deg,
-          color-mix(in srgb, var(--accent) 16%, transparent),
-          rgba(255, 255, 255, 0.025)
-        );
-      color: rgba(255, 255, 255, 0.70);
-      font-size: 36px;
-      font-weight: 700;
-    }
-
-    .profile-main-info {
-      min-width: 0;
-      padding-bottom: 4px;
-    }
-
-    .profile-name-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .player-name {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 43px);
-      line-height: 0.98;
-      font-weight: 700;
-      letter-spacing: -0.065em;
-    }
-
-    .profile-badge {
-      min-height: 21px;
-      padding: 0 8px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
-      border-radius: 4px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-    }
-
-    .player-handle {
-      margin-top: 9px;
-      font-size: 9px;
-      color: var(--profile-faint);
-    }
-
-    .profile-bio {
-      margin: 13px 0 0;
-      max-width: 590px;
-      font-size: 10px;
-      line-height: 1.65;
-      color: var(--profile-text);
-    }
-
-    .joined-short {
-      margin-top: 10px;
-      font-size: 8px;
-      color: var(--profile-faint);
-    }
-
-    .profile-actions {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding-bottom: 4px;
-    }
-
-    .profile-action {
-      min-width: 91px;
-      min-height: 35px;
-      padding: 0 14px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.028);
-      color: rgba(255, 255, 255, 0.58);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.065em;
-      cursor: pointer;
-      transition:
-        color 140ms ease,
-        background 140ms ease,
-        border-color 140ms ease,
-        transform 140ms ease;
-    }
-
-    .profile-action:hover {
-      color: #FFFFFF;
-      background: var(--accent-soft);
-      border-color: color-mix(in srgb, var(--accent) 34%, var(--border));
-      transform: translateY(-1px);
-    }
-
-    .profile-action:active {
-      transform: translateY(0);
-    }
-
-    .profile-action.primary {
-      color: #FFFFFF;
-      border-color: color-mix(in srgb, var(--accent) 28%, transparent);
-      background: var(--accent-soft);
-    }
-
-    .profile-action.primary:hover {
-      background: color-mix(in srgb, var(--accent) 17%, transparent);
-      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-    }
-
-    .profile-action.following {
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.055);
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .profile-action.following:hover {
-      background: var(--profile-hover);
-    }
-
-    .profile-action:disabled {
-      cursor: default;
-      opacity: 0.62;
-      transform: none;
-    }
-
-    .social-stats {
-      margin-top: 30px;
-      min-height: 55px;
-      display: flex;
-      align-items: center;
-      gap: 29px;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .social-stat {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      font-size: 8px;
-      color: var(--profile-faint);
-    }
-
-    .social-stat strong {
-      color: var(--profile-strong);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .profile-tabs {
-      min-height: 55px;
-      padding: 0 22px;
-      display: flex;
-      align-items: stretch;
-      gap: 25px;
-      border: 1px solid var(--border);
-      border-top: 0;
-      border-radius: 0 0 10px 10px;
-      background: color-mix(in srgb, var(--profile) 68%, transparent);
-    }
-
-    .profile-tab {
-      position: relative;
-      min-height: 55px;
-      padding: 0 2px;
-      border: 0;
-      background: transparent;
-      color: var(--profile-faint);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.065em;
-      cursor: pointer;
-      transition: color 120ms ease;
-    }
-
-    .profile-tab::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -1px;
-      height: 2px;
-      border-radius: 2px 2px 0 0;
-      background: transparent;
-      transition: background 120ms ease;
-    }
-
-    .profile-tab:hover {
-      color: rgba(255, 255, 255, 0.70);
-    }
-
-    .profile-tab.active {
-      color: #FFFFFF;
-    }
-
-    .profile-tab.active::after {
-      background: var(--accent);
-    }
-
-    .tab-content {
-      display: none;
-      padding-top: 25px;
-      animation: profileTabIn 140ms ease;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes profileTabIn {
-      from {
-        opacity: 0;
-        transform: translateY(3px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
-      gap: 25px;
-    }
-
-    .profile-panel {
-      min-width: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-    }
-
-    .panel-label {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      min-height: 32px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-soft);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.085em;
-    }
-
-    .panel-label::before {
-      content: "";
-      width: 4px;
-      height: 4px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
-    }
-
-    .panel-text {
-      margin: 0;
-      max-width: 650px;
-      font-size: 10px;
-      line-height: 1.75;
-      color: var(--profile-text);
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
-      border-top: 1px solid var(--border-soft);
-      border-left: 1px solid var(--border-soft);
-    }
-
-    .stat-box {
-      min-height: 88px;
-      padding: 18px;
-      border-right: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      background: var(--page-panel);
-      transition: background 120ms ease;
-    }
-
-    .stat-box:hover {
-      background: var(--page-panel-hover);
-    }
-
-    .stat-value {
-      font-size: 22px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: -0.045em;
-    }
-
-    .stat-name {
-      margin-top: 10px;
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.065em;
-      color: var(--profile-faint);
-    }
-
-    .profile-list {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .profile-list-row {
-      min-height: 46px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .profile-list-name {
-      font-size: 8px;
-      font-weight: 500;
-      color: var(--profile-faint);
-    }
-
-    .profile-list-value {
-      max-width: 62%;
-      overflow: hidden;
-      font-size: 9px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.70);
-      text-align: right;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .empty-state {
-      min-height: 92px;
-      padding: 25px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-top: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      text-align: center;
-      color: rgba(255, 255, 255, 0.27);
-      font-size: 9px;
-    }
-
-    .activity-list {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .activity-item {
-      min-height: 68px;
-      padding: 14px 0;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .activity-item:last-child {
-      border-bottom: 0;
-    }
-
-    .activity-icon {
-      width: 29px;
-      height: 29px;
-      flex: 0 0 29px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.025);
-      color: rgba(255, 255, 255, 0.42);
-      font-size: 11px;
-    }
-
-    .activity-text {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .activity-title {
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.62);
-    }
-
-    .activity-date {
-      margin-top: 4px;
-      font-size: 7px;
-      color: rgba(255, 255, 255, 0.25);
-    }
-
     footer {
       position: fixed;
       left: 0;
@@ -1085,8 +709,7 @@
       -webkit-backdrop-filter: blur(14px);
       transition:
         background 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease;
+        border-color 180ms ease;
     }
 
     .footer-left,
@@ -1109,7 +732,496 @@
       color: rgba(255, 255, 255, 0.75);
     }
 
-    /* THEMES */
+    /* PROFILE */
+
+    main {
+      width: min(1020px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 48px 0 105px;
+    }
+
+    .profile-page {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-cover {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px 10px 0 0;
+      background:
+        linear-gradient(
+          135deg,
+          var(--accent-soft),
+          rgba(255, 255, 255, 0.018)
+        );
+    }
+
+    .profile-cover::before {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 260px;
+      top: -170px;
+      right: -120px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .profile-cover-inner {
+      position: relative;
+      padding: 34px 34px 0;
+    }
+
+    .social-profile {
+      width: 100%;
+    }
+
+    .profile-main-row {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 24px;
+    }
+
+    .main-avatar {
+      width: 118px;
+      height: 118px;
+      flex: 0 0 118px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.25),
+        0 0 0 7px rgba(7, 17, 31, 0.50);
+    }
+
+    .main-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .main-avatar-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(
+          135deg,
+          var(--accent-soft),
+          rgba(255, 255, 255, 0.025)
+        );
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .profile-main-info {
+      min-width: 0;
+      padding-bottom: 4px;
+    }
+
+    .profile-name-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .player-name {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 43px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.055em;
+    }
+
+    .profile-badge {
+      min-height: 22px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .player-handle {
+      margin-top: 9px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .profile-bio {
+      margin: 13px 0 0;
+      max-width: 610px;
+      font-size: 11px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .joined-short {
+      margin-top: 12px;
+      font-size: 8px;
+      color: rgba(255, 255, 255, 0.30);
+    }
+
+    .profile-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-bottom: 4px;
+    }
+
+    .profile-action {
+      min-width: 84px;
+      height: 34px;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition:
+        background 120ms ease,
+        color 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .profile-action:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .profile-action.primary {
+      border-color: rgba(120, 164, 215, 0.22);
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .profile-action.primary:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .profile-action.following {
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .social-stats {
+      margin-top: 28px;
+      padding: 15px 0 17px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .social-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .social-stat strong {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .social-stat span {
+      font-size: 8px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .profile-tabs {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      min-height: 53px;
+      padding: 0 20px;
+      border: 1px solid var(--border);
+      border-top: 0;
+      background: var(--profile);
+    }
+
+    .profile-tab {
+      position: relative;
+      height: 53px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: "Montserrat", sans-serif;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      transition: color 120ms ease;
+    }
+
+    .profile-tab:hover {
+      color: var(--text);
+    }
+
+    .profile-tab.active {
+      color: var(--text);
+    }
+
+    .profile-tab.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: var(--accent);
+    }
+
+    .tab-content {
+      display: none;
+      padding-top: 25px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 25px;
+    }
+
+    .profile-panel {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .profile-panel.full {
+      grid-column: 1 / -1;
+    }
+
+    .panel-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .panel-label::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .panel-text {
+      margin: 16px 0 0;
+      font-size: 10px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .stat-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stat-box {
+      min-height: 66px;
+      padding: 13px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.012);
+      transition:
+        background 120ms ease,
+        border-color 120ms ease;
+    }
+
+    .stat-box:hover {
+      background: var(--accent-soft);
+      border-color: var(--border);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-box span {
+      display: block;
+      margin-top: 5px;
+      font-size: 7px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .profile-list {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-list-row {
+      min-height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .profile-list-row:last-child {
+      border-bottom: 0;
+    }
+
+    .profile-list-row span {
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .profile-list-row strong {
+      min-width: 0;
+      overflow: hidden;
+      font-size: 9px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .empty-state {
+      padding: 28px 10px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.6;
+    }
+
+    .empty-state strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .activity-list {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-item {
+      min-height: 56px;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .activity-item:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-icon {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 8px;
+      font-weight: 700;
+    }
+
+    .activity-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .activity-copy strong {
+      display: block;
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .activity-copy span {
+      display: block;
+      margin-top: 4px;
+      font-size: 7px;
+      color: var(--muted);
+    }
+
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .career-stat {
+      min-height: 78px;
+      padding: 15px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.012);
+    }
+
+    .career-stat strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .career-stat span {
+      display: block;
+      margin-top: 6px;
+      font-size: 7px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
 
     body.theme-dark {
       --bg: #181818;
@@ -1119,12 +1231,6 @@
       --profile: rgba(25, 25, 25, 0.94);
       --profile-hover: rgba(32, 32, 32, 0.98);
       --dropdown: rgba(27, 27, 27, 0.99);
-      --border: rgba(255, 255, 255, 0.12);
-      --border-soft: rgba(255, 255, 255, 0.08);
-      --page-panel: rgba(255, 255, 255, 0.018);
-      --page-panel-hover: rgba(255, 255, 255, 0.032);
-      --profile-cover: rgba(255, 255, 255, 0.025);
-      --profile-cover-hover: rgba(255, 255, 255, 0.035);
       background: #181818;
     }
 
@@ -1142,121 +1248,18 @@
       --profile-hover: rgba(250, 250, 250, 0.98);
       --dropdown: rgba(245, 245, 245, 0.99);
 
-      --page-panel: rgba(21, 24, 28, 0.018);
-      --page-panel-hover: rgba(21, 24, 28, 0.035);
-      --profile-cover: rgba(21, 24, 28, 0.025);
-      --profile-cover-hover: rgba(21, 24, 28, 0.035);
-      --profile-text: rgba(21, 24, 28, 0.50);
-      --profile-faint: rgba(21, 24, 28, 0.34);
-      --profile-strong: rgba(21, 24, 28, 0.78);
-
-      color: var(--text);
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
-          rgba(255, 255, 255, 0.62),
+          rgba(90, 120, 180, 0.16),
           transparent 68%
         ),
         radial-gradient(
           ellipse 760px 560px at 8% 55%,
-          rgba(170, 185, 205, 0.24),
+          rgba(80, 105, 160, 0.10),
           transparent 70%
         ),
         #D3D3D3;
-    }
-
-    body.theme-light .profile-username {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-status,
-    body.theme-light .profile-chevron {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .profile-card:hover .profile-chevron,
-    body.theme-light .profile-card.open .profile-chevron {
-      color: rgba(21, 24, 28, 0.72);
-    }
-
-    body.theme-light .dropdown a {
-      color: rgba(21, 24, 28, 0.62);
-    }
-
-    body.theme-light .dropdown a:hover,
-    body.theme-light .dropdown a:focus-visible {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-badge {
-      color: var(--accent);
-    }
-
-    body.theme-light .profile-action {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .profile-action:hover,
-    body.theme-light .profile-action.primary {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-tab {
-      color: rgba(21, 24, 28, 0.38);
-    }
-
-    body.theme-light .profile-tab:hover {
-      color: rgba(21, 24, 28, 0.68);
-    }
-
-    body.theme-light .profile-tab.active {
-      color: #15181C;
-    }
-
-    body.theme-light .profile-list-value,
-    body.theme-light .stat-value,
-    body.theme-light .social-stat strong {
-      color: rgba(21, 24, 28, 0.78);
-    }
-
-    body.theme-light .activity-icon {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-brand {
-      color: rgba(21, 24, 28, 0.60);
-    }
-
-    body.theme-light footer {
-      color: rgba(21, 24, 28, 0.42);
-    }
-
-    body.theme-light .footer-right a:hover {
-      color: rgba(21, 24, 28, 0.75);
-    }
-
-    body.theme-light .login-overlay {
-      background: rgba(25, 28, 32, 0.28);
-    }
-
-    body.theme-light .login-modal {
-      background: rgba(245, 245, 245, 0.98);
-    }
-
-    body.theme-light .login-modal-subtitle,
-    body.theme-light .login-points li,
-    body.theme-light .login-note {
-      color: rgba(21, 24, 28, 0.58);
-    }
-
-    body.theme-light .login-close {
-      background: rgba(21, 24, 28, 0.025);
-      color: rgba(21, 24, 28, 0.48);
-    }
-
-    body.theme-light .login-close:hover {
-      background: rgba(21, 24, 28, 0.06);
-      color: #15181C;
     }
 
     body.theme-blue {
@@ -1267,6 +1270,7 @@
       --profile: rgba(9, 16, 27, 0.88);
       --profile-hover: rgba(12, 22, 37, 0.94);
       --dropdown: rgba(13, 22, 36, 0.98);
+
       background:
         radial-gradient(
           ellipse 900px 620px at 78% 2%,
@@ -1294,20 +1298,21 @@
       --profile: rgba(16, 14, 39, 0.90);
       --profile-hover: rgba(22, 18, 52, 0.96);
       --dropdown: rgba(17, 14, 42, 0.99);
+
       background:
         radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(73, 56, 170, 0.34),
-          transparent 67%
+          ellipse 900px 620px at 78% 2%,
+          rgba(92, 65, 180, 0.30),
+          transparent 68%
         ),
         radial-gradient(
-          ellipse 760px 560px at 8% 52%,
-          rgba(39, 57, 135, 0.25),
+          ellipse 760px 560px at 8% 55%,
+          rgba(65, 45, 145, 0.17),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(112, 48, 145, 0.18),
+          ellipse 650px 480px at 55% 105%,
+          rgba(55, 38, 130, 0.12),
           transparent 72%
         ),
         #0E0B20;
@@ -1321,49 +1326,101 @@
       --profile: rgba(7, 30, 39, 0.90);
       --profile-hover: rgba(9, 39, 50, 0.96);
       --dropdown: rgba(7, 31, 41, 0.99);
+
       background:
         radial-gradient(
-          ellipse 920px 620px at 78% 0%,
-          rgba(20, 111, 132, 0.36),
-          transparent 67%
+          ellipse 900px 620px at 78% 2%,
+          rgba(30, 135, 160, 0.30),
+          transparent 68%
         ),
         radial-gradient(
-          ellipse 760px 560px at 7% 52%,
-          rgba(15, 76, 111, 0.28),
+          ellipse 760px 560px at 8% 55%,
+          rgba(20, 105, 130, 0.17),
           transparent 70%
         ),
         radial-gradient(
-          ellipse 700px 500px at 58% 105%,
-          rgba(31, 139, 143, 0.17),
+          ellipse 650px 480px at 55% 105%,
+          rgba(15, 95, 120, 0.12),
           transparent 72%
         ),
         #061A22;
     }
 
-    /* RESPONSIVE */
+    body.theme-light .profile-username {
+      color: #15181C;
+    }
 
-    @media (max-width: 900px) {
-      .profile-main-row {
-        grid-template-columns: 104px minmax(0, 1fr);
-        align-items: start;
-      }
+    body.theme-light .profile-status {
+      color: rgba(21, 24, 28, 0.48);
+    }
 
-      .main-avatar {
-        width: 104px;
-        height: 104px;
-        flex-basis: 104px;
-      }
+    body.theme-light .profile-chevron {
+      color: rgba(21, 24, 28, 0.35);
+    }
 
-      .profile-actions {
-        grid-column: 2;
-        justify-content: flex-start;
-        padding-bottom: 0;
-      }
+    body.theme-light .profile-card:hover .profile-chevron {
+      color: rgba(21, 24, 28, 0.65);
+    }
 
-      .profile-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
+    body.theme-light .profile-card.open .profile-chevron {
+      color: rgba(21, 24, 28, 0.72);
+    }
+
+    body.theme-light .profile-dropdown-item {
+      color: rgba(21, 24, 28, 0.62);
+    }
+
+    body.theme-light .profile-dropdown-item:hover {
+      color: #15181C;
+    }
+
+    body.theme-light .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.40);
+    }
+
+    body.theme-light .profile-dropdown-item:hover .profile-dropdown-icon {
+      color: rgba(21, 24, 28, 0.72);
+    }
+
+    body.theme-light footer {
+      color: rgba(21, 24, 28, 0.42);
+    }
+
+    body.theme-light .footer-brand {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .footer-right a:hover {
+      color: rgba(21, 24, 28, 0.75);
+    }
+
+    body.theme-light .login-overlay {
+      background: rgba(25, 28, 32, 0.28);
+    }
+
+    body.theme-light .login-modal {
+      background: rgba(245, 245, 245, 0.98);
+    }
+
+    body.theme-light .login-modal-subtitle,
+    body.theme-light .login-points li,
+    body.theme-light .login-note {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .profile-bio,
+    body.theme-light .panel-text {
+      color: rgba(21, 24, 28, 0.58);
+    }
+
+    body.theme-light .joined-short {
+      color: rgba(21, 24, 28, 0.38);
+    }
+
+    body.theme-light .main-avatar {
+      box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.10),
+        0 0 0 7px rgba(245, 245, 245, 0.50);
     }
 
     @media (max-width: 760px) {
@@ -1376,35 +1433,17 @@
       }
 
       .nav-item {
-        font-size: 13px;
+        font-size: 11px;
       }
 
       .login-button {
         right: 20px;
-        width: 128px;
-        height: 36px;
-        padding: 0 14px;
+        width: 116px;
       }
 
       .profile-card {
         right: 20px;
-        width: 128px;
-        height: 38px;
-      }
-
-      .profile-avatar {
-        width: 27px;
-        height: 27px;
-        flex-basis: 27px;
-      }
-
-      .profile-username {
-        max-width: 65px;
-      }
-
-      .discord-logo {
-        width: 20px;
-        height: 20px;
+        width: 160px;
       }
 
       main {
@@ -1431,173 +1470,34 @@
       .profile-actions {
         grid-column: 1 / -1;
         width: 100%;
+        padding: 0 0 18px;
       }
 
       .profile-action {
         flex: 1;
       }
 
+      .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .profile-panel.full {
+        grid-column: auto;
+      }
+
+      .career-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .profile-tabs {
         padding: 0 17px;
         gap: 21px;
         overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .profile-tabs::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .topbar {
-        height: auto;
-        min-height: 64px;
-        padding: 18px 20px;
-        align-items: flex-start;
-      }
-
-      .logo {
-        margin-top: 4px;
-      }
-
-      .navigation {
-        position: static;
-        height: auto;
-        margin-left: auto;
-        margin-right: 132px;
-        transform: none;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 12px 17px;
-      }
-
-      .nav-item {
-        height: auto;
-        min-height: 18px;
-        font-size: 11px;
-      }
-
-      .dropdown {
-        top: calc(100% + 4px);
-      }
-
-      .login-button {
-        right: 20px;
-        top: 18px;
-        width: 108px;
-        height: 34px;
-        padding: 0 11px;
-        gap: 7px;
-        font-size: 9px;
-      }
-
-      .profile-card {
-        right: 20px;
-        top: 18px;
-        width: 108px;
-        height: 34px;
-        padding: 0 7px 0 5px;
-        gap: 7px;
-      }
-
-      .profile-avatar {
-        width: 24px;
-        height: 24px;
-        flex-basis: 24px;
-      }
-
-      .profile-username {
-        max-width: 43px;
-        font-size: 8px;
-      }
-
-      .profile-status {
-        font-size: 5px;
-      }
-
-      .profile-chevron {
-        width: 11px;
-        height: 11px;
-        flex-basis: 11px;
-      }
-
-      .discord-logo {
-        width: 19px;
-        height: 19px;
-      }
-
-      main {
-        width: calc(100% - 24px);
-        padding-top: 22px;
-      }
-
-      .profile-cover-inner {
-        padding: 24px 18px 0;
-      }
-
-      .profile-main-row {
-        grid-template-columns: 78px minmax(0, 1fr);
-        gap: 14px;
-      }
-
-      .main-avatar {
-        width: 78px;
-        height: 78px;
-        flex-basis: 78px;
-        box-shadow:
-          0 12px 25px rgba(0, 0, 0, 0.20),
-          0 0 0 5px color-mix(in srgb, var(--bg) 45%, transparent);
-      }
-
-      .main-avatar-fallback {
-        font-size: 25px;
-      }
-
-      .player-name {
-        font-size: 27px;
-      }
-
-      .profile-bio {
-        font-size: 9px;
-      }
-
-      .profile-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 6px;
-      }
-
-      .profile-action {
-        width: 100%;
-      }
-
-      .social-stats {
-        gap: 18px;
-      }
-
-      .social-stat {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 3px;
-      }
-
-      .profile-tabs {
-        gap: 18px;
-        padding: 0 14px;
       }
 
       .profile-tab {
-        white-space: nowrap;
-      }
-
-      .profile-grid {
-        gap: 27px;
-      }
-
-      .stat-box {
-        min-height: 78px;
-        padding: 15px;
+        flex: 0 0 auto;
       }
 
       footer {
@@ -1624,27 +1524,147 @@
         font-size: 22px;
       }
     }
+
+    @media (max-width: 620px) {
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .logo {
+        font-size: 11px;
+      }
+
+      .navigation {
+        gap: 11px;
+      }
+
+      .nav-item {
+        font-size: 9px;
+      }
+
+      .nav-label {
+        padding: 0 2px;
+      }
+
+      .login-button {
+        right: 14px;
+        width: 96px;
+        height: 38px;
+        padding: 0 10px;
+        gap: 7px;
+        font-size: 8px;
+      }
+
+      .discord-logo {
+        width: 20px;
+        height: 20px;
+      }
+
+      .profile-card {
+        right: 14px;
+        width: 145px;
+        height: 40px;
+      }
+
+      main {
+        width: calc(100% - 24px);
+        padding-top: 24px;
+      }
+
+      .profile-cover-inner {
+        padding: 24px 18px 0;
+      }
+
+      .profile-main-row {
+        grid-template-columns: 78px minmax(0, 1fr);
+        gap: 14px;
+      }
+
+      .main-avatar {
+        width: 78px;
+        height: 78px;
+        flex-basis: 78px;
+        box-shadow:
+          0 12px 25px rgba(0, 0, 0, 0.20),
+          0 0 0 5px rgba(7, 17, 31, 0.45);
+      }
+
+      .main-avatar-fallback {
+        font-size: 25px;
+      }
+
+      .player-name {
+        font-size: 27px;
+      }
+
+      .profile-badge {
+        font-size: 6px;
+      }
+
+      .profile-bio {
+        font-size: 9px;
+      }
+
+      .social-stats {
+        gap: 17px;
+        flex-wrap: wrap;
+      }
+
+      .profile-tabs {
+        gap: 17px;
+        padding: 0 13px;
+      }
+
+      .profile-tab {
+        font-size: 7px;
+      }
+
+      .profile-panel {
+        padding: 17px;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .career-grid {
+        gap: 6px;
+      }
+
+      .career-stat {
+        padding: 12px;
+      }
+
+      .career-stat strong {
+        font-size: 17px;
+      }
+
+      footer {
+        padding: 12px 14px;
+        font-size: 8px;
+      }
+    }
   </style>
 </head>
 
 <body class="theme-blue">
 
   <script>
-    (function () {
+    (() => {
+      const validThemes = [
+        "dark",
+        "light",
+        "blue",
+        "royal",
+        "ocean"
+      ];
+
       try {
         const authenticated =
           localStorage.getItem("rsf-authenticated") === "true";
 
         const cachedTheme =
           localStorage.getItem("rsf-theme");
-
-        const validThemes = [
-          "dark",
-          "light",
-          "blue",
-          "royal",
-          "ocean"
-        ];
 
         if (
           authenticated &&
@@ -1674,36 +1694,36 @@
 
     <nav class="navigation" aria-label="Main navigation">
 
-      <div class="nav-item">
+      <div class="nav-item active">
         <a href="/" class="nav-label">
           MAIN
         </a>
       </div>
 
       <div class="nav-item">
-        <a href="/database" class="nav-label">
+        <span class="nav-label">
           DATABASE
-          <span class="arrow">▾</span>
-        </a>
+          <span class="arrow">▼</span>
+        </span>
 
         <div class="dropdown">
-          <a href="/database">Playerbase</a>
-          <a href="/database">Teams</a>
-          <a href="/database">Seasons</a>
+          <a href="/players">PLAYERBASE</a>
+          <a href="/teams">TEAMS</a>
+          <a href="/seasons">SEASONS</a>
         </div>
       </div>
 
       <div class="nav-item">
-        <a href="/community" class="nav-label">
+        <span class="nav-label">
           COMMUNITY
-          <span class="arrow">▾</span>
-        </a>
+          <span class="arrow">▼</span>
+        </span>
 
         <div class="dropdown">
-          <a href="/community">Videos</a>
-          <a href="/community">Community Latest</a>
-          <a href="/community">Development</a>
-          <a href="/community">Resources</a>
+          <a href="/videos">VIDEOS</a>
+          <a href="/community">COMMUNITY LATEST</a>
+          <a href="/development">DEVELOPMENT</a>
+          <a href="/resources">RESOURCES</a>
         </div>
       </div>
 
@@ -1722,55 +1742,44 @@
     </nav>
 
     <button
-      type="button"
       class="login-button"
       id="login-button"
-      aria-label="Login with Discord"
+      type="button"
     >
       <img
         class="discord-logo"
-        src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg"
+        src="https://cdn.simpleicons.org/discord/FFFFFF"
         alt=""
-        aria-hidden="true"
       >
-      <span>LOGIN</span>
+      LOGIN
     </button>
 
     <div
       class="profile-card"
       id="profile-card"
-      style="display: none;"
+      style="display:none;"
       aria-haspopup="true"
       aria-expanded="false"
     >
-
-      <div
-        class="profile-avatar"
-        id="profile-avatar-container"
-      >
+      <div class="profile-avatar">
         <img
-          id="profile-avatar"
+          id="profile-avatar-image"
           src=""
           alt=""
         >
       </div>
 
       <div class="profile-info">
-
-        <span
+        <div
           class="profile-username"
           id="profile-username"
         >
           —
-        </span>
+        </div>
 
-        <span
-          class="profile-status"
-          id="profile-status"
-        >
-          GUEST
-        </span>
-
+        <div class="profile-status">
+          ONLINE
+        </div>
       </div>
 
       <span
@@ -1781,7 +1790,6 @@
           <path d="M2 3.5L5 6.5L8 3.5"></path>
         </svg>
       </span>
-
     </div>
 
   </header>
@@ -1802,25 +1810,23 @@
       <div class="login-modal-header">
 
         <div>
-
           <h2
             class="login-modal-title"
             id="login-title"
           >
-            Login to RSF
+            Sign in to RSF
           </h2>
 
           <p class="login-modal-subtitle">
-            Connect your Discord account to access the full RSF experience.
+            Connect your Discord account to access your RSF profile and member features.
           </p>
-
         </div>
 
         <button
-          type="button"
           class="login-close"
           id="login-close"
-          aria-label="Close login"
+          type="button"
+          aria-label="Close"
         >
           ×
         </button>
@@ -1828,35 +1834,25 @@
       </div>
 
       <ul class="login-points">
-
         <li>
-          Logging in is completely optional.
+          Access your RSF profile and account settings.
         </li>
 
         <li>
-          Log in to access all features available across the RSF website.
+          Follow players and build your RSF network.
         </li>
 
         <li>
-          Your Discord account is only used to authenticate your RSF account.
+          Access member-only RSF features.
         </li>
-
-        <li>
-          We only use the information required to provide your account and website features.
-        </li>
-
-        <li>
-          You can continue using publicly available parts of the website without logging in.
-        </li>
-
       </ul>
 
       <button
-        type="button"
         class="login-proceed"
         id="login-proceed"
+        type="button"
       >
-        PROCEED TO LOGIN
+        CONTINUE WITH DISCORD
       </button>
 
       <p class="login-note">
@@ -1885,7 +1881,7 @@
                   id="main-avatar-image"
                   src=""
                   alt=""
-                  style="display: none;"
+                  style="display:none;"
                 >
 
                 <div
@@ -1946,7 +1942,7 @@
                   class="profile-action primary"
                   id="edit-profile-button"
                   type="button"
-                  style="display: none;"
+                  style="display:none;"
                 >
                   EDIT
                 </button>
@@ -1985,7 +1981,7 @@
 
               <div class="social-stat">
                 <strong id="profile-views-count">—</strong>
-                <span>VIEWS</span>
+                <span>PROFILE VIEWS</span>
               </div>
 
             </div>
@@ -2050,7 +2046,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               ABOUT
@@ -2063,9 +2059,9 @@
               No profile biography available.
             </p>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2074,40 +2070,20 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-
-                <div
-                  class="stat-value"
-                  id="about-followers-count"
-                >
-                  0
-                </div>
-
-                <div class="stat-name">
-                  FOLLOWERS
-                </div>
-
+                <strong id="about-followers-count">0</strong>
+                <span>FOLLOWERS</span>
               </div>
 
               <div class="stat-box">
-
-                <div
-                  class="stat-value"
-                  id="about-following-count"
-                >
-                  0
-                </div>
-
-                <div class="stat-name">
-                  FOLLOWING
-                </div>
-
+                <strong id="about-following-count">0</strong>
+                <span>FOLLOWING</span>
               </div>
 
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               PROFILE
@@ -2116,65 +2092,36 @@
             <div class="profile-list">
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  PLAYER
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-player-status"
-                >
-                  REGISTERED
-                </span>
-
+                <span>STATUS</span>
+                <strong>RSF PLAYER</strong>
               </div>
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  ROBLOX
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-roblox"
-                >
-                  —
-                </span>
-
+                <span>ROBLOX ID</span>
+                <strong id="overview-roblox">—</strong>
               </div>
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  DISCORD
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="overview-discord"
-                >
-                  —
-                </span>
-
+                <span>DISCORD ID</span>
+                <strong id="overview-discord">—</strong>
               </div>
 
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               ACTIVITY
             </div>
 
             <div class="empty-state">
-              No recent public activity.
+              <strong>No recent public activity</strong>
+              Public profile activity will appear here.
             </div>
 
-          </div>
+          </section>
 
         </div>
 
@@ -2187,73 +2134,76 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <section class="profile-panel full">
 
             <div class="panel-label">
               CAREER STATISTICS
             </div>
 
-            <div class="stat-grid">
+            <div class="career-grid">
 
-              <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">APPEARANCES</div>
+              <div class="career-stat">
+                <strong>—</strong>
+                <span>APPEARANCES</span>
               </div>
 
-              <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">GOALS</div>
+              <div class="career-stat">
+                <strong>—</strong>
+                <span>GOALS</span>
               </div>
 
-              <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">ASSISTS</div>
+              <div class="career-stat">
+                <strong>—</strong>
+                <span>ASSISTS</span>
               </div>
 
-              <div class="stat-box">
-                <div class="stat-value">—</div>
-                <div class="stat-name">RATING</div>
+              <div class="career-stat">
+                <strong>—</strong>
+                <span>RATING</span>
               </div>
 
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               SEASONS
             </div>
 
             <div class="empty-state">
-              No recorded season statistics.
+              <strong>No seasons recorded</strong>
+              Career season information will appear here.
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               TEAM HISTORY
             </div>
 
             <div class="empty-state">
-              No team history available.
+              <strong>No team history</strong>
+              Previous and current teams will appear here.
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel full">
 
             <div class="panel-label">
               MATCH HISTORY
             </div>
 
             <div class="empty-state">
-              No recorded matches.
+              <strong>No matches recorded</strong>
+              Competitive match history will appear here.
             </div>
 
-          </div>
+          </section>
 
         </div>
 
@@ -2264,15 +2214,20 @@
         id="teams-tab"
       >
 
-        <div class="profile-panel">
+        <div class="profile-grid">
 
-          <div class="panel-label">
-            TEAMS
-          </div>
+          <section class="profile-panel full">
 
-          <div class="empty-state">
-            No current team information available.
-          </div>
+            <div class="panel-label">
+              TEAMS
+            </div>
+
+            <div class="empty-state">
+              <strong>No teams available</strong>
+              Team memberships will appear here.
+            </div>
+
+          </section>
 
         </div>
 
@@ -2283,35 +2238,39 @@
         id="activity-tab"
       >
 
-        <div class="profile-panel">
+        <div class="profile-grid">
 
-          <div class="panel-label">
-            RECENT ACTIVITY
-          </div>
+          <section class="profile-panel full">
 
-          <div class="activity-list">
+            <div class="panel-label">
+              RECENT ACTIVITY
+            </div>
 
-            <div class="activity-item">
+            <div class="activity-list">
 
-              <div class="activity-icon">
-                +
-              </div>
+              <div class="activity-item">
 
-              <div class="activity-text">
-
-                <div class="activity-title">
-                  Profile activity will appear here.
+                <div class="activity-icon">
+                  RSF
                 </div>
 
-                <div class="activity-date">
-                  —
+                <div class="activity-copy">
+
+                  <strong>
+                    Profile activity will appear here.
+                  </strong>
+
+                  <span>
+                    —
+                  </span>
+
                 </div>
 
               </div>
 
             </div>
 
-          </div>
+          </section>
 
         </div>
 
@@ -2324,7 +2283,7 @@
 
         <div class="profile-grid">
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               ACCOUNT
@@ -2333,70 +2292,30 @@
             <div class="profile-list">
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  ROBLOX USERNAME
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="about-roblox"
-                >
-                  —
-                </span>
-
+                <span>ROBLOX USERNAME</span>
+                <strong id="about-roblox">—</strong>
               </div>
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  DISCORD
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="about-discord"
-                >
-                  —
-                </span>
-
+                <span>DISCORD</span>
+                <strong id="about-discord">—</strong>
               </div>
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  MEMBER SINCE
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="about-joined"
-                >
-                  —
-                </span>
-
+                <span>MEMBER SINCE</span>
+                <strong id="about-joined">—</strong>
               </div>
 
               <div class="profile-list-row">
-
-                <span class="profile-list-name">
-                  LAST UPDATED
-                </span>
-
-                <span
-                  class="profile-list-value"
-                  id="about-updated"
-                >
-                  —
-                </span>
-
+                <span>LAST UPDATED</span>
+                <strong id="about-updated">—</strong>
               </div>
 
             </div>
 
-          </div>
+          </section>
 
-          <div class="profile-panel">
+          <section class="profile-panel">
 
             <div class="panel-label">
               CONNECTIONS
@@ -2405,38 +2324,18 @@
             <div class="stat-grid">
 
               <div class="stat-box">
-
-                <div
-                  class="stat-value"
-                  id="about-followers-count-2"
-                >
-                  0
-                </div>
-
-                <div class="stat-name">
-                  FOLLOWERS
-                </div>
-
+                <strong id="about-followers-count-2">0</strong>
+                <span>FOLLOWERS</span>
               </div>
 
               <div class="stat-box">
-
-                <div
-                  class="stat-value"
-                  id="about-following-count-2"
-                >
-                  0
-                </div>
-
-                <div class="stat-name">
-                  FOLLOWING
-                </div>
-
+                <strong id="about-following-count-2">0</strong>
+                <span>FOLLOWING</span>
               </div>
 
             </div>
 
-          </div>
+          </section>
 
         </div>
 
@@ -2449,9 +2348,11 @@
   <footer>
 
     <div class="footer-left">
+
       <span class="footer-brand">
         RSF
       </span>
+
     </div>
 
     <div class="footer-right">
@@ -2519,7 +2420,7 @@
 
       try {
 
-        const meResponse =
+        const response =
           await fetch(
             "/api/me",
             {
@@ -2529,7 +2430,7 @@
             }
           );
 
-        if (!meResponse.ok) {
+        if (!response.ok) {
 
           localStorage.removeItem(
             "rsf-authenticated"
@@ -2541,16 +2442,19 @@
           );
 
           return;
-
         }
 
-        const meData =
-          await meResponse.json();
+        const data =
+          await response.json();
 
-        if (
-          !meData.authenticated ||
-          !meData.verified
-        ) {
+        const authenticated =
+          data &&
+          (
+            data.authenticated === true ||
+            data.user
+          );
+
+        if (!authenticated) {
 
           localStorage.removeItem(
             "rsf-authenticated"
@@ -2562,7 +2466,6 @@
           );
 
           return;
-
         }
 
         localStorage.setItem(
@@ -2570,7 +2473,7 @@
           "true"
         );
 
-        const response =
+        const preferencesResponse =
           await fetch(
             "/api/preferences",
             {
@@ -2580,27 +2483,77 @@
             }
           );
 
-        if (!response.ok) {
-          return;
-        }
-
-        const data =
-          await response.json();
-
         if (
-          data &&
-          RSF_VALID_THEMES.includes(
-            data.theme
-          )
+          preferencesResponse.ok
         ) {
 
+          const preferences =
+            await preferencesResponse.json();
+
+          const theme =
+            preferences &&
+            RSF_VALID_THEMES.includes(
+              preferences.theme
+            )
+              ? preferences.theme
+              : "blue";
+
           rsfApplyTheme(
-            data.theme
+            theme,
+            true
+          );
+
+        } else {
+
+          rsfApplyTheme(
+            "blue",
+            false
           );
 
         }
 
-      } catch (error) {}
+      } catch (error) {
+
+        try {
+
+          const cachedTheme =
+            localStorage.getItem(
+              "rsf-theme"
+            );
+
+          if (
+            localStorage.getItem(
+              "rsf-authenticated"
+            ) === "true" &&
+            RSF_VALID_THEMES.includes(
+              cachedTheme
+            )
+          ) {
+
+            rsfApplyTheme(
+              cachedTheme,
+              false
+            );
+
+          } else {
+
+            rsfApplyTheme(
+              "blue",
+              false
+            );
+
+          }
+
+        } catch (fallbackError) {
+
+          rsfApplyTheme(
+            "blue",
+            false
+          );
+
+        }
+
+      }
 
     }
 
@@ -2629,7 +2582,6 @@
           }
 
           return;
-
         }
 
         if (
@@ -2760,69 +2712,70 @@
   </script>
 
   <script>
-    (() => {
-
-      const profileTabs =
-        document.querySelectorAll(
-          ".profile-tab"
-        );
-
-      const tabContents =
-        document.querySelectorAll(
-          ".tab-content"
-        );
-
-      profileTabs.forEach(
-        tab => {
-
-          tab.addEventListener(
-            "click",
-            () => {
-
-              const target =
-                tab.dataset.tab;
-
-              profileTabs.forEach(
-                item => {
-
-                  item.classList.toggle(
-                    "active",
-                    item === tab
-                  );
-
-                }
-              );
-
-              tabContents.forEach(
-                content => {
-
-                  content.classList.toggle(
-                    "active",
-                    content.id ===
-                      `${target}-tab`
-                  );
-
-                }
-              );
-
-            }
-          );
-
-        }
+    const profileTabs =
+      document.querySelectorAll(
+        ".profile-tab"
       );
+
+    const tabContents =
+      document.querySelectorAll(
+        ".tab-content"
+      );
+
+    profileTabs.forEach(
+      tab => {
+
+        tab.addEventListener(
+          "click",
+          () => {
+
+            const target =
+              tab.dataset.tab;
+
+            profileTabs.forEach(
+              item => {
+
+                item.classList.toggle(
+                  "active",
+                  item === tab
+                );
+
+              }
+            );
+
+            tabContents.forEach(
+              content => {
+
+                content.classList.toggle(
+                  "active",
+                  content.id ===
+                    `${target}-tab`
+                );
+
+              }
+            );
+
+          }
+        );
+
+      }
+    );
+  </script>
+
+  <script>
+    (() => {
 
       const params =
         new URLSearchParams(
           window.location.search
         );
 
-      let requestedUsername =
-        (
-          params.get("username") ||
-          params.get("player") ||
-          params.get("roblox_username") ||
-          ""
-        ).trim();
+      let requestedUsername = (
+        params.get("username") ||
+        params.get("player") ||
+        params.get("roblox_username") ||
+        ""
+      ).trim();
 
       if (!requestedUsername) {
 
@@ -2845,7 +2798,9 @@
 
           requestedUsername =
             decodeURIComponent(
-              pathParts[profileIndex + 1]
+              pathParts[
+                profileIndex + 1
+              ]
             ).trim();
 
         }
@@ -2932,16 +2887,38 @@
           "edit-profile-button"
         );
 
-      const loginOverlay =
+      const overviewRoblox =
         document.getElementById(
-          "login-overlay"
+          "overview-roblox"
         );
 
-      let currentPlayer =
-        null;
+      const overviewDiscord =
+        document.getElementById(
+          "overview-discord"
+        );
 
-      let followRequestInProgress =
-        false;
+      const aboutRoblox =
+        document.getElementById(
+          "about-roblox"
+        );
+
+      const aboutDiscord =
+        document.getElementById(
+          "about-discord"
+        );
+
+      const aboutJoined =
+        document.getElementById(
+          "about-joined"
+        );
+
+      const aboutUpdated =
+        document.getElementById(
+          "about-updated"
+        );
+
+      let currentPlayer = null;
+      let followRequestInProgress = false;
 
       function formatDate(
         value
@@ -2989,7 +2966,7 @@
 
       }
 
-      function loadRobloxAvatar(
+      async function loadRobloxAvatar(
         username
       ) {
 
@@ -2997,118 +2974,95 @@
           return;
         }
 
-        fetch(
-          "https://users.roblox.com/v1/usernames/users",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-            body: JSON.stringify({
-              usernames: [
-                username
-              ],
-              excludeBannedUsers:
-                false
-            })
+        try {
+
+          const userResponse =
+            await fetch(
+              "https://users.roblox.com/v1/usernames/users",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+                body: JSON.stringify({
+                  usernames: [username],
+                  excludeBannedUsers: false
+                })
+              }
+            );
+
+          if (
+            !userResponse.ok
+          ) {
+            return;
           }
-        )
-          .then(
-            response => {
 
-              if (!response.ok) {
+          const userData =
+            await userResponse.json();
 
-                throw new Error(
-                  "Roblox user lookup failed."
-                );
+          const user =
+            userData &&
+            Array.isArray(
+              userData.data
+            )
+              ? userData.data[0]
+              : null;
 
-              }
+          if (!user || !user.id) {
+            return;
+          }
 
-              return response.json();
+          const avatarResponse =
+            await fetch(
+              "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" +
+                encodeURIComponent(
+                  user.id
+                ) +
+                "&size=420x420&format=Png&isCircular=false"
+            );
 
-            }
-          )
-          .then(
-            data => {
+          if (
+            !avatarResponse.ok
+          ) {
+            return;
+          }
 
-              const robloxUser =
-                data &&
-                Array.isArray(
-                  data.data
-                )
-                  ? data.data[0]
-                  : null;
+          const avatarData =
+            await avatarResponse.json();
 
-              if (
-                !robloxUser ||
-                !robloxUser.id
-              ) {
-                return;
-              }
+          const image =
+            avatarData &&
+            Array.isArray(
+              avatarData.data
+            )
+              ? avatarData.data[0]
+              : null;
 
-              return fetch(
-                `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(
-                  robloxUser.id
-                )}&size=420x420&format=Png&isCircular=false`
-              );
+          if (
+            image &&
+            image.imageUrl
+          ) {
 
-            }
-          )
-          .then(
-            response => {
+            mainAvatarImage.src =
+              image.imageUrl;
 
-              if (!response) {
-                return null;
-              }
+            mainAvatarImage.style.display =
+              "block";
 
-              if (!response.ok) {
+            mainAvatarFallback.style.display =
+              "none";
 
-                throw new Error(
-                  "Roblox thumbnail lookup failed."
-                );
+          }
 
-              }
+        } catch (error) {
 
-              return response.json();
-
-            }
-          )
-          .then(
-            data => {
-
-              if (
-                !data ||
-                !Array.isArray(
-                  data.data
-                ) ||
-                !data.data[0] ||
-                !data.data[0].imageUrl
-              ) {
-                return;
-              }
-
-              mainAvatarImage.src =
-                data.data[0].imageUrl;
-
-              mainAvatarImage.style.display =
-                "block";
-
-              mainAvatarFallback.style.display =
-                "none";
-
-            }
-          )
-          .catch(
-            error => {
-
-              console.warn(
-                "Roblox avatar lookup failed:",
-                error
-              );
-
-            }
+          console.error(
+            "Roblox avatar load failed:",
+            error
           );
+
+        }
 
       }
 
@@ -3118,8 +3072,7 @@
 
         const value =
           String(
-            username ||
-            "?"
+            username || "?"
           ).trim();
 
         mainAvatarFallback.textContent =
@@ -3137,27 +3090,27 @@
 
         if (isSelf) {
 
+          editButton.style.display =
+            "inline-flex";
+
           messageButton.style.display =
             "none";
 
           followButton.style.display =
             "none";
 
+        } else {
+
           editButton.style.display =
+            "none";
+
+          messageButton.style.display =
             "inline-flex";
 
-          return;
+          followButton.style.display =
+            "inline-flex";
 
         }
-
-        messageButton.style.display =
-          "inline-flex";
-
-        followButton.style.display =
-          "inline-flex";
-
-        editButton.style.display =
-          "none";
 
       }
 
@@ -3165,13 +3118,9 @@
         isFollowing
       ) {
 
-        if (!followButton) {
-          return;
-        }
-
         followButton.classList.toggle(
           "following",
-          isFollowing
+          Boolean(isFollowing)
         );
 
         followButton.textContent =
@@ -3199,23 +3148,53 @@
             0
           ) || 0;
 
-        followersCount.textContent =
-          followers.toLocaleString();
+        setText(
+          followersCount,
+          String(
+            followers
+          ),
+          "0"
+        );
 
-        followingCount.textContent =
-          following.toLocaleString();
+        setText(
+          followingCount,
+          String(
+            following
+          ),
+          "0"
+        );
 
-        aboutFollowersCount.textContent =
-          followers.toLocaleString();
+        setText(
+          aboutFollowersCount,
+          String(
+            followers
+          ),
+          "0"
+        );
 
-        aboutFollowingCount.textContent =
-          following.toLocaleString();
+        setText(
+          aboutFollowingCount,
+          String(
+            following
+          ),
+          "0"
+        );
 
-        aboutFollowersCount2.textContent =
-          followers.toLocaleString();
+        setText(
+          aboutFollowersCount2,
+          String(
+            followers
+          ),
+          "0"
+        );
 
-        aboutFollowingCount2.textContent =
-          following.toLocaleString();
+        setText(
+          aboutFollowingCount2,
+          String(
+            following
+          ),
+          "0"
+        );
 
       }
 
@@ -3223,11 +3202,7 @@
         playerId
       ) {
 
-        if (
-          playerId === null ||
-          playerId === undefined ||
-          playerId === ""
-        ) {
+        if (!playerId) {
           return;
         }
 
@@ -3246,11 +3221,7 @@
             );
 
           if (!response.ok) {
-
-            throw new Error(
-              "Unable to load follow data."
-            );
-
+            return;
           }
 
           const data =
@@ -3261,17 +3232,21 @@
           );
 
           updateFollowButton(
-            data.isFollowing === true
+            Boolean(
+              data.isFollowing
+            )
           );
 
           updateProfileActions(
-            data.isSelf === true
+            Boolean(
+              data.isSelf
+            )
           );
 
         } catch (error) {
 
           console.error(
-            "Follow data failed:",
+            "Follow data load failed:",
             error
           );
 
@@ -3288,11 +3263,7 @@
           return;
         }
 
-        if (
-          currentPlayer.id === null ||
-          currentPlayer.id === undefined ||
-          currentPlayer.id === ""
-        ) {
+        if (!currentPlayer.id) {
           return;
         }
 
@@ -3302,13 +3273,18 @@
           !window.isRSFAuthenticated()
         ) {
 
-          if (loginOverlay) {
+          const overlay =
+            document.getElementById(
+              "login-overlay"
+            );
 
-            loginOverlay.classList.add(
+          if (overlay) {
+
+            overlay.classList.add(
               "open"
             );
 
-            loginOverlay.setAttribute(
+            overlay.setAttribute(
               "aria-hidden",
               "false"
             );
@@ -3319,7 +3295,6 @@
           }
 
           return;
-
         }
 
         const currentlyFollowing =
@@ -3327,14 +3302,11 @@
             "following"
           );
 
-        const nextFollowing =
-          !currentlyFollowing;
-
         followRequestInProgress =
           true;
 
         updateFollowButton(
-          nextFollowing
+          !currentlyFollowing
         );
 
         try {
@@ -3344,18 +3316,15 @@
               "/api/follow",
               {
                 method:
-                  nextFollowing
-                    ? "POST"
-                    : "DELETE",
-
+                  currentlyFollowing
+                    ? "DELETE"
+                    : "POST",
+                credentials:
+                  "include",
                 headers: {
                   "Content-Type":
                     "application/json"
                 },
-
-                credentials:
-                  "include",
-
                 body:
                   JSON.stringify({
                     playerId:
@@ -3364,57 +3333,56 @@
               }
             );
 
-          let data = {};
-
-          try {
-
-            data =
-              await response.json();
-
-          } catch (error) {}
-
-          if (!response.ok) {
+          if (
+            response.status === 401 ||
+            response.status === 403
+          ) {
 
             updateFollowButton(
               currentlyFollowing
             );
 
-            if (
-              response.status === 401 ||
-              response.status === 403
-            ) {
+            const overlay =
+              document.getElementById(
+                "login-overlay"
+              );
 
-              if (loginOverlay) {
+            if (overlay) {
 
-                loginOverlay.classList.add(
-                  "open"
-                );
+              overlay.classList.add(
+                "open"
+              );
 
-                loginOverlay.setAttribute(
-                  "aria-hidden",
-                  "false"
-                );
+              overlay.setAttribute(
+                "aria-hidden",
+                "false"
+              );
 
-                document.body.style.overflow =
-                  "hidden";
-
-              }
+              document.body.style.overflow =
+                "hidden";
 
             }
 
-            throw new Error(
-              data.error ||
-              "Unable to update follow."
-            );
-
+            return;
           }
+
+          if (!response.ok) {
+            throw new Error(
+              "Unable to update follow status."
+            );
+          }
+
+          const data =
+            await response.json();
 
           updateFollowCounts(
             data
           );
 
           updateFollowButton(
-            data.isFollowing === true
+            Boolean(
+              data.isFollowing
+            )
           );
 
         } catch (error) {
@@ -3504,7 +3472,7 @@
 
             throw new Error(
               data.error ||
-              "Player not found."
+              "Unable to load this profile."
             );
 
           }
@@ -3512,94 +3480,89 @@
           currentPlayer =
             data.player;
 
+          const username =
+            currentPlayer.roblox_username ||
+            requestedUsername;
+
           setText(
             playerName,
-            currentPlayer.roblox_username,
-            "Unknown Player"
+            username,
+            "Profile"
           );
 
           setText(
             playerHandle,
-            currentPlayer.roblox_username
-              ? `@${currentPlayer.roblox_username}`
-              : "@—"
+            `@${username}`,
+            "@—"
           );
+
+          const biography =
+            currentPlayer.bio ||
+            "RSF player profile.";
 
           setText(
             profileBio,
-            currentPlayer.bio ||
-            "RSF player profile.",
+            biography,
             "RSF player profile."
           );
 
           setText(
             overviewBio,
-            currentPlayer.bio ||
-            "RSF player profile.",
+            biography,
             "RSF player profile."
           );
 
+          const joined =
+            formatDate(
+              currentPlayer.joined_at
+            );
+
           setText(
             joinedShort,
-            currentPlayer.joined_at
-              ? `Joined RSF ${formatDate(
-                  currentPlayer.joined_at
-                )}`
-              : "Joined RSF —"
+            `Joined RSF ${joined}`,
+            "Joined RSF —"
           );
 
           setText(
-            document.getElementById(
-              "overview-roblox"
-            ),
+            overviewRoblox,
             currentPlayer.roblox_username
           );
 
           setText(
-            document.getElementById(
-              "overview-discord"
-            ),
-            currentPlayer.discord_username
+            overviewDiscord,
+            currentPlayer.discord_id
           );
 
           setText(
-            document.getElementById(
-              "about-roblox"
-            ),
+            aboutRoblox,
             currentPlayer.roblox_username
           );
 
           setText(
-            document.getElementById(
-              "about-discord"
-            ),
-            currentPlayer.discord_username
+            aboutDiscord,
+            currentPlayer.discord_id
           );
 
           setText(
-            document.getElementById(
-              "about-joined"
-            ),
+            aboutJoined,
             formatDate(
               currentPlayer.joined_at
             )
           );
 
           setText(
-            document.getElementById(
-              "about-updated"
-            ),
+            aboutUpdated,
             formatDate(
               currentPlayer.updated_at
             )
           );
 
           updateFallback(
-            currentPlayer.roblox_username
+            username
           );
 
-          loadRobloxAvatar(
-            currentPlayer.roblox_username
+          await loadRobloxAvatar(
+            username
           );
 
           await loadFollowData(
