@@ -123,7 +123,7 @@ document.createElement(
 "button"
 );
 
-```
+
 profileItem.className =
   "profile-dropdown-item";
 
@@ -178,7 +178,7 @@ settingsItem.addEventListener(
 profileDropdown.appendChild(
   settingsItem
 );
-```
+
 
 }
 
@@ -249,7 +249,7 @@ cache: "no-store"
 }
 );
 
-```
+
 if (!response.ok) {
   return;
 }
@@ -281,7 +281,7 @@ profileAvatar.onerror = () => {
 
 profileAvatar.src =
   avatarData.robloxAvatarUrl;
-```
+
 
 } catch (error) {
 console.error(
@@ -299,7 +299,7 @@ if (
 profileCard.style.display =
 "none";
 
-```
+
 if (authLoginButton) {
   authLoginButton.style.display =
     "";
@@ -308,7 +308,7 @@ if (authLoginButton) {
 closeProfileMenu();
 
 return;
-```
+
 
 }
 
@@ -334,7 +334,7 @@ if (data.verified) {
 profileStatus.textContent =
 "VERIFIED";
 
-```
+
 profileCard.classList.add(
   "verified"
 );
@@ -342,13 +342,13 @@ profileCard.classList.add(
 profileCard.classList.remove(
   "guest"
 );
-```
+
 
 } else {
 profileStatus.textContent =
 "GUEST";
 
-```
+
 profileCard.classList.add(
   "guest"
 );
@@ -364,7 +364,7 @@ profileAvatarContainer.classList.add(
 profileAvatar.removeAttribute(
   "src"
 );
-```
+
 
 }
 
@@ -375,7 +375,7 @@ async function syncAuthentication() {
 try {
 console.log("RSF auth.js loaded");
 
-```
+
 const response =
   await fetch(
     "/api/me",
@@ -421,7 +421,7 @@ if (
 ) {
   loadRobloxAvatar(data);
 }
-```
+
 
 } catch (error) {
 console.error(
@@ -429,7 +429,7 @@ console.error(
 error
 );
 
-```
+
 profileCard.style.display =
   "none";
 
@@ -437,7 +437,7 @@ if (authLoginButton) {
   authLoginButton.style.display =
     "";
 }
-```
+
 
 }
 }
@@ -454,10 +454,10 @@ event.target.closest(
 return;
 }
 
-```
+
   toggleProfileMenu();
 }
-```
+
 
 );
 }
@@ -469,7 +469,7 @@ if (!profileCard) {
 return;
 }
 
-```
+
 if (
   !profileCard.contains(
     event.target
@@ -477,7 +477,7 @@ if (
 ) {
   closeProfileMenu();
 }
-```
+
 
 }
 );
